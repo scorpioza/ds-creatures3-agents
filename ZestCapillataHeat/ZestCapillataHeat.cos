@@ -1,0 +1,52 @@
+***set va00 to 1 to make emitters visible
+setv va00 0
+
+* heat
+new: simp 1 1 54321 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 2430 9100
+
+* heat
+new: simp 1 1 54321 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 2800 9100
+
+* heat
+new: simp 1 1 54321 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 6200 9180
+
+* heat
+new: simp 1 1 54321 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 4600 9100
+
+
+* heat
+new: simp 1 1 54321 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 4600 9500
+
+* heat
+new: simp 1 1 54321 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 5000 9500
+
+* heat
+new: simp 1 1 54321 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 5330 9400

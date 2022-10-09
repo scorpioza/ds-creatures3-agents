@@ -1,0 +1,773 @@
+* Script 1 extracted from norn_stats.agents by Mirality REVELATION
+
+* CREATE
+inst
+* Check if already installed
+setv va00 0
+enum 1 1 32207
+  setv va00 1
+next
+doif va00 eq 1
+  stop
+endi
+* Create it
+new: comp 1 1 32207 "norn stats" 11 0 8900
+*attr 52
+attr 308
+clac 0
+bhvr 0
+accg 0
+elas 0
+fric 100
+imsk 3
+pat: fixd 1 "norn stats" 1 0 0 0 "WhiteOnTransparentChars"
+pat: fixd 2 "norn stats" 1 130 0 0 "WhiteOnTransparentChars"
+pat: fixd 3 "norn stats" 1 0 160 0 "WhiteOnTransparentChars"
+pat: butt 4 "norn stats" 2 2 302 132 0 [] 1001 1
+pat: butt 5 "norn stats" 4 2 302 160 0 [] 1002 1
+pat: butt 6 "norn stats 2" 0 2 299 10 0 [] 1003 1
+pat: butt 7 "norn stats 2" 2 2 299 30 0 [] 1004 1
+pat: butt 8 "norn stats 2" 4 2 299 50 0 [] 1005 1
+pat: butt 9 "norn stats 2" 6 2 299 70 0 [] 1006 1
+pat: butt 10 "norn stats 2" 8 2 299 115 0 [] 1007 1
+pat: butt 11 "norn stats 2" 10 2 344 94 0 [] 1000 0
+setv ov01 0
+setv ov02 0
+setv ov04 0
+setv ov05 1
+setv ov06 0
+setv ov07 0
+setv ov09 1
+pose 0
+* Button images
+part 4
+pose 1
+part 5
+pose 1
+part 6
+pose 1
+part 10
+pose 1
+* Initial text
+part 1
+ptxt "(Waiting)"
+part 0
+* Check if medical monitor installed (can't seem to use OWNR here)
+seta va00 targ
+setv ov03 401
+enum 1 1 32204
+  * Check if other agent at upper position
+  doif ov03 ne 201
+    targ va00
+    setv ov03 201
+  endi
+next
+targ va00
+flto 0 ov03
+tick 1
+
+* OVs
+* ov01 - display page
+* ov02 - played immortal/ager sound?
+* ov03 - y position (medmon installed?)
+* ov04 - CTRL state
+* ov05 - Norns
+* ov06 - Ettins
+* ov07 - Grendels
+* ov08 - Geats
+* ov09 - immortals/agers
+
+* ACTIVATE 1
+scrp 1 1 32207 1
+  lock
+  enum 1 2 14
+    seta va00 targ
+  next
+  targ va00
+  snde "gui3"
+  targ ownr
+  setv va00 0
+  loop
+    subv va00 10
+    flto va00 ov03
+  untl va00 lt -320
+  flto -334 ov03
+  clac 1
+endm
+
+* ACTIVATE 2
+scrp 1 1 32207 2
+  lock
+  * Play sound from top left GUI agent as agent may be off screen so sound would not be heard
+  enum 1 2 14
+    seta va00 targ
+  next
+  targ va00
+  snde "gui1"
+  targ ownr
+  setv va00 -334
+  loop
+    addv va00 10
+    flto va00 ov03
+  untl va00 gt -10
+  flto 0 ov03
+  clac 0
+endm
+
+* TIMER
+scrp 1 1 32207 9
+  doif tick eq 1
+    tick 300
+  endi
+  * Left text
+  sets va01 ""
+  * Right text
+  sets va02 ""
+  * Norns - M/F/U
+  setv va71 0
+  setv va72 0
+  setv va73 0
+  * Ettins - M/F/U
+  setv va74 0
+  setv va75 0
+  setv va76 0
+  * Grendels - M/F/U
+  setv va77 0
+  setv va78 0
+  setv va79 0
+  * Geats - M/F/U
+  setv va80 0
+  setv va81 0
+  setv va82 0
+  * Generation - Norn, Ettin, Grendel, Geat
+  setv va83 0
+  setv va84 0
+  setv va85 0
+  setv va86 0
+  * Any immortals/agers found?
+  setv va50 0
+  inst
+
+  * Loop through Norns - counting & generation
+  enum 4 1 0
+    doif targ <> null
+      * Sex count
+      setv va98 hist gend gtos 0
+      doif va98 eq 1
+        addv va71 1
+      elif va98 eq 2
+        addv va72 1
+      else
+        addv va73 1
+      endi
+      * Generation
+      doif stoi gtos 0 gt va83
+        setv va83 stoi gtos 0
+      endi
+    endi
+  next
+
+  * Loop through Ettins - counting & generation
+  enum 4 3 0
+    doif targ <> null
+      * Sex count
+      setv va98 hist gend gtos 0
+      doif va98 eq 1
+        addv va74 1
+      elif va98 eq 2
+        addv va75 1
+      else
+        addv va76 1
+      endi
+      * Generation
+      doif stoi gtos 0 gt va84
+        setv va84 stoi gtos 0
+      endi
+    endi
+  next
+
+  * Loop through Grendels - counting & generation
+  enum 4 2 0
+    doif targ <> null
+      * Sex count
+      setv va98 hist gend gtos 0
+      doif va98 eq 1
+        addv va77 1
+      elif va98 eq 2
+        addv va78 1
+      else
+        addv va79 1
+      endi
+      * Generation
+      doif stoi gtos 0 gt va85
+        setv va85 stoi gtos 0
+      endi
+    endi
+  next
+
+  * Loop through Geats - counting & generation
+  enum 4 4 0
+    doif targ <> null
+      * Sex count
+      setv va98 hist gend gtos 0
+      doif va98 eq 1
+        addv va80 1
+      elif va98 eq 2
+        addv va81 1
+      else
+        addv va82 1
+      endi
+      * Generation
+      doif stoi gtos 0 gt va86
+        setv va86 stoi gtos 0
+      endi
+    endi
+  next
+
+  * Loop through Norns - stats
+  targ ownr
+  doif ov05 eq 1
+    setv va66 1
+    sets va67 "Norn"
+    gsub getstats
+  endi
+
+  * Loop through Ettins - stats
+  targ ownr
+  doif ov06 eq 1
+    setv va66 3
+    sets va67 "Ettin"
+    gsub getstats
+  endi
+
+  * Loop through Grendels - stats
+  targ ownr
+  doif ov07 eq 1
+    setv va66 2
+    sets va67 "Grendel"
+    gsub getstats
+  endi
+
+  * Loop through Geats - stats
+  targ ownr
+  doif ov08 eq 1
+    setv va66 4
+    sets va67 "Geat"
+    gsub getstats
+  endi
+
+  * Reset sound flag if no immortals/agers found
+  targ ownr
+  doif va50 eq 0
+    setv ov02 0
+  endi
+  * Set icon if immortals/agers found (sound-based)
+  part 11
+  pose ov02
+
+  * Remove last \n to prevent page wrap if exactly fills a page
+  setv va04 strl va01
+  subv va04 1
+  sets va01 subs va01 1 va04
+  setv va04 strl va02
+  subv va04 1
+  sets va02 subs va02 1 va04
+  * Totals - Norns
+  sets va99 "Norn M"
+  adds va99 vtos va71
+  adds va99 " F"
+  adds va99 vtos va72
+*  adds va99 " ?"
+*  adds va99 vtos va73
+  adds va99 " (G"
+  adds va99 vtos va83
+  adds va99 ")"
+  * Totals - Ettins
+  adds va99 "  Ettin M"
+  adds va99 vtos va74
+  adds va99 " F"
+  adds va99 vtos va75
+*  adds va99 " ?"
+*  adds va99 vtos va76
+  adds va99 " (G"
+  adds va99 vtos va84
+  adds va99 ")"
+  * Totals - Grendels
+  adds va99 "\nGren M"
+  adds va99 vtos va77
+  adds va99 " F"
+  adds va99 vtos va78
+*  adds va99 " ?"
+*  adds va99 vtos va79
+  adds va99 " (G"
+  adds va99 vtos va85
+  adds va99 ")"
+  * Totals - Geats
+  adds va99 "  Geat M"
+  adds va99 vtos va80
+  adds va99 " F"
+  adds va99 vtos va81
+*  adds va99 " ?"
+*  adds va99 vtos va82
+  adds va99 " (G"
+  adds va99 vtos va86
+  adds va99 ")"
+  part 3
+  ptxt va99
+  * Display
+  part 1
+  ptxt va01
+  * Check page number
+  setv va05 npgs
+  doif ov01 ge npgs
+    setv ov01 npgs
+    subv ov01 1
+  endi
+  page ov01
+  part 2
+  ptxt va02
+  page ov01
+  * Button images
+  part 4
+  pose 1
+  doif ov01 ne 0
+    pose 0
+  endi
+  part 5
+  pose 1
+  subv va05 1
+  doif ov01 lt va05
+    pose 0
+  endi
+  part 0
+  slow
+
+  subr getstats
+    enum 4 va66 0
+      doif targ <> null
+        sets va40 ""
+        * Check for older than 9 hours
+        doif tage gt 648000
+          adds va40 "/O"
+          endi
+        * Check for any chemicals 66-89 at 100
+        setv va05 0
+        setv va06 66
+        loop
+          doif chem va06 gt 0.95
+            addv va05 1
+            endi
+          addv va06 1
+          untl va06 gt 89
+        * Flag if 2 or more chemicals found at 100, unless it's a smelly Grendel
+        doif va05 gt 1 and va66 ne 2
+          adds va40 "/T"
+          endi
+        * Check history for quick aging if at least adult (reached adult at less than 30 min)
+        doif va66 eq 2 or va66 eq 3
+          * Make it 15 mins for Grendels and Ettins
+          setv va08 18000
+        else
+          setv va08 36000
+        endi
+        setv va07 hist find gtos 0 4 -1
+        doif va07 ne -1
+          loop
+            doif hist cage gtos 0 va07 eq 4 and hist tage gtos 0 va07 lt va08
+              adds va40 "/A"
+              endi
+            setv va07 hist find gtos 0 4 va07
+            untl va07 eq -1
+          endi
+        * Check the old way if not already flagged in case no adult event (less than 30 min old now and at least adult)
+        doif sins va40 1 "/A" eq -1
+          doif tage lt va08 and cage ge 4
+            adds va40 "/A"
+            endi
+          endi
+        sets va41 ""
+        * Remove first /
+        doif va40 ne ""
+          setv va04 strl va40
+          subv va04 1
+          sets va40 subs va40 2 va04
+          sets va41 "["
+          adds va41 va40
+          adds va41 "]"
+          seta va51 targ
+          targ ownr
+          doif ov02 eq 0 and ov09 eq 1
+            * Play sound from top left GUI agent as agent may be off screen so sound would not be heard
+            enum 1 2 14
+              seta va00 targ
+            next
+            targ va00
+            snde "cmov"
+            targ ownr
+            setv ov02 1
+          endi
+          targ va51
+          setv va50 1
+        endi
+
+        * Add spacers
+        setv va04 va03
+        modv va04 3
+*        doif va01 ne "" and va04 ne 0
+        doif va01 ne "" and va04 eq 0
+          adds va01 "\n\n"
+          adds va02 "\n\n"
+        endi
+        addv va03 1
+
+        * Add name (left)
+        sets va98 hist name gtos 0
+        doif dead eq 1
+          sets va96 " (D)"
+        else
+          sets va96 ""
+        endi
+        doif va98 eq ""
+          sets va98 "(Unnamed)"
+        endi
+        adds va01 va98
+        adds va01 va96
+
+        * Add gender (left)
+        setv va98 hist gend gtos 0
+        adds va01 "\n"
+        doif va98 eq 1
+          adds va01 "Male "
+        elif va98 eq 2
+          adds va01 "Female "
+        else
+          adds va01 "Unknown "
+        endi
+        adds va01 va67
+
+        * Add pregnant (left)
+        adds va01 "\n"
+        doif loci 1 1 2 1 eq 1
+          adds va01 "(Pregnant)"
+        endi
+
+        * Add immortal/ager (left)
+        adds va01 "\n"
+        seta va00 targ
+        targ ownr
+        doif ov09 eq 1
+          adds va01 va41
+        endi
+        targ va00
+
+        * Left padding
+        adds va01 "\n"
+  
+        * Add age (right)
+        setv va98 tage
+        sets va99 ""
+        doif va98 lt 1200
+          sets va99 "New-born"
+        endi
+        doif va98 ge 72000
+          * Hours
+          setv va97 va98
+          divv va97 72000
+          sets va99 vtos va97
+          doif va97 gt 1
+            adds va99 " hours"
+          else
+            adds va99 " hour"
+          endi
+          mulv va97 72000
+          subv va98 va97
+          doif va98 ge 1200
+            adds va99 ", "
+          endi
+        endi
+        * Minutes
+        doif va98 ge 1200
+          setv va97 va98
+          divv va97 1200
+          adds va99 vtos va97
+          doif va97 gt 1
+            adds va99 " minutes"
+          else
+            adds va99 " minute"
+          endi
+        endi
+        adds va02 va99
+
+        * Add life stage (right)
+        adds va02 "\n"
+        setv va98 cage
+        doif va98 eq 0
+          adds va02 "Baby"
+        elif va98 eq 1
+          adds va02 "Child"
+        elif va98 eq 2
+          adds va02 "Adolescent"
+        elif va98 eq 3
+          adds va02 "Youth"
+        elif va98 eq 4
+          adds va02 "Adult"
+        elif va98 eq 5
+          adds va02 "Old"
+        else
+          adds va02 "Ancient"
+        endi
+
+        * Add generation (right)
+        adds va02 "\n"
+        sets va98 "Generation "
+        adds va98 vtos stoi gtos 0
+        adds va02 va98
+
+        * Add warp status (right)
+        * adds va02 "\n"
+        * setv va98 hist wvet gtos 0
+        * doif va98 eq 1
+        *   adds va02 "Has warped"
+        * else
+        *   adds va02 "Has never warped"
+        * endi
+        adds va02 "\n"
+        adds va02 "Life Force: "
+        setv va98 chem 4
+        mulv va98 100
+        adds va02 vtos ftoi va98
+        adds va02 "%"
+
+        * Right padding
+        adds va02 "\n"
+      endi
+      adds va01 "\n"
+      adds va02 "\n"
+    next
+  retn
+endm
+
+* CLICKING ON ICON
+scrp 1 1 32207 1000
+  doif clac eq 0
+    call 1 0 0
+  else
+    call 2 0 0
+  endi
+endm
+
+* UP BUTTON
+scrp 1 1 32207 1001
+  snde "1bep"
+  inst
+  subv ov01 1
+  part 1
+  setv va05 npgs
+  doif ov01 lt 0
+    setv ov01 0
+  endi
+  page ov01
+  part 2
+  page ov01
+  * Button images
+  part 4
+  pose 1
+  doif ov01 ne 0
+    pose 0
+  endi
+  part 5
+  pose 1
+  subv va05 1
+  doif ov01 lt va05
+    pose 0
+  endi
+  part 0
+  slow
+endm
+
+* DOWN BUTTON
+scrp 1 1 32207 1002
+  snde "1bep"
+  inst
+  addv ov01 1
+  part 1
+  setv va05 npgs
+  doif ov01 ge npgs
+    setv ov01 npgs
+    subv ov01 1
+  endi
+  page ov01
+  part 2
+  page ov01
+  * Button images
+  part 4
+  pose 1
+  doif ov01 ne 0
+    pose 0
+  endi
+  part 5
+  pose 1
+  subv va05 1
+  doif ov01 lt va05
+    pose 0
+  endi
+  part 0
+  slow
+endm
+
+* NORN BUTTON
+scrp 1 1 32207 1003
+  snde "1bep"
+  inst
+  doif ov05 eq 0
+    setv ov05 1
+    part 6
+    pose 1
+  else
+    setv ov05 0
+    part 6
+    pose 0
+  endi
+  slow
+  call 9 0 0
+endm
+
+* ETTIN BUTTON
+scrp 1 1 32207 1004
+  snde "1bep"
+  inst
+  doif ov06 eq 0
+    setv ov06 1
+    part 7
+    pose 1
+  else
+    setv ov06 0
+    part 7
+    pose 0
+  endi
+  slow
+  call 9 0 0
+endm
+
+* GRENDEL BUTTON
+scrp 1 1 32207 1005
+  snde "1bep"
+  inst
+  doif ov07 eq 0
+    setv ov07 1
+    part 8
+    pose 1
+  else
+    setv ov07 0
+    part 8
+    pose 0
+  endi
+  slow
+  call 9 0 0
+endm
+
+* GEAT BUTTON
+scrp 1 1 32207 1006
+  snde "1bep"
+  inst
+  doif ov08 eq 0
+    setv ov08 1
+    part 9
+    pose 1
+  else
+    setv ov08 0
+    part 9
+    pose 0
+  endi
+  slow
+  call 9 0 0
+endm
+
+* O/V/A BUTTON
+scrp 1 1 32207 1007
+  snde "1bep"
+  inst
+  doif ov09 eq 0
+    setv ov09 1
+    part 10
+    pose 1
+  else
+    setv ov09 0
+    part 10
+    pose 0
+    setv ov02 0
+  endi
+  slow
+  call 9 0 0
+endm
+
+* RAW KEY DOWN
+scrp 1 1 32207 73
+  * Check if 5 pressed while CTRL down
+  doif ov04 eq 1 and _p1_ eq 53
+    doif clac eq 0
+      * Slide out
+      lock
+      enum 1 2 14
+        seta va00 targ
+      next
+      targ va00
+      snde "gui3"
+      targ ownr
+      setv va00 0
+      loop
+        subv va00 10
+        flto va00 ov03
+      untl va00 lt -320
+      flto -334 ov03
+      clac 1
+    else
+      * Slide in
+      lock
+      * Play sound from top left GUI agent as agent may be off screen so sound would not be heard
+      enum 1 2 14
+        seta va00 targ
+      next
+      targ va00
+      snde "gui1"
+      targ ownr
+      setv va00 -334
+      loop
+        addv va00 10
+        flto va00 ov03
+      untl va00 gt -10
+      flto 0 ov03
+      clac 0
+    endi
+  endi
+  * Flag if CTRL pressed
+  doif _p1_ eq 17
+    setv ov04 1
+  endi
+endm
+
+* RAW KEY UP
+scrp 1 1 32207 74
+  * Clear flag if CTRL released
+  doif _p1_ eq 17
+    setv ov04 0
+  endi
+endm
+
+* DESTROY
+rscr
+  enum 1 1 32207
+  kill targ
+  next
+  scrx 1 1 32207 1
+  scrx 1 1 32207 2
+  scrx 1 1 32207 9
+  scrx 1 1 32207 73
+  scrx 1 1 32207 1000
+  scrx 1 1 32207 1001
+  scrx 1 1 32207 1002
+  scrx 1 1 32207 1003
+  scrx 1 1 32207 1004
+  scrx 1 1 32207 1005
+  scrx 1 1 32207 1006
+  scrx 1 1 32207 1007

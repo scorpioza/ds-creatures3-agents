@@ -1,0 +1,36 @@
+TAG "Agent Help 2 2 30114"
+"Hydroponics Door"
+"This door leads to the Hydroponics Bay. It works in the same way as all the others."
+
+TAG "Agent Help 2 2 30113"
+"Universal Hub Door"
+"This is the safest way out of the Hydroponics Bay. If it gets autokilled your norns mught be in trouble :-(. Script and norn-grendel-ettin switch buttons taken and adapted for Hydroponic Bay from Children of Capillata"
+
+TAG "Agent Help 2 16 30111"
+"Big Sharks"
+"These critters are like normal sharks but bigger. Fortunately they can't leave and get into the Aqua Terrarium."
+
+TAG "Agent Help 1 2 30117"
+"Scenery"
+"It's totally useless but makes the place look better. Think of it as Creatures wallpaper."
+
+
+TAG "Agent Help 1 2 6600"
+"Open-close Door"
+"When this door is closed, it prevents creatures from entering the water area. Sprites and scripts from Terra Reborn"
+
+TAG "Agent Help 1 2 60853"
+"Critter Albian Snail"
+"Critter from Mushroom forest. Сontains a lot of protein and glycogen, I added it for Carna norns"
+
+TAG "Agent Help 1 2 64402"
+"Hydroponic Bay Lifts"
+"Lifts from Children of Capillata serie adapted for Hydroponic Bay"
+
+TAG "Agent Help 1 2 60861"
+"Hydroponic Bay Star Flower"
+"Based on SharmFlower. I taked this code from Mushroom forest and sprites from StarPlant"
+
+TAG "Agent Help 1 2 65004"
+"Hydroponic Bay Pears"
+"Pear from Terra Reborn for Hydroponic Bay"

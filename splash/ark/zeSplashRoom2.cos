@@ -1,0 +1,14 @@
+* fav
+new: simp 1 3 886 "fav_place_splash" 1 0 1 attr 272 mvto 700 500 cmrt 0 tick 10
+
+* adding background
+new: simp 1 1 886 "zesplash2" 1 0 0 mvto 0 0 
+
+* inst rtar family genus species stpt seta va00 twin targ 1 mvto x y
+
+* heat
+new: simp 1 1 886 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 100 400

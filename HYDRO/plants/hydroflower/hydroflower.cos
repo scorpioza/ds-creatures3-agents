@@ -1,0 +1,142 @@
+inst
+reps 50
+	new: simp 2 4 60861 "hydroflower" 6 0 140
+	attr 199
+	bhvr 11
+	elas 0
+*OV00 - Plant state: switches between growing UP and growing DOWN
+	setv ov00 0
+*OV99 - an age counter, counts the amount of time spent in a mature state.
+	setv ov99 0
+	tick rand 200 1000
+*C3 norn meso
+	doif tmvt rand 6980 8400 rand 2710 2716 eq 1
+		mvto rand 6980 8400 rand 2710 2716
+	endi
+repe
+
+
+*push script
+scrp 2 4 60861 1
+	targ from
+	stim writ from 84 1
+	targ ownr
+	mesg writ ownr 1000
+endm
+
+*Pull script
+scrp 2 4 60861 2
+	stim writ from 84 1
+	targ ownr
+	mesg writ ownr 1000
+endm
+
+*timer script
+scrp 2 4 60861 9
+*Grow UP
+	doif ov00 eq 0
+		doif pose lt 5
+			setv va00 pose
+			addv va00 1
+			pose va00
+		else
+*remain in a mature pose		
+			addv ov99 1
+		endi
+*you've been mature for too long now, prepare to become immature.	
+		doif ov99 eq 50
+			setv ov00 1
+		endi
+	endi
+*grow DOWN	
+	doif ov00 eq 1
+		doif pose gt 0
+			setv va00 pose
+			subv va00 1
+			pose va00
+		else
+			setv ov99 0
+			setv ov00 0
+		endi
+	endi
+endm
+
+*Hit script
+scrp 2 4 60861 3
+	targ from
+	stim writ from 84 1
+	targ ownr
+*the plant grows DOWN if it is hit.	
+	doif pose gt 0
+		setv va00 pose
+		subv va00 1
+		pose va00
+	endi
+endm
+
+scrp 2 4 60861 1000
+	lock
+	rnge 30
+	setv va66 0
+	esee 2 3 1000
+		addv va66 1
+	next
+	targ ownr
+	doif va66 le 4
+		setv va00 posl
+		setv va01 post
+		inst
+		new: simp 2 8 60861 "berrybush" 1 4 4900
+		attr 195
+		bhvr 48
+		elas 30
+		fric 50
+		accg 3
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			mvsf va00 va01
+		endi
+		velo rand -10 10 rand -15 -20
+		tick rand 6000 12000
+		emit 6 0.3
+	endi
+endm
+
+scrp 2 8 60861 9
+	lock
+	kill ownr
+endm
+
+scrp 2 8 60861 12
+	lock
+	sndc "chwp"
+	stim writ from 78 1
+	chem 3 0.3
+	chem 4 0.3
+	chem 5 0.3
+	chem 94 0.1
+	chem 95 0.1
+	chem 96 0.1
+	chem 97 0.1
+	chem 98 0.1
+	chem 99 0.1
+	kill ownr
+endm
+
+scrp 2 8 60861 6
+	doif wall = down
+		sndc "smit"
+	endi
+endm
+
+
+*REMOVE ME
+rscr
+enum 2 4 60861
+	kill targ
+next
+scrx 2 4 60861 1
+scrx 2 4 60861 2
+scrx 2 4 60861 3
+scrx 2 4 60861 9

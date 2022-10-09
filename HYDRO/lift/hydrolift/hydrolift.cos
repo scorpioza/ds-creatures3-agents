@@ -1,0 +1,209 @@
+*			**********
+*			***Lift***
+*			**********
+
+*		new ZootC3Lift()
+		new: vhcl 3 1 64402 "coc_lib_c3lift" 4 0 50
+*		lift = targ
+		seta va00 targ
+		bhvr 3
+		attr 12
+		clac -1
+		elas 0
+*map position lift
+		mvto 7666 2408
+*		From? = null
+		seta ov99 null
+*		IsActive = false
+		setv ov00 0
+*		IsMoving = false
+		setv ov80 0
+*		ButtonCurrent = promiseNotNullAfterInstall
+		seta ov30 null
+*		ButtonDestination? = null
+		seta ov31 null
+*		Door = newPart()
+		pat: dull 1 "coc_lib_c3lift" 4 0 0 200
+		cabn 0 0 121 144
+		cabw 5
+*		UpButton = newPart()
+		pat: butt 2 "coc_lib_c3lift" 14 1 52 68 0 [] 0 0
+*		DownButton = newPart()
+		pat: butt 3 "coc_lib_c3lift" 14 1 52 82 0 [] 1 0
+*		Door.Pose.Open
+		part 1
+		pose 7
+
+*Top Button
+*		new ZootC3LiftButton
+		new: simp 2 12 64402 "coc_lib_c3lift" 2 12 5000
+*		currentButton = targ
+		seta va01 targ
+		bhvr 1
+		attr 4
+		perm 10
+		clac 0
+		elas 0
+*map position top
+		mvto 7618 2480
+*		IsActive = true
+		setv ov00 1
+*		Lift = lift
+		seta ov16 va00
+*		ButtonAbove? = null
+		seta ov20 null
+*		ButtonBelow? = null
+		seta ov21 null
+*		lift.ButtonCurrent = currentButton
+		targ va00
+		seta ov30 va01
+*		targ currentButton
+		targ va01
+*		Pose.Off
+		pose 0
+*		roomId1 = Room()
+		setv va66 room targ
+
+*		previousButton = currentButton
+		seta va02 va01
+
+*BottomButton
+*		new ZootC3LiftButton
+		new: simp 2 12 64402 "coc_lib_c3lift" 2 12 5000
+*		currentButton = targ
+		seta va01 targ
+		bhvr 1
+		attr 4
+		perm 10
+		clac 0
+		elas 0
+*map position bottom
+		mvto 7618 2720
+*		IsActive = false
+		setv ov00 0
+*		Lift = lift
+		seta ov16 va00
+*		ButtonAbove? = previousButton
+		seta ov20 va02
+*		ButtonBelow? = null
+		seta ov21 null
+*		previousbutton.ButtonBelow? = currentButton
+		targ va02
+		seta ov21 va01
+*		targ currentButton
+		targ va01
+*		Pose.Off
+		pose 0
+*		roomId1 = Room()
+		setv va66 room targ
+*		linkSmells(roomId2, roomId1)
+		link va66 va67 100
+		
+		
+		
+************ SECOND LIFT ***********************		
+		
+
+		new: vhcl 3 1 64402 "coc_lib_c3lift" 4 0 50
+*		lift = targ
+		seta va00 targ
+		bhvr 3
+		attr 12
+		clac -1
+		elas 0
+*map position lift
+		mvto 8366 2188
+*		From? = null
+		seta ov99 null
+*		IsActive = false
+		setv ov00 0
+*		IsMoving = false
+		setv ov80 0
+*		ButtonCurrent = promiseNotNullAfterInstall
+		seta ov30 null
+*		ButtonDestination? = null
+		seta ov31 null
+*		Door = newPart()
+		pat: dull 1 "coc_lib_c3lift" 4 0 0 200
+		cabn 0 0 121 144
+		cabw 5
+*		UpButton = newPart()
+		pat: butt 2 "coc_lib_c3lift" 14 1 52 68 0 [] 0 0
+*		DownButton = newPart()
+		pat: butt 3 "coc_lib_c3lift" 14 1 52 82 0 [] 1 0
+*		Door.Pose.Open
+		part 1
+		pose 7
+
+*Top Button
+*		new ZootC3LiftButton
+		new: simp 2 12 64402 "coc_lib_c3lift" 2 12 5000
+*		currentButton = targ
+		seta va01 targ
+		bhvr 1
+		attr 4
+		perm 10
+		clac 0
+		elas 0
+*map position top
+		mvto 8313 2260
+*		IsActive = true
+		setv ov00 1
+*		Lift = lift
+		seta ov16 va00
+*		ButtonAbove? = null
+		seta ov20 null
+*		ButtonBelow? = null
+		seta ov21 null
+*		lift.ButtonCurrent = currentButton
+		targ va00
+		seta ov30 va01
+*		targ currentButton
+		targ va01
+*		Pose.Off
+		pose 0
+*		roomId1 = Room()
+		setv va66 room targ
+
+*		previousButton = currentButton
+		seta va02 va01
+
+*BottomButton
+*		new ZootC3LiftButton
+		new: simp 2 12 64402 "coc_lib_c3lift" 2 12 5000
+*		currentButton = targ
+		seta va01 targ
+		bhvr 1
+		attr 4
+		perm 10
+		clac 0
+		elas 0
+*map position bottom
+		mvto 8313 2720
+*		IsActive = false
+		setv ov00 0
+*		Lift = lift
+		seta ov16 va00
+*		ButtonAbove? = previousButton
+		seta ov20 va02
+*		ButtonBelow? = null
+		seta ov21 null
+*		previousbutton.ButtonBelow? = currentButton
+		targ va02
+		seta ov21 va01
+*		targ currentButton
+		targ va01
+*		Pose.Off
+		pose 0
+*		roomId1 = Room()
+		setv va66 room targ
+*		linkSmells(roomId2, roomId1)
+		link va66 va67 100
+
+
+*			************
+*			***//Lift***
+*			************
+
+
+
