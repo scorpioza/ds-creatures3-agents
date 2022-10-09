@@ -86,3 +86,29 @@ attr 16
 clac 0
 emit 2 1.0
 mvto 6700 6150
+
+* aqua
+
+new: simp 1 1 38020 "wve_" 8 0 8100
+mvto 7750 5622
+anim [ 0 1 2 3 4 5 6 7 255 0 ]
+
+new: simp 1 1 38020 "wve_" 8 0 8100
+mvto 7878 5622
+anim [ 0 1 2 3 4 5 6 7 255 0 ]
+
+new: simp 1 1 38020 "vents" 23 25 500
+attr 0
+mvto 7280 5780
+frat 2
+anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 255]
+
+new: simp 1 1 38020 "vents" 23 25 500
+attr 0
+mvto 7520 5780
+frat 2
+anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 255]
+
+new: simp 1 1 38020 "aquatic tunnel gates" 8 0 8101
+mvto 8000 5600
+anim [ 0 1 2 3 4 5 6 7 6 5 4 3 2 1 255 0 ]
