@@ -15,7 +15,7 @@ clac 1111
 mvto 4554 5442
 setv va01 room targ
 
-link va00 va01 100
+* link va00 va01 100
 
 
 ** CLAC
