@@ -1,0 +1,77 @@
+*Cave Waterfall*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays" 6 17 500
+attr 0
+mvto 97262 20093  
+anim [0 1 2 3 4 5 255]
+* sndl "pool"
+
+*Cave Waterfall Mist*
+
+new: simp 1 8 50200 "moe_C2toDS_OverlaysJungle" 3 17 8000
+attr 0
+mvto 97282 20220
+frat 3
+anim [0 1 2 255]
+
+*Cave Waterfall Overlay*
+
+* new: simp 1 8 50200 "moe_C2toDS_Overlays" 1 39 8000
+* attr 0
+* mvto 97273 20248
+* 6431 48488
+
+*Dungeon Fire Middle*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 5 22 500
+attr 0
+mvto 97728 20108
+* heat
+emit 2 1.0
+frat 3
+anim [0 1 2 3 4 255]
+
+*Dungeon Fire Right*
+
+new: simp 1 8 50200 "moe_C2toDS_Overlays_Dungeon" 5 27 500
+attr 0
+mvto 98076 20104
+* heat
+emit 2 1.0
+frat 3
+anim [0 1 2 3 4 255]
+
+*Heat
+
+setv va00 0
+
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.5
+mvto 97300 19800
+
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 2.0
+mvto 97680 19800
+
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.5
+mvto 98000 19800
+
+*Close waterfall door*
+
+door grap 97600 20110 grap 97630 20170 0
+door grap 97600 20190 grap 97630 20220 0
+
+
+*Dungeon Fire Right*
+
+new: simp 1 1 50200 "silent_fall_candles" 12 0 1
+attr 0
+mvto 97724 20277
+anim [0 0 0 0 1 1 1 1 2 2 2 2 255 0]

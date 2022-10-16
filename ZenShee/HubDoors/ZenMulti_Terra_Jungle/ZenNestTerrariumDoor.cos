@@ -15,7 +15,7 @@
 		endi
 
 
-		new: comp 2 2 38022 "doorhub" 14 0 0
+		new: comp 2 2 38022 "doorhub" 14 0 1
 * mvto the location of the late dummy door
 		addv va00 1
 * 			mvto the location of the late dummy door

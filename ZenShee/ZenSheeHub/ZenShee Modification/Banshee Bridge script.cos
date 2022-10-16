@@ -1298,13 +1298,13 @@ anim [7]
 ***************blocked off doors**********
 
 *door top 1
-new: simp 1 1 10404 "xdoor" 0 0 0
+new: simp 1 1 10404 "xdoor" 0 0 1
 mvto 41102 1806
 attr 4
 
 *door top 2
-new: simp 1 1 10405 "xdoor" 0 0 0
-mvto 41446 1806
+new: simp 1 1 10405 "xdoor" 0 0 1
+mvto 41443 1806
 attr 4
 
 *door 1

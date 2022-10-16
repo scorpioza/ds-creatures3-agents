@@ -12,9 +12,10 @@ group DSAG "Nest Terrarium"
   "Dependency Category 5" 2  
   "Dependency Category 6" 2  
   "Dependency Category 7" 2
-  "Dependency Category 8" 1          
-  "Dependency Count" 8
-  "Script Count" 5
+  "Dependency Category 8" 1       
+  "Dependency Category 9" 2    
+  "Dependency Count" 9
+  "Script Count" 6
   "Agent Animation Gallery" "nestflower"
   "Agent Animation String" "0"  
   "Agent Description" "Norn Terrarium Nest"
@@ -26,12 +27,14 @@ group DSAG "Nest Terrarium"
   "Dependency 6" "berrybush.c16"  
   "Dependency 7" "nidoor.c16"
   "Dependency 8" "dor1.wav"
+  "Dependency 9" "nest_terrarium_shroom.c16"
   "Remove script" "enum 1 3 38008 kill targ next   enum 1 1 38008 kill targ next   delr grap 3536 4931 enum 2 2 38001   setv va01 room targ   kill targ  next  enum 2 2 38002   setv va02 room targ   kill targ  next enum 2 2 38003   setv va01 room targ   kill targ  next  enum 2 2 38004   setv va02 room targ   kill targ  next  enum 2 2 38005 kill targ next enum 2 2 38006 kill targ next enum 2 4 38007 kill targ next scrx 2 4 38007 1 scrx 2 4 38007 2 scrx 2 4 38007 3 scrx 2 4 38007 9 enum 1 3 38043 kill targ next enum 1 3 38044 kill targ next"
   "Script 1" @ "nestTerrarium.cos"
   "Script 2" @ "nestdoorTop.cos"
   "Script 3" @ "nestdoorLeft.cos"
   "Script 4" @ "nestOpenCloseDoor.cos"   
   "Script 5" @ "nestflower.cos"
+  "Script 6" @ "nestTerrariumMushrooms.cos"
 
 inline FILE "nestTerrarium.blk" "nestTerrarium.blk"
 
@@ -44,3 +47,5 @@ inline FILE "berrybush.c16" "berrybush.c16"
 
 inline FILE "nidoor.c16" "nidoor.c16"
 inline FILE "dor1.wav" "dor1.wav"
+
+inline FILE "nest_terrarium_shroom.c16" "nest_terrarium_shroom.c16"
