@@ -70,19 +70,19 @@ mvto 4000 5500
 new: simp 1 1 38008 "blnk" 1 0 0
 attr 16
 mvto 4000 5000
-emit 1 .5
+emit 1 1.5
 pose va00
 
 new: simp 1 1 38008 "blnk" 1 0 0
 attr 16
 mvto 4000 5300
-emit 1 .5
+emit 1 1.5
 pose va00
 
 
 new: simp 1 1 38008 "blnk" 1 0 0
 attr 16
 mvto 4000 5500
-emit 1 .5
+emit 1 1.5
 pose va00
 

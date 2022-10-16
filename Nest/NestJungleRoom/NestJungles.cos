@@ -87,6 +87,32 @@ clac 0
 emit 2 1.0
 mvto 6700 6150
 
+
+* light
+new: simp 1 1 38020 "blnk" 1 0 0
+attr 16
+mvto 6800 5450
+emit 1 1.5
+pose va00
+
+new: simp 1 1 38020 "blnk" 1 0 0
+attr 16
+mvto 6700 5600
+emit 1 1.5
+pose va00
+
+new: simp 1 1 38020 "blnk" 1 0 0
+attr 16
+mvto 6700 5900
+emit 1 1.5
+pose va00
+
+new: simp 1 1 38020 "blnk" 1 0 0
+attr 16
+mvto 6700 6150
+emit 1 1.5
+pose va00
+
 * aqua
 
 new: simp 1 1 38020 "wve_" 8 0 8100

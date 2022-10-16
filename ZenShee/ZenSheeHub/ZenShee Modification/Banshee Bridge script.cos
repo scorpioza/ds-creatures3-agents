@@ -1146,6 +1146,60 @@ emit 2 1.0
 mvto 39320 2400
 
 
+***LIGHT
+
+
+new: simp 1 1 10402 "blnk" 1 0 0
+attr 16
+emit 1 1.0
+mvto 39717 2338
+
+new: simp 1 1 10402 "blnk" 1 0 0
+attr 16
+emit 1 1.0
+mvto 39764 1738
+
+new: simp 1 1 10402 "blnk" 1 0 0
+attr 16
+emit 1 1.0
+mvto 41725 1765
+
+new: simp 1 1 10402 "blnk" 1 0 0
+attr 16
+emit 1 1.0
+mvto 41301 2070
+
+new: simp 1 1 10402 "blnk" 1 0 0
+attr 16
+emit 1 1.0
+mvto 39500 2150
+
+new: simp 1 1 10402 "blnk" 1 0 0
+attr 16
+emit 1 1.0
+mvto 42150 2150
+
+new: simp 1 1 10402 "blnk" 1 0 0
+attr 16
+emit 1 1.0
+mvto 40990 2430
+
+new: simp 1 1 10402 "blnk" 1 0 0
+attr 16
+emit 1 1.0
+mvto 39060 2150
+
+new: simp 1 1 10402 "blnk" 1 0 0
+attr 16
+emit 1 1.0
+mvto 40888 1850
+
+new: simp 1 1 10402 "blnk" 1 0 0
+attr 16
+emit 1 1.0
+mvto 39320 2400
+
+
 ************************************************************************************
 
 ***************************************************
