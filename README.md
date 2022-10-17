@@ -6,4 +6,5 @@ My agents or modifications for DockingStation. [screenshots](https://github.com/
 
 ![Nest Terrarium](https://raw.githubusercontent.com/scorpioza/ds-creatures3-agents/master/_screenshots/nestTerrarium.png)
 
-[Silent Falls modifications](https://raw.githubusercontent.com/scorpioza/ds-creatures3-agents/master/ZeSilenceFalls/SilenceFallsModification.png)
+[Silent Falls modifications](https://raw.githubusercontent.com/scorpioza/ds-creatures3-agents/master/ZeSilenceFalls)
+![Silent Falls modifications](https://raw.githubusercontent.com/scorpioza/ds-creatures3-agents/master/ZeSilenceFalls/SilenceFallsModification.png)
