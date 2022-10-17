@@ -86,3 +86,10 @@ mvto 4000 5500
 emit 1 1.5
 pose va00
 
+*********************************************************************
+
+*** Overlays *** 
+
+new: simp 1 1 38008 "nest_terrarium_overlays" 1 0 7000 mvto 4741 5208
+new: simp 1 1 38008 "nest_terrarium_overlays" 1 1 7000 mvto 4360 5242
+new: simp 1 1 38008 "nest_terrarium_overlays" 1 2 7000 mvto 4411 5429
