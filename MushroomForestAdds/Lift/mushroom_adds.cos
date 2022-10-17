@@ -1,0 +1,197 @@
+* First level
+
+new: simp 1 1 10853 "th2_" 1 0 8100
+mvto 9055 1930
+
+new: simp 1 1 10853 "th1_" 1 0 8100
+mvto 9550 1935
+* th1: 9605 (9550) 1935
+
+door grap 9058 1980 grap 9185 2020 0
+door grap 9204 1980 grap 9344 2020 0
+door grap 9260 1980 grap 9360 2020 0
+door grap 9375 1980 grap 9510 2020 0
+door grap 9530 1980 grap 9550 2020 0
+door grap 9560 1980 grap 9630 2020 0
+door grap 9640 1980 grap 9730 2020 0
+door grap 9740 1980 grap 9790 2020 0
+door grap 9800 1980 grap 9900 2020 0
+
+* Side door
+door grap 9901 1819 grap 9924 1989 0
+
+
+* ----------------------------------
+
+* Second level
+
+new: simp 1 1 10853 "th4_" 1 0 8100
+mvto 9568 1563
+
+new: simp 1 1 10853 "th2_" 1 0 8100
+mvto 10040 1560
+
+*Left door
+door grap 9580 1495 grap 9596 1630 0
+
+door grap 9590 1620 grap 9595 1650 0
+door grap 9600 1620 grap 9810 1650 0
+door grap 9824 1620 grap 9830 1650 0
+door grap 9840 1620 grap 9980 1650 0
+door grap 9990 1620 grap 10100 1650 0
+door grap 10110 1620 grap 10116 1650 0
+door grap 10125 1620 grap 10280 1650 0
+door grap 10290 1620 grap 10310 1650 0
+door grap 10320 1620 grap 10485 1650 0
+door grap 10496 1620 grap 10498 1650 0
+door grap 10510 1620 grap 10550 1650 0
+
+* -------------------------------------
+
+
+
+*			**********
+*			***Lift***
+*			**********
+
+*		new ZootC3Lift()
+		new: vhcl 3 1 10853 "coc_lib_c3lift" 4 0 50
+*		lift = targ
+		seta va00 targ
+		bhvr 3
+		attr 12
+		clac -1
+		elas 0
+*map position lift
+*		mvto 40167 30430
+		mvto 9690 1853
+
+*		From? = null
+		seta ov99 null
+*		IsActive = false
+		setv ov00 0
+*		IsMoving = false
+		setv ov80 0
+*		ButtonCurrent = promiseNotNullAfterInstall
+		seta ov30 null
+*		ButtonDestination? = null
+		seta ov31 null
+*		Door = newPart()
+		pat: dull 1 "coc_lib_c3lift" 4 0 0 200
+		cabn 0 0 121 144
+		cabw 5
+*		UpButton = newPart()
+		pat: butt 2 "coc_lib_c3lift" 14 1 52 68 0 [] 0 0
+*		DownButton = newPart()
+		pat: butt 3 "coc_lib_c3lift" 14 1 52 82 0 [] 1 0
+*		Door.Pose.Open
+		part 1
+		pose 7
+
+*Top Button
+*		new ZootC3LiftButton
+		new: simp 2 12 10853 "coc_lib_c3lift" 2 12 5000
+*		currentButton = targ
+		seta va01 targ
+		bhvr 1
+		attr 4
+		perm 10
+		clac 0
+		elas 0
+*map position top
+* 		mvto 40122 30485
+		mvto 9645 1555
+*		IsActive = true
+		setv ov00 1
+*		Lift = lift
+		seta ov16 va00
+*		ButtonAbove? = null
+		seta ov20 null
+*		ButtonBelow? = null
+		seta ov21 null
+*		lift.ButtonCurrent = currentButton
+		targ va00
+		seta ov30 va01
+*		targ currentButton
+		targ va01
+*		Pose.Off
+		pose 0
+*		roomId1 = Room()
+		setv va66 room targ
+
+*		previousButton = currentButton
+		seta va02 va01
+
+*Middle Button
+*		new ZootC3LiftButton
+		new: simp 2 12 10853 "coc_lib_c3lift" 2 12 5000
+*		currentButton = targ
+		seta va01 targ
+		bhvr 1
+		attr 4
+		perm 10
+		clac 0
+		elas 0
+*map position middle
+*		mvto 40122 30786
+		mvto 9645 1925
+*		IsActive = false
+		setv ov00 0
+*		Lift = lift
+		seta ov16 va00
+*		ButtonAbove? = previousButton
+		seta ov20 va02
+*		ButtonBelow? = null
+		seta ov21 null
+*		previousbutton.ButtonBelow? = currentButton
+		targ va02
+		seta ov21 va01
+*		targ currentButton
+		targ va01
+*		Pose.Off
+		pose 0
+*		roomId2 = Room()
+		setv va67 room targ
+*		linkSmells(roomId1, roomId2)
+		link va66 va67 100
+
+*		previousButton = currentButton
+		seta va02 va01
+
+*BottomButton
+*		new ZootC3LiftButton
+		new: simp 2 12 10853 "coc_lib_c3lift" 2 12 5000
+*		currentButton = targ
+		seta va01 targ
+		bhvr 1
+		attr 4
+		perm 10
+		clac 0
+		elas 0
+*map position bottom
+*		mvto 40122 30985
+		mvto 9645 2202
+*		IsActive = false
+		setv ov00 0
+*		Lift = lift
+		seta ov16 va00
+*		ButtonAbove? = previousButton
+		seta ov20 va02
+*		ButtonBelow? = null
+		seta ov21 null
+*		previousbutton.ButtonBelow? = currentButton
+		targ va02
+		seta ov21 va01
+*		targ currentButton
+		targ va01
+*		Pose.Off
+		pose 0
+*		roomId1 = Room()
+		setv va66 room targ
+*		linkSmells(roomId2, roomId1)
+		link va66 va67 100
+
+
+*			************
+*			***//Lift***
+*			************

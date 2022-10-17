@@ -1,0 +1,503 @@
+* C1 Fish
+
+* Dependencies:
+*  C1Fish.c16
+
+
+*	Sea Horse:		2 15 52332
+*	Jellies:		2 16 52333
+*	Angel Fish:		2 15 52334
+*	Fish Minder 3:	1 2 52318
+
+*	ov69 is the flail count. If a fish is out of water too long, it will die.
+
+inst
+
+doif game "NEST_JUNGLES" = 1 and totl 1 2 52318 < 1
+
+	setv game "C1_Fish_Speed" 3
+	setv game "C1_Fish_Count_Big" 5
+	setv game "C1_Fish_Count_Small" 3
+	setv game "C1_Fish_Change" 75
+
+*	C1 Fish Minder Sea
+	new: simp 1 2 52318 "blank" 0 0 10000
+	attr 0
+*	rnge 800
+	rnge 1999
+	perm 48
+	tick rand 20 40
+	mvto 7700 5920
+
+endi
+
+*******************
+* Scripts
+
+scrp 1 2 52318 9
+*	fish minder
+	inst
+	lock
+	mesg writ targ 1001
+	setv va00 game "C1_Fish_Count_Small"
+	subv va00 mv00
+	doif va00 > 0
+		mesg wrt+ ownr 1002 va00 0 0
+	endi
+	setv va01 game "C1_Fish_Count_Small"
+	subv va01 mv01
+	doif va01 > 0
+		mesg wrt+ ownr 1003 va01 0 0
+	endi
+	setv va02 game "C1_Fish_Count_Small"
+	subv va02 mv02
+	doif va02 > 0
+		mesg wrt+ ownr 1004 va02 0 0
+	endi
+
+	targ ownr
+	esee 4 0 0
+		doif chem 30 < 0.25
+			doif movs = 0
+				mvft 7777 5438
+			endi
+			chem 30 0.5
+		endi
+	next
+
+endm
+
+scrp 1 2 52318 1001
+	inst
+	lock
+
+*	Count Sea Horses
+	setv mv00 0
+	esee 2 15 52332
+		addv mv00 1
+	next
+*	Count Jellies
+	setv mv01 0
+	esee 2 16 52333
+		addv mv01 1
+	next
+*	Count Angelfish
+	setv mv02 0
+	esee 2 15 52334
+		addv mv02 1
+	next
+endm
+
+scrp 1 2 52318 1002
+*	Make Sea Horses
+	inst
+	lock
+	setv va00 posl
+	setv va01 post
+	reps _p1_
+		new: simp 2 15 52332 "c1fish" 4 0 40
+		attr 199
+		accg 0
+		aero 0
+		fric 100
+		bhvr 48
+		elas 50
+		perm 48
+		tick 10
+		anim [0 1 2 3 255]
+		setv ov00 0
+		mvsf va00 va01
+		velo rand -2.0 2.0 rand -2.0 2.0
+		alph rand 0 80 1
+	repe
+endm
+
+scrp 1 2 52318 1003
+*	Make Jellies
+	inst
+	lock
+	setv va00 posl
+	setv va01 post
+	reps _p1_
+		new: simp 2 16 52333 "c1fish" 8 4 20
+		attr 199
+		accg 0
+		aero 0
+		fric 100
+		bhvr 48
+		elas 50
+		perm 48
+		tick 10
+		anim [0 1 2 3 4 5 6 7 255]
+		setv ov00 0
+		mvsf va00 va01
+		velo rand -2.0 2.0 rand -2.0 2.0
+		alph rand 0 120 1
+	repe
+endm
+
+scrp 1 2 52318 1004
+*	Make Angelfish
+	inst
+	lock
+	setv va00 posl
+	setv va01 post
+	reps _p1_
+		new: simp 2 15 52334 "c1fish" 5 12 30
+		attr 199
+		accg 0
+		aero 0
+		fric 100
+		bhvr 48
+		elas 50
+		perm 48
+		tick 10
+		anim [0 1 2 3 4 255]
+		setv ov00 0
+		mvsf va00 va01
+		velo rand -2.0 2.0 rand -2.0 2.0
+		alph rand 0 60 1
+	repe
+endm
+
+scrp 2 15 52332 4
+*	Seahorse picked up
+	inst
+	pose 0
+endm
+
+scrp 2 15 52332 5
+*	Seahorse dropped
+	inst
+	anim [0 1 2 3 255]
+endm
+
+scrp 2 15 52332 6
+*	Seahorse collision
+	inst
+	lock
+	doif movs = 0 and ov01 = 1
+		setv va10 rand -20.0 20.0
+		setv va11 rand -5.0 -1.0
+		divv va10 10
+		velo va10 va11
+	endi
+	doif velx > 0
+		mira 0
+	else
+		mira 1
+	endi
+	unlk
+	slow
+endm
+
+scrp 2 15 52332 9
+*	Seahorse timer
+	inst
+	lock
+	doif movs = 0
+*		not being carried
+		setv va01 rtyp grap posl post
+		setv va02 rtyp grap posl posb
+		setv va03 rtyp grap posr post
+		setv va04 rtyp grap posr posb
+
+		doif va01 <> 9 and va01 <> 3 and va02 <> 9 and va02 <> 3 and va03 <> 9 and va03 <> 3 and va04 <> 9 and va04 <> 3
+			accg 5
+			elas 0
+			aero 0
+			tick 1
+			setv ov00 1
+			addv ov69 1
+		else
+			doif ov00 = 1
+				velo 0 rand 5 10
+				aero 10
+			else
+				aero 0
+			endi
+			accg 0
+			elas 10
+			tick 10
+			setv ov00 0
+			setv ov69 0
+		endi
+
+		setv va05 velx
+		setv va06 vely
+		doif va01 <> 9 and va01 <> 3 and ov00 = 0
+			addv va05 1
+			addv va06 1
+			velo va05 va06
+		endi
+		doif va03 <> 9 and va03 <> 3 and ov00 = 0
+			subv va05 1
+			addv va06 1
+			velo va05 va06
+		endi
+		doif va02 <> 9 and va02 <> 3 and ov00 = 0
+			addv va05 1
+			subv va06 1
+			velo va05 va06
+		endi
+		doif va04 <> 9 and va04 <> 3 and ov00 = 0
+			subv va06 1
+			velo va05 va06
+		endi
+		doif ov00 = 0
+			setv va21 rand 1 100
+			doif va21 > game "C1_Fish_Change"
+				setv va05 rand -20.0 20.0
+				setv va06 rand -10.0 10.0
+				divv va05 10
+				divv va06 10
+				velo va05 va06
+			endi
+		endi
+		doif velx > 0
+			mira 0
+		elif velx < 0
+			mira 1
+		endi
+		doif ov69 > 100
+			kill targ
+		endi
+	endi
+endm
+
+scrp 2 15 52332 12
+*	Seahorse is eaten
+	sndc "chwp"
+	stim writ from 80 1
+	targ ownr
+	kill targ
+endm
+
+scrp 2 16 52333 6
+*	Jelly collision
+	inst
+	lock
+	doif movs = 0 and ov01 = 1
+		setv va10 rand -20.0 20.0
+		setv va11 rand -5.0 -1.0
+		divv va10 10
+		velo va10 va11
+	endi
+	unlk
+	slow
+endm
+
+scrp 2 16 52333 9
+*	Jelly timer
+	inst
+	lock
+	doif movs = 0
+*		not being carried
+		setv va01 rtyp grap posl post
+		setv va02 rtyp grap posl posb
+		setv va03 rtyp grap posr post
+		setv va04 rtyp grap posr posb
+		doif va01 <> 9 and va01 <> 3 and va02 <> 9 and va02 <> 3 and va03 <> 9 and va03 <> 3 and va04 <> 9 and va04 <> 3
+			accg 5
+			elas 0
+			aero 0
+			tick 1
+			setv ov00 1
+			addv ov69 1
+		else
+			doif ov00 = 1
+				velo 0 rand 5 10
+				aero 10
+			else
+				aero 0
+			endi
+			accg 0.01
+			elas 10
+			tick 10
+			setv ov00 0
+			setv ov69 0
+		endi
+		setv va05 velx
+		setv va06 vely
+		doif va01 <> 9 and va01 <> 3 and ov00 = 0
+			addv va05 1
+			addv va06 1
+			velo va05 va06
+		endi
+		doif va03 <> 9 and va03 <> 3 and ov00 = 0
+			subv va05 1
+			addv va06 1
+			velo va05 va06
+		endi
+		doif va02 <> 9 and va02 <> 3 and ov00 = 0
+			addv va05 1
+			subv va06 1
+			velo va05 va06
+		endi
+		doif va04 <> 9 and va04 <> 3 and ov00 = 0
+			subv va06 1
+			velo va05 va06
+		endi
+		doif ov00 = 0
+			setv va21 rand 1 100
+			doif va21 > game "C1_Fish_Change"
+				setv va05 rand -20.0 20.0
+				setv va06 rand -20.0 5.0
+				divv va05 10
+				divv va06 10
+				velo va05 va06
+			endi
+		endi
+		doif ov69 > 100
+			kill targ
+		endi
+	endi
+endm
+
+scrp 2 16 52333 12
+*	Jelly is eaten
+	sndc "chwp"
+	stim writ from 80 1
+	targ ownr
+	kill targ
+endm
+
+scrp 2 15 52334 6
+*	Angelfish collision
+	inst
+	lock
+	doif movs = 0 and ov01 = 1
+		setv va10 rand -20.0 20.0
+		setv va11 rand -5.0 -1.0
+		divv va10 10
+		velo va10 va11
+	endi
+	doif velx > 0
+		mira 0
+	else
+		mira 1
+	endi
+	unlk
+	slow
+endm
+
+scrp 2 15 52334 9
+*	Angelfish timer
+	inst
+	lock
+	doif movs = 0
+*		not being carried
+		setv va01 rtyp grap posl post
+		setv va02 rtyp grap posl posb
+		setv va03 rtyp grap posr post
+		setv va04 rtyp grap posr posb
+
+		doif va01 <> 9 and va01 <> 3 and va02 <> 9 and va02 <> 3 and va03 <> 9 and va03 <> 3 and va04 <> 9 and va04 <> 3
+			accg 5
+			elas 0
+			aero 0
+			tick 1
+			setv ov00 1
+			addv ov69 1
+		else
+			doif ov00 = 1
+				velo 0 rand 5 10
+				aero 10
+			else
+				aero 0
+			endi
+			accg 0
+			elas 10
+			tick 10
+			setv ov00 0
+			setv ov69 0
+		endi
+
+		setv va05 velx
+		setv va06 vely
+		doif va01 <> 9 and va01 <> 3 and ov00 = 0
+			addv va05 1
+			addv va06 1
+			velo va05 va06
+		endi
+		doif va03 <> 9 and va03 <> 3 and ov00 = 0
+			subv va05 1
+			addv va06 1
+			velo va05 va06
+		endi
+		doif va02 <> 9 and va02 <> 3 and ov00 = 0
+			addv va05 1
+			subv va06 1
+			velo va05 va06
+		endi
+		doif va04 <> 9 and va04 <> 3 and ov00 = 0
+			subv va06 1
+			velo va05 va06
+		endi
+		doif ov00 = 0
+			setv va21 rand 1 100
+			doif va21 > 90
+				setv va05 rand -40.0 40.0
+				setv va06 rand -5.0 5.0
+				divv va05 10
+				divv va06 10
+				velo va05 va06
+			endi
+		endi
+		doif velx > 0
+			mira 0
+		elif velx < 0
+			mira 1
+		endi
+		doif ov69 > 100
+			kill targ
+		endi
+	endi
+endm
+
+scrp 2 15 52334 12
+*	Angelfish is eaten
+	sndc "chwp"
+	stim writ from 80 1
+	targ ownr
+	kill targ
+endm
+
+rscr
+enum 2 15 52332
+	kill targ
+next
+scrx 2 15 52332 4
+scrx 2 15 52332 5
+scrx 2 15 52332 6
+scrx 2 15 52332 9
+scrx 2 15 52332 12
+
+enum 2 16 52333
+	kill targ
+next
+scrx 2 16 52333 4
+scrx 2 16 52333 5
+scrx 2 16 52333 6
+scrx 2 16 52333 9
+scrx 2 16 52333 12
+
+enum 2 15 52334
+	kill targ
+next
+scrx 2 15 52334 4
+scrx 2 15 52334 5
+scrx 2 15 52334 6
+scrx 2 15 52334 9
+scrx 2 15 52334 12
+
+
+
+enum 1 2 52318
+	kill targ
+next
+scrx 1 2 52318 9
+scrx 1 2 52318 1001
+scrx 1 2 52318 1002
+scrx 1 2 52318 1003
+scrx 1 2 52318 1004

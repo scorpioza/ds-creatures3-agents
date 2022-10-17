@@ -1,0 +1,517 @@
+* Cloud Butterfly
+*	ov00 = 0 is caterpillar 
+*	ov00 = 1 is feeding
+*	ov00 = 2 is cocoon 
+*	ov00 = 3 is butterfly normal
+*	ov00 = 4 is butterfly mating
+*	ov00 = 5 is butterfly die 
+*	ov00 = 6 is butterfly egg
+*	ov01 = left/right
+*	ov02 = up/down
+*	ov10 = left boundary
+*	ov11 = top boundary
+*	ov20 = right boundary
+*	ov21 = bottom boundary
+*	ov22 = butterfly speed
+*	ov50 = life timer
+*	ov97 = height
+*	ov98 = target food
+*	ov99 = food meter
+
+** Cloud Butterfly 
+*	2 13 62300 
+
+inst
+reps rand 5 7
+	new: simp 2 13 62300 "c1cloudbutterfly" 20 0 525
+	attr 71
+	attr 199
+	bhvr 48
+	tick 4
+	accg 2
+	aero 25
+	fric 75
+	elas 20
+	perm 60
+	frat 1.5
+	pose 19
+	rnge 500
+	setv ov00 6
+	setv ov01 0
+	setv ov02 0
+	setv ov10 3630
+	setv ov20 4700
+	setv ov11 5140
+	setv ov21 5390
+	setv ov22 rand 2 3
+	setv va00 rand ov10 ov20
+	setv va01 rand ov11 ov21
+	setv ov97 0
+	seta ov98 null
+	mvsf va00 va01
+repe
+
+scrp 2 10 62303 9
+*	Butterfly husk timer
+	inst
+	lock
+	targ ownr
+	kill targ
+endm
+
+scrp 2 13 62300 1
+endm
+
+scrp 2 13 62300 6
+*	butterfly collides
+	doif pose >= 17 and pose <= 18 and mv00 <> 5
+		doif obst down < 10
+			accg .5
+			elas 0
+			fric 100
+			frat 5.0
+			wait rand 30 50
+			pose 17
+			wait rand 30 50
+			anim [18 17 255]
+			frat rand 1.5 1.8
+			accg 0
+			fric 0
+			elas 20
+			setv va01 mv22
+			mulv va01 rand -2.0 -1.0
+			velo 0 va01
+			setv mv02 -1
+		elif obst _up_ < 10
+			setv va01 mv22
+			mulv va01 rand 1.0 2.0
+			velo 0 va01
+			reps rand 1 3
+				anim [18 17]
+				over
+			repe
+		elif obst left < 10
+			setv mv01 1
+			reps rand 1 3
+				anim [18 17]
+				over
+			repe
+		elif obst rght < 10
+			setv mv01 -1
+			reps rand 1 3
+				anim [18 17]
+				over
+			repe
+		endi
+	elif pose = 19
+*		do nothing
+	else
+*		anim [0 1 2 3 4 5]
+		accg .5
+	endi
+endm
+
+
+scrp 2 13 62300 9
+*	butterfly/caterpillar timer
+
+	doif velx < 0.0 or mv01 = -1
+		mira 0
+	elif velx > 0.0 or mv01 = 1
+		mira 1
+	endi
+
+*	check your state
+	doif mv00 = 0
+*		just a caterpillar wandering around looking for nothing
+*		let's see if you can eat something
+		etch 2 11 0
+			seta mv98 targ
+		next
+		doif mv98 <> null
+*			you can eat
+			setv mv00 1
+		else
+			setv mv00 0
+		endi
+	elif mv00 = 1
+*		you found food
+		doif mv99 > 1
+*			you have eaten enough to make a cocoon
+			setv mv00 2
+		elif mv98 <> null and mv97 < 2
+			targ ownr
+			accg 0
+			reps rand 1 3
+				anim [7 8 9 10 11 12 7]
+				over
+				mvby 0 -2
+				wait rand 30 40
+			repe
+*			accg .5
+			addv mv97 1
+		elif mv98 <> null and mv97 >= 2
+			targ mv98
+			doif targ <> null
+				setv mv00 1
+				doif targ <> null
+					mesg writ targ 12
+				endi
+				addv mv99 1
+				setv mv97 0
+				seta mv98 null
+				targ ownr
+				sndc "chwp"
+				velo 0 1
+				pose 0
+				setv mv00 0
+				accg 2
+			endi
+		elif mv98 = null
+			setv mv00 0
+		endi
+	elif mv00 = 2
+*		let's make a cocoon
+		targ ownr
+		doif pose < 13
+			velo 0 1
+			pose 13
+			tick rand 120 200
+		elif pose = 13
+			pose 14
+		elif pose = 14
+			setv mv00 3
+			doif mv69 = 0
+				inst
+				lock
+				mesg writ ownr 1002
+				setv mv69 1
+				slow
+				unlk
+			endi
+		endi
+	elif mv00 = 3
+*		let's emerge as a butterfly!		
+		targ ownr
+		doif pose = 14
+			tick 0
+			frat 3.0
+			pose 15
+			wait rand 40 60
+			anim [18 17 255]
+			wait rand 40 60
+			accg 0
+			elas 20
+			tick rand 140 200
+		elif pose >= 17
+			inst
+			tick 4
+			setv mv00 4
+			frat rand 1.5 1.8
+			velo rand -2.0 2.0 rand -5.0 -3.0
+			doif rand 0 1 = 1
+				setv mv01 -1
+			else
+				setv mv01 1
+			endi
+			targ ownr
+		endi
+	elif mv00 = 4
+*		let's mate, baby, yeah!
+		targ ownr
+		doif totl 2 13 62300 < 8
+			setv va00 posl
+			setv va01 post
+			esee 2 13 62300
+				inst
+				lock
+				doif targ <> null
+					doif ov00 = 4 and mv00 = 4 and disq ownr <= 100
+						mesg writ ownr 1001
+					endi
+				endi
+				unlk
+				slow
+			next
+		endi
+		addv mv50 1
+		doif mv50 = 300
+*			you've lived a long time
+			mesg writ ownr 1001
+		elif mv50 >= 350
+			setv mv00 5
+		endi
+	elif mv00 = 5
+*		everything must die in time... and your time is right now. Sorry!
+		targ ownr
+		pose 18
+		accg 3
+		fric 90
+		elas 0
+		wait rand 120 200
+		targ ownr
+		kill targ
+	elif mv00 = 6
+		wait rand 120 200
+		inst
+		setv mv00 0
+		setv mv50 0
+		pose 0
+	endi
+
+	targ ownr
+*	check if you are motile
+	doif ov00 <> 2 and ov00 <> 5
+*		now check if you are out of bounds
+		doif ov01 = -1 and posl < ov10
+			setv ov01 1
+			mira 1
+		elif ov01 = 1 and posr > ov20
+			setv ov01 -1
+			mira 0
+		endi
+		doif ov00 = 3 or ov00 = 4
+			doif post < ov11
+				setv ov02 1
+			elif posb > ov21
+				setv ov02 -1
+			endi
+		endi
+*		set your movement style
+		doif ov00 = 0 or ov00 = 1
+			fric 75
+			aero 0
+			elas 0
+			accg 2
+			doif obst down < 10
+				anim [0 1 2 3 4 5 0]
+			else
+				pose 0
+			endi
+		elif ov00 = 3 or ov00 = 4
+			fric 0
+			aero 5
+			elas 20
+			accg 0
+			doif obst down >= 10
+				reps rand 1 3
+					anim [18 17]
+					over
+					velo velx -2
+				repe
+			else
+				frat 1.0
+				anim [18 17 255]
+			endi
+		endi
+
+*		move
+		doif movs = 0
+			doif ov01 = 0 and ov00 <> 2 and ov00 <> 5
+				doif rand 0 1 = 1
+					setv ov01 -1
+				else
+					setv ov01 1
+				endi
+			endi
+			doif ov00 = 0 or ov00 = 1
+				doif obst down < 10
+					setv va00 ov01
+					mulv va00 ov22
+					mulv va00 2
+					setv va01 ov02
+					mulv va01 ov22
+					setv va10 posl
+					setv va11 post
+					addv va10 va00
+					addv va11 va01
+					addv va11 8
+					doif movs = 0
+						mvsf va10 va11
+						velo 0 1
+					endi
+				endi
+			elif ov00 = 3 or ov00 = 4
+				doif obst down >= 10
+					doif accg <> 0
+						accg 0
+						frat 2.0
+					endi
+					doif posl < mv10
+						setv mv01 1
+					elif posr > mv20
+						setv mv01 -1
+					elif post < mv11
+						setv mv02 1
+					elif posb > mv21
+						setv mv02 -1
+					else
+						doif rand 1 100 = 100
+							mulv mv01 -1
+						endi
+						doif rand 1 100 = 100
+							mulv mv02 -1
+						endi
+					endi
+					setv va00 ov01
+					mulv va00 ov22
+					setv va01 ov02
+					mulv va01 ov22
+					velo va00 va01
+					doif ov01 = -1
+						mira 0
+					else
+						mira 1
+					endi
+					reps rand 1 4
+						anim [18 17]
+						over
+						velo va00 va01
+					repe
+				elif obst down < 10
+					targ ownr
+					tick 4
+					setv ov02 -1
+					setv va00 ov01
+					mulv va00 ov22
+					setv va01 ov02
+					mulv va01 ov22
+					velo va00 va01
+					doif ov01 = -1
+						mira 0
+					else
+						mira 1
+					endi
+					reps rand 1 4
+						anim [18 17]
+						over
+						velo va00 va01
+					repe
+				else
+					accg .5
+					frat 1.0
+					anim [18 17 255]
+				endi
+			endi
+			doif ov01 = -1
+				mira 0
+			else
+				mira 1
+			endi
+		endi
+	endi
+endm
+
+scrp 2 13 62300 12
+*	butterfly/caterpillar is eaten
+	sndc "chwp"
+	stim writ from 80 1
+	targ ownr
+	kill targ
+endm
+
+
+scrp 2 13 62300 1000
+	inst
+* 	caterpillar inventory
+	enum 2 15 62300
+		doif ov00 = 0
+			addv va00 1
+		elif ov00 = 1
+			addv va01 1
+		elif ov00 = 2
+			addv va02 1
+		elif ov00 = 3
+			addv va03 1
+		elif ov00 = 4
+			addv va04 1
+		elif ov00 = 5
+			addv va05 1
+		endi
+	next
+	outs "caterpillars:\t"
+	outv va00
+	outs "\n"
+	outs "eating cats:\t"
+	outv va01
+	outs "\n"
+	outs "cocoons:\t\t"
+	outv va02
+	outs "\n"
+	outs "butterflies:\t"
+	outv va03
+	outs "\n"
+endm
+
+scrp 2 13 62300 1001
+*	caterpillar spawn
+	inst
+	doif totl 2 13 62300 < 13
+		setv va00 posl
+		setv va01 post
+		new: simp 2 13 62300 "c1cloudbutterfly" 20 0 525
+		attr 71
+		attr 199
+		bhvr 48
+		tick 4
+		accg 2
+		aero 25
+		fric 75
+		elas 20
+		perm 60
+		frat 1.5
+		pose 19
+		rnge 500
+		setv ov00 6
+		setv ov01 0
+		setv ov02 0
+		setv ov10 4080
+		setv ov20 5230
+		setv ov11 10650
+		setv ov21 10920
+		setv ov22 rand 2 3
+		setv ov97 0
+		seta ov98 null
+		mvsf va00 va01
+*	targ ownr
+*	setv mv00 5
+	endi
+endm
+
+scrp 2 13 62300 1002
+*	leave a husk
+	inst
+	lock
+	setv va00 posl
+	setv va01 post
+	addv va01 5
+	setv va02 plne
+	subv va02 1
+	new: simp 2 10 62303 "c1cloudbutterfly" 20 0 va02
+	pose 16
+	attr 199
+	accg .5
+	elas 0
+	perm 60
+	fric 100
+	aero 10
+	bhvr 0
+	tick rand 380 480
+	mvsf va00 va01
+endm
+
+rscr
+enum 2 10 62303
+	kill targ
+next
+enum 2 13 62300
+	kill targ
+next
+scrx 2 10 62303 9
+scrx 2 13 62300 1
+scrx 2 13 62300 6
+scrx 2 13 62300 9
+scrx 2 13 62300 12
+scrx 2 13 62300 1000
+scrx 2 13 62300 1001
+scrx 2 13 62300 1002
