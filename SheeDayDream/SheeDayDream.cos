@@ -171,12 +171,12 @@ door grap 9000 8800 grap 9010 8900 20
 
 * water top overlay 
 	new: simp 1 9 32332 "c1sheeoverlays" 1 4 6999
-	alph 40 1
+	alph 60 1
 	mvto 8225 9252
 
 * water bottom overlay 
 	new: simp 1 9 32332 "c1sheeoverlays" 1 5 6999
-	alph 40 1
+	alph 60 1
 	mvto 8505 9636		
 
 
