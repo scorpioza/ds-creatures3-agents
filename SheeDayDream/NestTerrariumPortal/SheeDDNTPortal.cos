@@ -1,0 +1,109 @@
+enum 2 24 32392
+	kill targ
+next
+
+* C1 Clocks Shee Day Dream
+
+	new: comp 2 24 32392 "c1clock" 5 0 2
+	pat: dull 1 "c1clock" 5 18 13 1
+	attr 4
+	bhvr 1
+	frat 1.65
+	mvto 9271 9111
+	anim [0 1 2 3 4 3 2 1 255]
+	tick 80
+	rnge 300
+	seta va00 targ
+	setv ov02 0
+*	sndl "c1ti"
+
+
+* C1 Clocks Nest Terrarium
+
+	new: comp 2 24 32392 "c1clock" 5 0 2
+	pat: dull 1 "c1clock" 5 18 13 1
+	attr 4
+	bhvr 1
+	frat 1.65
+	mvto 4430 4950
+	anim [0 1 2 3 4 3 2 1 255]
+	tick 80
+	rnge 300
+	seta ov00 va00
+	seta avar va00 0 targ
+	setv ov02 1
+*	sndl "c1ti"
+
+
+scrp 2 24 32392 9
+*	clock timer
+	inst
+	esee 4 0 0
+		chem 158 -1.0
+		chem 160 -1.0
+		chem 162 -1.0
+	next
+endm	
+
+
+**Doors
+scrp 2 24 32392 1
+	lock
+
+*Tell the norn on the other end to wait
+	doif crea from = 1
+		stim writ from 75 1
+	endi
+
+*	clock pushed
+*	sndc "c1c5"
+	part 1
+	anim [1 1 2 2 3 3 4 4 5 5 5 5 5 5 5 4 3 2 1 0]
+	over
+*	sndl "c1ti"
+
+	targ ov00
+	setv va00 posx
+	setv va01 posb
+
+*	clock pushed
+*	sndc "c1c5"
+	part 1
+	anim [1 1 2 2 3 3 4 4 5 5 5 5 5 5 5 4 3 2 1 0]
+	over
+*	sndl "c1ti"
+
+	targ ownr
+	doif from = pntr
+		targ ov00
+		cmrt 0
+
+		etch 4 0 0
+			doif carr eq null
+				doif movs = 0
+					doif hhld ne targ
+*					nohh
+						mvsf va00 va01
+						stim writ from 95 1
+					endi
+				endi
+			endi
+		next
+	else
+		doif from ne null
+			targ from
+			doif hhld ne targ
+*				nohh
+				doif carr eq null
+					doif movs = 0
+						mvsf va00 va01
+						stim writ from 95 1
+					endi
+				endi
+			endi
+		endi
+	endi
+	targ ownr
+
+	unlk	
+endm

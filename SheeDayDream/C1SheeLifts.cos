@@ -1,0 +1,426 @@
+* changed the size to accommodate fully grown Grendels
+* changed remove script to be more specific
+* changed to greedy cabin
+
+* ov01 current floor y coordinate
+* ov02 moving: up=1, still=0, down=-1
+* ov03 min floor
+* ov04 max floor
+* ov05 desired floor y coordinate
+* ov06 elevator movement speed
+* ov07 direction of vehicle movement. 0 = up/down, 1 = left right
+* use of ov07 not implemented yet!
+* ov08 button agent pushed
+* ov50 and ov51 used to compare call button to lift current height
+
+	setv game "c1liftspeed" 2
+	setv game "c1liftoffset" 10
+
+*lift next to hives and music room
+	new: vhcl 3 1 32314 "c1lift" 0 1 90
+	cabn -20 -10 140 150
+	cabp 1
+	rnge 300
+	pat: dull 1 "c1lift" 0 0 0 2
+	pat: butt 2 "c1lift" 2 4 82 72 3 [] 1001 1
+	pat: butt 3 "c1lift" 3 4 82 83 3 [] 1002 1
+	attr 512
+	accg 25
+	aero 100
+	fric 100
+	bhvr 3
+	elas 0
+	perm 0
+	*mvto 3089 10778
+	*mvto 5859 10948.552734
+	mvto 8807 8906
+	setv ov06 game "c1liftspeed"
+	setv ov01 posb
+	setv ov02 0
+	setv ov05 posb
+	seta ov08 null
+	seta va99 targ
+* floor 1 call button
+	new: comp 2 12 32314 "c1lift" 2 6 90
+	attr 196
+	accg 25
+	aero 10
+	fric 90
+	bhvr 1
+	elas 0
+	perm 60
+	seta ov99 va99
+	mvsf 8915 9108
+* floor 2 call button
+	new: comp 2 12 32314 "c1lift" 2 6 90
+	attr 196
+	accg 25
+	aero 10
+	fric 90
+	bhvr 1
+	elas 0
+	perm 60
+	seta ov99 va99
+	* mvto 3044 10840
+	mvto 8915 8966
+* floor 3 call button
+	new: comp 2 12 32314 "c1lift" 2 6 90
+	attr 196
+	accg 25
+	aero 10
+	fric 90
+	bhvr 1
+	elas 0
+	perm 60
+	seta ov99 va99
+	mvsf 8785 8773
+* floor 4 call button
+	new: comp 2 12 32314 "c1lift" 2 6 90
+	attr 196
+	accg 25
+	aero 10
+	fric 90
+	bhvr 1
+	elas 0
+	perm 60
+	seta ov99 va99
+	mvsf 8915 8379
+
+
+********************************************************	
+
+
+* room outside garden lift
+	new: vhcl 3 1 32314 "c1lift" 0 1 90
+	cabn -20 -10 140 150
+	cabp 1
+	rnge 300
+	pat: dull 1 "c1lift" 0 0 0 2
+	pat: butt 2 "c1lift" 2 4 82 72 3 [] 1001 1
+	pat: butt 3 "c1lift" 3 4 82 83 3 [] 1002 1
+	attr 512
+	accg 25
+	aero 100
+	fric 100
+	bhvr 3
+	elas 0
+	perm 0
+	* mvto 6205 10772.900391
+	mvto 9153 8906
+	setv ov06 game "c1liftspeed"
+	setv ov01 posb
+	setv ov02 0
+	setv ov05 posb
+	seta va99 targ
+	seta ov08 null
+* bridge call button
+	new: comp 2 12 32314 "c1lift" 2 6 90
+	attr 196
+	accg 25
+	aero 10
+	fric 90
+	bhvr 1
+	elas 0
+	perm 60
+	seta ov99 va99
+	mvsf 9123 8773
+* underground floor call button
+	new: comp 2 12 32314 "c1lift" 2 6 90
+	attr 196
+	accg 25
+	aero 10
+	fric 90
+	bhvr 1
+	elas 0
+	perm 60
+	seta ov99 va99
+	mvsf 9123 8968
+
+
+*******************************************************
+
+
+
+
+scrp 2 12 32314 1
+*	you or a creature pushed the lift call button
+	inst
+	lock
+*	get the floor height from the button pushed	
+	setv va51 posb
+	outv va51
+*	now get the floor height of the lift
+	targ mv99
+	setv va50 posb
+	outv va50
+* new
+	subv va50 game "c1liftoffset"
+	subv va50 4
+*	now if the call button is not on the same floor as the lift
+*	and the lift isn't already in motion... 
+	doif va51 <> va50 and ov02 = 0
+*		make the button light up
+		targ ownr
+		sndc "c1bu"
+		targ mv99
+		setv ov05 va51
+		seta ov08 ownr
+*		if not on the desired floor, call the mover scripts		
+		doif va51 = va50
+*
+		elif va51 < va50
+			mesg writ targ 1001
+		elif va51 > va50
+			mesg writ targ 1002
+		endi
+	else
+*		doif rand 0 1 = 0
+*			ordr tact "push lift"
+*		else
+*			ordr tact "pull lift"
+*		endi
+	endi
+	unlk
+	slow
+endm
+
+
+scrp 3 1 32314 1
+	mesg writ ownr 1001
+endm
+
+scrp 3 1 32314 2
+	mesg writ ownr 1002
+endm
+
+
+scrp 3 1 32314 1001
+	inst
+	lock
+	seta va99 targ
+
+	doif ov02 = 0
+		doif ov08 <> null
+			seta va73 ov08
+			setv va72 post
+			seta ov08 null
+		else
+			setv va72 post
+			seta va73 null
+			enum 2 12 32314
+				doif post < va72 and ov99 = va99
+					doif va73 = null
+						seta va73 targ
+						setv ov01 posb
+					else
+						seta va75 targ
+						targ ownr
+						doif disq va75 < disq va73
+							seta va73 va75
+							targ va75
+							setv ov01 posb
+						endi
+					endi
+				endi
+			next
+		endi
+		doif va73 <> null
+			targ va73
+			sndc "c1bu"
+			part 0
+			pose 1
+			wait 5
+			setv mv05 posb
+* new
+			addv mv05 game "c1liftoffset"
+
+			targ va99
+			doif ov02 = 0
+				doif ov05 < ov01
+					setv ov02 1
+				elif ov05 > ov01
+					setv ov02 -1
+				endi
+				gpas 4 0 0 0
+				epas 4 0 0
+					stim writ targ 94 1.0
+				next
+				targ va99
+				doif ov02 = 1
+					part 2
+					pose 2
+				elif ov02 = -1
+					part 3
+					pose 2
+				endi
+				setv va02 ov02
+				mulv va02 -1
+				mulv va02 ov06
+				sndl "c1lf"
+				doif mv02 = 1
+					loop
+						targ va99
+						mvby 0 va02
+					untl posb <= mv05 or posb < 10000
+				else
+					loop
+						targ va99
+						mvby 0 va02
+					untl posb >= mv05 or posb > 11111
+				endi
+				setv va69 posl
+				setv va70 mv05
+				subv va70 160
+				mvto va69 va70
+
+				doif mv02 = 1
+					part 2
+					pose 0
+				else
+					part 3
+					pose 0
+				endi
+				stpc
+				dpas 4 0 0
+				wait 1
+*				inst
+				setv mv01 posb
+				setv mv05 posb
+				setv mv02 0
+
+				targ va73
+				part 0
+				pose 0
+			endi
+		else
+*			doif rand 0 1 = 0
+*				ordr tact "push lift"
+*			else
+*				ordr tact "pull lift"
+*			endi
+		endi
+	endi
+	unlk
+	slow
+endm
+
+
+scrp 3 1 32314 1002
+	inst
+	lock
+	seta va99 targ
+	doif ov02 = 0
+		doif ov08 <> null
+			seta va73 ov08
+			setv va72 posb
+			seta ov08 null
+		else
+			setv va72 posb
+			seta va73 null
+			enum 2 12 32314
+				doif posb > va72 and ov99 = va99
+					doif va73 = null
+						seta va73 targ
+						setv ov01 posb
+					else
+						seta va75 targ
+						targ ownr
+						doif disq va75 < disq va73
+							seta va73 va75
+							targ va75
+							setv ov01 posb
+						endi
+					endi
+				endi
+			next
+		endi
+		doif va73 <> null
+			targ va73
+			sndc "c1bu"
+			part 0
+			pose 1
+			wait 5
+			setv mv05 posb
+* new
+			addv mv05 game "c1liftoffset"
+
+			targ va99
+			doif ov02 = 0
+				doif ov05 < ov01
+					setv ov02 1
+				elif ov05 > ov01
+					setv ov02 -1
+				endi
+				gpas 4 0 0 0
+				targ va99
+				doif ov02 = 1
+					part 2
+					pose 2
+				elif ov02 = -1
+					part 3
+					pose 2
+				endi
+				setv va02 ov02
+				mulv va02 -1
+				mulv va02 ov06
+				sndl "c1lf"
+				doif mv02 = 1
+					loop
+						mvby 0 va02
+						targ va99
+					untl posb <= mv05 or posb < 10000
+				else
+					loop
+						mvby 0 va02
+						targ va99
+					untl posb >= mv05 or posb > 11111
+				endi
+				setv va69 posl
+				setv va70 mv05
+				subv va70 160
+				mvto va69 va70
+
+				doif mv02 = 1
+					part 2
+					pose 0
+				else
+					part 3
+					pose 0
+				endi
+				stpc
+				dpas 4 0 0
+				wait 1
+				setv mv01 posb
+				setv mv05 posb
+				setv mv02 0
+				targ va73
+				part 0
+				pose 0
+			endi
+		else
+*			doif rand 0 1 = 0
+*				ordr tact "push lift"
+*			else
+*				ordr tact "pull lift"
+*			endi
+		endi
+	endi
+
+	unlk
+	slow
+endm
+
+
+
+rscr
+enum 2 12 32314
+	kill targ
+next
+enum 3 1 32314
+	kill targ
+next
+scrx 2 12 32314 1
+scrx 3 1 32314 1
+scrx 3 1 32314 2
+scrx 3 1 32314 1001
+scrx 3 1 32314 1002	

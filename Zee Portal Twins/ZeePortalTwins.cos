@@ -1,0 +1,80 @@
+* First Portal
+new: simp 2 2 38901 "mediporter" 16 0 400
+attr 199
+bhvr 1
+elas 0
+seta va00 targ
+setv ov02 0
+
+seta va08 targ
+enum 1 2 11
+	spas targ va08
+next
+
+* Second Portal
+new: simp 2 2 38901 "mediporter" 16 0 400
+attr 199
+bhvr 1
+elas 0
+seta ov00 va00
+seta avar va00 0 targ
+setv ov02 1
+
+
+seta va08 targ
+enum 1 2 11
+	spas targ va08
+next
+
+**Doors
+scrp 2 2 38901 1
+	lock
+
+*Tell the norn on the other end to wait
+	doif crea from = 1
+		stim writ from 75 1
+	endi
+
+	anim [1 2 3 4 5 6 7 8 7 6 5 4 3 2 1 0]
+
+	targ ov00
+	setv va00 posx
+	setv va01 posb
+
+	anim [1 2 3 4 5 6 7 8 7 6 5 4 3 2 1 0]
+
+	targ ownr
+	doif from = pntr
+		targ ov00
+		cmrt 0
+
+		etch 4 0 0
+			doif carr eq null
+				doif movs = 0
+					doif hhld ne targ
+*					nohh
+						mvsf va00 va01
+						stim writ from 95 1
+					endi
+				endi
+			endi
+		next
+	else
+		doif from ne null
+			targ from
+			doif hhld ne targ
+*				nohh
+				doif carr eq null
+					doif movs = 0
+						mvsf va00 va01
+						stim writ from 95 1
+					endi
+				endi
+			endi
+		endi
+	endi
+	targ ownr
+
+	unlk	
+endm
+
