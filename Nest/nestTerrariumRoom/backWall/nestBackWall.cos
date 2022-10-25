@@ -1,0 +1,88 @@
+* Door
+new: simp 2 2 38098 "nestdoorleft" 11 10 3
+attr 20
+mvto 3672 5537
+seta va01 targ
+alph 255 1
+
+
+* Wall
+new: simp 1 1 38099 "ntbackwall" 2 0 2
+mvto 3300 5340
+seta va02 targ
+
+
+* Button
+new: simp 2 2 38099 "ntbackwall" 4 2 1
+attr 20
+mvto 3327 5237
+seta ov00 va02
+seta ov01 va01
+frat 3
+
+scrp 2 2 38099 1
+
+	anim [1 2 1 0]
+
+	targ ov00
+	doif pose eq 0
+		pose 1
+		targ ownr
+		targ ov01
+		alph 0 1
+	elif pose eq 1
+		pose 0
+		targ ownr
+		targ ov01
+		alph 255 1
+	endi
+
+endm
+
+
+scrp 2 2 38098 1
+
+	lock
+
+	anim [1 2 3 4 5 4 3 2 1 0]
+
+	doif from = pntr
+
+		etch 4 0 0
+			doif carr eq null
+				doif movs = 0
+					doif hhld ne targ
+*					nohh
+						mvsf 3600 5320
+						stim writ from 95 1
+					endi
+				endi
+			endi
+		next
+	else
+		doif from ne null
+			targ from
+			doif hhld ne targ
+*				nohh
+				doif carr eq null
+					doif movs = 0
+						mvsf 3600 5320
+						stim writ from 95 1
+					endi
+				endi
+			endi
+		endi
+	endi
+	targ ownr
+
+	unlk	
+
+endm
+
+rscr
+enum 2 2 38099
+	kill targ
+next
+enum 2 2 38098
+	kill targ
+next
