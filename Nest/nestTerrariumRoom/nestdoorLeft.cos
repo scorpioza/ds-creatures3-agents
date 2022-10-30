@@ -7,15 +7,52 @@ mvto 3488 5255
 setv va00 room targ
 
 *bottom
-new: simp 2 2 38043 "nestdoorleft" 6 0 1
+new: simp 2 2 38043 "nestdoorleft" 16 0 3
 bhvr 1
 attr 4
 clac 1111
 mvto 3648 5412
 setv va01 room targ
+seta va03 targ
 
 link va00 va01 100
 
+
+* Wall
+new: simp 1 1 38099 "ntbackwall" 2 0 2
+mvto 3300 5340
+seta va02 targ
+
+
+* Button
+new: simp 2 2 38099 "ntbackwall" 4 2 1
+attr 20
+mvto 3327 5237
+seta ov00 va02
+seta ov01 va03
+frat 3
+
+
+scrp 2 2 38099 1
+
+	anim [1 2 1 0]
+
+	targ ov00
+	doif pose eq 0
+		pose 1
+		targ ownr
+		targ ov01
+		pose 10
+		mvto 3672 5537
+	elif pose eq 1
+		pose 0
+		targ ownr
+		targ ov01
+		pose 0
+		mvto 3648 5412
+	endi
+
+endm
 
 
 ** CLAC
@@ -211,7 +248,11 @@ scrp 2 2 38043 1
 
 *	open yourself
 	targ ownr
-	anim [0 1 2 3 4 5]
+	doif pose < 6
+		anim [0 1 2 3 4 5]
+	else
+		anim [10 11 12 13 14 15]
+	endi
 *	sort out positions for metaroom fade
 	setv va02 wndw
 	divv va02 2
@@ -307,9 +348,17 @@ endm
 **terrarium door animate open - norn
 scrp 2 2 38043 1000
 	snde "open"
-	anim [0 1 2 3 4 5]
+	doif pose < 6
+		anim [0 1 2 3 4 5]
+	else
+		anim [10 11 12 13 14 15]
+	endi 
 endm
 **terrarium door animate closed - norn
 scrp 2 2 38043 1001
-	anim [5 4 3 2 1 0]
+	doif pose < 6
+		anim [5 4 3 2 1 0]
+	else
+		anim [15 14 13 12 11 10]
+	endi
 endm
