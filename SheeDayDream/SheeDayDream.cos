@@ -190,14 +190,14 @@ setv va00 0
 new: simp 1 1 38900 "blnk" 1 va00 8000
 attr 16
 clac 0
-emit 2 1.0
+emit 2 0.4
 mvto 8450 8980
 
 * heat
 new: simp 1 1 38900 "blnk" 1 va00 8000
 attr 16
 clac 0
-emit 2 1.0
+emit 2 0.4
 mvto 8450 9220
 
 
@@ -205,28 +205,28 @@ mvto 8450 9220
 new: simp 1 1 38900 "blnk" 1 va00 8000
 attr 16
 clac 0
-emit 2 1.0
+emit 2 0.4
 mvto 8450 9360
 
 * heat
 new: simp 1 1 38900 "blnk" 1 va00 8000
 attr 16
 clac 0
-emit 2 1.0
+emit 2 0.4
 mvto 8450 9560
 
 * heat
 new: simp 1 1 38900 "blnk" 1 va00 8000
 attr 16
 clac 0
-emit 2 1.0
+emit 2 0.4
 mvto 9360 9360
 
 * heat
 new: simp 1 1 38900 "blnk" 1 va00 8000
 attr 16
 clac 0
-emit 2 1.0
+emit 2 0.4
 mvto 9360 9560
 
 
@@ -234,21 +234,21 @@ mvto 9360 9560
 new: simp 1 1 38900 "blnk" 1 va00 8000
 attr 16
 clac 0
-emit 2 1.0
+emit 2 0.4
 mvto 9680 9200
 
 * heat
 new: simp 1 1 38900 "blnk" 1 va00 8000
 attr 16
 clac 0
-emit 2 1.0
+emit 2 0.4
 mvto 9060 8800
 
 * heat
 new: simp 1 1 38900 "blnk" 1 va00 8000
 attr 16
 clac 0
-emit 2 2.0
+emit 2 0.4
 mvto 9090 8400
 
 

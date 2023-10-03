@@ -1,0 +1,955 @@
+*HOLLOW TREE LIFT*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 1 1000
+
+mvto 97110 20609
+
+pat: dull 1 "moe_C2toDS_lifts" 0 0 0 3
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 2 3 80 55 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "TreeTrunkLift"
+
+seta name "0" null
+
+setv name "total" 2
+
+setv name "current level" 0
+
+
+
+*Aubergine Lift*
+
+new: vhcl 3 1 50200 "moe_C2toDS_lifts" 0 15 1000
+
+mvto 97771 21264
+
+pat: dull 1 "moe_C2toDS_lifts" 14 0 0 40
+
+*Button on lift
+
+pat: butt 2 "moe_C2toDS_lifts" 16 3 67 73 1 [] 1000 0
+
+pat: fixd 3 "blank" 0 0 0 0 "whiteontransparentchars"
+
+part 3
+
+sets name "call list" ""
+
+sets name "Lift" "AubergineLift"
+
+seta name "0" null
+
+setv name "total" 1
+
+setv ov04 1
+
+setv name "current level" 0
+
+
+
+
+scrp 3 1 50200 10
+
+*have it check a variable of the owner, and decide which call buttons to add.
+
+
+
+	attr 512
+
+	cabn -20 0 120 155
+
+	cabp 0
+
+*cabin can't hold more than 40 creatures
+
+	cabw 40
+
+*Open Air Cabin 512
+
+	bhvr 1
+
+
+
+
+
+	wait 1
+
+	inst
+
+
+*TreeTrunk LIFT*
+
+	doif name "Lift" eq "TreeTrunkLift"
+
+*TreeTrunk Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
+
+		mvto 97285 20679
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+		setv ov03 0
+
+		setv ov04 0
+
+
+
+		targ ownr
+
+
+
+*TreeTrunk Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 6 7 2000
+
+		mvto 97285 21334
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+		setv ov03 10
+
+		setv ov04 0
+
+		targ ownr
+
+	endi
+
+
+	doif name "Lift" eq "AubergineLift"
+
+*Aubergine Call Button Top*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 97915 21334
+
+		seta mame "0" targ
+
+		seta ov00 ownr
+
+		sets ov01 "0"
+
+
+
+		targ ownr
+
+
+
+*Aubergine Call Button Bottom*
+
+		new: comp 2 12 50200 "moe_C2toDS_lifts" 2 7 2000
+
+		mvto 97705 21640
+
+		seta mame "1" targ
+
+		seta ov00 ownr
+
+		sets ov01 "1"
+
+
+
+		targ ownr
+
+	endi
+
+
+	plne 1000
+
+
+
+
+
+endm
+
+
+
+
+
+
+
+
+
+*Push the button hand*
+
+scrp 3 1 50200 1000
+
+	inst
+
+	gsub movelift
+
+
+
+	subr movelift
+
+*Atm it picks a random destination, this is BAD
+
+*If it's from the hand, pick the direction based on your rely to the button
+
+		doif from eq pntr
+
+			targ from
+
+			anim [ 0 1 0]
+
+			targ ownr
+
+			setv va00 post
+
+
+
+			doif ov04 eq 0
+
+				addv va00 63
+
+			else
+
+				addv va00 80
+
+			endi
+
+
+
+			setv va01 mopy
+
+
+
+			subv va00 va01
+
+
+
+*part 3
+
+*ptxt vtos va00
+
+*stop
+
+
+
+*If the mouse pointer is above the posy, go up if possible, else, go down
+
+			doif va00 lt 0
+
+				doif name "current level" ne name "total"
+
+					setv va00 name "current level"
+
+					addv va00 1
+
+					part 2
+
+					pose 1
+
+				else
+
+					stop
+
+				endi
+
+			else
+
+*If you're not at the bottom already, go down
+
+				doif name "current level" ne 0
+
+					setv va00 name "current level"
+
+					subv va00 1
+
+					part 2
+
+					pose 2
+
+				else
+
+					stop
+
+				endi
+
+			endi
+
+		endi
+
+*If it's from a norn, pick your floor based on the drives for up and down
+
+
+
+*Drive 16, UP
+
+*Drive 17, DOWN
+
+
+
+*setv va00 rand 1 name "total"
+
+		adds name "call list" vtos va00
+
+		adds name "call list" " "
+
+		part 3
+
+*ptxt name "call list"
+
+		tick 10
+
+		stim writ from 75 1
+
+	retn
+
+
+
+
+
+endm
+
+
+
+*This is just a duplicate of the "push" script, it may or may not work.
+
+scrp 3 1 50200 2
+
+	lock
+
+	inst
+
+	gsub movelift
+
+
+
+	subr movelift
+
+*Atm it picks a random destination, this is BAD
+
+*If it's from the hand, pick the direction based on your rely to the button
+
+		doif crea from eq 1
+
+
+
+*If your desire to go UP is greater than your desire to go DOWN, else, go DOWN
+
+			targ from
+
+			doif driv 16 gt driv 17
+
+				targ ownr
+
+				doif name "current level" ne name "total"
+
+					setv va00 name "current level"
+
+					addv va00 1
+
+				else
+
+					setv va00 name "current level"
+
+					subv va00 1
+
+				endi
+
+			else
+
+				targ ownr
+
+				doif name "current level" ne 0
+
+					setv va00 name "current level"
+
+					subv va00 1
+
+				else
+
+					setv va00 name "current level"
+
+					addv va00 1
+
+				endi
+
+			endi
+
+			targ ownr
+
+
+
+		endi
+
+*If it's from a norn, pick your floor based on the drives for up and down
+
+
+
+*Drive 16, UP
+
+*Drive 17, DOWN
+
+
+
+*setv va00 rand 1 name "total"
+
+		adds name "call list" vtos va00
+
+		adds name "call list" " "
+
+		part 3
+
+*ptxt name "call list"
+
+		tick 10
+
+		stim writ from 75 1
+
+	retn
+
+	unlk
+
+endm
+
+
+
+scrp 3 1 50200 1
+
+	lock
+
+	inst
+
+	gsub movelift
+
+
+
+	subr movelift
+
+*Atm it picks a random destination, this is BAD
+
+*If it's from the hand, pick the direction based on your rely to the button
+
+		doif crea from eq 1
+
+
+
+*If your desire to go UP is greater than your desire to go DOWN, else, go DOWN
+
+			targ from
+
+			doif driv 16 gt driv 17
+
+				targ ownr
+
+				doif name "current level" ne name "total"
+
+					setv va00 name "current level"
+
+					addv va00 1
+
+				else
+
+					setv va00 name "current level"
+
+					subv va00 1
+
+				endi
+
+			else
+
+				targ ownr
+
+				doif name "current level" ne 0
+
+					setv va00 name "current level"
+
+					subv va00 1
+
+				else
+
+					setv va00 name "current level"
+
+					addv va00 1
+
+				endi
+
+			endi
+
+			targ ownr
+
+
+
+		endi
+
+*If it's from a norn, pick your floor based on the drives for up and down
+
+
+
+*Drive 16, UP
+
+*Drive 17, DOWN
+
+
+
+*setv va00 rand 1 name "total"
+
+		adds name "call list" vtos va00
+
+		adds name "call list" " "
+
+		part 3
+
+*ptxt name "call list"
+
+		tick 10
+
+		stim writ from 75 1
+
+	retn
+
+	unlk
+
+endm
+
+
+
+
+
+
+
+scrp 2 12 50200 10
+
+	attr 4
+
+	bhvr 1
+
+	setv ov02 0
+
+
+
+	doif ov04 eq 1
+
+
+
+*Metallic Call Button
+
+		frat 2
+
+		anim [0 1 2 3 4 255]
+
+		prt: inew 0 "Input" "Recieves signal inputs for the Call Button." 12 17 0
+
+		prt: onew 0 "Output" "Outputs signal from the lift." 28 17
+
+*Switch On/Off
+
+		pat: butt 1 "moe_C2toDS_lifts" 31 2 10 23 0 [] 1001 0
+
+
+
+	else
+
+		prt: inew 0 "Input" "Recieves signal inputs for the Call Button launcher." 15 63 0
+
+		prt: onew 0 "Output" "Outputs signal from the lift." 16 92
+
+
+
+*Switch On/Off
+
+		pat: butt 1 "moe_C2toDS_lifts" 33 2 10 27 0 [] 1001 0
+
+
+
+	endi
+
+endm
+
+
+
+*Switches
+
+
+
+scrp 2 12 50200 1001
+
+	lock
+
+	targ pntr
+
+	anim [0 1 0]
+
+	targ ownr
+
+	part 1
+
+	doif pose eq 0
+
+		pose 1
+
+	else
+
+		pose 0
+
+	endi
+
+
+
+	doif bhvr eq 0
+
+		bhvr 1
+
+		attr 4
+
+	else
+
+		bhvr 0
+
+		attr 20
+
+	endi
+
+endm
+
+
+
+
+
+*This is just a duplicate of the "push" script. It may or may not work.
+
+scrp 2 12 50200 2
+
+	doif name "on" eq 0
+
+		stim writ from 75 2
+
+		inst
+
+		targ ov00
+
+		doif vtos name "current level" ne mv01
+
+			adds name "call list" mv01
+
+*	doif stoi name "call list" eq 0
+
+			adds name "call list" " "
+
+*	endi
+
+			tick 10
+
+			targ ownr
+
+			doif ov04 eq 1
+
+				pose 5
+
+				* sndc "but2"
+
+			else
+
+				pose 1
+
+				* sndc "ding"
+
+			endi
+
+			setv name "on" 1
+
+		else
+
+			stim writ from 0 1
+
+		endi
+
+	else
+
+		stim writ from 0 1
+
+	endi
+
+	targ ownr
+
+	prt: send 0 255
+
+endm
+
+
+
+
+
+scrp 2 12 50200 1
+
+	doif name "on" eq 0
+
+		stim writ from 75 2
+
+		inst
+
+		targ ov00
+
+		doif vtos name "current level" ne mv01
+
+			adds name "call list" mv01
+
+*	doif stoi name "call list" eq 0
+
+			adds name "call list" " "
+
+*	endi
+
+			tick 10
+
+			targ ownr
+
+			doif ov04 eq 1
+
+				pose 5
+
+				* sndc "but2"
+
+			else
+
+				pose 1
+
+				* sndc "ding"
+
+			endi
+
+			setv name "on" 1
+
+		else
+
+			stim writ from 0 1
+
+		endi
+
+	else
+
+		stim writ from 0 1
+
+	endi
+
+	targ ownr
+
+	prt: send 0 255
+
+endm
+
+
+
+scrp 2 12 50200 1000
+
+*return your animation*
+
+	doif ov04 eq 1
+
+		anim [0 1 2 3 4 255]
+
+	else
+
+		pose 0
+
+	endi
+
+	setv name "on" 0
+
+endm
+
+
+
+
+
+scrp 3 1 50200 9
+
+	lock
+
+
+
+
+
+	setv va00 stoi name "call list"
+
+	doif va00 ne name "current level"
+
+		sets va50 vtos va00
+
+
+
+		targ name va50
+
+		doif targ ne null
+
+			seta va05 targ
+
+			setv va01 posb
+
+			addv va01 ov03
+
+			targ ownr
+
+			gsub gotobutton
+
+		endi
+
+	endi
+
+
+
+	setv va00 stoi name "call list"
+
+	setv name "current level" va00
+
+
+
+	setv va03 strl name "call list"
+
+	subv va03 2
+
+	sets name "call list" subs name "call list" 3 va03
+
+	doif name "call list" eq ""
+
+		tick 0
+
+		stpc
+
+		part 3
+
+*ptxt name "call list"
+
+	endi
+
+
+
+
+
+
+
+	stop
+
+	unlk
+
+
+
+	subr gotobutton
+
+		doif posb lt va01
+
+			gpas 4 0 0 0
+
+			doif ov04 eq 1
+
+				* sndq "mlf1" 0
+
+				* sndl "mlf2"
+
+			elif ov04 eq 0
+
+				* sndl "m_a3"
+
+			endi
+
+			part 2
+
+			pose 1
+
+			loop
+
+				setv vely 3
+
+			untl posb ge va01
+
+			velo 0 0
+
+		elif posb gt va01
+
+			gpas 4 0 0 0
+
+			doif ov04 eq 1
+
+				* sndq "mlf1" 0
+
+				* sndl "mlf2"
+
+			elif ov04 eq 0
+
+				* sndl "m_a3"
+
+			endi
+
+			part 2
+
+			pose 2
+
+			loop
+
+				setv vely -3
+
+			untl posb le va01
+
+			velo 0 0
+
+		endi
+
+
+
+		part 2
+
+		pose 0
+
+
+
+		targ va05
+
+		mesg writ targ 1000
+
+		targ ownr
+
+
+
+		doif ov04 eq 1
+
+			* sndq "mlf3" 0
+
+		elif ov04 eq 0
+
+			stpc
+
+		endi
+
+
+
+
+
+
+
+		epas 4 0 0
+
+			stim writ targ 94 1
+
+			stim writ targ 0 .25
+
+		next
+
+		targ ownr
+
+		dpas 4 0 0
+
+
+
+	retn
+
+endm
