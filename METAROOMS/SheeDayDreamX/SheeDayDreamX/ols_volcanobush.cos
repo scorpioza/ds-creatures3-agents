@@ -1,0 +1,133 @@
+**
+** Volcano tree script
+** Open source, do whatever you want with the code/images. No need to credit.
+** Pilla
+**
+*
+* CAOS2PRAY CHUNK
+*# Pray-File "ols_volcanobush_mini.agents"
+*# DS-Name "OLS Volcano Bush"
+*# attach ols_volcanobush_mini.c16
+*# desc = "A tree that spawns very spicy fruit."
+*# Agent Animation File = "ols_volcanobush_mini.c16"
+*# Agent Sprite First Image = 0
+*# Agent Animation Gallery = "ols_volcanobush_mini"
+*
+*
+* 46441 = custom species number
+* Objects:
+* 2 4 46441 - Tree
+* 2 7 46441 - Flower
+* 2 8 46441 - Fruit
+* Scripts:
+* 2 4 46441 1 - Tree dispenser
+* 2 4 46441 9 - Tree timer
+* 2 7 46441 9 - Flower timer
+* 2 8 46441 9 - Fruit timer
+* 2 8 46441 12 - Fruit eat
+*
+*
+
+** Create the tree (attr: activateable 4 + invisible 16 + suffer collisions 64 + suffer physics 128 = 212)
+new: simp 2 4 46441 "ols_volcanobush_mini" 1 0 0 attr 4 bhvr 0
+  perm 100 accg 30 elas 0 fric 100 
+  alph 10 1
+  tick 25
+  mvto 9735 9098
+
+** The tree timer script
+scrp 2 4 46441 9
+  tick rand 800 900 setv va00 posl setv va01 post 
+  * Create a flower (attr: invisible 16)
+  new: simp 2 7 46441 "ols_volcanobush_mini" 1 1 rand 288 295 attr 16 bhvr 0 tick 2100
+  addv va00 rand 19 128 addv va01 rand 13 91 mvsf va00 va01
+endm
+
+* The tree dispenser script
+scrp 2 4 46441 1
+setv va00 posl setv va01 post 
+  * Create fruit (attr: mouseable 2 + collisions 64 + physics 128 = 194, bhvr: eat 16 + pickup 32 = 48)
+  new: simp 2 8 46441 "ols_volcanobush_mini" 1 2 rand 281 422 attr 194 bhvr 48 tick 1500
+  perm 100 accg 1.2 elas 30 fric 60 aero 1.1 emit 6 0.7
+  addv va00 rand 19 128 addv va01 rand 13 91 mvsf va00 va01
+endm
+
+* flower script: turn flower into fruit
+scrp 2 7 46441 9
+  setv va00 posx setv va01 posb
+  * Create fruit
+  new: simp 2 8 46441 "ols_volcanobush_mini" 1 2 rand 281 422 attr 194 bhvr 48 tick 1500
+  perm 100 accg 1.2 elas 30 fric 60 aero 1.1 emit 6 1 mvsf va00 va01
+  targ ownr
+  kill ownr
+endm
+
+* fruit timer and eat script
+scrp 2 8 46441 9 
+  kill ownr 
+endm
+scrp 2 8 46441 12 
+  stim writ from 78 1.2 kill ownr 
+  targ from
+  chem 3 .25
+  chem 1 .25
+  chem 5 .25
+  chem 12 .25
+  chem 34 .25
+  chem 75 -1.0
+  chem 93 .25
+  chem 100 .25
+  chem 113 .25
+  chem 152 -0.125
+  chem 153 0.125
+  chem 154 -1.0
+  chem 155 -1.0
+  chem 204 .25
+* Glucose
+  chem 3 0.5
+* Glycogen  
+  chem 4 0.5
+* Starch  
+  chem 5 0.5    
+* Fatty acid  
+  chem 6 0.3
+* Triglyceride  
+  chem 8 0.5
+* Adipose tissue: When your creature needs to store fat for the long-term, the fat becomes this. This is the stuff that makes them fat, but they'll never really be obese.  
+  chem 9 0.5  
+* Fat 
+  chem 10 0.3 
+* Protein 
+  chem 12 1.0
+* Amino acid  
+  chem 13 0.3   
+* Anti-oxidant: Cures carbon monoxide poisoning.  
+  chem 93 0.5
+* Sodium thiosulphate: Cures cyanide poisoning. 
+  chem 96 0.5
+* Arnica: Cures glycotoxin poisoning. 
+  chem 97 0.5 
+* Vitamin E: Keeps reproductive organs healthy.     
+  chem 98 0.5
+* Vitamin C: Keeps bones healthy, aids in healing from injuries.
+  chem 99 0.5 
+* Antihistamine 
+  chem 100 0.5  
+* Life: Creature ages as this depletes. A creature dies of old age when it nears zero. Continually injecting this will effectively make your creature immortal. 
+  chem 125 0.5
+
+endm
+
+**
+** Removal script
+**
+
+*rscr
+*enum 2 8 46441 kill targ next
+*enum 2 4 46441 kill targ next
+*enum 2 7 46441 kill targ next
+*scrx 2 8 46441 9
+*scrx 2 8 46441 12
+*scrx 2 4 46441 1
+*scrx 2 4 46441 9
+*scrx 2 7 46441 9

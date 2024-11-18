@@ -1,0 +1,61 @@
+"en-GB"
+
+
+group DSAG "Succulent Bridge Metaroom"
+
+"Agent Animation File" "succulents_background.c16"
+"Agent Animation Gallery" "succulents_background"
+"Agent Animation String" "4"
+"Agent Description" "Putting succulents on your Shee Spaceship Bridge."
+"Dependency 1" "succulents_background.c16"
+"Dependency 2" "mapdisplay_succulents.c16"
+"Dependency 3" "succulent.c16"
+"Dependency 4" "succulent_fruit.c16"
+"Dependency 5" "comfort_orb.c16"
+"Dependency 6" "succulent_bridge.catalogue"
+"Dependency 7" "succulent_main.blk"
+"Dependency 8" "capillata_umbilical.c16"
+"Dependency 9" "coc_lib_c3lift.c16"
+"Dependency 10" "coc_uh_uhmeso_mesouh_door.c16"
+"Dependency 11" "airbutton.c16"
+"Dependency 12" "succulent_capillata_fruit.c16"
+"Dependency 13" "succulent_capillata.catalogue"
+"Remove script" "enum 1 1 21211 kill targ next enum 1 1 21212 kill targ next enum 1 1 21213 kill targ next enum 1 1 21214 kill targ next enum 1 1 21215 kill targ next enum 1 1 21216 kill targ next enum 1 2 21 plne 0 gall \"mapdisplay\" 0 next setv va90 450 enum 3 3 33 attr 4 mvto va90 3373 addv va90 180 next enum 1 1 21218 kill targ next scrx 1 1 21218 9 enum 2 8 21212 kill targ next scrx 2 8 21212 4 scrx 2 8 21212 6 scrx 2 8 21212 9 scrx 2 8 21212 12 enum 1 1 21217 kill targ next scrx 1 1 21217 9 enum 2 4 21211 kill targ next scrx 2 4 21211 1 scrx 2 4 21211 9 scrx 2 4 21211 1000 enum 2 3 21211 kill targ next scrx 2 3 21211 9 scrx 2 3 21211 12 enum 2 21 21211 kill targ next scrx 2 21 21211 1 scrx 2 21 21211 9"
+
+"Script Count" 6
+"Script 1" @ "Succulent Bridge script.cos"
+"Script 2" @ "succulents_capillata_portal.cos"
+"Script 3" @ "lib-c3lift-events.cos"
+"Script 4" @ "succulent_lift.cos"
+"Script 5" @ "succulent_capillata_meso.cos"
+"Script 6" @ "succulent_learning.cos"
+
+"Agent Type" 0
+"Dependency Category 1" 2
+"Dependency Category 2" 2
+"Dependency Category 3" 2
+"Dependency Category 4" 2
+"Dependency Category 5" 2
+"Dependency Category 6" 7
+"Dependency Category 7" 6
+"Dependency Category 8" 2
+"Dependency Category 9" 2
+"Dependency Category 10" 2
+"Dependency Category 11" 2
+"Dependency Category 12" 2
+"Dependency Category 13" 7
+"Dependency Count" 13
+
+inline FILE "comfort_orb.c16" "comfort_orb.c16"
+inline FILE "mapdisplay_succulents.c16" "mapdisplay_succulents.c16"
+inline FILE "succulent.c16" "succulent.c16"
+inline FILE "succulent_bridge.catalogue" "succulent_bridge.catalogue"
+inline FILE "succulent_fruit.c16" "succulent_fruit.c16"
+inline FILE "succulents_background.c16" "succulents_background.c16"
+inline FILE "succulent_main.blk" "succulent_main.blk"
+inline FILE "capillata_umbilical.c16" "capillata_umbilical.c16"
+inline FILE "coc_lib_c3lift.c16" "coc_lib_c3lift.c16"
+inline FILE "coc_uh_uhmeso_mesouh_door.c16" "coc_uh_uhmeso_mesouh_door.c16"
+inline FILE "airbutton.c16" "airbutton.c16"
+inline FILE "succulent_capillata_fruit.c16" "succulent_capillata_fruit.c16"
+inline FILE "succulent_capillata.catalogue" "succulent_capillata.catalogue"

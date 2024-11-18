@@ -1,0 +1,225 @@
+inst
+reps 3
+	new: simp 2 4 38300 "fanplant" 8 0 140
+	attr 199
+	bhvr 11
+	elas 0
+*OV00 - Plant state: switches between growing UP and growing DOWN
+	setv ov00 0
+*OV99 - an age counter, counts the amount of time spent in a mature state.
+	setv ov99 0
+	tick rand 200 1000
+* this is a docked world, location can be anywhere in the DS/C3 realm
+	setv va00 6100
+	setv va01 9200
+	velo rand 30 40 -5
+	mvsf va00 va01
+
+repe
+
+
+*push script
+scrp 2 4 38300 1
+	targ from
+	stim writ from 84 1
+	targ ownr
+	mesg writ ownr 1000
+endm
+
+*Pull script
+scrp 2 4 38300 2
+	stim writ from 84 1
+	targ ownr
+	mesg writ ownr 1000
+endm
+
+*timer script
+scrp 2 4 38300 9
+*Grow UP
+	doif ov00 eq 0
+		doif pose lt 7
+			setv va00 pose
+			addv va00 1
+			pose va00
+		else
+*remain in a mature pose		
+			addv ov99 1
+		endi
+*you've been mature for too long now, prepare to become immature.	
+		doif ov99 eq 50
+			setv ov00 1
+		endi
+	endi
+*grow DOWN	
+	doif ov00 eq 1
+		doif pose gt 0
+			setv va00 pose
+			subv va00 1
+			pose va00
+		else
+			setv ov99 0
+			setv ov00 0
+		endi
+	endi
+
+*	rnge 30
+	setv va66 0
+	esee 2 8 38300
+		addv va66 1
+	next
+	targ ownr
+	doif va66 < 4
+		setv va00 posl
+		setv va01 post
+		setv va02 4
+		inst
+
+		doif rand 0 1 = 1
+			doif rand 0 1 = 1
+				setv va02 3
+			else
+				doif rand 0 1 = 1
+					setv va02 2
+				else
+					setv va02 1
+				endi
+			endi
+		endi	
+		
+
+		new: simp 2 8 38300 "berrybush" 1 va02 4900
+		attr 195
+		bhvr 48
+		elas 30
+		fric 50
+		accg 3
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			mvsf va00 va01
+		endi
+		velo rand -5 5 rand -5 -5
+		tick rand 6000 12000
+		emit 6 0.3
+	endi
+
+endm
+
+*Hit script
+scrp 2 4 38300 3
+	targ from
+	stim writ from 84 1
+	targ ownr
+*the plant grows DOWN if it is hit.	
+	doif pose gt 0
+		setv va00 pose
+		subv va00 1
+		pose va00
+	endi
+endm
+
+scrp 2 4 38300 1000
+	lock
+	rnge 30
+	setv va66 0
+	esee 2 8 38300
+		addv va66 1
+	next
+	targ ownr
+	doif va66 le 4
+		setv va00 posl
+		setv va01 post
+		setv va02 4
+		inst
+
+		doif rand 0 1 = 1
+			doif rand 0 1 = 1
+				setv va02 3
+			else
+				doif rand 0 1 = 1
+					setv va02 2
+				else
+					setv va02 1
+				endi
+			endi
+		endi	
+		
+
+		new: simp 2 8 38300 "berrybush" 1 va02 4900
+		attr 195
+		bhvr 48
+		elas 30
+		fric 50
+		accg 3
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			mvsf va00 va01
+		endi
+		velo rand -10 10 rand -15 -20
+		tick rand 6000 12000
+		emit 6 0.3
+	endi
+endm
+
+scrp 2 8 38300 9
+	lock
+	kill ownr
+endm
+
+scrp 2 8 38300 12
+	lock
+	sndc "chwp"
+	stim writ from 78 1
+* Glucose
+	chem 3 0.5
+* Glycogen	
+	chem 4 0.5
+* Starch	
+	chem 5 0.5		
+* Fatty acid	
+	chem 6 0.3
+* Triglyceride	
+	chem 8 0.5
+* Adipose tissue: When your creature needs to store fat for the long-term, the fat becomes this. This is the stuff that makes them fat, but they'll never really be obese.	
+	chem 9 0.5	
+* Fat	
+	chem 10 0.3	
+* Protein	
+	chem 12 1.0
+* Amino acid	
+	chem 13 0.3		
+* Anti-oxidant:	Cures carbon monoxide poisoning.	
+	chem 93 0.5
+* Sodium thiosulphate: Cures cyanide poisoning.	
+	chem 96 0.5
+* Arnica: Cures glycotoxin poisoning.	
+	chem 97 0.5	
+* Vitamin E: Keeps reproductive organs healthy.			
+	chem 98 0.5
+* Vitamin C: Keeps bones healthy, aids in healing from injuries.
+	chem 99 0.5	
+* Antihistamine	
+	chem 100 0.5	
+* Life: Creature ages as this depletes. A creature dies of old age when it nears zero. Continually injecting this will effectively make your creature immortal.	
+	chem 125 0.5
+
+	kill ownr
+endm
+
+scrp 2 8 38300 6
+	doif wall = down
+		sndc "smit"
+	endi
+endm
+
+
+*REMOVE ME
+rscr
+enum 2 4 38300
+	kill targ
+next
+scrx 2 4 38300 1
+scrx 2 4 38300 2
+scrx 2 4 38300 3
+scrx 2 4 38300 9

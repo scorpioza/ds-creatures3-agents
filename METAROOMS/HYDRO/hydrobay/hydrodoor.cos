@@ -1,0 +1,48 @@
+* Script 13 extracted from Terra 4.0.agents by Mirality REVELATION
+
+**********
+** Door **
+**********
+* new: simp 1 1 6602 "doorsplash" 1 5 1
+* attr 16
+* mvto 8599 2559
+
+* inst
+* new: simp 1 1 6602 "doorsplash" 1 6 1
+* attr 16
+* mvto 8588 2757
+
+
+new: simp 2 2 6600 "doorsplash" 5 0 2
+attr 20
+mvto 8590 2630
+** Left Side of door 
+setv va00 grap 8598 2780
+** Right Side of door
+setv va01 grap 8658 2710
+door va00 va01 0
+
+scrp 2 2 6600 1
+** Left Side of door
+	setv va00 grap 8598 2780
+	setv va01 grap 8658 2710
+	doif pose eq 0
+		door va00 va01 100
+		anim [0 1 2 3 4]
+		over
+		snde "dor1"
+	elif pose eq 4
+		door va00 va01 0
+		anim [4 3 2 1 0]
+		over
+		snde "dor1"
+	endi
+endm
+
+rscr
+enum 2 2 6600
+	kill targ
+next
+*enum 1 1 6602
+*	kill targ
+*next

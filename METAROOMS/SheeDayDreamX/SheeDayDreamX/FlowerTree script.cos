@@ -1,0 +1,101 @@
+new: simp 1 1 22347 "flowertree" 1 0 1000
+attr 16
+bhvr 0
+clac 0
+mvto 8220 8760 
+tick 1
+
+new: simp 1 1 22347 "flowertree" 1 0 1000
+attr 16
+bhvr 0
+clac 0
+mvto 8620 8670 
+tick 1
+
+
+scrp 1 1 22347 9
+	setv va51 totl 2 8 22348
+	setv ov75 rand 0 200
+	setv ov76 rand 0 50
+
+	setv ov80 rand 1 2
+		doif va51 lt 5
+
+		setv va00 posl
+		setv va01 post
+		addv va00 ov75
+		addv va01 ov76
+
+		new: simp 2 8 22348 "flowertree" 5 ov80 1000
+		attr 208
+
+		bhvr 0
+		cato 7
+		perm 100
+		elas 35
+		fric 100
+		accg 0
+		emit 7 .5
+
+		velo 0 0
+		tick 1
+		mvsf va00 va01 
+		
+		elif va51 gt 5
+		wait 50
+	endi
+endm
+
+
+scrp 2 8 22348 9
+	doif pose eq 0
+	setv va60 rand 400 550
+		wait va60
+			targ ownr
+			pose 2
+		wait va60
+		pose 0
+		wait 10
+		pose 4
+		cato 8
+		attr 194
+		bhvr 48
+	endi
+	doif pose eq 4
+		wait rand 700 850
+			accg 5
+		wait rand 850 1000
+
+		kill ownr
+	endi
+endm
+
+scrp 2 8 22348 4
+	targ ownr
+	accg 5
+endm
+
+
+scrp 2 8 22348 12
+	snde "leat"
+	targ from
+	doif fmly eq 4
+		stim writ targ 77 3
+		chem 100 0.05
+		chem 75 0.009
+		chem 102 0.01
+		chem 98 0.002
+	endi
+	kill ownr
+endm
+
+rscr
+enum 2 2 22348
+	kill targ
+next
+enum 2 8 22348
+	kill targ
+next
+enum 1 1 22347
+	kill targ
+next

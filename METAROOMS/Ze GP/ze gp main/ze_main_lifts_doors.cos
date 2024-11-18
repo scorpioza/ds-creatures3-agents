@@ -1,0 +1,208 @@
+*Lifts
+new: simp 3 1 18885 "waterfall_navigation" 1 0 1000
+attr 198
+bhvr 3
+accg 3
+perm 50
+elas 0
+setv ov01 0
+clac 0
+mvsf 22182 1584
+seta va00 targ
+setv va02 grap posx posy
+
+new: simp 3 1 18885 "waterfall_navigation" 1 0 1000
+attr 198
+bhvr 3
+accg 3
+perm 50
+elas 0
+setv ov01 1
+clac 0
+mvsf 22339 1860
+seta va01 targ
+setv va03 grap posx posy
+
+*Direct the buttons to each other
+targ va00
+seta ov00 va01
+targ va01
+seta ov00 va00
+
+*Link the rooms up
+link va02 va03 75
+
+*Doors
+new: simp 2 2 18885 "waterfall_navigation" 1 1 3500
+attr 198
+bhvr 1
+elas 0
+seta va00 targ
+mvsf 22593 1561
+
+new: simp 2 2 18885 "waterfall_navigation" 1 1 3500
+attr 198
+bhvr 1
+elas 0
+seta ov00 va00
+seta avar va00 0 targ
+doif gnam = "Creatures 3"
+	mvsf 2377 727
+else
+	mvsf 1001 9578
+endi
+
+
+* ===================================
+
+
+**Lifts
+scrp 3 1 18885 1
+*Ho boy. This is going to be a bit difficult. Well, here goes...
+	clac 1
+*First, check ov01
+	doif ov01 = 0
+*If you're the top one, just disappoint whoever it was that pushed you
+		doif crea from = 1
+			stim writ from 0 1
+		endi
+	else
+*If it was the bottom level one, then move 'em on up!
+*Tell from to wait
+		doif crea from = 1
+			stim writ from 75 1
+		endi
+		targ ov00
+		setv va00 posx
+		setv va01 posb
+		targ ownr
+*If it was the pointer, simply make all touching creatures move up.
+		doif from = pntr
+			etch 4 0 0
+				seta va02 targ
+				doif movs = 0
+					mvsf va00 va01
+					stim writ targ 94 1
+				else
+					doif movs = 3
+						targ carr
+						dpas 4 0 0
+						targ va02
+						mvsf va00 va01
+						stim writ targ 94 1
+					endi
+				endi
+			next
+		else
+*Otherwise, make the instigator move up.
+			targ from
+			seta va04 targ
+			doif movs = 0
+				mvsf va00 va01
+				stim writ targ 94 1
+			else
+*This bit makes flying creatures get out of their vehicle before moving...although what a flying creature is doing in here is beyond me
+				doif movs = 3
+					targ carr
+					dpas 4 0 0
+					targ va04
+					mvsf va00 va01
+					stim writ targ 94 1
+				endi
+			endi
+		endi
+		targ ownr
+		wait 1
+		pose 0
+	endi
+endm
+
+*Pull - Same as push with a few things switched around
+scrp 3 1 18885 2
+	clac 0
+*First, check ov01
+	doif ov01 = 1
+*If you're the bottom one, just disappoint whoever it was that pushed you
+		doif crea from = 1
+			stim writ from 0 1
+		endi
+	else
+*If it was the top level one, then move 'em on down!
+*Tell from to wait
+		doif crea from = 1
+			stim writ from 75 1
+		endi
+		targ ov00
+		setv va00 posx
+		setv va01 posb
+		targ ownr
+*If it was the pointer, simply make all touching creatures move up.
+		doif from = pntr
+			etch 4 0 0
+				seta va02 targ
+				doif movs = 0
+					mvsf va00 va01
+					stim writ targ 94 1
+				else
+					doif movs = 3
+						targ carr
+						dpas 4 0 0
+						targ va02
+						mvsf va00 va01
+						stim writ targ 94 1
+					endi
+				endi
+			next
+		else
+*Otherwise, make the instigator move up.
+			targ from
+			seta va04 targ
+			doif movs = 0
+				mvsf va00 va01
+				stim writ targ 94 1
+			else
+*This bit makes flying creatures get out of their vehicle before moving...although what a flying creature is doing in here is beyond me
+				doif movs = 3
+					targ carr
+					dpas 4 0 0
+					targ va04
+					mvsf va00 va01
+					stim writ targ 94 1
+				endi
+			endi
+		endi
+		targ ownr
+		wait 1
+		pose 0
+	endi
+endm
+
+**Doors
+scrp 2 2 18885 1
+*Tell the norn on the other end to wait
+	doif crea from = 1
+		stim writ from 75 1
+	endi
+	targ ov00
+	setv va00 posx
+	setv va01 posb
+	targ ownr
+	doif from = pntr
+		targ ov00
+		cmrt 0
+		etch 4 0 0
+			doif movs = 0
+				mvsf va00 va01
+				stim writ from 95 1
+			endi
+		next
+	else
+		targ from
+		doif movs = 0
+			mvsf va00 va01
+			stim writ from 95 1
+		endi
+	endi
+	targ ownr
+endm
+

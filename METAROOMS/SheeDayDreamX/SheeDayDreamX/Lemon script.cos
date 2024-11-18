@@ -1,0 +1,254 @@
+* C1 Stackable Lemons
+* seems that creatures can't see lemons on trellis
+* fixed bug where sometimes lemon fruit could be lost before loaded on trellis
+
+* Dependencies:
+*  c1plants.c16
+*  c1dr.wav
+*  chwp.wav
+
+inst
+lock
+
+* 	Lemon trellis
+new: vhcl 2 4 32304 "c1plants" 1 49 200
+attr 711
+tick 200
+fric 100
+aero 100
+elas 0
+cabp 1
+cabv -1
+seta va20 targ
+mesg writ targ 9
+
+doif totl 2 4 32304 <= 1
+	setv va00 8174
+	setv va01 8933
+	mvto va00 va01
+	attr 708
+* 	C1 to DS Injection Location Script
+* 	have to make verify that game_type variable is a string value
+elif type game "ds_game_type" ne 2
+* 	it's NOT a string, this must be C3 only
+* 	choose a safe C3 location
+	setv va00 5440
+	setv va01 3580
+	velo rand 30 40 -5
+	mvsf va00 va01
+else
+* 	it IS a string, but what is the value?
+	doif game "ds_game_type" eq "undocked"
+* 		this is an undocked world, location needs to be DS safe
+		setv va00 6100
+		setv va01 9200
+		velo rand 30 40 -5
+		mvsf va00 va01
+	elif game "ds_game_type" eq "docked"
+* 		this is a docked world, location can be anywhere in the DS/C3 realm
+		seta va02 targ
+		rtar 3 3 21
+		doif targ <> null
+			doif sqrt disq pntr < 1000
+*				hand is nearest the c3 injector
+				setv va00 5440
+				setv va01 3580
+			else
+*				hand is nearest the DS injector
+				setv va00 6100
+				setv va01 9200
+			endi
+		else
+			setv va00 5440
+			setv va01 3580
+		endi
+		targ va02
+		velo rand 30 40 -5
+		mvsf va00 va01
+	endi
+endi
+
+***********
+* Scripts
+
+scrp 2 4 32304 9
+
+*	Lemon Trellis' timer
+	inst
+	lock
+	doif movs = 0
+		setv va20 0
+		epas 2 8 32390
+			addv va20 1
+		next
+		doif va20 < 8 or _p1_ <> 0
+*		no/not enough fruit exists or asked to vend
+			doif _p1_ <> 0
+				setv va21 _p1_
+			else
+				setv va21 8
+				subv va21 va20
+			endi
+			doif va21 > 0
+				reps va21
+					new: vhcl 2 8 32390 "c1plants" 3 0 101
+					seta va51 targ
+					cabp 0
+					cabw 1
+					cabn -10 -25 34 4
+					pose 2
+					mira rand 0 1
+					accg 5
+					attr 719
+					fric 100
+					elas 0
+					aero 100
+					bhvr 48
+					perm 60
+					loop
+						targ ownr
+						setv va00 posl
+						setv va01 post
+						targ va51
+						addv va00 rand 0 120
+						addv va01 rand 0 107
+						mvsf va00 va01
+						setv va52 0
+						targ ownr
+						epas 2 8 32390
+							doif touc va51 targ = 1
+								addv va52 1
+							endi
+						next
+					untl va52 = 0
+					targ va51
+*					lemon scent
+					emit 6 .20
+					doif _p1_ <> 1
+						setv va52 0
+						loop
+							spas ownr targ
+							wait 1
+							inst
+							addv va52 1
+						untl type targ < 3 or carr = ownr or va52 > 100
+						inst
+					else
+						accg 5
+						fric 100
+						aero 10
+						velo rand -10 10 rand 1 5
+					endi
+				repe
+			endi
+		endi
+	endi
+endm
+
+scrp 2 4 32304 4
+*	Lemon Trellis - I've been picked up
+	inst
+	lock
+	accg 5
+	fric 90
+	aero 10
+	perm 60
+endm
+
+scrp 2 8 32390 1
+*	Lemon clicked
+	inst
+	lock
+	doif game "C1_Clickable_Food" = 1
+		setv va00 posl
+		setv va01 post
+		new: vhcl 2 8 32390 "c1plants" 3 0 101
+		cabp 0
+		cabw 1
+		cabn -10 -25 34 4
+		pose 2
+		mira rand 0 1
+		accg 5
+		attr 719
+		fric 100
+		elas 0
+		aero 10
+		bhvr 48
+*		lemon scent
+		emit 6 .20
+		perm 60
+		mvsf va00 va01
+		velo rand -15 15 rand -15 -5
+	endi
+endm
+
+scrp 2 8 32390 4
+*	lemon has been picked up
+	inst
+	lock
+	mira rand 0 1
+	accg 3
+	fric 90
+	aero 10
+endm
+
+scrp 2 8 32390 5
+*	lemon has been dropped!
+	inst
+	pose 0
+	mira rand 0 1
+	accg 3
+	fric 90
+	aero 10
+endm
+
+scrp 2 8 32390 6
+*	lemon has hit something!
+	sndc "c1dr"
+endm
+
+scrp 2 8 32390 124
+*	lemon got a passenger
+	epas 0 0 0
+		doif fmly = 2 and gnus = 8 and spcs = 32390
+*			it's Ok - C1 to DS Lemon
+		elif fmly = 2 and gnus = 8 and spcs = 7
+*			it's Ok - DS Lemon, but you can't stack on top of DS lemons
+		else
+			rpas ownr targ
+		endi
+	next
+endm
+
+scrp 2 8 32390 12
+*	eating a fruit
+*	Lemon
+	inst
+	lock
+	seta va20 norn
+	targ from
+	doif crea targ = 1
+		snde "chwp"
+*		chem 12 1.0
+		chem rand 92 100 .5
+		chem rand 92 100 .25
+		chem rand 92 100 .125
+		stim writ from 78 1
+	endi
+	targ ownr
+	kill targ
+endm
+
+rscr
+enum 2 8 32390
+	kill targ
+next
+*scrx 2 8 32390 1
+*scrx 2 8 32390 4
+*scrx 2 8 32390 5
+*scrx 2 8 32390 9
+*scrx 2 8 32390 12
+enum 2 4 32304
+	kill targ
+next
+scrx 2 4 32304 4

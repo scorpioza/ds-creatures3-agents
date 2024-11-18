@@ -1,0 +1,1143 @@
+* Script 1 extracted from DSc1tods.agents by Mirality REVELATION
+
+* ZenflowerSeed
+
+
+inst
+lock
+
+* 	ZenflowerSeed plant 
+new: comp 2 4 63333 "zenfloweret" 1 0 200
+pat: dull 2 "zenfloweret" 9 6 95 0
+attr 199
+accg 5
+fric 100
+aero 0
+elas 0
+bhvr 0
+perm 60
+rnge 300
+setv ov99 1
+tick rand 203 305
+*mesg wrt+ targ 1001 0 0 10
+mesg wrt+ targ 0 0 0 10
+
+
+
+doif type game "ds_game_type" ne 2
+* 	it's NOT a string, this must be C3 only
+* 	choose a safe C3 location
+	setv va00 5440
+	setv va01 3580
+	velo rand 30 40 -5
+	mvsf va00 va01
+else
+* 	it IS a string, but what is the value?
+	doif game "ds_game_type" eq "undocked"
+* 		this is an undocked world, location needs to be DS safe
+		setv va00 6100
+		setv va01 9200
+		velo rand 30 40 -5
+		mvsf va00 va01
+	elif game "ds_game_type" eq "docked"
+* 		this is a docked world, location can be anywhere in the DS/C3 realm
+		setv va00 6100
+		setv va01 9200
+		velo rand 30 40 -5
+		mvsf va00 va01
+	endi
+endi
+
+
+
+***********
+* Scripts
+
+scrp 2 4 63333 1
+*	Zenflower seed plant clicked by hand
+	inst
+	setv va03 0
+	esee 2 3 63314
+		addv va03 1
+	next
+	doif va03 < 30
+		setv va01 posl
+		setv va02 post
+		addv va01 20
+		addv va02 20
+		reps rand 11 15
+			doif mv99 = 1
+				new: simp 2 3 63314 "zenfloweret" 4 1 200
+				setv ov99 1
+			else
+				new: simp 2 3 63314 "zenfloweret" 4 5 200
+				setv ov99 0
+			endi
+			attr 199
+			bhvr 48
+			accg .8
+			aero 0
+			elas 25
+			perm 60
+			emit 7 0.3
+			doif rand 0 1 = 1
+				anim [0 1 2 3 255]
+			else
+				anim [0 3 2 1 255]
+			endi
+			mvsf va01 va02
+			velo rand -5 5 rand 1 3
+		repe
+
+	endi
+
+
+	setv va03 0
+	esee 2 11 63315
+		addv va03 1
+	next
+	doif va03 < 30
+
+		setv va01 posl
+		addv va01 30
+		setv va02 post
+		addv va02 1
+
+
+		reps 2
+			inst
+	*cheesy-food
+			new: simp 2 11 63315 "zenfloweret" 1 13 5001
+			attr 195
+			bhvr 48
+			elas 30
+			perm 60
+			fric 50
+			accg 3
+			seta va04 targ
+			setv ov61 10
+			emit 8 0.35
+			doif tmvt va01 va02 = 1
+				mvto va01 va02
+
+				velo rand -10 10 rand -5 -10
+
+			elif tmvt va01 va02 = 0
+				targ va04
+				kill targ
+				targ ownr
+			endi
+		repe
+
+	endi
+
+	setv va03 0
+	esee 2 8 63315
+		addv va03 1
+	next
+	doif va03 < 30
+
+		setv va01 posl
+		addv va01 30
+		setv va02 post
+		addv va02 1
+
+
+	*install the apples
+		reps 3
+			inst
+			new: simp 2 8 63315 "zenfloweret" 2 11 5001
+			attr 195
+			bhvr 48
+			elas 30
+			accg 5
+			fric 80
+			perm 60
+			seta va05 targ
+			setv ov61 8
+			emit 6 0.5
+			doif tmvt va01 va02 = 1
+				mvto va01 va02
+				velo rand -8 14 rand -5 -13
+
+			elif tmvt va01 va02 = 0
+
+				targ va05
+				kill targ
+				targ ownr
+			endi
+		repe
+
+	endi
+
+** critter
+
+	setv va03 0
+	esee 2 15 63315
+		addv va03 1
+	next
+	doif va03 < 30
+
+		setv va01 posl
+		addv va01 30
+		setv va02 post
+		addv va02 1
+
+
+	*install the critter
+		reps 5
+			inst
+			new: simp 2 15 63315 "albiansnail" 16 0 3500
+			attr 194
+			bhvr 59
+			elas 99
+			accg 3
+			aero 10
+			fric 70
+			perm 60
+			tick 16
+			doif tmvt va01 va02 = 1
+				mvto va01 va02
+				velo rand -8 14 rand -5 -13
+
+			elif tmvt va01 va02 = 0
+
+				targ va05
+				kill targ
+				targ ownr
+			endi
+		repe
+
+	endi
+
+
+** Star Seed
+
+	setv va03 0
+	esee 2 3 63316
+		addv va03 1
+	next
+	doif va03 < 30
+
+		setv va01 posl
+		addv va01 30
+		setv va02 post
+		addv va02 1
+
+
+		reps 3
+			inst
+
+	*	dbg: outs "Star Seed Made"
+			new: simp 2 3 63316 "ds empathic vendor" 1 41 427
+			attr 195
+			bhvr 48
+			perm 64
+			elas 40
+			accg 4
+			fric 100
+			emit 7 .5
+			tick 120
+			seta va04 targ
+			setv ov61 10
+			doif tmvt va01 va02 = 1
+				mvto va01 va02
+
+				velo rand -10 10 rand -5 -10
+
+			elif tmvt va01 va02 = 0
+				targ va04
+				kill targ
+				targ ownr
+			endi
+		repe
+
+	endi
+
+
+
+
+** Yarn Fruit
+
+	setv va03 0
+	esee 2 8 63316
+		addv va03 1
+	next
+	doif va03 < 30
+
+		setv va01 posl
+		addv va01 30
+		setv va02 post
+		addv va02 1
+
+
+		reps 2
+			inst
+
+
+	*	dbg: outs "Yarn Fruit"
+			new: simp 2 8 63316 "ds empathic vendor" 4 37 426
+			attr 195
+			bhvr 48
+			perm 64
+			elas 30
+			accg 5
+			fric 100
+			emit 6 .5
+			tick 120
+			seta va04 targ
+			setv ov61 10
+			doif tmvt va01 va02 = 1
+				mvto va01 va02
+
+				velo rand -10 10 rand -5 -10
+
+			elif tmvt va01 va02 = 0
+				targ va04
+				kill targ
+				targ ownr
+			endi
+		repe
+
+	endi
+
+
+** Peaking Pie
+
+	setv va03 0
+	esee 2 11 63316
+		addv va03 1
+	next
+	doif va03 < 30
+
+		setv va01 posl
+		addv va01 30
+		setv va02 post
+		addv va02 1
+
+
+		reps 2
+			inst
+
+
+	*	dbg: outs "Peaking Pie Made"
+			new: simp 2 11 63316 "ds empathic vendor" 3 42 425
+			attr 195
+			bhvr 48
+			perm 64
+			elas 30
+			accg 5
+			fric 100
+			emit 8 .5
+			tick 120
+			seta va04 targ
+			setv ov61 10
+			doif tmvt va01 va02 = 1
+				mvto va01 va02
+
+				velo rand -10 10 rand -5 -10
+
+			elif tmvt va01 va02 = 0
+				targ va04
+				kill targ
+				targ ownr
+			endi
+		repe
+
+	endi
+
+
+
+endm
+
+scrp 2 4 63333 4
+*	Zenflower seed plant pickup
+	inst
+	part 2
+	pose 1
+endm
+
+scrp 2 4 63333 6
+*	Zenflower seed plant collision
+	inst
+	part 2
+	pose 0
+endm
+
+scrp 2 4 63333 9
+*	ZenflowerSeed plant timer
+	inst
+	doif movs = 0
+		setv va00 0
+		esee 2 3 63314
+			addv va00 1
+		next
+		doif va00 < 10
+			setv va01 posl
+			setv va02 post
+			addv va01 20
+			addv va02 20
+			reps rand 11 15
+				doif mv99 = 1
+					new: simp 2 3 63314 "zenfloweret" 4 1 200
+					setv ov99 1
+				else
+					new: simp 2 3 63314 "zenfloweret" 4 5 200
+					setv ov99 0
+				endi
+				attr 199
+				bhvr 48
+				accg .8
+				aero 0
+				elas 25
+				perm 60
+				emit 7 0.3
+				doif rand 0 1 = 1
+					anim [0 1 2 3 255]
+				else
+					anim [0 3 2 1 255]
+				endi
+				mvsf va01 va02
+				velo rand -5 5 rand 1 3
+			repe
+		endi
+
+** ZEID-BEGIN
+
+		setv va00 0
+		esee 2 11 63315
+			addv va00 1
+		next
+		doif va00 < 2
+
+			setv va01 posl
+			addv va01 30
+			setv va02 post
+			addv va02 1
+
+
+			reps 2
+				inst
+		*cheesy-food
+				new: simp 2 11 63315 "zenfloweret" 1 13 5001
+				attr 195
+				bhvr 48
+				elas 30
+				perm 60
+				fric 50
+				accg 3
+				seta va04 targ
+				setv ov61 10
+				emit 8 0.35
+				doif tmvt va01 va02 = 1
+					mvto va01 va02
+
+					velo rand -10 10 rand -5 -10
+
+				elif tmvt va01 va02 = 0
+					targ va04
+					kill targ
+					targ ownr
+				endi
+			repe
+
+		endi
+		setv va00 0
+		esee 2 8 63315
+			addv va00 1
+		next
+		doif va00 < 2
+
+			setv va01 posl
+			addv va01 30
+			setv va02 post
+			addv va02 1
+
+
+		*install the apples
+			reps 2
+				inst
+				new: simp 2 8 63315 "zenfloweret" 2 11 5001
+				attr 195
+				bhvr 48
+				elas 30
+				accg 5
+				fric 80
+				perm 60
+				seta va05 targ
+				setv ov61 8
+				emit 6 0.5
+				doif tmvt va01 va02 = 1
+					mvto va01 va02
+					velo rand -8 14 rand -5 -13
+
+				elif tmvt va01 va02 = 0
+
+					targ va05
+					kill targ
+					targ ownr
+				endi
+			repe
+
+		endi
+
+
+
+** critter
+
+
+		setv va00 0
+		esee 2 15 63315
+			addv va00 1
+		next
+		doif va00 < 3
+
+			setv va01 posl
+			addv va01 30
+			setv va02 post
+			addv va02 1
+
+
+		*install the critter
+			reps 3
+				inst
+				new: simp 2 15 63315 "albiansnail" 16 0 3500
+				attr 194
+				bhvr 59
+				elas 99
+				accg 3
+				aero 10
+				fric 70
+				perm 60
+				tick 16
+				doif tmvt va01 va02 = 1
+					mvto va01 va02
+					velo rand -8 14 rand -5 -13
+
+				elif tmvt va01 va02 = 0
+
+					targ va05
+					kill targ
+					targ ownr
+				endi
+			repe
+
+		endi
+
+
+
+	** Star Seed
+
+		setv va03 0
+		esee 2 3 63316
+			addv va03 1
+		next
+		doif va03 < 3
+
+			setv va01 posl
+			addv va01 30
+			setv va02 post
+			addv va02 1
+
+
+			reps 3
+				inst
+
+		*	dbg: outs "Star Seed Made"
+				new: simp 2 3 63316 "ds empathic vendor" 1 41 427
+				attr 195
+				bhvr 48
+				perm 64
+				elas 40
+				accg 4
+				fric 100
+				emit 7 .5
+				tick 120
+				seta va04 targ
+				setv ov61 10
+				doif tmvt va01 va02 = 1
+					mvto va01 va02
+
+					velo rand -10 10 rand -5 -10
+
+				elif tmvt va01 va02 = 0
+					targ va04
+					kill targ
+					targ ownr
+				endi
+			repe
+
+		endi
+
+
+
+
+	** Yarn Fruit
+
+		setv va03 0
+		esee 2 8 63316
+			addv va03 1
+		next
+		doif va03 < 2
+
+			setv va01 posl
+			addv va01 30
+			setv va02 post
+			addv va02 1
+
+
+			reps 2
+				inst
+
+
+		*	dbg: outs "Yarn Fruit"
+				new: simp 2 8 63316 "ds empathic vendor" 4 37 426
+				attr 195
+				bhvr 48
+				perm 64
+				elas 30
+				accg 5
+				fric 100
+				emit 6 .5
+				tick 120
+				seta va04 targ
+				setv ov61 10
+				doif tmvt va01 va02 = 1
+					mvto va01 va02
+
+					velo rand -10 10 rand -5 -10
+
+				elif tmvt va01 va02 = 0
+					targ va04
+					kill targ
+					targ ownr
+				endi
+			repe
+
+		endi
+
+
+	** Peaking Pie
+
+		setv va03 0
+		esee 2 11 63316
+			addv va03 1
+		next
+		doif va03 < 2
+
+			setv va01 posl
+			addv va01 30
+			setv va02 post
+			addv va02 1
+
+
+			reps 2
+				inst
+
+
+		*	dbg: outs "Peaking Pie Made"
+				new: simp 2 11 63316 "ds empathic vendor" 3 42 425
+				attr 195
+				bhvr 48
+				perm 64
+				elas 30
+				accg 5
+				fric 100
+				emit 8 .5
+				tick 120
+				seta va04 targ
+				setv ov61 10
+				doif tmvt va01 va02 = 1
+					mvto va01 va02
+
+					velo rand -10 10 rand -5 -10
+
+				elif tmvt va01 va02 = 0
+					targ va04
+					kill targ
+					targ ownr
+				endi
+			repe
+
+		endi
+
+
+
+** ZEID-FIN
+
+
+
+	endi
+endm
+
+scrp 2 3 63314 1
+*	ZenflowerSeed clicked by hand
+	inst
+	doif game "C1_Clickable_Food" = 1
+		setv va01 posl
+		setv va02 post
+		doif ov99 = 1
+			new: simp 2 3 63314 "zenfloweret" 4 1 200
+			setv ov99 1
+		else
+			new: simp 2 3 63314 "zenfloweret" 4 5 200
+			setv ov99 0
+		endi
+		attr 199
+		bhvr 48
+		accg .8
+		aero 0
+		elas 25
+		perm 60
+		emit 7 0.3
+		doif rand 0 1 = 1
+			anim [0 1 2 3 255]
+		else
+			anim [0 3 2 1 255]
+		endi
+		mvsf va01 va02
+		velo rand -15 15 rand -15 -5
+	endi
+endm
+
+scrp 2 3 63314 4
+*	ZenflowerSeed picked up
+	mira rand 0 1
+	pose 0
+endm
+
+scrp 2 3 63314 5
+*	ZenflowerSeed dropped
+	inst
+	mira rand 0 1
+	doif rand 0 1 = 1
+		anim [0 1 2 3 255]
+	else
+		anim [0 3 2 1 255]
+	endi
+endm
+
+
+scrp 2 3 63314 6
+*	ZenflowerSeed picked up
+	mira rand 0 1
+	pose 0
+endm
+
+
+scrp 2 3 63314 12
+*	eating a seed
+*	ZenflowerSeed
+	inst
+	lock
+	seta va20 norn
+	targ from
+	doif crea targ = 1
+		chem 34 1.0
+		chem 98 0.5
+		chem 100 0.5
+		chem 3 0.5
+		chem 4 0.5
+		chem 5 0.5	
+		chem 93 0.5
+		chem 96 0.5		
+		snde "chwp"
+		stim writ from 77 1
+	endi
+	targ ownr
+	kill targ
+endm
+
+
+** ZEID-BEGIN
+
+**EAT SCRIPT - cheese
+scrp 2 11 63315 12
+	lock
+	sndc "chwp"
+	chem 12 1.0
+	chem 10 0.3
+	chem 6 0.3
+	chem 125 0.25
+	chem 96 0.25
+	chem 97 0.25
+	chem 67 -0.5
+	stim writ from 79 1
+	wait 2
+	kill ownr
+endm
+
+***EAT SCRIPT - Apple
+scrp 2 8 63315 12
+	lock
+	snde "eat1"
+	chem 12 0.5
+	chem 13 0.3
+	chem 3 0.3
+	chem 4 0.3
+	chem 5 0.3
+	chem 125 0.25
+	chem 99 0.25
+	chem 95 0.25
+	chem 67 -0.5
+	stim writ from 78 1
+	wait 1
+	pose 1
+	wait 5
+	kill ownr
+endm
+
+
+**PICKUP SCRIPT - apple
+scrp 2 8 63315 4
+	lock
+	doif ov00 eq 0
+		emit 6 0.5
+		setv ov00 1
+	endi
+	doif attr eq 67
+		attr 195
+	endi
+	perm 60
+endm
+
+**Make noise when dropped - apple
+scrp 2 8 63315 6
+	snde "clak"
+	doif carr eq null
+		plne 4000
+	endi
+endm
+
+
+**Make noise when dropped - cheese
+scrp 2 11 63315 6
+	snde "clak"
+endm
+
+
+***Cookie Tick
+scrp 2 11 63315 9
+	setv va10 rand 50 400
+	doif carr eq null
+		wait va10
+		kill ownr
+	endi
+endm
+
+
+***Tick
+scrp 2 8 63315 9
+	setv va10 rand 50 400
+	doif carr eq null
+		wait va10
+		kill ownr
+	endi
+endm
+
+
+
+*** Critter
+
+scrp 2 15 63315 9
+	addv ov99 1
+	doif ov99 eq rand 500 1500
+		kill ownr
+	endi
+	setv va00 rand 0 1
+	doif va00 eq 0
+		reps rand 5 17
+			anim [0 1 2 3 4 5 6 7]
+			over
+			velo 6 -2
+		repe
+	else
+		reps rand 5 17
+			anim [8 9 10 11 12 13 14 15]
+			over
+			velo -6 -2
+		repe
+	endi
+endm
+
+**********************
+***Collision Script***
+**********************
+scrp 2 15 63315 6
+	doif wall eq rght
+		velo -6 -2
+		setv ov00 0
+	elif wall eq left
+		velo 6 -2
+		setv ov00 50
+	endi
+endm
+
+**********************
+***   Push Script  ***
+**********************
+scrp 2 15 63315 1
+	targ from
+	stim writ targ 85 1
+endm
+
+**********************
+***   Pull Script  ***
+**********************
+scrp 2 15 63315 2
+	targ from
+	stim writ targ 85 1
+endm
+
+**********************
+***   Hit Script   ***
+**********************
+scrp 2 15 63315 3
+	inst
+*	snde "spnk"
+	doif from <> null
+		targ from
+		doif crea targ = 1
+* REDUCE Pain, Fear and Anger!
+			driv 0 -0.45
+			driv 10 -0.35
+			driv 12 -0.35
+		endi
+	endi
+	kill ownr
+endm
+**********************
+***   Eat Script  ***
+**********************
+scrp 2 15 63315 12
+	targ from
+	chem 12 1.0
+	chem 4 1.0
+	chem 98 0.3
+	chem 95 0.3
+	stim writ targ 80 1
+	kill ownr
+endm
+
+
+
+** Star Seed Eat Script
+scrp 2 3 63316 12
+	lock
+	snde "reat"
+	stim writ from 77 1
+	inst
+	doif from <> null
+		targ from
+		chem 34 1.0
+		chem 98 0.5
+		chem 100 0.5
+		chem 3 0.5
+		chem 4 0.5
+		chem 5 0.5	
+		chem 93 0.5
+		chem 96 0.5	
+	endi
+	slow
+	kill ownr
+endm
+
+
+
+** Yarn Fruit Eat Script
+scrp 2 8 63316 12
+	lock
+	snde "chwp"
+	stim writ from 78 1
+	addv ov01 1
+	doif ov01 <= 3
+		pose ov01
+	else
+		kill ownr
+	endi
+	inst
+	doif from <> null
+		targ from
+		chem 92 .15
+		chem 12 0.5
+		chem 13 0.3
+		chem 3 0.3
+		chem 4 0.3
+		chem 5 0.3
+		chem 125 0.25
+		chem 99 0.25
+		chem 95 0.25
+		chem 67 -0.5
+	endi
+	slow
+endm
+** Peaking Pie Eat Script
+scrp 2 11 63316 12
+	lock
+	snde "reat"
+	stim writ from 79 1
+	addv ov01 1
+	doif ov01 <= 2
+		pose ov01
+	else
+		kill ownr
+	endi
+	inst
+	doif from <> null
+		targ from
+		chem 12 1.0
+		chem 10 0.3
+		chem 6 0.3
+		chem 125 0.25
+		chem 96 0.25
+		chem 97 0.25
+		chem 67 -0.5
+	endi
+	slow
+endm
+
+** Star Seed Timer
+scrp 2 3 63316 9
+	addv ov01 1
+	doif ov01 >= 10 and carr = null and fall = 0
+		lock
+		inst
+		attr 16
+		bhvr 0
+		setv va00 0
+		slow
+		loop
+			alph va00 1
+			addv va00 4
+		untl va00 >= 256
+		setv va01 1
+	endi
+	doif va01 = 1
+		kill ownr
+	endi
+endm
+** Yarn Fruit Timer
+scrp 2 8 63316 9
+	addv ov01 1
+	doif ov01 >= 10 and carr = null and fall = 0
+		lock
+		inst
+		attr 16
+		bhvr 0
+		setv va00 0
+		slow
+		loop
+			alph va00 1
+			addv va00 4
+		untl va00 >= 256
+		setv va01 1
+	endi
+	doif va01 = 1
+		kill ownr
+	endi
+endm
+** Peaking Pie Timer
+scrp 2 11 63316 9
+	addv ov01 1
+	doif ov01 >= 10 and carr = null and fall = 0
+		lock
+		inst
+		attr 16
+		bhvr 0
+		setv va00 0
+		slow
+		loop
+			alph va00 1
+			addv va00 4
+		untl va00 >= 256
+		setv va01 1
+	endi
+	doif va01 = 1
+		kill ownr
+	endi
+endm
+
+** Star Seed Collision
+scrp 2 3 63316 6
+	snde "dr10"
+endm
+** Yarn Fruit Collision
+scrp 2 8 63316 6
+	snde "dr10"
+endm
+** Peaking Pie Collision
+scrp 2 11 63316 6
+	snde "dr10"
+endm
+
+
+
+
+
+** ZEID-FIN
+
+rscr
+enum 2 4 63333
+	kill targ
+next
+
+scrx 2 4 63333 1
+scrx 2 4 63333 4
+scrx 2 4 63333 6
+scrx 2 4 63333 9
+
+enum 2 3 63314
+	kill targ
+next
+*scrx 2 3 63314 4
+*scrx 2 3 63314 12
+
+
+***REMOVAL SCRIPT
+rscr
+enum 2 11 63315
+	kill targ
+next
+enum 2 8 63315
+	kill targ
+next
+scrx 2 8 63315 12
+scrx 2 11 63315 12
+scrx 2 8 63315 6
+scrx 2 11 63315 6
+
+
+rscr
+enum 2 15 63315
+	kill targ
+next
+scrx 2 15 63315 9
+scrx 2 15 63315 6
+scrx 2 15 63315 1
+scrx 2 15 63315 2
+scrx 2 15 63315 3
+scrx 2 15 63315 12
+
+
+*** Remove Star Seed
+enum 2 3 63316
+	kill targ
+next
+*** Remove Yarn Fruit
+enum 2 8 63316
+	kill targ
+next
+*** Remove Peaking Pie
+enum 2 11 63316
+	kill targ
+next
+
+scrx 2 8 63316 12
+scrx 2 11 63316 12
+scrx 2 3 63316 12
+scrx 2 8 63316 6
+scrx 2 11 63316 6
+scrx 2 3 63316 6
+scrx 2 8 63316 9
+scrx 2 11 63316 9
+scrp 2 3 63316 9

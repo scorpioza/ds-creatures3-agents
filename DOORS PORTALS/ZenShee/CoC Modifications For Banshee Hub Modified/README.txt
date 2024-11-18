@@ -1,0 +1,1 @@
+This modifications allows use Daedalus & Catallipac with ZenShee Hub (Modified Banshee Bridge)

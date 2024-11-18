@@ -1,0 +1,226 @@
+
+
+* Door Nest Jungles
+new: comp 2 2 38004 "door" 14 75 1
+attr 4
+bhvr 1
+*	clac 0
+seta va00 targ
+setv ov02 0
+mvto 7050 5290
+
+
+* Door Hub
+new: comp 2 2 38004 "zendoorhub" 98 104 0 
+attr 7
+*	clac 0
+bhvr 1
+pat: dull 2 "zendoorhub" 0 0 0 0
+part 2
+pat: butt 1 "zendoorhub" 101 2 70 -15 1 [0] 500 1
+part 1
+*		pat: butt 1 "doorhub" 56 4 -35 22 0 [] 1000 0
+*		pat: butt 2 "doorhub" 57 3 -35 45 0 [] 1001 0
+*		pat: butt 3 "doorhub" 58 2 -35 70 0 [] 1002 0
+
+
+seta ov00 va00
+seta avar va00 0 targ
+setv ov02 1
+setv ov03 0
+
+seta va08 targ
+enum 1 2 11
+	spas targ va08
+next
+
+*	************
+*	***//Door***
+*	************
+
+
+scrp 2 2 38004 500
+	targ ownr
+	doif ov03 < 6
+		setv va04 14
+		addv ov03 1
+		mulv va04 ov03
+		part 2
+		pose 14
+		base va04
+	else
+		setv ov03 0
+		part 2
+		base 0
+		pose 0
+	endi
+	part 0
+endm
+
+
+**Doors
+scrp 2 2 38004 1
+	lock
+
+*Tell the norn on the other end to wait
+	doif crea from = 1
+		stim writ from 75 1
+	endi
+
+	slow
+	targ ownr
+	doif ov02 = 0
+		part 0
+		anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13]
+	else
+		part 2
+		anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13]
+		part 0
+	endi
+
+	over
+
+	targ ownr
+	targ ov00
+	setv va00 posx
+	setv va01 posb
+
+	doif ov02 = 0
+		part 0
+		anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13]
+	else
+		part 2
+		anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13]
+		part 0
+	endi
+
+	over
+	targ ownr
+	doif from = pntr
+		targ ov00
+		cmrt 0
+
+		etch 4 0 0
+			doif carr eq null
+				doif movs = 0
+					doif hhld ne targ
+*					nohh
+						mvsf va00 va01
+						stim writ from 95 1
+					endi
+				endi
+			endi
+		next
+	else
+		doif from ne null
+			targ from
+			doif hhld ne targ
+*				nohh
+				doif carr eq null
+					doif movs = 0
+						mvsf va00 va01
+						stim writ from 95 1
+					endi
+				endi
+			endi
+			slow
+			targ ownr
+		endi
+	endi
+
+	doif ov02 = 0
+		part 0
+		anim [13 12 11 10 9 8 7 6 5 4 3 2 1 0]
+	else
+		part 2
+		anim [13 12 11 10 9 8 7 6 5 4 3 2 1 0]
+		part 0
+	endi
+	
+	targ ownr
+	targ ov00
+
+	doif ov02 = 0
+		anim [13 12 11 10 9 8 7 6 5 4 3 2 1 0]
+	else
+		part 2
+		anim [13 12 11 10 9 8 7 6 5 4 3 2 1 0]
+		part 0
+	endi
+
+	over
+	targ ownr
+
+	unlk	
+endm
+
+
+** change the settings UH
+* norn
+*scrp 2 2 38022 1000
+*	doif ov00 = 1
+*		part 1
+*		pose 3
+*		part 0
+*		setv ov00 0
+*	else
+*		part 1
+*		pose 0
+*		setv ov00 1
+*	endi
+* endm
+* grendel
+* scrp 2 2 38022 1001
+*	doif ov01 = 1
+*		part 2
+*		pose 2
+*		setv ov01 0
+*	else
+*		part 2
+*		pose 0
+*		setv ov01 1
+*	endi
+* endm
+* ettin
+* scrp 2 2 38022 1002
+*	doif ov02 = 1
+*		part 3
+*		pose 1
+*		setv ov02 0
+*	else
+*		part 3
+*		pose 0
+*		setv ov02 1
+*	endi
+* endm
+*
+* check for lock
+*	doif from <> pntr
+*		targ from
+*		setv va00 gnus
+*		targ ownr
+*		setv va01 0
+**			if norn check if allowed
+*		doif va00 = 1 and avar ownr ov00 = 1
+**				allow
+*			setv va01 1
+**			if grendel check if allowed
+*		elif va00 = 2 and avar ownr ov01 = 1
+**				allow
+*			setv va01 1
+**			if ettin check if allowed
+*		elif va00 = 3 and avar ownr ov02 = 1
+**			allow
+*			setv va01 1
+*		endi
+*	else
+*		setv va01 1
+*	endi
+*	doif va01 = 0
+**		disappoint
+*		stim writ from 0 1
+*		stop
+*	else
+**		wait
+*		stim writ from 75 1
+*	endi

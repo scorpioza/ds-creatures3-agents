@@ -1,0 +1,195 @@
+"en-GB"
+
+
+group DSAG "Banshee Bridge"
+
+"Agent Animation File" "fav_place_banshee.c16"
+"Agent Animation Gallery" "fav_place_banshee"
+"Agent Animation String" "1 1 1 1 2 2 2 2 255"
+"Agent Description" "This is the Banshee Bridge, part of the Banshee Ship project by raimian and dement. Compiled and bugtested by Liam."
+"Dependency 1" "fav_place_banshee.c16"
+"Dependency 10" "logicgates.c16"
+"Dependency 11" "mediscan.c16"
+"Dependency 12" "mossie.c16"
+"Dependency 13" "numeric_output_tool.c16"
+"Dependency 14" "plusminus.c16"
+"Dependency 15" "pregnancy_indication_device.c16"
+"Dependency 16" "siren.c16"
+"Dependency 17" "sludgegun.c16"
+"Dependency 18" "blnk.c16"
+"Dependency 19" "infinite_cheese_machine.c16"
+"Dependency 2" "lungfix.c16"
+"Dependency 20" "lift.c16"
+"Dependency 21" "xdoor.c16"
+"Dependency 22" "banshdock.c16"
+"Dependency 23" "hit_.wav"
+"Dependency 24" "lg_1.wav"
+"Dependency 25" "no__.wav"
+"Dependency 26" "1bep.wav"
+"Dependency 27" "tele.wav"
+"Dependency 28" "buzz.wav"
+"Dependency 29" "splt.wav"
+"Dependency 3" "capillata_umbilical.c16"
+"Dependency 30" "spew.wav"
+"Dependency 31" "dr10.wav"
+"Dependency 32" "bep2.wav"
+"Dependency 33" "dor1.wav"
+"Dependency 34" "stm1.wav"
+"Dependency 35" "map1.wav"
+"Dependency 36" "radr.wav"
+"Dependency 37" "beep.wav"
+"Dependency 38" "excl.wav"
+"Dependency 39" "spdn.wav"
+"Dependency 4" "anti-infection_spray.c16"
+"Dependency 40" "spup.wav"
+"Dependency 41" "lg_o.wav"
+"Dependency 42" "epng.wav"
+"Dependency 43" "pl_2.wav"
+"Dependency 44" "pl_1.wav"
+"Dependency 45" "pi_1.wav"
+"Dependency 46" "sirn.wav"
+"Dependency 47" "sgfr.wav"
+"Dependency 48" "copn.wav"
+"Dependency 49" "che1.wav"
+"Dependency 5" "infection_detector.c16"
+"Dependency 50" "che2.wav"
+"Dependency 51" "ccls.wav"
+"Dependency 52" "chwp.wav"
+"Dependency 53" "but1.wav"
+"Dependency 54" "clik.wav"
+"Dependency 55" "ding.wav"
+"Dependency 56" "alrm.wav"
+"Dependency 57" "sgtn.wav"
+"Dependency 58" "BansheeBridgeGreen.blk"
+"Dependency 6" "counter.c16"
+"Dependency 7" "detector.c16"
+"Dependency 8" "delayer.c16"
+"Dependency 9" "lightmod.c16"
+"Remove script" "enum 3 1 10401 kill targ next enum 3 1 10400 kill targ next enum 3 8 19 kill targ next enum 3 8 20 kill targ next enum 2 2 10410 kill targ next enum 1 1 10411 kill targ next enum 1 1 10412 kill targ next enum 2 2 10413 kill targ next enum 2 12 10414 kill targ next enum 2 12 10415 kill targ next enum 3 8 12 kill targ next enum 3 8 1 kill targ next enum 3 8 13 kill targ next enum 3 8 11 kill targ next enum 3 8 6 kill targ next enum 3 8 10 kill targ next enum 2 14 4 kill targ next enum 2 18 20 kill targ next enum 3 8 7 kill targ next enum 3 8 18 kill targ next enum 3 3 14 kill targ next enum 3 8 17 kill targ next enum 3 8 8 kill targ next enum 3 8 2 kill targ next enum 2 10 25 kill targ next enum 2 23 1 kill targ next enum 2 11 2 kill targ next enum 2 12 2 kill targ next enum 3 1 1 kill targ next enum 1 1 10406 kill targ next enum 1 1 10407 kill targ next enum 1 1 10408 kill targ next enum 1 1 10409 kill targ next enum 1 1 10410 kill targ next  scrx 3 1 10401 1 scrx 3 1 10401 2 scrx 3 1 10400 1 scrx 3 8 19 1 scrx 3 8 19 2001 scrx 3 8 19 6 scrx 3 8 19 3 scrx 3 8 19 4 scrx 3 8 20 3 scrx 3 8 20 1 scrx 3 8 20 2000 scrx 3 8 20 9 scrx 3 8 20 2001 scrx 3 8 20 4 scrx 2 2 10410 1000 scrx 2 2 10410 9 scrx 2 2 10410 1001 scrx 1 1 10411 1000 scrx 1 1 10412 1000 scrx 2 2 10413 1000 scrx 2 2 10413 1002 scrx 2 12 10414 1 scrx 2 12 10414 1000 scrx 2 12 10415 1 scrx 2 12 10415 1000 scrx 2 12 10415 9 scrx 2 12 10415 2000 scrx 3 8 12 3 scrx 3 8 12 4 scrx 3 8 12 1 scrx 3 8 12 1064 scrx 3 8 12 1164 scrx 3 8 12 1264 scrx 3 8 1 1 scrx 3 8 1 2 scrx 3 8 1 3 scrx 3 8 1 4 scrx 3 8 1 9 scrx 3 8 1 1000 scrx 3 8 1 2000 scrx 3 8 1 2002 scrx 3 8 13 1000 scrx 3 8 13 1001 scrx 3 8 13 1002 scrx 3 8 13 1003 scrx 3 8 13 1 scrx 3 8 13 2 scrx 3 8 13 3 scrx 3 8 13 4 scrx 3 8 13 6 scrx 3 8 11 1000 scrx 3 8 11 4 scrx 3 8 11 2000 scrx 3 8 11 3 scrx 3 8 11 5 scrx 3 8 11 1 scrx 3 8 11 9 scrx 3 8 6 1 scrx 3 8 6 1000 scrx 3 8 6 1001 scrx 3 8 6 1002 scrx 3 8 6 3 scrx 3 8 6 4 scrx 3 8 10 1 scrx 3 8 10 3 scrx 3 8 10 2 scrx 3 8 10 4 scrx 3 8 10 9 scrx 3 8 10 1000 scrx 3 8 10 2000 scrx 2 14 4 9 scrx 2 14 4 1 scrx 2 14 4 4 scrx 2 14 4 12 scrx 2 18 20 9 scrx 3 8 7 4 scrx 3 8 7 3 scrx 3 8 7 1000 scrx 3 8 7 1 scrx 3 8 18 1 scrx 3 8 18 2001 scrx 3 8 18 2002 scrx 3 8 18 2003 scrx 3 8 18 2004 scrx 3 8 18 2005 scrx 3 8 18 3 scrx 3 8 18 4 scrx 3 3 14 4 scrx 3 3 14 1 scrx 3 3 14 2 scrx 3 3 14 3 scrx 3 3 14 1000 scrx 3 8 17 1 scrx 3 8 17 9 scrx 3 8 17 2000 scrx 3 8 17 3 scrx 3 8 17 4 scrx 3 8 8 1 scrx 3 8 8 2 scrx 3 8 8 4 scrx 3 8 8 3 scrx 3 8 8 1000 scrx 3 8 8 2000 scrx 3 8 2 1000 scrx 3 8 2 1 scrx 3 8 2 2 scrx 2 10 25 6 scrx 2 10 25 9 scrx 3 8 2 3 scrx 3 8 2 4 scrx 2 23 1 1 scrx 2 23 1 6464 scrx 2 23 1 6463 scrx 2 11 2 12 scrx 2 11 2 6 scrx 2 23 1 9 scrx 2 23 1 3 scrx 2 12 2 1 scrx 2 12 2 1000 scrx 2 12 2 1501 scrx 3 1 1 1 scrx 3 1 1 2 scrx 3 1 1 1500 scrx 3 1 1 9 scrx 3 1 1 2000 scrx 3 1 1 2001 scrx 2 12 2 3 scrx 1 1 10406 1 scrx 1 1 10407 1 scrx 1 1 10408 1 scrx 1 1 10409 1 scrx 1 1 10410 1 scrx 1 1 10411 1 scrx 1 1 10412 1"
+
+"Script Count" 1
+"Script 1" @ "Banshee Bridge script.cos"
+
+"Agent Sprite First Image" 0
+"Agent Type" 0
+"Dependency Category 1" 2
+"Dependency Category 10" 2
+"Dependency Category 11" 2
+"Dependency Category 12" 2
+"Dependency Category 13" 2
+"Dependency Category 14" 2
+"Dependency Category 15" 2
+"Dependency Category 16" 2
+"Dependency Category 17" 2
+"Dependency Category 18" 2
+"Dependency Category 19" 2
+"Dependency Category 2" 2
+"Dependency Category 20" 2
+"Dependency Category 21" 2
+"Dependency Category 22" 2
+"Dependency Category 23" 1
+"Dependency Category 24" 1
+"Dependency Category 25" 1
+"Dependency Category 26" 1
+"Dependency Category 27" 1
+"Dependency Category 28" 1
+"Dependency Category 29" 1
+"Dependency Category 3" 2
+"Dependency Category 30" 1
+"Dependency Category 31" 1
+"Dependency Category 32" 1
+"Dependency Category 33" 1
+"Dependency Category 34" 1
+"Dependency Category 35" 1
+"Dependency Category 36" 1
+"Dependency Category 37" 1
+"Dependency Category 38" 1
+"Dependency Category 39" 1
+"Dependency Category 4" 2
+"Dependency Category 40" 1
+"Dependency Category 41" 1
+"Dependency Category 42" 1
+"Dependency Category 43" 1
+"Dependency Category 44" 1
+"Dependency Category 45" 1
+"Dependency Category 46" 1
+"Dependency Category 47" 1
+"Dependency Category 48" 1
+"Dependency Category 49" 1
+"Dependency Category 5" 2
+"Dependency Category 50" 1
+"Dependency Category 51" 1
+"Dependency Category 52" 1
+"Dependency Category 53" 1
+"Dependency Category 54" 1
+"Dependency Category 55" 1
+"Dependency Category 56" 1
+"Dependency Category 57" 1
+"Dependency Category 58" 6
+"Dependency Category 6" 2
+"Dependency Category 7" 2
+"Dependency Category 8" 2
+"Dependency Category 9" 2
+"Dependency Count" 58
+
+
+
+inline FILE "1bep.wav" "1bep.wav"
+inline FILE "BansheeBridgeGreen.blk" "BansheeBridgeGreen.blk"
+inline FILE "alrm.wav" "alrm.wav"
+inline FILE "anti-infection_spray.c16" "anti-infection_spray.c16"
+inline FILE "banshdock.c16" "banshdock.c16"
+inline FILE "beep.wav" "beep.wav"
+inline FILE "bep2.wav" "bep2.wav"
+inline FILE "blnk.c16" "blnk.c16"
+inline FILE "but1.wav" "but1.wav"
+inline FILE "buzz.wav" "buzz.wav"
+inline FILE "capillata_umbilical.c16" "capillata_umbilical.c16"
+inline FILE "ccls.wav" "ccls.wav"
+inline FILE "che1.wav" "che1.wav"
+inline FILE "che2.wav" "che2.wav"
+inline FILE "chwp.wav" "chwp.wav"
+inline FILE "clik.wav" "clik.wav"
+inline FILE "copn.wav" "copn.wav"
+inline FILE "counter.c16" "counter.c16"
+inline FILE "delayer.c16" "delayer.c16"
+inline FILE "detector.c16" "detector.c16"
+inline FILE "ding.wav" "ding.wav"
+inline FILE "dor1.wav" "dor1.wav"
+inline FILE "dr10.wav" "dr10.wav"
+inline FILE "epng.wav" "epng.wav"
+inline FILE "excl.wav" "excl.wav"
+inline FILE "fav_place_banshee.c16" "fav_place_banshee.c16"
+inline FILE "hit_.wav" "hit_.wav"
+inline FILE "infection_detector.c16" "infection_detector.c16"
+inline FILE "infinite_cheese_machine.c16" "infinite_cheese_machine.c16"
+inline FILE "lg_1.wav" "lg_1.wav"
+inline FILE "lg_o.wav" "lg_o.wav"
+inline FILE "lift.c16" "lift.c16"
+inline FILE "lightmod.c16" "lightmod.c16"
+inline FILE "logicgates.c16" "logicgates.c16"
+inline FILE "lungfix.c16" "lungfix.c16"
+inline FILE "map1.wav" "map1.wav"
+inline FILE "mediscan.c16" "mediscan.c16"
+inline FILE "mossie.c16" "mossie.c16"
+inline FILE "no__.wav" "no__.wav"
+inline FILE "numeric_output_tool.c16" "numeric_output_tool.c16"
+inline FILE "pi_1.wav" "pi_1.wav"
+inline FILE "pl_1.wav" "pl_1.wav"
+inline FILE "pl_2.wav" "pl_2.wav"
+inline FILE "plusminus.c16" "plusminus.c16"
+inline FILE "pregnancy_indication_device.c16" "pregnancy_indication_device.c16"
+inline FILE "radr.wav" "radr.wav"
+inline FILE "sgfr.wav" "sgfr.wav"
+inline FILE "sgtn.wav" "sgtn.wav"
+inline FILE "siren.c16" "siren.c16"
+inline FILE "sirn.wav" "sirn.wav"
+inline FILE "sludgegun.c16" "sludgegun.c16"
+inline FILE "spdn.wav" "spdn.wav"
+inline FILE "spew.wav" "spew.wav"
+inline FILE "splt.wav" "splt.wav"
+inline FILE "spup.wav" "spup.wav"
+inline FILE "stm1.wav" "stm1.wav"
+inline FILE "tele.wav" "tele.wav"
+inline FILE "xdoor.c16" "xdoor.c16"
+

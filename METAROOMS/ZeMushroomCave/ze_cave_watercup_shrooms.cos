@@ -1,0 +1,68 @@
+**Watercup Shrooms
+*Population Monitors
+setv va00 0
+reps 3
+*Teal Shroom
+	doif va00 = 0
+		setv va06 1
+*Blue Shroom
+	elif va00 = 1
+		setv va06 6
+*Red Shroom
+	else
+		setv va06 11
+	endi
+	setv va08 0
+	* Dark variation
+	doif rand 0 1 eq 1
+*		addv va06 21
+		setv va08 1
+	endi
+	new: simp 2 4 18885 "watercup_shroom" 5 va06 va02
+	setv ov01 va00
+	* Dark variation
+	doif va08 eq 1
+		alph rand 50 150 1
+	endi
+	
+	setv ov04 va08
+	attr 196
+	bhvr 1
+	accg 4
+	aero 0
+	perm va03
+	elas 0
+	fric 100
+*ov00 = state
+	setv ov00 4
+*ov02 = PM state
+	setv ov02 0
+	tick rand 150 450
+	mvsf rand 5100 5400 4990
+	addv va00 1
+repe
+
+
+*Spores
+reps 10
+	new: simp 2 3 18885 "watercup_shroom" 1 0 rand 1000 6000
+	attr 195
+	bhvr 48
+	accg 0.1
+	aero 0
+	perm rand 30 100
+	elas 10
+	fric 70
+*ov00 = growth checks
+	setv ov00 0
+*ov01 = dormancy counter
+	setv ov01 0
+	rnge 250
+	tick rand 150 450
+	puhl -1 16 31
+	mvto 5300 4990
+	velo rand -10 10 rand -10 0
+repe
+
+cmrp 5300 4990 0
+endm

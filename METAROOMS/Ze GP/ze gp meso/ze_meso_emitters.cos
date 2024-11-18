@@ -1,0 +1,316 @@
+* Bridge
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 24130 924
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 24580 924
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 24430 885
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 24380 885
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 24839 903
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 24839 903
+
+* Greenhouse
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 24238 1175
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 24238 1175
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 24784 1185
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 24784 1185
+
+* Large Greenhouse Aubergine
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 24090 1535
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 2.0
+mvto 24090 1535
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 24530 1535
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 2.0
+mvto 24530 1535
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 24970 1535
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 24970 1535
+
+* Swamp - Top
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 0.4
+mvto 24250 1855
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 24250 1855
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 0.4
+mvto 24800 1875
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 24800 1875
+
+* Swamp - Middle
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 24110 2103
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 24110 2103
+
+
+* Swamp - Bottom
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 23973 2245
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 23973 2245
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 24400 2265
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 24400 2265
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 24840 2265
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 24840 2265
+
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 25400 600
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 25400 600
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 25400 870
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 25400 870
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 23900 200
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 23900 200
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 23900 500
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 23900 500
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 23670 1500
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 23670 1500
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 25630 1860
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 25630 1860
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 25630 2260
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 25630 2260

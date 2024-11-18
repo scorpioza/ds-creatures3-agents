@@ -1,0 +1,91 @@
+* Silense Falls Fire Animation
+new: simp 1 1 18881 "sf_tr_fire" 10 0 3
+seta va03 targ
+mvto 97720 20082
+frat 3
+
+* Silense Falls Door
+new: simp 2 2 18881 "moe_C2toDS_Overlays_Dungeon" 5 22 2
+attr 4
+bhvr 1
+elas 0
+seta va00 targ
+seta ov03 va03
+setv ov02 0
+mvto 97728 20108
+frat 3
+anim [0 1 2 3 4 255]
+
+* The Terra Reborn Fire Animation
+new: simp 1 1 18881 "sf_tr_fire" 10 0 3
+seta va03 targ
+mvto 11569 937
+frat 3
+
+* The Terra Reborn Door
+new: simp 2 2 18881 "moe_C2toDS_Overlays_Dungeon" 5 22 2
+attr 4
+bhvr 1
+elas 0
+seta ov00 va00
+seta avar va00 0 targ
+setv ov02 1
+seta ov03 va03
+mvto 11577 963
+frat 3
+anim [0 1 2 3 4 255]
+
+**Doors
+scrp 2 2 18881 1
+	lock
+
+*Tell the norn on the other end to wait
+	doif crea from = 1
+		stim writ from 75 1
+	endi
+
+	targ ov03
+		anim [1 2 3 4 5 4 3 2 1 0]
+	targ ownr
+
+	targ ov00
+	setv va00 posx
+	setv va01 posb
+
+	targ ov03
+		anim [1 2 3 4 5 4 3 2 1 0]
+	targ ownr
+
+	doif from = pntr
+		targ ov00
+		cmrt 0
+
+		etch 4 0 0
+			doif carr eq null
+				doif movs = 0
+					doif hhld ne targ
+*					nohh
+						mvsf va00 va01
+						stim writ from 95 1
+					endi
+				endi
+			endi
+		next
+	else
+		doif from ne null
+			targ from
+			doif hhld ne targ
+*				nohh
+				doif carr eq null
+					doif movs = 0
+						mvsf va00 va01
+						stim writ from 95 1
+					endi
+				endi
+			endi
+		endi
+	endi
+	targ ownr
+
+	unlk	
+endm

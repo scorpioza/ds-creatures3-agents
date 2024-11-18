@@ -1,0 +1,257 @@
+** Adding Hive
+
+new: simp 2 4 32398 "c1beehivehoney" 9 4 100
+attr 199
+elas 0
+bhvr 11
+mvsf 6100 9200
+anim [ 0 1 2 3 4 5 6 7 8 255 0 ]
+
+***************** HONEY **********************
+
+*push script
+scrp 2 11 32301 1
+*	honey is clicked
+	inst
+*	doif game "C1_Clickable_Food" = 1
+		setv va00 posl
+		setv va01 post
+		new: simp 2 11 32301 "c1beehivehoney" 3 13 502
+		attr 199
+		elas 0
+		fric 100
+		aero 10
+		accg 5
+		bhvr 48
+		perm 60
+		emit 8 0.5
+		setv ov99 5
+		mvsf va00 va01
+		velo rand -15 15 rand -15 -5
+*	endi
+endm
+
+*Pull script
+scrp 2 11 32301 2
+	stim writ from 84 1
+	targ ownr
+	mesg writ ownr 1000
+endm
+
+*Hit script
+scrp 2 11 32301 3
+	targ from
+	stim writ from 84 1
+	targ ownr
+*the plant grows DOWN if it is hit.	
+	doif pose = 2
+		setv ov99 5
+		pose 0
+	endi
+endm
+
+
+scrp 2 11 32301 4
+*	honey is picked up
+	doif ov99 >= 1 and carr = pntr
+		pose 1
+	endi
+endm
+
+scrp 2 11 32301 5
+	inst
+	lock
+*	honey is dropped
+	doif ov99 <= 0
+		pose 2
+		tick rand 83 123
+	else
+		pose 0
+	endi
+	fric 100
+	aero 10
+	accg 5
+	setv va20 0
+	inst
+	etch 2 17 32301
+		addv va20 1
+	next
+	lock
+	inst
+	doif va20 > 0
+		pose 0
+		bhvr 48
+		tick 0
+		setv ov99 5
+	endi
+endm
+
+scrp 2 11 32301 6
+*	honey collides with something
+	inst
+	sndc "c1d2"
+	setv va20 0
+	inst
+	etch 2 17 32301
+		addv va20 1
+	next
+	doif va20 > 0
+		pose 0
+		bhvr 48
+		tick 0
+		setv ov99 5
+	endi
+endm
+
+scrp 2 11 32301 9
+	inst
+	targ ownr
+	kill targ
+endm
+
+scrp 2 11 32301 12
+*	honey is being eaten
+	inst
+	lock
+	doif ov99 >= 1
+		sndc "c1h1"
+		stim writ from 79 1.0
+		targ from
+		doif crea targ = 1
+*		inject extra honey stuff
+		* Energy. 
+			chem 34 1.0
+		* Injury
+			chem 127 -1.0
+		* Hunger for carb
+			chem 150 -1.0
+		* Glucose
+			chem 3 0.5
+		* Glycogen	
+			chem 4 0.5
+		* Starch	
+			chem 5 0.5		
+		* Fatty acid	
+			chem 6 0.3
+		* Triglyceride	
+			chem 8 0.5
+		* Adipose tissue: When your creature needs to store fat for the long-term, the fat becomes this. This is the stuff that makes them fat, but they'll never really be obese.	
+			chem 9 0.5	
+		* Fat	
+			chem 10 0.3	
+		* Protein	
+			chem 12 1.0
+		* Amino acid	
+			chem 13 0.3		
+		* Anti-oxidant:	Cures carbon monoxide poisoning.	
+			chem 93 0.5
+		* Sodium thiosulphate: Cures cyanide poisoning.	
+			chem 96 0.5
+		* Arnica: Cures glycotoxin poisoning.	
+			chem 97 0.5	
+		* Vitamin E: Keeps reproductive organs healthy.			
+			chem 98 0.5
+		* Vitamin C: Keeps bones healthy, aids in healing from injuries.
+			chem 99 0.5	
+		* Antihistamine	
+			chem 100 0.5	
+		* Life: Creature ages as this depletes. A creature dies of old age when it nears zero. Continually injecting this will effectively make your creature immortal.	
+			chem 125 0.5
+
+		endi
+		targ ownr
+		subv ov99 1
+		doif ov99 <= 0
+			pose 2
+			tick rand 83 123
+			targ from
+			doif crea targ = 1
+				zomb 1
+				wait 5
+				inst
+				mesg writ targ 23
+				wait 5
+				inst
+				zomb 0
+			endi
+			targ ownr
+		endi
+	else
+		targ from
+		doif crea targ = 1
+			zomb 1
+			wait 5
+			inst
+			mesg writ targ 23
+			wait 5
+			inst
+			zomb 0
+		endi
+		velo rand -5 5 rand -5 5
+		targ ownr
+		tick rand 90 210
+		pose 2
+		bhvr 32
+*		attr 215
+	endi
+	wait 5
+	inst
+	slow
+	unlk
+endm
+
+
+************* Bee Nest ***************
+
+*push script
+scrp 2 4 32398 1
+	targ from
+	stim writ from 84 1
+	targ ownr
+	mesg writ ownr 1000
+endm
+
+*Pull script
+scrp 2 4 32398 2
+	stim writ from 84 1
+	targ ownr
+	mesg writ ownr 1000
+endm
+
+*Hit script
+scrp 2 4 32398 3
+	targ from
+	stim writ from 84 1
+	targ ownr
+endm
+
+scrp 2 4 32398 1000
+	lock
+	rnge 30
+	setv va66 0
+	esee 2 11 32301
+		addv va66 1
+	next
+	targ ownr
+	doif va66 le 10
+		setv va00 posl
+		setv va01 post
+		addv va00 rand 10 30
+		addv va01 70
+*		make honey
+		new: simp 2 11 32301 "c1beehivehoney" 3 13 502
+		setv ov99 5
+		attr 199
+		elas 0
+		fric 100
+		aero 0
+		accg 0
+		bhvr 48
+		perm 60
+		emit 8 0.5
+		velo 1 1
+		mvsf va00 va01
+	endi
+endm
+
+

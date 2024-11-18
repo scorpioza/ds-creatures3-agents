@@ -1,0 +1,44 @@
+* C1 Clocks
+
+	new: comp 2 24 32392 "c1clock" 5 0 2
+	pat: dull 1 "c1clock" 5 18 13 1
+	attr 4
+	frat 1.65
+	mvto 9271 9111
+	anim [0 1 2 3 4 3 2 1 255]
+	tick 80
+	rnge 300
+*	sndl "c1ti"
+
+
+* C1 Clocks
+
+	new: comp 2 24 32392 "c1clock" 5 0 2
+	pat: dull 1 "c1clock" 5 18 13 1
+	attr 4
+	frat 1.65
+	mvto 10001 8338
+	anim [0 1 2 3 4 3 2 1 255]
+	tick 80
+	rnge 300
+*	sndl "c1ti"
+
+
+scrp 2 24 32392 1
+*	clock pushed
+	sndc "c1c5"
+	part 1
+	anim [1 1 2 2 3 3 4 4 5 5 5 5 5 5 5 4 3 2 1 0]
+	over
+*	sndl "c1ti"
+endm
+
+scrp 2 24 32392 9
+*	clock timer
+	inst
+	esee 4 0 0
+		chem 158 -1.0
+		chem 160 -1.0
+		chem 162 -1.0
+	next
+endm	

@@ -1,0 +1,333 @@
+****************************************************
+*buttons 2 12 31900
+*elevator 3 1 31900
+*overlays 1 1 31948 
+*ov99 - llift stoping positions
+*ov11 0-not mooving 1 going down -1 going up 
+*ov01 button/liftreting level 0-moving 1-top 2-bottom
+*delete if already present
+inst
+enum 2 12 31900
+	kill targ
+next
+enum 3 1 31900
+	kill targ
+next
+
+*create the buttons
+*branch
+setv va02 1
+reps 4
+	inst
+	new: simp 2 12 31900 "ze_ngunderwaterlift" 2 1 100																																	bhvr 1
+		attr 4
+		clac 0
+		bhvr 1
+		setv ov99 game "ng4y" 
+		setv va00 game "ng4x"
+		setv va01 game "ng4y"
+		doif va02 = 1
+			setv ov01 1
+			setv ov05 1
+			*y coord to stop lift
+			addv ov99 386
+			addv va00 1278
+			addv va01 275
+			mvto va00 va01
+			setv va33 grap posr posy 
+
+		elif va02 = 2
+			setv ov01 2	
+			setv ov05 1
+			*y coord to stop lift
+			addv ov99 818
+			addv va00 1278
+			addv va01 745
+			mvto va00 va01
+			setv va34 grap posr posy 
+
+		elif va02 = 3
+			setv ov01 1	
+			setv ov05 2
+			*y coord to stop lift
+			addv ov99 386
+			addv va00 1998
+			addv va01 270
+			mvto va00 va01
+			setv va35 grap posr posy 
+		elif va02 = 4
+			setv ov01 2	
+			setv ov05 2
+			*y coord to stop lift
+			addv ov99 818
+			addv va00 1998
+			addv va01 740
+			mvto va00 va01
+			setv va36 grap posr posy 
+		endi
+
+		addv va02 1
+repe
+link va33 va34 100
+link va35 va36 100
+enum 1 1 31903
+	setv ov56 va33
+	setv ov57 va34
+	setv ov58 va35
+	setv ov59 va36
+next
+*install the lift itself
+setv va10 1
+reps 2
+new: vhcl 3 1 31900 "ze_ngunderwaterlift" 1 0 10
+	bhvr 19
+	attr 516
+	clac -1
+	pat: butt 1 "hnglift" 2 2 0 0 1 [] 0 1
+	pat: butt 2 "hnglift" 4 2 0 15 1 [] 1 1
+	cabn -20 -300 153 58
+	cabw 4
+	cabp 5
+	cabv 1
+	setv va02 game "ng4y"
+	addv va02 735
+	setv ov99 game "ng4y"
+	addv ov99 808
+doif va10 = 1
+	setv va01 game "ng4x"
+	addv va01 1157
+	setv ov05 1
+elif va10 = 2
+	setv va01 game "ng4x"
+	addv va01 1877
+	setv ov05 2
+endi 	
+setv ov01 2
+mvsf va01 va02
+addv va10 1
+repe
+***Overlays
+
+new: simp 1 1 31948 "ze_ngunderwaterlift" 1 5 7000							
+		setv va00 game "ng4x"
+		addv va00 2182
+		setv va01 game "ng4y"
+		addv va01 713
+		mvto va00 va01
+		setv ov01 11
+
+new: simp 1 1 31948 "ze_ngunderwaterlift" 1 3 290							
+		setv va00 game "ng4x"
+		addv va00 1137
+		setv va01 game "ng4y"
+		addv va01 356
+		mvto va00 va01
+		setv ov01 9
+
+new: simp 1 1 31948 "ze_ngunderwaterlift" 1 4 290							
+		setv va00 game "ng4x"
+		addv va00 1864
+		setv va01 game "ng4y"
+		addv va01 362
+		mvto va00 va01
+		setv ov01 10
+
+		
+		
+
+
+endm
+
+
+*******************************************************************
+*lift scripts
+
+
+*push script for the lift buttons
+scrp 2 12 31900 1
+inst
+setv va10 ov05
+*get the level the lift is currently at
+*and if it is moving or not
+enum 3 1 31900
+	doif ov05 = va10
+		setv va03 ov01
+		setv va11 ov11
+	endi
+next
+
+*if the lift isn't currently at this level and not moving
+doif va03 ne ov01 and va11 eq 0
+	pose 1
+	doif ov01 = 1
+		setv va11 -1
+	elif ov01 = 2
+		setv va11 1
+	endi
+	setv va99 ov99
+	setv va01 ov01
+	*start the lift moving
+	enum 3 1 31900
+	doif ov05 = va10
+		setv ov11 va11
+		setv ov01 va01
+		setv ov99 va99
+		doif va11 = -1
+			part 1
+			pose 1
+			part 0
+			setv vely -10
+		elif va11 = 1
+			part 2
+			pose 1
+			part 0
+			setv vely 10
+		endi
+		doif from = pntr
+			gpas 4 0 0 0
+		endi
+		tick 1
+	endi
+	next
+	*button press stim
+	stim writ from 89 1
+	*stim it to wait 
+	stim writ from 75 1
+	*if the lift is here
+elif va03 eq ov01
+	*disapointment stim
+	stim writ from 0 1
+endi
+endm
+
+*elevator tick script
+scrp 3 1 31900 9
+setv va00 ov05
+inst
+setv va10 posb
+subv va10 ov99
+mulv va10 ov11
+doif va10 >= 0
+	velo 0 0
+	setv va00 ov05
+	setv va01 ov01
+	enum 2 12 31900
+		doif ov01 = va01 and va00 = ov05
+			pose 0
+		endi
+	next
+	epas 4 0 0
+		stim writ targ 94 1
+	next
+*stop the lift, drop the passengers
+	setv vely 0
+	doif vely = 0 and ov11 ne 0
+		dpas 0 0 0
+		tick 0
+	endi 
+	setv ov11 0
+*turn the button's light off
+	part 1
+	pose 0
+	part 2
+	pose 0
+	part 0
+endi
+
+endm
+
+*lift activate 1 script - makes the lift go up
+scrp 3 1 31900 1
+inst
+doif vely > 0
+	stop
+endi
+doif ov01 = 1
+	doif from ne pntr
+		stim writ from 0 1
+	endi
+elif ov11 < 0 or ov01 = 2
+	setv ov11 -1
+	setv vely -10
+	setv ov01 1
+	setv ov99 game "ng4y"
+	addv ov99 386
+	
+	part 1
+	pose 1
+	part 0
+	seta ov02 null
+	doif from ne pntr
+		seta ov02 from
+		doif ov02 ne null
+			doif hhld ne ov02
+				spas ownr ov02
+			endi
+		endi
+	else
+		doif ov11 <= 0
+			gpas 4 0 0 0
+		endi
+	endi 
+	tick 1
+	epas 4 0 0
+		stim writ targ 75 1
+	next
+endi
+endm
+
+
+*lift activate 2 script - makes the lift go down
+scrp 3 1 31900 2
+inst
+doif vely < 0
+	stop
+endi
+doif ov01 = 2
+	doif from ne pntr
+		stim writ from 0 1
+	endi
+elif ov11 > 0 or ov01 = 1
+	setv ov11 1
+	setv vely 10
+	setv ov01 2
+	setv ov99 game "ng4y"
+	addv ov99 818
+	
+	part 2
+	pose 1
+	part 0
+	seta ov02 null
+	doif from ne pntr
+		seta ov02 from
+		doif ov02 ne null
+			doif hhld ne ov02
+				spas ownr ov02
+			endi
+		endi
+	else
+		doif ov11 >= 0
+			gpas 4 0 0 0
+		endi
+	endi 
+	tick 1
+	epas 4 0 0
+		stim writ targ 75 1
+	next
+endi
+endm
+
+*eatscript so creatures stop eating the lift
+scrp 3 1 31900 12
+	stim writ from 0 5
+endm
+
+** Remove 
+rscr
+enum 2 12 31900 kill targ next
+enum 3 1 31900 kill targ next
+enum 1 1 31948 kill targ next
+
+scrx 2 12 31900 1 scrx 3 1 31900 1 scrx 3 1 31900 2 scrx 3 1 31900 9 scrx 3 1 31900 12 
+endm
+
