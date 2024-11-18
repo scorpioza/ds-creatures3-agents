@@ -1,0 +1,348 @@
+* Script 4 extracted from CoC_DAE.agents by Mirality REVELATION
+
+*ZootC3LiftButton.CallLift:Push
+scrp 2 12 38040 1
+	inst
+	lock
+	targ mv16
+*	if(Lift.IsActive == false && Lift.ButtonCurrent != self)
+	doif ov00 = 0 and ov30 <> ownr
+*		Lift.IsActive = true
+		setv ov00 1
+*		Lift.ButtonDestination = self
+		seta ov31 ownr
+		tick 1
+		targ ownr
+		snde "but1"
+*		Pose.1
+		pose 1
+		slow
+	else
+		targ ownr
+		anim [1 0]
+	endi
+endm
+
+*ZootC3Lift.GoUp:Push
+scrp 3 1 38040 1
+	lock
+	inst
+	seta mv99 from
+*	if(From = pntr)
+	doif mv99 = pntr
+		targ pntr
+		anim [1 0]
+	endi
+
+	snde "clik"
+	targ mv30
+*	if(!self.IsActive && self.ButtonCurrent.ButtonAbove != null)
+	doif mv00 = 0 and ov20 <> null
+*		self.IsActive = true
+		setv mv00 1
+		targ mv99
+*		if(From.family == Creature)
+		doif fmly eq 4
+*			from.Stim(Wait, 1)
+			stim writ from 75 1
+		endi
+		slow
+		targ mv30
+*		ButtonDestination = self.ButtonCurrent.ButtonAbove
+		seta mv31 ov20
+		targ ownr
+*		self.Base.Pose.3
+		pose 3
+		wait 1
+
+		targ mv31
+		snde "but1"
+*		Pose.1
+		pose 1
+*		IsActive = true
+		setv mv00 1
+
+		targ ownr
+		tick 1
+	else
+		targ from
+*		if(from.Is(Creature))
+		doif fmly eq 4
+*			from.Stim(Disappoint, 1)
+			stim writ from 0 1
+		endi
+	endi
+endm
+
+*ZootC3Lift.GoDown:Pull
+scrp 3 1 38040 2
+	lock
+	inst
+	seta mv99 from
+*	if(From = pntr)
+	doif mv99 = pntr
+		targ pntr
+		anim [1 0]
+	endi
+
+	snde "clik"
+	targ mv30
+*	if(!self.IsActive && self.ButtonCurrent.ButtonBelow != null)
+	doif mv00 = 0 and ov21 <> null
+*		self.IsActive = true
+		setv mv00 1
+		targ mv99
+*		if(From.family == Creature)
+		doif fmly eq 4
+*			from.Stim(Wait, 1)
+			stim writ from 75 1
+		endi
+		slow
+		targ mv30
+*		ButtonDestination = self.ButtonCurrent.ButtonBelow
+		seta mv31 ov21
+		targ ownr
+*		self.Base.Pose.2
+		pose 2
+		wait 1
+
+		targ mv31
+		snde "but1"
+*		Pose.1
+		pose 1
+*		IsActive = true
+		setv mv00 1
+
+		targ ownr
+		tick 1
+	else
+		targ from
+*		if(from.Is(Creature))
+		doif fmly eq 4
+*			from.Stim(Disappoint, 1)
+			stim writ from 0 1
+		endi
+	endi
+endm
+
+*ZootC3Lift.Hit:Hit
+scrp 2 12 38040 3
+	sndc "hit_"
+	prt: bang rand 60 100
+	stim writ from 92 1
+endm
+
+*ZootC3Lift.Timer:Timer
+scrp 3 1 38040 9
+	lock
+	inst
+*	if(IsMoving = false)
+	doif mv80 = 0
+		inst
+*		if(From? = pntr)
+		doif mv99 = pntr
+*			foreachTouching(Grendel)
+			etch 4 2 0
+*Zombify it and face it forward so it'll fit
+				inst
+				doif targ <> null
+*
+					nohh
+*					targ.Zombify()
+					zomb 1
+					pose 80
+					dirn 1
+					wait 4
+					inst
+					doif targ <> null
+*						ownr.PickUp(targ)
+						spas ownr targ
+					endi
+					wait 2
+					inst
+*					if(targ != null && targ.Carrier == null)
+					doif targ <> null
+						doif carr = null
+*							targ.Unzombify()
+							zomb 0
+						endi
+					endi
+
+				endi
+			next
+			targ ownr
+*			ownr.PickUp(TouchingCabin(Creatures All All))
+			gpas 4 0 0 1
+*		else if(From? != pntr && From? != null)
+		elif mv99 <> pntr and mv99 <> null
+			targ mv99
+*			if(From.Genus = Grendel)
+			doif gnus = 2
+*Zombify it and face it forward so it'll fit
+				inst
+*				From.Zombify()
+				zomb 1
+				pose 80
+				dirn 1
+				wait 4
+				inst
+*				ownr.PickUp(From)
+				spas ownr targ
+				wait 2
+				inst
+*				From.Unzombify()
+				zomb 0
+			else
+*				ownr.PickUp(From)
+				spas ownr targ
+			endi
+			targ ownr
+		endi
+
+		inst
+*		self.Door.Animate.Close
+		part 1
+		anim [7 6 5 4 3 2 1 0]
+		over
+*		IsMoving = true
+		setv mv80 1
+	endi
+
+*	distance = RelativeY(self, ButtonDestination) - 20
+	setv va02 rely ownr mv31
+	subv va02 20
+*	absDistance = AbsoluteValue(distance)
+	setv va03 va02
+	absv va03
+*	if(absDistance > 200)
+	doif va03 > 200
+*		velocity = 10
+		setv va04 10
+		tick 6
+*	else if(absDistance > 100 && absDistance <= 200)
+	elif va03 > 100 and va03 <= 200
+*		velocity = 8
+		setv va04 8
+		tick 4
+*	else if(absDistance > 50 && absDistance <= 100)
+	elif va03 > 50 and va03 <= 100
+*		velocity = 5
+		setv va04 5
+		tick 2
+*	else if(absDistance > 10 && absDistance <= 50)
+	elif va03 > 10 and va03 <= 50
+*		velocity = 3
+		setv va04 3
+		tick 1
+*	else if(absDistance <=10)
+	elif va03 <= 10
+*		velocity = 1
+		setv va04 1
+		tick 1
+	endi
+
+*Direction is up
+*	if(distance < 0)
+	doif va02 < 0
+*		velocity = -AbsoluteValue(velocity)
+		absv va04
+		negv va04
+		part 0
+		anim [3]
+		bhvr 0
+		velo 0 va04
+*	else if(distance < 0)
+	elif va02 > 0
+*		velocity = AbsoluteValue(velocity)
+		absv va04
+		part 0
+		anim [2]
+		bhvr 0
+		velo 0 va04
+*	else if(distance == 0)
+	elif va02 = 0
+*		Velocity = (x: 0,y: 0)
+		velo 0 0
+		tick 0
+*		IsMoving = false
+		setv mv80 0
+		part 1
+*		self.Door.Animate.Open
+		anim [0 1 2 3 4 5 6 7]
+		over
+*		self.Base.Pose.Stationary
+		part 0
+		pose 0
+
+
+		inst
+*		foreach(Creature All All)
+		epas 4 0 0
+			doif targ <> null
+*				targ.Unzombify()
+				zomb 0
+*				targ.Strim(TravelledInLift)
+				stim writ targ 94 1
+			endi
+		next
+		targ ownr
+*		ownr.DropPassengers(Creatures All All)
+		dpas 0 0 0
+
+
+		inst
+
+*		if(From? != null)
+		doif mv99 ne null
+*			targ From
+			targ mv99
+*			if(From.Family = Creature)
+			doif fmly eq 4
+*				From.Stim(TraveledInLift, 1)
+				stim writ targ 94 1
+			endi
+			targ ownr
+*			From? = null
+			seta mv99 null
+		endi
+
+
+		targ mv31
+*		ButtonDestination.IsActive = 0
+		setv ov00 0
+*		ButtonDestination.Pose.0
+		pose 0
+*		ButtonCurrent = ButtonDestination
+		seta mv30 mv31
+
+		unlk
+
+		targ ownr
+*		IsActive = false
+		setv mv00 0
+		snde "ding"
+		part 0
+		bhvr 3
+	endi
+endm
+
+*rscr
+*enum 3 1 38040
+*	kill targ
+*next
+*scrx 3 1 38040 1
+*scrx 3 1 38040 2
+*scrx 3 1 38040 9
+*scrx 3 1 38040 1500
+*scrx 3 1 38040 2000
+*scrx 3 1 38040 2001
+*
+*
+*enum 2 12 38040
+*	kill targ
+*next
+*scrx 2 12 38040 1
+*scrx 2 12 38040 2
+*scrx 2 12 38040 1500
+*scrx 2 12 38040 1501
+*scrx 2 12 38040 1000
