@@ -267,7 +267,7 @@ bhvr 0
 fric 0
 elas 0
 accg 0
-mvto 500 20700
+mvto 10420 2215
 * The Actual Door!
 new: simp 2 2 4182 "ze_mushroom_door" 8 0 1
 tick 0
@@ -276,9 +276,9 @@ bhvr 1
 fric 0
 elas 0
 accg 0
-tint 120 100 90 128 128
+tint 120 150 120 128 128
 seta va08 targ
-mvto 500 20700
+mvto 10420 2215
 
 new: simp 2 2 4183 "ze_mushroom_door" 1 8 1
 tick 0
@@ -309,10 +309,10 @@ scrp 2 2 4182 1
 		anim [0 1 2 3 4 5 6]
 		wait 2
 		loop
-			doif posl <= 500
+			doif posl <= 10420
 				velo 3 0
 			endi
-		untl posl >= 530
+		untl posl >= 10450
 		velo 0 0
 		doif mv99 = 0
 			doif from ne null
@@ -345,10 +345,10 @@ scrp 2 2 4182 1
 		anim [6 5 4 3 2 1 0]
 		wait 2
 		loop
-			doif posl >= 530
+			doif posl >= 10450
 				velo -3 0
 			endi
-		untl posl <= 500
+		untl posl <= 10420
 		velo 0 0
 	unlk
 endm
@@ -375,23 +375,23 @@ scrp 2 2 4183 1
 	doif mv99 = 0
 		doif from ne null
 			targ from
-			mvsf 530 20720
+			mvsf 10450 2215
 		endi
 	endi
 	enum 2 2 4182
 		anim [0 0 1 1 2 2 3 3 4 4 5 5 6 6]
 		wait 2
 		loop
-			doif posl <= 500
+			doif posl <= 10420
 				velo 2 0
 			endi
-		untl posl >= 530
+		untl posl >= 10450
 		velo 0 0
 		doif mv99 = 1
 			cmrt 0
 
 			etch 4 0 0
-				mvsf 530 20720
+				mvsf 10450 2215
 			next
 			targ ownr
 			targ ov00
@@ -400,10 +400,10 @@ scrp 2 2 4183 1
 		anim [6 6 5 5 4 4 3 3 2 2 1 1 0 0]
 		wait 2
 		loop
-			doif posl >= 530
+			doif posl >= 10450
 				velo -2 0
 			endi
-		untl posl <= 500
+		untl posl <= 10420
 		velo 0 0
 	next
 	setv va00 255
