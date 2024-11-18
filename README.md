@@ -14,6 +14,8 @@ My agents or modifications for DockingStation. [screenshots](https://github.com/
 
 [Shee Day Dream](https://github.com/scorpioza/ds-creatures3-agents/tree/master/METAROOMS/SheeDayDreamX/)
 ![Shee Day Dream](https://raw.githubusercontent.com/scorpioza/ds-creatures3-agents/master/_screenshots/SheeDayDreamXScreenshot.png)
+![Shee Day Dream](https://raw.githubusercontent.com/scorpioza/ds-creatures3-agents/master/METAROOMS/SheeDayDreamX/SheeDayDreamX/SheeDayDreamX.png)
+
 
 [GP Main & Meso Variantions](https://github.com/scorpioza/ds-creatures3-agents/tree/master/METAROOMS/Ze%20GP/)
 ![GP Main Variation](https://raw.githubusercontent.com/scorpioza/ds-creatures3-agents/master/METAROOMS/Ze%20GP/ze%20gp%20main/ze_gp_mainworld.png)
