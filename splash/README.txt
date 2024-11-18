@@ -1,1 +1,0 @@
-Modifications for 0-ROOM (with splash screen) where norns appears from time to time because of ocasional error of teleportation.
