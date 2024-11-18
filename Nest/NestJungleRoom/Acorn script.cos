@@ -1,0 +1,271 @@
+** Acorn plant! **
+******************
+
+new: simp 1 1 6603 "blnk" 2 0 1998
+attr 208
+bhvr 0
+elas 0
+aero 0
+accg 0
+mvto 6220 5680 
+velo 0 0
+tick 500
+
+new: simp 1 1 6603 "blnk" 2 0 1998
+attr 208
+bhvr 0
+elas 0
+aero 0
+accg 0
+mvto 6450 5950
+velo 0 0
+tick 500
+
+new: simp 1 1 6603 "blnk" 2 0 1998
+attr 208
+bhvr 0
+elas 0
+aero 0
+accg 0
+mvto 6850 5950
+velo 0 0
+tick 500
+
+new: simp 1 1 6603 "blnk" 2 0 1998
+attr 208
+bhvr 0
+elas 0
+aero 0
+accg 0
+mvto 6540 5680
+velo 0 0
+tick 500
+
+
+scrp 1 1 6603 9
+	doif totl 2 4 6601 lt 6
+		setv va00 posl
+		subv va00 15
+		setv va01 post
+		subv va01 -10
+		inst
+		new: simp 1 1 6604 "acorn" 1 32 400
+		attr 208
+		accg 30
+		bhvr 0
+		elas 0
+		aero 0
+
+		doif tmvt va00 va01 eq 1
+				mvto va00 va01 
+			else
+				kill targ
+			endi
+		velo rand -20 130 rand -1 1
+	elif totl 2 4 6601 gt 6
+		wait 50
+	endi
+endm
+
+scrp 1 1 6604 6
+	setv va00 posl
+	setv va01 post
+	inst
+	new: simp 2 4 6601 "acorn" 21 0 400
+	attr 192
+	accg 30
+	bhvr 0
+	tick 1
+	elas 0
+	aero 0
+
+	doif tmvt va00 va01 eq 1
+				mvto va00 va01 
+			else
+				kill targ
+			endi
+	kill ownr
+endm
+
+
+scrp 2 4 6601 9
+	setv ov10 rand 100 200
+	setv ov11 rand 0 1
+	doif pose eq 0
+		pose 1
+		wait ov10
+		pose 2
+		wait ov10
+		pose 3
+		wait ov10
+		pose 4
+		wait ov10
+		pose 5
+		setv ov20 0
+		wait ov10
+	endi
+	doif pose eq 5
+		wait ov10
+		wait ov10
+		wait ov10
+		addv ov20 1
+		doif ov20 lt 5
+			doif ov11 eq 0
+				setv va00 ftoi posl
+				setv va01 ftoi post
+				addv va00 -14
+				addv va01 18
+				new: simp 2 3 6600 "acorn" 6 21 800
+				attr 195
+				bhvr 48
+				elas 30
+				perm 60
+				accg 5
+				emit 7 .5
+				tick 1
+				fric 100
+
+			doif tmvt va00 va01 eq 1
+				mvto va00 va01 
+			else
+				kill targ
+			endi
+				*mvsf va00 va01 
+				targ ownr
+				pose 6
+				wait ov10
+				pose 7
+				wait ov10
+				pose 8
+				wait ov10
+				pose 9
+				wait ov10
+				pose 5
+
+			elif ov11 eq 1
+				setv va00 ftoi posl
+				setv va01 ftoi post
+				addv va00 7
+				addv va01 25
+				new: simp 2 3 6600 "acorn" 6 21 800
+				attr 195
+				bhvr 48
+				elas 30
+				perm 60
+				accg 5
+				emit 7 .5
+				tick 1
+				fric 100
+
+			doif tmvt va00 va01 eq 1
+				mvto va00 va01 
+			else
+				kill targ
+			endi
+				*mvsf va00 va01 
+				targ ownr
+				pose 10
+				wait ov10
+				pose 11
+				wait ov10
+				pose 12
+				wait ov10
+				pose 13
+				wait ov10
+				pose 5
+			endi
+
+		elif ov20 ge 5
+			targ ownr
+			pose 13
+			wait 10
+			pose 14
+			wait 10
+			pose 15
+			wait 10
+			pose 16
+			wait 10
+			pose 17
+			wait 10
+			pose 18
+			wait 10
+			pose 19
+			wait 10
+			pose 20
+			wait 10
+			kill ownr
+		endi
+	endi
+endm
+
+scrp 2 3 6600 12
+	lock
+	snde "eat1"
+	stim writ from 77 3
+	wait 4
+	kill ownr
+endm
+
+
+scrp 2 3 6600 6
+	doif wall eq down
+		snde "dr10"
+		pose 1
+	endi
+endm
+
+
+scrp 2 3 6600 4
+	pose 0
+endm
+
+scrp 2 3 6600 9
+	wait rand 400 700
+	targ ownr
+	attr 192
+	bhvr 0
+	doif rtyp room targ = 5 or rtyp room targ = 7
+		pose 2
+		wait rand 2 10
+		pose 3
+		doif totl 2 4 6601 lt 7
+			pose 4
+			wait rand 2 10
+			pose 5
+			setv va00 ftoi posl
+			setv va01 ftoi post
+			addv va01 -25
+			new: simp 2 4 6601 "acorn" 21 0 400
+			attr 192
+			accg 30
+			bhvr 0
+			tick 1
+			elas 0
+			aero 0
+
+			doif tmvt va00 va01 eq 1
+				mvto va00 va01 
+			else
+				kill targ
+			endi
+			*mvsf va00 va01 
+			kill ownr
+		elif totl 2 4 6601 ge 7
+			kill ownr
+		endi
+	else
+		pose 2
+		wait rand 2 10
+		pose 3
+		wait rand 2 10
+		kill ownr
+	endi
+endm
+
+rscr
+enum 1 1 6603
+	kill targ
+next
+enum 2 4 6601
+	kill targ
+next

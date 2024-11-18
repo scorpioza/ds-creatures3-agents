@@ -1,0 +1,142 @@
+*
+** Add tubas garden
+*
+reps 10
+*create some seeds
+	new: simp 2 3 16 "tuba" 16 66 305
+	attr 194
+	bhvr 48
+	elas 0
+	aero 1
+	perm 40
+	anim [0 1 2 3 4 5 6 7 255]
+	emit 7 0.5
+	mvto 3640 5300
+	velo rand -10 10 rand 0 -10
+	tick rand 30 60
+repe
+
+
+*
+* Add a mini empathic vendor in the navi area
+*
+new: comp 2 23 9 "mini_vendor" 23 0 3000
+attr 198
+perm 60
+accg 5
+elas 0
+bhvr 3
+anim [0 1 2 3 4 5 6 7 8 9 10 11 255]
+mvto 3900 5530
+
+new: comp 2 23 9 "mini_vendor" 23 0 3000
+attr 198
+perm 60
+accg 5
+elas 0
+bhvr 3
+anim [0 1 2 3 4 5 6 7 8 9 10 11 255]
+mvto 4530 5530
+
+**********************************************
+
+* new: simp 2 15 24 "snotrock" 
+* new: simp 2 11 9 "carr"
+
+new: simp 1 1 66666 "blnk" 0 0 0
+
+rnge 1500
+
+mvto 3666 5340
+
+tick 20
+
+
+new: simp 1 1 66666 "blnk" 0 0 0
+
+rnge 1500
+
+mvto 4650 5340
+
+tick 20
+
+
+scrp 1 1 66666 9
+
+
+	setv va01 posl
+
+	setv va02 post
+
+	* carrots
+
+	
+    doif totl 2 11 9 > 0
+
+		setv va03 0
+
+		esee 2 11 9
+	        addv va03 1
+		next
+
+
+		doif va03 le 5
+
+			setv va04 va01
+			addv va04 rand -100 100
+
+			inst rtar 2 11 9 stpt seta va00 twin targ 1 attr 199 elas 0 mvto va04 va02
+		endi
+
+    endi
+	
+
+	* snotrock
+
+    doif totl 2 15 24 > 0
+
+		setv va03 0
+
+		esee 2 15 24
+	        addv va03 1
+		next
+
+
+		doif va03 le 2
+
+			inst rtar 2 15 24 stpt seta va00 twin targ 1 mvto va01 va02
+
+		endi
+
+    endi
+	
+	targ ownr
+
+endm
+
+
+* Snotrock eat script
+
+scrp 2 15 24 12
+
+	sndc "chwp"
+
+	targ from
+
+		stim writ from 80 .5
+
+		* Protein 
+		  chem 12 1.0
+		* Amino acid  
+		  chem 13 0.3   
+		chem 39 .04
+		* Vitamin C: Keeps bones healthy, aids in healing from injuries.
+		  chem 99 0.5 
+
+	targ ownr
+	kill ownr
+
+endm
+
+
+**********************************************

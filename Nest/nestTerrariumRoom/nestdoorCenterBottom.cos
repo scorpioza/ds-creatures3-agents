@@ -1,0 +1,82 @@
+* Center door learning room: 6 - 16
+new: simp 2 2 38043 "nest_terrarium_center_bottom_door" 11 6 1
+attr 4
+bhvr 1
+elas 0
+seta va08 targ
+setv ov02 0
+mvto 4095 5284
+frat 2
+
+* Bottom Door
+new: simp 2 2 38043 "nest_terrarium_center_bottom_door" 6 0 1
+attr 4
+bhvr 1
+elas 0
+seta ov00 va08
+seta avar va08 0 targ
+setv ov02 1
+mvto 3648 5412
+frat 2
+
+**Doors
+scrp 2 2 38043 1
+	lock
+
+*Tell the norn on the other end to wait
+	doif crea from = 1
+		stim writ from 75 1
+	endi
+
+	doif ov02 = 0
+		anim [0 1 2 3 4 5 6 7 8 9 10 9 8 7 6 5 4 3 2 1 0]
+	else
+		anim [0 1 2 3 4 5 4 3 2 1 0]
+	endi
+
+	targ ownr
+
+	targ ov00
+	setv va08 posx
+	setv va01 posb
+
+	doif ov02 = 1
+		anim [0 1 2 3 4 5 4 3 2 1 0]
+	else
+		anim [0 1 2 3 4 5 6 7 8 9 10 9 8 7 6 5 4 3 2 1 0]
+	endi
+
+	targ ownr
+	doif from = pntr
+		targ ov00
+		cmrt 0
+
+		etch 4 0 0
+			doif carr eq null
+				doif movs = 0
+					doif hhld ne targ
+*					nohh
+						mvsf va08 va01
+						stim writ from 95 1
+					endi
+				endi
+			endi
+		next
+	else
+		doif from ne null
+			targ from
+			doif hhld ne targ
+*				nohh
+				doif carr eq null
+					doif movs = 0
+						mvsf va08 va01
+						stim writ from 95 1
+					endi
+				endi
+			endi
+		endi
+	endi
+	targ ownr
+
+	unlk	
+endm

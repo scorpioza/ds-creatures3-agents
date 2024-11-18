@@ -21,16 +21,21 @@ group DSAG "Nest Terrarium"
   "Dependency Category 14" 1
   "Dependency Category 15" 1
   "Dependency Category 16" 2
-  "Dependency Count" 16
-  "Script Count" 8
-  "Agent Animation Gallery" "nestflower"
+  "Dependency Category 17" 2
+  "Dependency Category 18" 2
+  "Dependency Category 19" 2
+  "Dependency Category 20" 2
+  "Dependency Category 21" 2
+  "Dependency Count" 21
+  "Script Count" 13
+  "Agent Animation Gallery" "apple2"
   "Agent Animation String" "0"  
   "Agent Description" "Norn Terrarium Nest"
   "Dependency 1" "nestTerrarium.blk"
-  "Dependency 2" "nestdoorleft.c16"
+  "Dependency 2" "nest_terrarium_center_bottom_door.c16"
   "Dependency 3" "nestdoor.c16"
   "Dependency 4" "norn to grendel door.c16"  
-  "Dependency 5" "nestflower.c16"
+  "Dependency 5" "apple2.c16"
   "Dependency 6" "berrybush.c16"  
   "Dependency 7" "nidoor.c16"
   "Dependency 8" "dor1.wav"
@@ -42,34 +47,43 @@ group DSAG "Nest Terrarium"
   "Dependency 14" "smit.wav" 
   "Dependency 15" "c1c5.wav" 
   "Dependency 16" "ntbackwall.c16"
+  "Dependency 17" "lc_c1_moth.c16"
+  "Dependency 18" "pear.c16"
+  "Dependency 19" "acorn.c16"
+  "Dependency 20" "nestseed.c16"
+  "Dependency 21" "ols_food.c16"
+
   "Remove script" "enum 1 3 38008 kill targ next   enum 1 1 38008 kill targ next   delr grap 3536 4931 enum 2 2 38001   setv va01 room targ   kill targ  next  enum 2 2 38002   setv va02 room targ   kill targ  next enum 2 2 38003   setv va01 room targ   kill targ  next  enum 2 2 38004   setv va02 room targ   kill targ  next  enum 2 2 38005 kill targ next enum 2 2 38006 kill targ next enum 2 4 38007 kill targ next scrx 2 4 38007 1 scrx 2 4 38007 2 scrx 2 4 38007 3 scrx 2 4 38007 9 enum 1 3 38043 kill targ next enum 1 3 38044 kill targ next"
   "Script 1" @ "nestTerrarium.cos"
   "Script 2" @ "nestdoorTop.cos"
-  "Script 3" @ "nestdoorLeft.cos"
+  "Script 3" @ "nestdoorCenterBottom.cos"
   "Script 4" @ "nestOpenCloseDoor.cos"   
-  "Script 5" @ "nestflower.cos"
+  "Script 5" @ "MiniApples script.cos"
   "Script 6" @ "nestTerrariumMushrooms.cos"
-  "Script 7" @ "C1Butterfly.cos"
+  "Script 7" @ "Moth script.cos"
   "Script 8" @ "C1Clock.cos"
+  "Script 9" @ "nestTerrariumPlants.cos"
+  "Script 10" @ "Acorn script.cos"
+  "Script 11" @ "Pear script.cos"
+  "Script 12" @ "Vocb script.cos"
+  "Script 13" @ "ze_yarn_fruit.cos"
 
 inline FILE "nestTerrarium.blk" "nestTerrarium.blk"
 
-inline FILE "nestdoorleft.c16" "nestdoorleft.c16"
+inline FILE "nest_terrarium_center_bottom_door.c16" "nest_terrarium_center_bottom_door.c16"
 inline FILE "nestdoor.c16" "nestdoor.c16"
 inline FILE "norn to grendel door.c16" "norn to grendel door.c16"
 
-inline FILE "nestflower.c16" "nestflower.c16"
+inline FILE "apple2.c16" "apple2.c16"
 inline FILE "berrybush.c16" "berrybush.c16"
 
 inline FILE "nidoor.c16" "nidoor.c16"
 
 inline FILE "nest_terrarium_shroom.c16" "nest_terrarium_shroom.c16"
 
-inline FILE "c1cloudbutterfly.c16" "c1cloudbutterfly.c16"
 inline FILE "c1clock.c16" "c1clock.c16"
 
 inline FILE "nest_terrarium_overlays.c16" "nest_terrarium_overlays.c16"
-
 
 inline FILE "dor1.wav" "dor1.wav"
 inline FILE "open.wav" "open.wav"
@@ -78,3 +92,10 @@ inline FILE "smit.wav" "smit.wav"
 inline FILE "c1c5.wav" "c1c5.wav"
 
 inline FILE "ntbackwall.c16" "ntbackwall.c16"
+inline FILE "lc_c1_moth.c16" "lc_c1_moth.c16"
+
+inline FILE "pear.c16" "pear.c16"
+inline FILE "acorn.c16" "acorn.c16"
+
+inline FILE "nestseed.c16" "nestseed.c16"
+inline FILE "ols_food.c16" "ols_food.c16"

@@ -1,0 +1,83 @@
+**
+** YARN FRUIT PATCH PLANT
+** Open source, do whatever you want with the code/images. No need to credit.
+** Pilla
+**
+*
+* CAOS2PRAY CHUNK
+*# Pray-File "ols_yarnfruit.agents"
+*# DS-Name "OLS Yarn Fruit"
+*# attach ols_food.c16
+*# desc = "This Yarn Fruit loves to grown in the hallway arena of the Other Lone Shee ship. It's made from sheep."
+*# Agent Animation File = "ols_food.c16"
+*# Agent Sprite First Image = 0
+*# Agent Animation Gallery = "ols_food"
+*
+*
+* 36435 = Custom species number
+* Objects:
+* 1 1 36435 - Invisible patch
+* 1 7 36435 - Flower
+* 1 8 36435 - Yarn fruit
+*
+* Scripts:
+* 1 1 36435 9 - Patch timer
+* 1 7 36435 9 - Flower timer
+* 1 8 36435 4 - Yarn fruit pickup
+* 1 8 36435 6 - Fruit collision
+* 1 8 36435 9 - Fruit timer
+* 1 8 36435 12 - Fruit eat event
+*
+
+** Create the invisible patch plants  (attr: invisible 16)
+new: simp 1 1 36435 "ols_food" 1 23 1 attr 16 bhvr 0 mvsf 3366 5370 tick 20
+new: simp 1 1 36435 "ols_food" 1 23 1 attr 16 bhvr 0 mvsf 1132 9360 tick 20
+
+** The timer script
+scrp 1 1 36435 9 
+  tick rand 800 900
+  setv va00 posl setv va01 post
+  * Create a flower (attr: invisible 16)
+  new: simp 2 7 36435 "ols_food" 1 0 1 attr 16 bhvr 0 tick 2100
+  addv va00 rand 0 75 addv va01 rand 0 75 mvsf va00 va01
+endm
+
+** flower script: turn flower into fruit
+scrp 2 7 36435 9
+setv va00 posl setv va01 post
+  * Create fruit (attr: carry 2 + collide 64 + physics 128 = 194, bhvr: eat 16 + pickup 32 = 48 )
+  new: simp 2 8 36435 "ols_food" 3 0 rand 400 600 
+  attr 194 bhvr 48 perm 100 accg 1.2 elas 30 fric 60 aero 1.1 emit 6 1
+  pose 1 mvsf va00 va01 tick 1500
+targ ownr
+kill ownr
+endm
+
+** Fruit scripts: pickup, collision, timer and eat script
+scrp 2 8 36435 4
+  pose 1
+endm
+scrp 2 8 36435 6
+  doif pose = 1 pose 2 mira rand 0 1 endi
+endm
+scrp 2 8 36435 9
+  kill ownr
+endm
+scrp 2 8 36435 12
+  stim writ from 78 1.2 kill ownr
+endm
+
+**
+** Removal script
+**
+
+*rscr
+*enum 1 1 36435 kill targ next
+*enum 2 8 36435 kill targ next
+*enum 2 7 36435 kill targ next
+*scrx 1 1 36435 9
+*scrx 2 8 36435 4
+*scrx 2 8 36435 6
+*scrx 2 8 36435 9
+*scrx 2 8 36435 12
+*scrx 2 7 36435 9
