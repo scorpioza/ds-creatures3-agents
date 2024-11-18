@@ -1,0 +1,170 @@
+**
+** Door script
+** GH Lower - Main
+**
+
+** Remove old instances
+enum 2 2 21857
+	doif name "doorname" eq "mainjungle"
+	kill targ
+	endi
+next
+
+doif game "gpgrendelhideout" ne 1 and game "gpmain" ne 1
+	** owo
+else
+**
+** The door inside the grendel hideout
+	new: comp 2 2 21857 "ze_gp_doormesojungle_UZAG" 11 29 1
+	sets name "doorname" "mainjungle"
+** Activateable
+	attr 4
+	bhvr 1
+* The teleporting door animation & disable button
+	pat: dull 3 "ze_gp_doormesojungle_UZAG" 40 0 0 2
+	pat: butt 4 "ze_gp_doormesojungle_UZAG" 53 2 144 68 1 [] 500 0
+	part 4
+	pose 1
+* The disabled OV
+	setv ov00 0
+	mvto 20181 811
+	setv va50 room targ	
+**
+** the door inside main
+	new: comp 2 2 21857 "ze_gp_doormesojungle_UZAG" 11 82 1
+	sets name "doorname" "mainjungle"
+** Activateable
+	attr 4
+	bhvr 1
+* The teleporting door animation & disable button
+	pat: dull 3 "ze_gp_doormesojungle_UZAG" 93 0 0 2
+	pat: butt 4 "ze_gp_doormesojungle_UZAG" 107 2 144 71 1 [] 500 0
+	part 4
+	pose 1
+* The disabled OV
+	setv ov00 0
+	mvto 21248 2198
+	setv va51 room targ
+
+* Check if the doors exist before linking
+	doif va51 ne -1 and va50 ne -1
+		link va50 va51 30
+	else
+		enum 2 2 21857
+			doif name "doorname" eq "mainjungle"
+			kill targ
+			endi
+		next
+	endi
+endi
+
+**
+** SCRIPTS
+**
+
+**
+** Door script
+**
+
+** Push
+scrp 2 2 21857 1
+** check if the door is enabled
+	doif ov00 eq 0
+** If yes, lock the script
+		lock
+
+** Search the other door
+		seta va90 ownr
+		setv va91 ov01
+		inst
+		enum 2 2 21857
+			doif targ ne ownr
+				doif name "doorname" eq "mainjungle"
+					seta va90 targ
+				endi
+			endi
+		next
+		slow
+** Check whether the other door is different from this one
+		doif va90 ne ownr
+** Target the other door to set coordinates
+			targ va90
+			setv va05 posx
+			setv va06 posy
+			targ ownr
+** Opening animation sequence
+
+			part 3
+			doif ov01 eq 0
+				anim [1 2 3 4 5 6 7 8]
+				over
+				anim [9 10 11 12 0]
+			else
+				anim [1 2 3 4 5 6 7 8]
+				over
+				anim [9 10 11 0]
+			endi
+
+
+			targ va90
+			part 3
+			doif ov01 eq 0
+				anim [9 8 7 6 5 4 3 2 1 0]
+			else
+				anim [8 7 6 5 4 3 2 1 0]
+			endi
+
+			doif from eq pntr
+				cmrp va05 va06 0
+			else
+** Target the pusher
+					targ from
+** Move the creature
+					mvsf va05 va06
+** Stim the creature "travelled through door"
+					stim writ from 95 1
+** urge to remove attention from door
+** and reset the verb state to neutral
+					urge writ from 2 -1 -1 1
+			endi
+
+		endi
+	endi
+
+endm
+
+** Disable
+scrp 2 2 21857 500
+	setv va02 ov01
+	mesg writ pntr 101
+	doif ov00 eq 0
+		enum 2 2 21857
+			doif name "doorname" eq "mainjungle"
+			part 0
+			anim [1 2 3 4 5 6 7 8 9 10]
+			part 4
+			pose 0
+			attr 16
+			setv ov00 1
+			endi
+		next
+	else
+		enum 2 2 21857
+			doif name "doorname" eq "mainjungle"
+				part 0
+				anim [10 9 8 7 6 5 4 3 2 1 0]
+				part 4
+				pose 1
+				attr 4
+				setv ov00 0
+			endi
+		next
+	endi
+endm
+
+
+rscr
+
+enum 2 2 21857
+	kill targ
+next

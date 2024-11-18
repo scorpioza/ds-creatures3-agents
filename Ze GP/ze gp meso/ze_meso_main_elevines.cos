@@ -1,0 +1,292 @@
+**
+**
+** Favplace injector
+**
+**
+
+new: simp 1 1 21835 "blnk" 1 0 0
+tick 1
+
+**
+** FAVPLACE GRENDEL MESO
+doif game "gpmeso" ne 1
+	new: simp 1 3 21836 "ze_gp_favicons_meso" 1 0 1
+	attr 272
+	mvto 24930 620
+	tick 10
+endi
+
+
+**
+** FAVPLACE INJECTOR TIMER SCRIPT
+**
+**
+scrp 1 1 21835 9
+* disable ticks
+	tick 0
+* camera to favplaces
+	targ ownr
+* grendel meso
+	rtar 1 3 21836
+	cmrp posx posy 0
+	wait 20
+endm
+
+
+**
+** TELEPORTERS
+** 0 - 19: meso & main
+** 20 - 24: desert
+** 25 - 29: jungle
+** 50 - 60: teleporters
+**
+
+**
+** DOORS
+** 0 - 19: meso & main
+** 20 - 24: desert
+** 25 - 29: jungle
+** 50 - 60: teleporters
+**
+**
+
+** If desert hideout injected, create doors to/from desert hideout
+doif game "gpmain" eq 1 and game "gpmeso" ne 1
+**
+** The door inside desert hideout
+	new: comp 2 2 21805 "ze_gp_dhelevators_CS" 16 19 1
+** Activateable
+	attr 4
+bhvr 1
+* The idle animation, teleporting door animation & disable button
+	pat: dull 2 "ze_gp_dhelevators_CS" 35 92 59 1
+	pat: dull 3 "ze_gp_dhelevators_CS" 18 0 0 2
+	pat: butt 4 "ze_gp_dhelevators_CS" 40 2 113 83 1 [] 500 1
+* The disabled OV
+	setv ov00 0
+* lift id
+	setv ov01 0
+** The idle animation
+	part 2
+	frat 2
+	anim [0 0 0 0 0 0 0 0 0 4 3 2 1 255]
+** the frametick of the teleporting animation
+	part 3
+	frat 2
+	mvto 21294 1322
+**
+** the door inside meso
+	new: comp 2 2 21805 "gp_doordhmeso_CS" 28 9 1
+** Activateable
+	attr 4
+* The idle animation, teleporting door animation & disable button
+	pat: dull 2 "gp_doordhmeso_CS" 0 0 0 1
+	pat: dull 3 "gp_doordhmeso_CS" 9 0 0 2
+	pat: butt 4 "gp_doordhmeso_CS" 26 2 54 99 1 [1 0 255] 500 1
+* The disabled OV
+	setv ov00 0
+* lift id
+	setv ov01 1
+** The idle animation
+	part 2
+	frat 4
+	anim [2 4 0 0 0 6 7 8 255]
+** the frametick of the teleporting animation
+	part 3
+	frat 2
+	part 4
+	frat 5
+	anim [0]
+	mvto 23520 440
+endi
+
+
+**
+**
+** ELEVINES
+**
+**
+
+**
+** MESO
+**
+
+doif game "gpmeso" ne 1
+*
+** Upper mother tree elevine
+*	new: simp 3 1 21835 "gp_eleplant_JESS" 1 0 rand 200 500
+*	setv ov00 8
+*	mvto 25255 879
+*
+** Lower mother tree elevine
+*	new: simp 3 1 21835 "gp_eleplant_JESS" 1 0 rand 200 500
+*	setv ov00 8
+*	mvto 25255 1180
+*
+** Upper left elevine
+	new: simp 3 1 21835 "gp_eleplant_JESS" 1 0 rand 200 500
+	setv ov00 10
+	mvto 23962 181
+*
+** Middle left (corridor) elevine
+	new: simp 3 1 21835 "gp_eleplant_JESS" 1 0 rand 200 500
+	setv ov00 10
+	mvto 23962 472
+*
+** Lower left elevine
+	new: simp 3 1 21835 "gp_eleplant_JESS" 1 0 rand 200 500
+	setv ov00 10
+	mvto 23962 873
+
+*
+** Top biodome elevine
+	new: simp 3 1 21835 "gp_eleplant_JESS" 1 0 rand 200 500
+	setv ov00 11
+	mvto 25400 548 
+* 663 - 115 
+
+** Middle biodome elevine
+	new: simp 3 1 21835 "gp_eleplant_JESS" 1 0 rand 200 500
+	setv ov00 11
+	mvto 25405 870
+* 985 - 115 
+
+** Bottom biodome elevine
+	new: simp 3 1 21835 "gp_eleplant_JESS" 1 0 rand 200 500
+	setv ov00 11
+	mvto 25515 1535
+
+** Under biodome elevine
+	new: simp 3 1 21835 "gp_eleplant_JESS" 1 0 rand 200 500
+	setv ov00 11
+	mvto 25400 1840
+
+** Earthblob upper elevine
+*	new: simp 3 1 21835 "gp_eleplant_JESS" 1 0 rand 200 500
+*	setv ov00 14
+*	mvto 25693 1163
+** Earthblob elevine
+*	new: simp 3 1 21835 "gp_eleplant_JESS" 1 0 rand 200 500
+*	setv ov00 14
+*	mvto 25693 1531
+
+*
+** Elevine activator script
+	new: simp 3 1 21836 "blnk" 1 0 100
+	tick 10
+endi
+
+
+**
+** DOOR EVENT SCRIPTS
+**
+**
+
+*
+** PUSH
+scrp 2 2 21835 1
+	seta va52 from
+	setv va00 ov00
+	seta va50 targ
+	seta va51 targ
+	enum 2 2 21835
+		doif ov00 eq va00
+			doif targ ne va50
+				seta va51 targ
+			endi
+		endi
+	next
+	targ va51
+	setv va00 posx
+	setv va01 posy
+	targ va52
+	doif fmly eq 4
+		lock
+		doif tmvf va00 va01 eq 1
+			zomb 1
+			targ va50
+			attr 16
+			anim [0 0 0 0 0 0 0 0]
+			over
+			attr 4
+			targ va51
+			attr 16
+			targ va52
+** travelled through door
+			stim writ from 95 1
+** no more attention on door
+			urge writ targ 2 -2 1 -2
+			mvft va00 va01
+			zomb 0
+** Travelled through door
+** Discourage from pushing door any further
+			targ va51
+			anim [0 0 0 0 0 0 0 0]
+			over
+			attr 4
+		endi
+		unlk
+	endi
+	doif va52 eq pntr
+		cmrp va00 va01 1
+	endi
+endm
+
+
+*
+** Removal script
+*
+rscr
+* Favplace
+* signpost
+enum 1 1 21835
+	kill targ
+next
+scrx 1 1 21835 9
+enum 1 3 21836
+	kill targ
+next
+enum 1 3 21838
+	kill targ
+next
+enum 1 4 21836
+	setv va00 ov50
+	kill targ
+	subv game "ds_favourites" 1
+	enum 1 4 0
+		doif ov50 > va00
+			setv va01 ov50
+			subv va01 1
+			setv ov50 va01
+			setv va02 ov50
+			mulv va02 50
+			addv va02 145
+			flto va02 0
+		endi
+	next
+next
+enum 1 4 21838
+	setv va00 ov50
+	kill targ
+	subv game "ds_favourites" 1
+	enum 1 4 0
+		doif ov50 > va00
+			setv va01 ov50
+			subv va01 1
+			setv ov50 va01
+			setv va02 ov50
+			mulv va02 50
+			addv va02 145
+			flto va02 0
+		endi
+	next
+next
+
+* Doors
+enum 2 2 21835
+	kill targ
+next
+* Lift placeholders
+enum 3 1 21834
+	kill targ
+next

@@ -1,0 +1,66 @@
+******************
+* Night switcher *
+******************
+
+new: simp 1 1 50200 "blnk" 0 0 0
+* mvto 97160 18765
+mvto 21564 521
+setv ov01 gmap posx posy
+addb ov01 "ze_gp_mainworld"
+addb ov01 "ze_gp_mainworld_night"
+tick 200
+
+
+* ov00 0 = day
+* ov00 1 = night
+
+scrp 1 1 50200 10
+
+	doif time eq 3 or time eq 4
+		setv ov00 0
+	else
+		setv ov00 1
+	endi
+
+endm
+
+
+scrp 1 1 50200 9
+	inst
+	doif ov00 eq 0
+		doif time eq 3 or time eq 4
+			inst
+			scam null -1
+			bkgd ov01 "ze_gp_mainworld_night" 2
+
+			enum 1 5 50200
+				scam targ 1
+				bkgd mv01 "ze_gp_mainworld_night" 2
+			next
+			targ ownr
+			setv ov00 1
+*			gsub night
+		endi
+	elif ov00 eq 1
+		doif time eq 0 or time eq 1 or time eq 2
+			inst
+			scam null -1
+			bkgd ov01 "ze_gp_mainworld" 2
+			enum 1 5 50200
+				scam targ 1
+				bkgd mv01 "ze_gp_mainworld" 2
+			next
+			targ ownr
+			setv ov00 0
+*			gsub day
+		endi
+	endi
+
+endm
+
+
+rscr
+enum 1 1 50200
+	kill targ
+next
+scrx 1 1 50200 9
