@@ -349,6 +349,44 @@ scrp 2 8 21212 12
 		pose 6
 		tick rand 600 1200
 	endi
+
+	targ from
+
+	* Glucose
+		chem 3 0.5
+	* Glycogen	
+		chem 4 0.5
+	* Starch	
+		chem 5 0.5		
+	* Fatty acid	
+		chem 6 0.3
+	* Triglyceride	
+		chem 8 0.5
+	* Adipose tissue: When your creature needs to store fat for the long-term, the fat becomes this. This is the stuff that makes them fat, but they'll never really be obese.	
+		chem 9 0.5	
+	* Fat	
+		chem 10 0.3	
+	* Protein	
+		chem 12 1.0
+	* Amino acid	
+		chem 13 0.3		
+	* Anti-oxidant:	Cures carbon monoxide poisoning.	
+		chem 93 0.5
+	* Sodium thiosulphate: Cures cyanide poisoning.	
+		chem 96 0.5
+	* Arnica: Cures glycotoxin poisoning.	
+		chem 97 0.5	
+	* Vitamin E: Keeps reproductive organs healthy.			
+		chem 98 0.5
+	* Vitamin C: Keeps bones healthy, aids in healing from injuries.
+		chem 99 0.5	
+	* Antihistamine	
+		chem 100 0.5	
+	* Life: Creature ages as this depletes. A creature dies of old age when it nears zero. Continually injecting this will effectively make your creature immortal.	
+		chem 125 0.5
+
+	
+
 endm
 
 ****************************
@@ -365,11 +403,11 @@ scrp 1 1 21217 9
 			addv va00 1
 		endi
 	next
-	doif tick eq 1 and va00 ge 39
+	doif tick eq 1 and va00 ge 19
 		tick 3600
 	endi
 	* If not enough, grow a new succulent
-	doif va00 lt 40 or tick eq 1
+	doif va00 lt 20 or tick eq 1
 		new: simp 2 4 21211 "succulent" 20 1 500
 		attr 208
 		bhvr 0
@@ -547,6 +585,42 @@ scrp 2 3 21211 12
 	stim writ from 77 1
 	wait 5
 	kill ownr
+
+	targ from
+
+	* Glucose
+		chem 3 0.5
+	* Glycogen	
+		chem 4 0.5
+	* Starch	
+		chem 5 0.5		
+	* Fatty acid	
+		chem 6 0.3
+	* Triglyceride	
+		chem 8 0.5
+	* Adipose tissue: When your creature needs to store fat for the long-term, the fat becomes this. This is the stuff that makes them fat, but they'll never really be obese.	
+		chem 9 0.5	
+	* Fat	
+		chem 10 0.3	
+	* Protein	
+		chem 12 1.0
+	* Amino acid	
+		chem 13 0.3		
+	* Anti-oxidant:	Cures carbon monoxide poisoning.	
+		chem 93 0.5
+	* Sodium thiosulphate: Cures cyanide poisoning.	
+		chem 96 0.5
+	* Arnica: Cures glycotoxin poisoning.	
+		chem 97 0.5	
+	* Vitamin E: Keeps reproductive organs healthy.			
+		chem 98 0.5
+	* Vitamin C: Keeps bones healthy, aids in healing from injuries.
+		chem 99 0.5	
+	* Antihistamine	
+		chem 100 0.5	
+	* Life: Creature ages as this depletes. A creature dies of old age when it nears zero. Continually injecting this will effectively make your creature immortal.	
+		chem 125 0.5
+
 endm
 
 ***********************
@@ -700,6 +774,42 @@ scrp 2 8 21231 12
 	pose 4
 	wait 10
 	kill ownr
+	
+	targ from
+
+	* Glucose
+		chem 3 0.5
+	* Glycogen	
+		chem 4 0.5
+	* Starch	
+		chem 5 0.5		
+	* Fatty acid	
+		chem 6 0.3
+	* Triglyceride	
+		chem 8 0.5
+	* Adipose tissue: When your creature needs to store fat for the long-term, the fat becomes this. This is the stuff that makes them fat, but they'll never really be obese.	
+		chem 9 0.5	
+	* Fat	
+		chem 10 0.3	
+	* Protein	
+		chem 12 1.0
+	* Amino acid	
+		chem 13 0.3		
+	* Anti-oxidant:	Cures carbon monoxide poisoning.	
+		chem 93 0.5
+	* Sodium thiosulphate: Cures cyanide poisoning.	
+		chem 96 0.5
+	* Arnica: Cures glycotoxin poisoning.	
+		chem 97 0.5	
+	* Vitamin E: Keeps reproductive organs healthy.			
+		chem 98 0.5
+	* Vitamin C: Keeps bones healthy, aids in healing from injuries.
+		chem 99 0.5	
+	* Antihistamine	
+		chem 100 0.5	
+	* Life: Creature ages as this depletes. A creature dies of old age when it nears zero. Continually injecting this will effectively make your creature immortal.	
+		chem 125 0.5
+
 endm
 
 
