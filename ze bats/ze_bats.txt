@@ -1,0 +1,19 @@
+"en-GB"
+
+
+group DSAG "ZE Bats"
+
+"Dependency 1" "moe_C2toDS_bats.c16"
+
+"Agent Animation Gallery" "moe_C2toDS_bats"
+"Agent Description" "Inject the Ze Bats"
+"Agent Animation File" "moe_C2toDS_bats.c16"
+
+"Script Count" 1
+"Script 1" @ "ze_bats.cos"
+
+"Agent Type" 0
+"Dependency Count" 1
+"Dependency Category 1" 2
+
+inline FILE "moe_C2toDS_bats.c16" "moe_C2toDS_bats.c16"
