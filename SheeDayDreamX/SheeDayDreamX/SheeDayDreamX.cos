@@ -1,0 +1,393 @@
+* Shee DayDream
+
+doif gmap 8010 8010  <> -1
+	stop
+endi
+
+setv va99 addm 7604 7885 2800 1642 "sheedaydreamx"
+
+new: simp 1 3 38900 "fav_place_sheedaydream" 1 0 1 attr 272 mvto 9050 8950 cmrt 0 tick 10
+
+
+* top flor
+
+outv addr va99 7780 8330 8110 8110 8461 8461
+rtyp grap 7781 8112 5
+
+outv addr va99 8330 8345 8110 8050 8461 8467
+rtyp grap 8331 8120 5
+
+outv addr va99 8345 8600 8050 7950 8467 8467
+rtyp grap 8346 8350 5
+
+outv addr va99 8600 9560 7950 7950 8467 8467
+rtyp grap 8601 8350 5
+
+outv addr va99 9560 9750 7950 8090 8467 8467
+rtyp grap 9561 8350 5
+
+outv addr va99 9750 10090 8090 8090 8467 8467
+rtyp grap 9751 8350 5
+
+* cabin flor
+outv addr va99 7770 8391 8470 8470 8716 8716
+rtyp grap 7771 8471 5
+
+outv addr va99 8391 9920 8470 8470 8716 8716
+rtyp grap 8392 8481 0
+
+outv addr va99 9920 10240 8470 8470 8716 8716
+rtyp grap 9931 8481 5
+
+* altar flor
+outv addr va99 8780 9360 8716 8716 8861 8861
+rtyp grap 8781 8470 5
+
+outv addr va99 9360 9900 8716 8716 8861 8861
+rtyp grap 9361 8474 5
+
+outv addr va99 9900 10020 8716 8716  8861 8861
+rtyp grap 9901 8734 5
+
+* lemon flor
+
+outv addr va99 7850 8160 8716 8716 9067 9067
+rtyp grap 7852 8901 5
+outv addr va99 8160 8700 8716 8716 9067 9060
+rtyp grap 8161 8901 5
+outv addr va99 8700 8780 8716 8716 9060 9055
+rtyp grap 8701 8901 5
+outv addr va99 8780 9320 8861 8861 9055 9055
+rtyp grap 8781 8901 5
+
+* garden flor
+outv addr va99 8075 8590 9075 9075 9266 9266
+rtyp grap 8076 9076 6
+outv addr va99 8590 8733 9075 9075 9266 9255
+rtyp grap 8591 9076 6
+outv addr va99 8733 9356 9075 9075 9255 9255
+rtyp grap 8734 9076 5
+outv addr va99 9356 9590 9075 9000 9255 9255
+rtyp grap 8734 9076 5
+outv addr va99 9590 9826 9000 9000 9255 9262
+rtyp grap 9591 9076 5
+outv addr va99 9826 9970 9000 9050 9262 9210
+rtyp grap 9591 9076 5
+
+* shower-photo flor
+
+outv addr va99 7905 8550 9280 9280 9430 9430
+rtyp grap 8120 9322 5
+
+outv addr va99 8550 8560 9280 9280 9430 9425
+rtyp grap 8552 9322 5
+
+outv addr va99 8560 9190 9280 9280 9425 9425
+rtyp grap 8562 9322 5
+
+outv addr va99 9190 9210 9280 9280 9425 9464
+rtyp grap 9192 9322 5
+
+outv addr va99 9210 9625 9280 9280 9464 9464
+rtyp grap 9212 9322 5
+
+outv addr va99 9625 9645 9280 9280 9464 9425
+rtyp grap 9627 9322 5
+
+outv addr va99 9645 10100 9280 9280 9425 9425
+rtyp grap 9648 9322 5
+
+************************
+
+door grap 8385 8480 grap 8395 8480 50
+door grap 9920 8480 grap 9940 8480 50
+
+door grap 9000 8800 grap 9010 8900 20
+
+door grap 8000 8600 grap 8000 8800 20
+door grap 8250 8600 grap 8250 8800 20
+
+door grap 9950 8700 grap 9950 8750 20
+
+************************
+
+	new: simp 1 1 64401 "c1stove" 8 0 0
+	mvto 9130 9201
+	anim [0 1 2 3 4 5 6 7 255]
+	sndl "c1st"
+
+	new: simp 1 1 64401 "c1vane" 8 0 0
+	mvto 8710 8320
+	anim [0 1 2 3 4 5 6 7 255]
+
+
+* Adding torches
+	new: simp 1 1 32333 "c1torches" 4 0 2
+	anim [0 1 2 3 255]
+	mvto 8951 8894
+	emit 2 0.5
+	* mvto 6003 10956
+
+	new: simp 1 1 32333 "c1torches" 4 0 2
+	anim [2 3 0 1 255]
+	emit 2 0.5
+	mvto 9025 8892
+
+	new: simp 1 1 32333 "c1torches" 4 0 2
+	anim [1 2 3 0 255]
+	emit 2 0.5
+	mvto 9106 8892
+
+	new: simp 1 1 32333 "c1torches" 4 0 2
+	anim [3 0 1 2 255]
+	emit 2 0.5
+	mvto 9272 8892
+
+	new: simp 1 1 32333 "c1torches" 4 0 2
+	anim [3 0 1 2 255]
+	emit 2 0.5
+	mvto 9568 9036
+
+	new: simp 1 1 32333 "c1torches" 4 0 2
+	anim [3 0 1 2 255]
+	emit 2 0.5
+	mvto 9775 9066
+
+
+* stove shelf
+	new: vhcl 1 7 32332 "c1stovetop" 0 0 0
+	attr 520
+	cabn -60 0 105 103
+	accg 0
+	aero 100
+	fric 100
+	bhvr 0
+	elas 0
+	perm 60
+	mvto 9177 9097
+
+* stove vent
+	new: simp 1 7 32332 "c1stovetop" 1 1 200
+	mvto 9175 9095
+	emit 2 0.5
+	* 3812 10764
+
+* Kitchen Table
+	new: vhcl 1 7 32332 "c1table" 1 0 0
+	attr 520
+	accg 0
+	aero 100
+	fric 100
+	bhvr 0
+	elas 0
+	perm 60
+	mvto 9312 9084
+
+
+* Greenhouse
+	new: vhcl 1 7 32332 "c1stovetop" 1 3 7000
+	cabn 45 53 200 123
+	cabp 1
+	attr 520
+	accg 0
+	aero 100
+	fric 100
+	bhvr 0
+	elas 0
+	perm 60
+	mvto 7880 8897
+
+* vent over table
+	new: simp 1 7 32332 "c1table" 1 1 200
+	mvto 9314 9085
+	emit 2 0.5
+
+
+* Bridge Platform
+	new: simp 1 1 32333 "c1coveredbridgeplatform" 1 4 7000
+	*mvto 5287 10750	
+	mvto 8345 8880
+
+* Temple
+	new: simp 1 1 32333 "c1ettintemple" 1 7 7000
+	mvto 8993 8821
+
+
+*C1 Grendel Bridge
+
+* Bridge
+	new: simp 1 9 32332 "c1sheeoverlays" 1 3 6000
+	* mvto 6009 10431
+	mvto 8957 8370
+
+* slanted bamboo
+	new: simp 1 9 32332 "c1sheeoverlays" 1 0 6000
+	mvto 8772 8369
+
+* upright bamboo
+	new: simp 1 9 32332 "c1sheeoverlays" 1 1 6000
+	mvto 8910 8369
+
+* suspended vine
+	new: simp 1 9 32332 "c1sheeoverlays" 1 2 6000
+	mvto 8943 8369
+
+* tree leaves
+
+inst
+new: simp 1 1 5056 "treebranches" 3 0 1
+attr 16
+alph 75 1
+mvto 8385 8536
+
+
+***************************************	
+
+***set va00 to 1 to make emitters visible
+setv va00 0
+
+* heat
+new: simp 1 1 38900 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 0.4
+mvto 8450 8980
+
+* heat
+new: simp 1 1 38900 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 0.4
+mvto 8450 9220
+
+
+* heat
+new: simp 1 1 38900 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 0.4
+mvto 8450 9360
+
+
+* heat
+new: simp 1 1 38900 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 0.4
+mvto 9360 9360
+
+
+* heat
+new: simp 1 1 38900 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 0.4
+mvto 9680 9200
+
+* heat
+new: simp 1 1 38900 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 0.4
+mvto 9060 8800
+
+* heat
+new: simp 1 1 38900 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 0.4
+mvto 9090 8400
+
+* heat
+new: simp 1 1 38900 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 0.4
+mvto 8050 8600
+
+
+* heat
+new: simp 1 1 38900 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 0.4
+mvto 10060 8600
+
+
+* light
+new: simp 1 1 38900 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 8450 8980
+
+* light
+new: simp 1 1 38900 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 8450 9220
+
+
+* light
+new: simp 1 1 38900 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 8450 9360
+
+* light
+new: simp 1 1 38900 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 9360 9360
+
+* light
+new: simp 1 1 38900 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 9680 9200
+
+* light
+new: simp 1 1 38900 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 9060 8800
+
+* light
+new: simp 1 1 38900 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 9090 8400
+
+* light
+new: simp 1 1 38900 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 9175 9095
+
+* light
+new: simp 1 1 38900 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 9106 8892
+
+* light
+new: simp 1 1 38900 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 8050 8600
+
+* light
+new: simp 1 1 38900 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 10060 8600

@@ -1,0 +1,96 @@
+* Top
+	new: simp 2 21 1160 "c1top" 0 0 5000
+	attr 199
+	bhvr 41
+	accg 5
+	elas 0
+	fric 90
+	aero 10
+	perm 70
+*	tick 1
+	pose 0
+	setv ov99 0
+	setv ov98 180
+	addv ov91 5
+	mvsf 8980 9200
+	setv ov90 posl
+	setv ov91 post
+
+scrp 2 21 1160 1
+*	top is pushed
+	doif ov99 = 0
+		tick 1
+		setv ov97 0
+		setv ov99 1
+		sndc "c1to"
+		stim writ from 97 1
+	endi
+endm
+
+scrp 2 21 1160 4
+*	top picked up
+	setv ov99 0
+	stpc
+	pose 0
+endm
+
+scrp 2 21 1160 6
+*	top collides
+	setv ov99 0
+	stpc
+	pose 0
+endm
+
+
+scrp 2 21 1160 9
+*	top timer
+	inst
+	doif ov99 = 0
+		tick 0
+		stpc
+		pose 0
+		doif movs = 0
+			mvsf ov90 ov91
+		endi
+	else
+		doif ov97 = 0
+			anim [0 1 2 3 4 5 6 7 255]
+			setv ov90 posl
+			setv ov91 post
+			addv ov91 5
+			addv ov97 1
+		elif ov97 > 0 and ov97 < 120
+			setv va00 ov90
+			setv va10 sin_ ov98
+			mulv va10 40
+			addv va00 va10
+			addv ov98 7.5
+			doif ov98 >= 360
+				setv ov98 0
+			endi
+			setv va11 va10
+			absv va11
+			doif va10 < 0 and obst left >= va11
+				setv va00 ov90
+				setv va01 post
+				addv va01 5
+				addv va00 va10
+			elif va10 > 0 and obst rght >= va11
+				setv va00 ov90
+				setv va01 post
+				addv va01 5
+				addv va00 va10
+			else
+				setv va00 posl
+				setv va01 post
+				addv va01 5
+			endi
+			doif movs = 0 and carr = null
+				mvsf va00 va01
+			endi
+			addv ov97 1
+		else
+			setv ov99 0
+		endi
+	endi
+endm

@@ -1,0 +1,755 @@
+* Install
+
+new: simp 1 1 20006 "blnk" 0 0 0
+
+rnge 1500
+
+mvto 9270 8338
+
+tick 20
+
+
+new: simp 1 1 20006 "blnk" 0 0 0
+
+rnge 1500
+
+mvto 8000 9000
+
+tick 20
+
+
+new: simp 1 1 20006 "blnk" 0 0 0
+
+rnge 1500
+
+mvto 9600 8760
+
+tick 20
+
+
+new: simp 1 1 20006 "blnk" 0 0 0
+
+rnge 1500
+
+mvto 9600 9100
+
+tick 20
+
+
+* Creator script
+
+scrp 1 1 20006 9
+
+	setv va03 0
+
+	esee 2 13 60001
+
+        doif va03 > 20
+            kill targ
+        else
+		    addv va03 1
+        endi
+	next
+
+
+	doif va03 le 5
+
+		setv va00 posl
+
+		setv va01 post
+
+		new: simp 2 13 60001 "lc_c1_moth" 24 0 rand 1000 2500
+
+		velo rand -10 10 -5
+
+		mvsf va00 va01
+
+	endi
+
+
+	setv va03 0
+
+	esee 2 13 60000
+
+        doif va03 > 10
+            kill targ
+        else
+		    addv va03 1
+        endi
+
+	next
+
+	doif va03 le 2
+
+		setv va00 posl
+
+		setv va01 post
+
+		new: simp 2 13 60000 "lc_c1_moth" 4 29 rand 500 2500
+
+		velo rand -10 10 -5
+
+		mvsf va00 va01
+
+	endi
+
+
+endm
+
+
+
+* Worm script
+
+scrp 2 13 60001 10
+
+	inst
+
+	attr 198
+
+	bhvr 48
+
+	accg 4
+
+	elas 10
+
+	perm 60
+
+	rnge 400
+
+	tick rand 25 30
+
+	seta ov07 null
+
+	setv ov01 rand 150 250
+
+endm
+
+
+
+* Moth script
+
+scrp 2 13 60000 10
+
+	attr 198
+
+	bhvr 48
+
+	elas 0
+
+	aero 7
+
+	accg 0
+
+	frat 2
+
+	anim [0 1 2 255]
+
+	tick rand 10 25
+
+	seta ov07 null
+
+	setv ov06 2
+
+	setv ov01 rand 200 300
+
+endm
+
+
+
+* Mothworm script
+
+scrp 2 13 60001 9
+
+	doif carr ne null
+
+		stop
+
+	endi
+
+
+
+	doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+		kill ownr
+
+	endi
+
+
+
+* Age
+
+	subv ov01 1
+
+
+
+* Move around
+
+	inst
+
+	gsub daytime
+
+	slow
+
+
+
+
+
+	subr cocoon
+
+		setv va00 posl
+
+		setv va01 post
+
+		addv va10 10
+
+		new: simp 2 18 20000 "lc_c1_moth" 5 24 va10
+
+		mvsf va00 va01
+
+		kill ownr
+
+	retn
+
+
+
+	subr daytime
+
+		doif ov07 eq null
+
+			star 2 4 0
+
+			doif targ ne null
+
+				seta mv07 targ
+
+			else
+
+				targ ownr
+
+				gsub moverandom
+
+			endi
+
+		endi
+
+
+
+		targ ownr
+
+
+
+		inst
+
+		doif ov07 ne null
+
+			setv va00 posx
+
+			setv va01 posy
+
+			inst
+
+			targ ov07
+
+			setv va03 tran va00 va01
+
+			slow
+
+			targ ownr
+
+			doif va03 eq 1
+
+				gsub follow
+
+			else
+
+				doif pose le 6
+
+					setv va04 0
+
+				else
+
+					setv va04 1
+
+				endi
+
+				gsub climb
+
+			endi
+
+
+
+		else
+
+			accg 4
+
+
+
+		endi
+
+	retn
+
+
+
+
+
+*The Follow Subroutine here only does X, allowing the caterpillar to crawl to plants
+
+	subr follow
+
+		inst
+
+		setv ov06 4
+
+		targ ov07
+
+		doif targ eq null
+
+			stop
+
+		endi
+
+		setv va00 posx
+
+		slow
+
+		targ ownr
+
+
+
+		doif posx gt va00
+
+			frat 2
+
+			anim [0 1 2 3]
+
+			over
+
+			subv velx ov06
+
+			addv vely -4
+
+			frat 2
+
+			anim [4 5 6 ]
+
+			over
+
+		else
+
+			frat 2
+
+			anim [6 7 8 9]
+
+			over
+
+			addv velx ov06
+
+			addv vely -4
+
+			frat 2
+
+			anim [10 11 6]
+
+			over
+
+		endi
+
+
+
+	retn
+
+
+
+	subr climb
+
+		inst
+
+		pose 12
+
+		mvsf posl post
+
+		inst
+
+		targ ov07
+
+		doif targ eq null
+
+			stop
+
+		endi
+
+		setv va02 post
+
+		setv va10 plne
+
+		slow
+
+		addv va02 25
+
+		targ ownr
+
+
+
+		lock
+
+		loop
+
+			inst
+
+			setv va00 posx
+
+			setv va01 posy
+
+			targ ov07
+
+			doif targ eq null
+
+				stop
+
+			endi
+
+			setv va03 tran va00 va01
+
+			targ ownr
+
+			doif va04 eq 0
+
+
+
+				pose 12
+
+				mvsf posl post
+
+				anim [12 13 14 15]
+
+				over
+
+				setv va00 post
+
+				subv va00 4
+
+				mvsf posl va00
+
+				anim [16 17]
+
+				over
+
+			else
+
+				pose 18
+
+				mvsf posl post
+
+				anim [18 19 20 21]
+
+				over
+
+				setv va00 post
+
+				subv va00 4
+
+				mvsf posl va00
+
+				anim [22 23]
+
+				over
+
+			endi
+
+			over
+
+			wait tick
+
+			slow
+
+		untl post le va02 or va03 eq 1 or obst _up_ le 10
+
+		doif post le va02 or va03 eq 1 and ov01 le 50
+
+			gsub cocoon
+
+		endi
+
+		unlk
+
+	retn
+
+
+
+	subr moverandom
+
+		dbg: outs "cave worm moving randomly up/down"
+		setv va00 rand 0 1
+
+		reps rand 2 5
+
+			doif va00 eq 0
+
+				anim [12 13 14 15]
+
+				over
+
+				setv va00 post
+
+				subv va00 4
+
+				mvsf posl va00
+
+				anim [16 17]
+
+				over
+
+			else
+
+				anim [18 19 20 21]
+
+				over
+
+				setv va00 post
+
+				subv va00 4
+
+				mvsf posl va00
+
+				anim [22 23]
+
+				over
+
+			endi
+
+		repe
+
+	retn
+
+endm
+
+
+
+* Moth cocoon script
+
+scrp 2 18 20000 9
+
+	lock
+
+*	dbg: dbg: outs "I'm a cocoon!"
+
+	doif pose ne 4
+
+		loop
+
+			wait 240
+
+			setv va00 pose
+
+			addv va00 1
+
+			pose va00
+
+		untl pose eq 4
+
+	endi
+
+	gsub makebufl
+
+	kill ownr
+
+	unlk
+
+
+
+	subr makebufl
+
+		setv va00 posl
+
+		setv va01 post
+
+
+
+		new: simp 2 13 60000 "lc_c1_moth" 4 29 rand 1000 2500
+
+		mvsf va00 va01
+
+	retn
+
+
+
+endm
+
+
+
+
+
+* Moth script
+
+scrp 2 13 60000 9
+
+	doif rtyp room ownr eq 8 or rtyp room ownr eq 9
+
+		accg 0
+
+		loop
+
+			setv vely -20
+
+			setv velx rand 2 -2
+
+			wait 20
+
+			addv va00 1
+
+		untl rtyp room ownr ne 8 and rtyp room ownr ne 9 or va00 gt 4
+
+		doif va00 gt 4
+
+			kill ownr
+
+		endi
+
+		stop
+
+	endi
+
+
+
+	addv ov01 1
+
+
+
+	gsub moverandom
+
+
+
+	doif ov01 gt rand 1200 1600
+
+		gsub die
+
+	endi
+
+
+
+	subr die
+
+		accg 3
+
+		wait 20
+
+		doif fall eq 0
+
+			wait 20
+
+			setv va00 posx
+
+			setv va01 posy
+
+			new: simp 2 13 60001 "lc_c1_moth" 24 0 rand 1000 2500
+
+			mvsf va00 va01
+
+			kill ownr
+
+		endi
+
+	retn
+
+
+
+	subr moverandom
+
+		setv va00 rand 0 1
+
+
+
+		doif obst _up_ le 10
+
+			setv vely rand 1 3
+
+		elif obst down le 10
+
+			setv vely rand -1 -3
+
+		else
+
+			setv vely rand 3 -3
+
+		endi
+
+
+
+		reps rand 2 4
+
+			doif va00 eq 0 or obst left le 10
+
+				frat 2
+
+				anim [2 3 255]
+
+				setv velx rand 1 3
+
+				wait rand 5 10
+
+			elif va00 eq 1 or obst rght le 10
+
+				frat 2
+
+				anim [0 1 255]
+
+				setv velx rand -1 -3
+
+				wait rand 5 10
+
+			endi
+
+
+
+		repe
+
+	retn
+
+
+
+endm
+
+
+
+* Moth eat script
+
+scrp 2 13 60000 12
+
+	sndc "chwp"
+
+	stim writ from 80 .5
+
+	chem 12 .5
+
+	chem 39 .04
+
+	chem 99 .5
+
+	kill ownr
+
+endm
+
+
+
+* Worm eat script
+
+scrp 2 13 60001 12
+
+	sndc "chwp"
+
+	targ from
+
+		stim writ from 80 .5
+
+		* Protein 
+		  chem 12 1.0
+		* Amino acid  
+		  chem 13 0.3   
+		chem 39 .04
+		* Vitamin C: Keeps bones healthy, aids in healing from injuries.
+		  chem 99 0.5 
+
+	targ ownr
+	kill ownr
+
+endm

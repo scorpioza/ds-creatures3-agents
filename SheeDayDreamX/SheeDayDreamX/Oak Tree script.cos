@@ -1,0 +1,290 @@
+*$Id: oak.cos,v 1.10 2001/06/29 08:36:05 Prime Exp $
+****************************
+**                        **
+**        Oak Tree        **
+**                        **
+****************************
+*Classifier Declarations:
+*
+*Name			FMLY	GNUS	SPCS
+*=============================================
+*Acorn			2	11  	23959
+*Detritus		2 	10  	23959
+*Oak Tree		1	1	23959
+*Acorn Dummy		1	1	23960
+*=============================================
+*
+** Oak Tree Game Variable
+*=============================================
+* Acorn MaxPop Local is the maximum amount of 
+* Orchid Pods that can exist at any one time.
+*=============================================
+
+setv game "Acorn_MaxPop" 10
+
+*=============================================
+
+new: simp 1 1 23960 "blnk" 1 0 0
+tick 200
+mvto 9510 8200
+
+inst
+reps 9
+	new: simp 2 11 23959 "oak" 16 0 51
+	attr 64
+	bhvr 48
+	elas 10
+	accg 5
+	fric 100
+	tick rand 50 300
+	mvto RAND 9510 9880 RAND 8200 8350
+	setv ov61 25
+repe
+
+scrp 1 1 23958 9
+
+	setv va63 totl 2 11 23959
+	doif va63 <= game "Acorn_MaxPop"
+
+		inst
+		new: simp 2 11 23959 "oak" 16 0 51
+		attr 64
+		bhvr 48
+		elas 10
+		accg 5
+		fric 100
+		tick rand 50 300
+		mvto RAND 9510 9880 RAND 8200 8350
+		setv ov61 25
+	endi
+endm
+
+scrp 2 11 23959 4
+	lock
+	doif ov00 eq 0
+		emit 8 0.5
+		setv ov00 1
+	endi
+	doif attr eq 67
+		attr 195
+	endi
+	perm 60
+endm
+
+scrp 2 11 23959 6
+	doif carr eq null
+		plne 4000
+	endi
+endm
+
+scrp 2 11 23959 9
+	doif ov00 eq 0
+		doif carr eq null
+			doif pose lt 13
+				setv va00 pose
+				addv va00 1
+				pose va00
+			else
+				doif attr eq 64
+					attr 67
+				endi
+				addv ov99 1
+			endi
+			doif ov99 ge 20
+				setv ov99 0
+				doif attr eq 67
+					attr 195
+				endi
+				setv ov00 1
+				emit 8 0.05
+
+				setv va62 totl 2 11 23959
+				doif va62 <= game "Acorn_MaxPop"
+
+					inst
+					new: simp 2 11 23959 "oak" 16 0 51
+					doif rand 1 4 eq 1
+						perm 60
+					endi
+					attr 64
+					bhvr 48
+					elas 10
+					fric 100
+					accg 5
+					tick RAND 50 300
+					mvto RAND 9510 9880 RAND 8200 8350
+					setv ov61 25
+					targ ownr
+				endi
+			endi
+		endi
+	endi
+
+	doif ov00 eq 1
+		addv ov99 1
+		doif ov99 ge 50
+			doif carr eq null
+				altr room targ 4 0.01
+				altr room targ 3 0.01
+				kill ownr
+			endi
+		endi
+	endi
+endm
+
+scrp 2 11 23959 12
+	setv va00 posl
+	setv va01 post
+	stim writ from 79 1
+	wait 10
+	snde "eat1"
+	inst
+	new: simp 2 10 23959 "oak" 1 14 52
+
+	doif tmvt va00 va01 ne 1
+		kill targ
+		stop
+	endi
+	attr 195
+	bhvr 48
+	elas 0
+	accg 5
+	fric 100
+	mvto va00 va01
+	setv ov61 10
+	tick 100
+	kill ownr
+
+  targ from
+  chem 3 .25
+  chem 1 .25
+  chem 5 .25
+  chem 12 .25
+  chem 34 .25
+  chem 75 -1.0
+  chem 93 .25
+  chem 100 .25
+  chem 113 .25
+  chem 152 -0.125
+  chem 153 0.125
+  chem 154 -1.0
+  chem 155 -1.0
+  chem 204 .25
+* Glucose
+  chem 3 0.5
+* Glycogen  
+  chem 4 0.5
+* Starch  
+  chem 5 0.5    
+* Fatty acid  
+  chem 6 0.3
+* Triglyceride  
+  chem 8 0.5
+* Adipose tissue: When your creature needs to store fat for the long-term, the fat becomes this. This is the stuff that makes them fat, but they'll never really be obese.  
+  chem 9 0.5  
+* Fat 
+  chem 10 0.3 
+* Protein 
+  chem 12 1.0
+* Amino acid  
+  chem 13 0.3   
+* Anti-oxidant: Cures carbon monoxide poisoning.  
+  chem 93 0.5
+* Sodium thiosulphate: Cures cyanide poisoning. 
+  chem 96 0.5
+* Arnica: Cures glycotoxin poisoning. 
+  chem 97 0.5 
+* Vitamin E: Keeps reproductive organs healthy.     
+  chem 98 0.5
+* Vitamin C: Keeps bones healthy, aids in healing from injuries.
+  chem 99 0.5 
+* Antihistamine 
+  chem 100 0.5  
+* Life: Creature ages as this depletes. A creature dies of old age when it nears zero. Continually injecting this will effectively make your creature immortal. 
+  chem 125 0.5
+
+endm
+
+scrp 2 10 23959 9
+	doif room targ <> -1 and carr = null
+		altr room targ 4 0.01
+		altr room targ 3 0.01
+		kill targ
+	elif room targ = -1 and carr = null
+		kill ownr
+	endi
+endm
+
+scrp 2 10 23959 12
+
+	stim writ from 81 1
+
+	wait 1
+	kill ownr
+
+  targ from
+  chem 3 .25
+  chem 1 .25
+  chem 5 .25
+  chem 12 .25
+  chem 34 .25
+  chem 75 -1.0
+  chem 93 .25
+  chem 100 .25
+  chem 113 .25
+  chem 152 -0.125
+  chem 153 0.125
+  chem 154 -1.0
+  chem 155 -1.0
+  chem 204 .25
+* Glucose
+  chem 3 0.5
+* Glycogen  
+  chem 4 0.5
+* Starch  
+  chem 5 0.5    
+* Fatty acid  
+  chem 6 0.3
+* Triglyceride  
+  chem 8 0.5
+* Adipose tissue: When your creature needs to store fat for the long-term, the fat becomes this. This is the stuff that makes them fat, but they'll never really be obese.  
+  chem 9 0.5  
+* Fat 
+  chem 10 0.3 
+* Protein 
+  chem 12 1.0
+* Amino acid  
+  chem 13 0.3   
+* Anti-oxidant: Cures carbon monoxide poisoning.  
+  chem 93 0.5
+* Sodium thiosulphate: Cures cyanide poisoning. 
+  chem 96 0.5
+* Arnica: Cures glycotoxin poisoning. 
+  chem 97 0.5 
+* Vitamin E: Keeps reproductive organs healthy.     
+  chem 98 0.5
+* Vitamin C: Keeps bones healthy, aids in healing from injuries.
+  chem 99 0.5 
+* Antihistamine 
+  chem 100 0.5  
+* Life: Creature ages as this depletes. A creature dies of old age when it nears zero. Continually injecting this will effectively make your creature immortal. 
+  chem 125 0.5
+	
+endm
+
+rscr
+enum 2 11 23959
+	kill targ
+next
+enum 2 10 23959
+	kill targ
+next
+enum 1 1 23960
+	kill targ
+next
+enum 1 1 23959
+	kill targ
+next
+
+scrx 2 11 23959 9
+scrx 2 11 23959 12

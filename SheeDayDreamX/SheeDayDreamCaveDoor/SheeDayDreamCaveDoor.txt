@@ -1,0 +1,15 @@
+"en-GB"
+
+group DSAG "Shee Day Dream - Cave Door"
+  "Agent Type" 0
+  "Dependency Category 1" 2
+  "Dependency Count" 1
+  "Script Count" 1
+  "Agent Animation Gallery" "sheedaydream_cave_door"
+  "Agent Animation String" "0 0 0 1 1 1 255"  
+  "Agent Description" "Shee Day Dream - The Lost Cave Door"
+  "Dependency 1" "sheedaydream_cave_door.c16"
+  "Remove script" "enum 2 2 68882 kill targ next "
+  "Script 1" @ "SheeDayDreamCaveDoor.cos"  
+
+inline FILE "sheedaydream_cave_door.c16" "sheedaydream_cave_door.c16"

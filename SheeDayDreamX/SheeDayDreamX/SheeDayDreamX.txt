@@ -1,0 +1,169 @@
+"en-GB"
+
+group DSAG "Shee Day Dream X"
+  "Agent Type" 0
+  "Dependency Category 1" 6
+  "Dependency Category 2" 2  
+  "Dependency Category 3" 2
+  "Dependency Category 4" 2
+  "Dependency Category 5" 2
+  "Dependency Category 6" 2
+  "Dependency Category 7" 2
+  "Dependency Category 8" 2
+  "Dependency Category 9" 2
+  "Dependency Category 10" 2
+  "Dependency Category 11" 2
+  "Dependency Category 12" 2
+  "Dependency Category 13" 2
+  "Dependency Category 14" 2
+  "Dependency Category 15" 2
+  "Dependency Category 16" 2
+  "Dependency Category 17" 2
+
+  "Dependency Category 18" 1
+  "Dependency Category 19" 1
+  "Dependency Category 20" 1
+  "Dependency Category 21" 1
+  "Dependency Category 22" 1
+  "Dependency Category 23" 1
+  "Dependency Category 24" 1
+  "Dependency Category 25" 1
+  "Dependency Category 26" 1
+  "Dependency Category 27" 2
+  "Dependency Category 28" 2
+  "Dependency Category 29" 7
+  "Dependency Category 30" 2
+  "Dependency Category 31" 7
+  "Dependency Category 32" 2
+  "Dependency Category 33" 2
+  "Dependency Category 34" 2
+  "Dependency Category 35" 2
+  "Dependency Category 36" 2
+  "Dependency Category 37" 2
+  "Dependency Category 38" 2
+  "Dependency Category 39" 2
+  "Dependency Category 40" 2
+  "Dependency Category 41" 2
+
+  "Dependency Count" 41
+  "Script Count" 21
+  "Agent Animation Gallery" "c1shower"
+  "Agent Animation String" "1 2 255"  
+  "Agent Description" "C1 Memories"
+  "Dependency 1" "sheedaydreamx.blk"
+  "Dependency 2" "fav_place_sheedaydream.c16"
+  "Dependency 3" "c1shower.c16"
+  "Dependency 4" "c1bridge.c16"
+  "Dependency 5" "c1clock.c16"
+  "Dependency 6" "lc_c1_moth.c16"
+  "Dependency 7" "c1coveredbridgeplatform.c16"
+  "Dependency 8" "c1ettintemple.c16"
+  "Dependency 9" "c1lift.c16"
+  "Dependency 10" "c1sheeoverlays.c16"
+  "Dependency 11" "c1shower.c16"
+  "Dependency 12" "c1stove.c16"
+  "Dependency 13" "c1stovetop.c16"
+  "Dependency 14" "c1table.c16"
+  "Dependency 15" "c1torches.c16"
+  "Dependency 16" "c1refrigerator.c16"
+  "Dependency 17" "c1plants.c16"
+
+  "Dependency 18" "chwp.wav"
+  "Dependency 19" "c1bu.wav"
+  "Dependency 20" "c1lf.wav"
+  "Dependency 21" "c1d2.wav"
+  "Dependency 22" "c1r1.wav"
+  "Dependency 23" "c1r2.wav"
+  "Dependency 24" "c1ss.wav"
+  "Dependency 25" "c1c5.wav"
+  "Dependency 26" "c1st.wav"
+
+  "Dependency 27" "ols_volcanobush_mini.c16"
+
+  "Dependency 28" "oak.c16"
+  "Dependency 29" "oak.catalogue"
+  "Dependency 30" "apple2.c16"
+  "Dependency 31" "miniapple.catalogue"
+
+  "Dependency 32" "sheedaydream_car.c16"
+  "Dependency 33" "c1top.c16"
+
+  "Dependency 34" "coconut.c16"
+  "Dependency 35" "flowertree.c16"
+  "Dependency 36" "pear.c16"
+  "Dependency 37" "lotus.c16"
+  "Dependency 38" "acorn.c16"
+  "Dependency 39" "treebranches.c16"
+  "Dependency 40" "lc_mush.c16"
+  "Dependency 41" "sheedaydream_teleport.c16"
+
+  "Remove script" "enum 1 3 38900 kill targ next "
+  "Script 1" @ "SheeDayDreamX.cos"
+  "Script 2" @ "Moth script.cos"
+  "Script 3" @ "C1Clock.cos"  
+  "Script 4" @ "C1SheeRefrigerator.cos"  
+  "Script 5" @ "C1SheePlants.cos"  
+  "Script 6" @ "C1SheeLifts.cos"
+  "Script 7" @ "C1SheeShower.cos"
+  "Script 8" @ "ols_volcanobush.cos"
+  "Script 9" @ "Oak Tree script.cos"
+  "Script 10" @ "MiniApples script.cos"
+  "Script 11" @ "CableCar script.cos"
+  "Script 12" @ "Coconut script.cos"
+  "Script 13" @ "FlowerTree script.cos"
+  "Script 14" @ "Pear script.cos"
+  "Script 15" @ "Acorn script.cos"
+  "Script 16" @ "Lotus script.cos"
+  "Script 17" @ "Lemon script.cos"
+  "Script 18" @ "BluePlant script.cos"
+  "Script 19" @ "Top script.cos"
+  "Script 20" @ "Muchrooms script.cos"
+  "Script 21" @ "Teleport script.cos"
+
+inline FILE "sheedaydreamx.blk" "sheedaydreamx.blk"
+inline FILE "fav_place_sheedaydream.c16" "fav_place_sheedaydream.c16"
+inline FILE "c1shower.c16" "c1shower.c16"
+inline FILE "c1bridge.c16" "c1bridge.c16"
+inline FILE "c1clock.c16" "c1clock.c16"
+inline FILE "lc_c1_moth.c16" "lc_c1_moth.c16"
+inline FILE "c1coveredbridgeplatform.c16" "c1coveredbridgeplatform.c16"
+inline FILE "c1ettintemple.c16" "c1ettintemple.c16"
+inline FILE "c1lift.c16" "c1lift.c16"
+inline FILE "c1sheeoverlays.c16" "c1sheeoverlays.c16"
+inline FILE "c1shower.c16" "c1shower.c16"
+inline FILE "c1stove.c16" "c1stove.c16"
+inline FILE "c1stovetop.c16" "c1stovetop.c16"
+inline FILE "c1table.c16" "c1table.c16"
+inline FILE "c1torches.c16" "c1torches.c16"
+inline FILE "c1refrigerator.c16" "c1refrigerator.c16"
+inline FILE "c1plants.c16" "c1plants.c16"
+
+inline FILE "chwp.wav" "chwp.wav"
+inline FILE "c1bu.wav" "c1bu.wav"
+inline FILE "c1lf.wav" "c1lf.wav"
+inline FILE "c1d2.wav" "c1d2.wav"
+inline FILE "c1r1.wav" "c1r1.wav"
+inline FILE "c1r2.wav" "c1r2.wav"
+inline FILE "c1ss.wav" "c1ss.wav"
+inline FILE "c1c5.wav" "c1c5.wav"
+inline FILE "c1st.wav" "c1st.wav"
+
+inline FILE "ols_volcanobush_mini.c16" "ols_volcanobush_mini.c16"
+
+inline FILE "oak.c16" "oak.c16"
+inline FILE "oak.catalogue" "oak.catalogue"
+inline FILE "apple2.c16" "apple2.c16"
+inline FILE "miniapple.catalogue" "miniapple.catalogue"
+
+inline FILE "sheedaydream_car.c16" "sheedaydream_car.c16"
+inline FILE "c1top.c16" "c1top.c16"
+
+inline FILE "coconut.c16" "coconut.c16"
+inline FILE "flowertree.c16" "flowertree.c16"
+inline FILE "pear.c16" "pear.c16"
+inline FILE "lotus.c16" "lotus.c16"
+inline FILE "acorn.c16" "acorn.c16"
+inline FILE "treebranches.c16" "treebranches.c16"
+
+inline FILE "lc_mush.c16" "lc_mush.c16"
+inline FILE "sheedaydream_teleport.c16" "sheedaydream_teleport.c16"
