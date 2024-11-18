@@ -1,0 +1,119 @@
+
+
+* Door 1
+new: comp 2 2 38383 "zen_door_x" 40 0 1
+seta va00 targ
+setv ov02 0
+setv ov03 0
+
+seta va08 targ
+enum 1 2 11
+	spas targ va08
+next
+
+
+* Door 2
+new: comp 2 2 38383 "zen_door_x" 40 0 1
+seta ov00 va00
+seta avar va00 0 targ
+setv ov02 1
+setv ov03 0
+
+seta va08 targ
+enum 1 2 11
+	spas targ va08
+next
+
+*	************
+*	***//Door***
+*	************
+
+*Constructor
+scrp 2 2 38383 10
+	attr 7
+*	clac 0
+	bhvr 1
+	frat 2
+	pat: butt 1 "zen_door_x" 40 2 -10 -10 1 [0] 501 1
+	part 1
+endm
+
+
+**Doors
+
+scrp 2 2 38383 501
+	targ ownr
+*	part 0
+	doif ov03 < 7
+		setv va04 5
+		addv ov03 1
+		mulv va04 ov03
+		pose 5
+		base va04
+	else
+		setv ov03 0
+		base 0
+		pose 0
+	endi
+endm
+
+
+
+scrp 2 2 38383 1
+	lock
+
+*Tell the norn on the other end to wait
+	doif crea from = 1
+		stim writ from 75 1
+	endi
+
+	slow
+	anim [0 1 2 3 4]
+
+	targ ov00
+	setv va00 posx
+	setv va01 posb
+
+	anim [0 1 2 3 4]
+	over
+	targ ownr
+	doif from = pntr
+		targ ov00
+		cmrt 0
+
+		etch 4 0 0
+			doif carr eq null
+				doif movs = 0
+					doif hhld ne targ
+*					nohh
+						mvsf va00 va01
+						stim writ from 95 1
+					endi
+				endi
+			endi
+		next
+	else
+		doif from ne null
+			targ from
+			doif hhld ne targ
+*				nohh
+				doif carr eq null
+					doif movs = 0
+						mvsf va00 va01
+						stim writ from 95 1
+					endi
+				endi
+			endi
+			slow
+			targ ownr
+		endi
+	endi
+	anim [4 3 2 1 0]
+	targ ownr
+	targ ov00
+	anim [4 3 2 1 0]
+	over
+	targ ownr
+
+	unlk	
+endm
