@@ -20,6 +20,7 @@ group DSAG "Succulent Bridge Metaroom"
 "Dependency 11" "airbutton.c16"
 "Dependency 12" "succulent_capillata_fruit.c16"
 "Dependency 13" "succulent_capillata.catalogue"
+"Dependency 14" "succulent_top_btn.c16"
 "Remove script" "enum 1 1 21211 kill targ next enum 1 1 21212 kill targ next enum 1 1 21213 kill targ next enum 1 1 21214 kill targ next enum 1 1 21215 kill targ next enum 1 1 21216 kill targ next enum 1 2 21 plne 0 gall \"mapdisplay\" 0 next setv va90 450 enum 3 3 33 attr 4 mvto va90 3373 addv va90 180 next enum 1 1 21218 kill targ next scrx 1 1 21218 9 enum 2 8 21212 kill targ next scrx 2 8 21212 4 scrx 2 8 21212 6 scrx 2 8 21212 9 scrx 2 8 21212 12 enum 1 1 21217 kill targ next scrx 1 1 21217 9 enum 2 4 21211 kill targ next scrx 2 4 21211 1 scrx 2 4 21211 9 scrx 2 4 21211 1000 enum 2 3 21211 kill targ next scrx 2 3 21211 9 scrx 2 3 21211 12 enum 2 21 21211 kill targ next scrx 2 21 21211 1 scrx 2 21 21211 9"
 
 "Script Count" 6
@@ -28,7 +29,7 @@ group DSAG "Succulent Bridge Metaroom"
 "Script 3" @ "lib-c3lift-events.cos"
 "Script 4" @ "succulent_lift.cos"
 "Script 5" @ "succulent_capillata_meso.cos"
-"Script 6" @ "succulent_learning.cos"
+"Script 6" @ "succulent_learning_portals.cos"
 
 "Agent Type" 0
 "Dependency Category 1" 2
@@ -44,7 +45,8 @@ group DSAG "Succulent Bridge Metaroom"
 "Dependency Category 11" 2
 "Dependency Category 12" 2
 "Dependency Category 13" 7
-"Dependency Count" 13
+"Dependency Category 14" 2
+"Dependency Count" 14
 
 inline FILE "comfort_orb.c16" "comfort_orb.c16"
 inline FILE "mapdisplay_succulents.c16" "mapdisplay_succulents.c16"
@@ -59,3 +61,4 @@ inline FILE "coc_uh_uhmeso_mesouh_door.c16" "coc_uh_uhmeso_mesouh_door.c16"
 inline FILE "airbutton.c16" "airbutton.c16"
 inline FILE "succulent_capillata_fruit.c16" "succulent_capillata_fruit.c16"
 inline FILE "succulent_capillata.catalogue" "succulent_capillata.catalogue"
+inline FILE "succulent_top_btn.c16" "succulent_top_btn.c16"

@@ -8,9 +8,13 @@ setv va99 addm 76 2866 6868 1652 "succulent_main"
 
 cmra 2100 3700 0
 
-outv addr va99 1523 2310 3200 3200 3374 3374
+outv addr va99 1523 2050 3200 3200 3374 3374
 rtyp grap 1524 3201 7
-outv addr va99 2310 2730 3070 3070 3374 3305
+outv addr va99 2050 2244 3200 2980 3374 3374
+rtyp grap 2051 3201 7
+outv addr va99 2244 2310 2980 2980 3374 3378
+rtyp grap 2245 2981 7
+outv addr va99 2310 2730 2980 3070 3378 3305
 rtyp grap 2311 3071 7
 outv addr va99 2730 4000 3070 3070 3305 3305
 rtyp grap 2731 3071 7
@@ -27,7 +31,7 @@ outv addr va99 2360 2710 3390 3320 3550 3525
 rtyp grap 2361 3411 7
 outv addr va99 2710 2845 3320 3308 3525 3525
 rtyp grap 2711 3321 7
-outv addr va99 2845 4000 3308 3308 3525 3528
+outv addr va99 2845 4105 3308 3308 3525 3528
 rtyp grap 3321 3309 7
 
 outv addr va99 1190 2256 3580 3580 3794 3794
@@ -683,23 +687,23 @@ scrp 1 1 21233 9
 		* move to a random spot on the vines
 		setv va00 rand 0 15
 		doif va00 eq 0
-			mvto rand 2570 2670 rand 3220 3290
+			mvto rand 2720 2800 rand 3120 3270
 		elif va00 eq 1
-			mvto rand 2670 2800 rand 3100 3270
+			mvto rand 2470 2560 rand 3050 3070
 		elif va00 eq 2
-			mvto rand 1540 1640 rand 3250 3320
+			mvto rand 1540 1610 rand 3210 3270
 		elif va00 eq 3
 			mvto rand 3005 3070 rand 3130 3200
 		elif va00 eq 4
 			mvto rand 3220 3290 rand 3110 3200
 		elif va00 eq 5
-			mvto rand 3630 3780 rand 3180 3270
+			mvto rand 3610 3730 rand 3200 3270
 		elif va00 eq 6
-			mvto rand 3630 3780 rand 3180 3270	
+			mvto rand 3610 3730 rand 3200 3270	
 		elif va00 eq 7
-			mvto rand 3480 3670 rand 3340 3470	
+			mvto rand 3540 3690 rand 3340 3450	
 		elif va00 eq 8
-			mvto rand 3480 3670 rand 3340 3470	
+			mvto rand 3540 3690 rand 3340 3450	
 		elif va00 eq 9
 			mvto rand 3600 4000 rand 3870 4000	
 		elif va00 eq 10

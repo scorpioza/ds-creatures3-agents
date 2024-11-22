@@ -1,0 +1,135 @@
+* left shining map
+new: simp 1 1 38052 "mapdisplay_succulents" 13 0 1
+* mvto 39383 1692
+mvto 853 3265
+
+
+* Add succulents to background
+new: simp 2 2 21211 "succulents_background" 1 0 0
+bhvr 1
+attr 4
+mvto 261 3344
+
+new: simp 2 2 21212 "succulents_background" 1 1 0
+bhvr 1
+attr 4
+mvto 852 3336
+
+scrp 2 2 21211 1
+*	vocb is pushed
+	stim writ from 97 1
+
+    rtar 1 1 38052
+	anim [0 1 2 3 4 5 6 7 8 9 10 11 12 11 10 9 8 7 6 5 4 3 2 1 0]
+
+	doif from ne null
+		targ from
+		doif fmly eq 4
+			targ from vocb
+		endi
+	endi
+	targ ownr
+
+endm
+
+scrp 2 2 21212 1
+*	vocb is pushed
+	stim writ from 97 1
+
+    rtar 1 1 38052
+	anim [0 1 2 3 4 5 6 7 8 9 10 11 12 11 10 9 8 7 6 5 4 3 2 1 0]
+
+	doif from ne null
+		targ from
+		doif fmly eq 4
+			targ from vocb
+		endi
+	endi
+	targ ownr
+
+endm
+
+***************************************************
+
+* Third Portal - very top right red button
+new: simp 2 2 38053 "succulent_top_btn" 3 3 1
+attr 4
+bhvr 1
+frat 2
+seta va00 targ
+setv ov02 0
+mvto 3570 3250
+
+* Second Portal - top right button
+new: simp 2 2 38053 "succulent_top_btn" 3 0 1
+attr 4
+bhvr 1
+frat 2
+seta ov00 va00
+seta va01 targ
+setv ov02 1
+mvto 3412 3432
+
+* First Portal - right bottom alert button
+new: simp 2 2 38053 "airbutton" 3 0 1
+attr 4
+bhvr 1
+frat 2
+seta ov00 va01
+seta avar va00 0 targ
+setv ov02 2
+mvto 3105 3942
+
+
+**Doors
+scrp 2 2 38053 1
+	lock
+
+*Tell the norn on the other end to wait
+	doif crea from = 1
+		stim writ from 75 1
+	endi
+
+	anim [1 2 1 0]
+
+	targ ov00
+	setv va00 posx
+	setv va01 posb
+
+	anim [1 2 1 0]
+
+	targ ownr
+	doif from = pntr
+		targ ov00
+		cmrt 0
+
+		etch 4 0 0
+			doif carr eq null
+				doif movs = 0
+					doif hhld ne targ
+*					nohh
+						mvsf va00 va01
+						stim writ from 95 1
+					endi
+				endi
+			endi
+		next
+	else
+		doif from ne null
+			targ from
+			doif hhld ne targ
+*				nohh
+				doif carr eq null
+					doif movs = 0
+						mvsf va00 va01
+						stim writ from 95 1
+					endi
+				endi
+			endi
+		endi
+	endi
+	targ ownr
+
+	unlk	
+endm
+
