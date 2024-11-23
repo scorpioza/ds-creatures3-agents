@@ -412,7 +412,16 @@ scrp 1 1 21217 9
 	endi
 	* If not enough, grow a new succulent
 	doif va00 lt 20 or tick eq 1
-		new: simp 2 4 21211 "succulent" 20 1 500
+
+		setv va07 1
+		setv va06 rand 0 2
+		doif va06 eq 1
+			setv va07 22
+		elif va06 eq 2
+			setv va07 43
+		endi
+
+		new: simp 2 4 21211 "succulent" 20 va07 500
 		attr 208
 		bhvr 0
 		perm 60
@@ -422,10 +431,20 @@ scrp 1 1 21217 9
 		setv ov01 rand 2 5
 		pose ov01
 		setv ov02 0
+		alph rand 0 180 1
+		tint rand 112 142 rand 112 142 rand 112 142 rand 30 220 rand 30 220 
 		mvsf rand 580 3960 3500
 		tick 100
 
-		new: simp 2 4 21211 "succulent" 20 1 500
+		setv va07 1
+		setv va06 rand 0 2
+		doif va06 eq 1
+			setv va07 22
+		elif va06 eq 2
+			setv va07 43
+		endi
+
+		new: simp 2 4 21211 "succulent" 20 va07 500
 		attr 208
 		bhvr 0
 		perm 60
@@ -435,10 +454,20 @@ scrp 1 1 21217 9
 		setv ov01 rand 2 5
 		pose ov01
 		setv ov02 0
+		alph rand 0 180 1
+		tint rand 112 142 rand 112 142 rand 112 142 rand 30 220 rand 30 220 
 		mvsf rand 1530 3960 3240
 		tick 100
 
-		new: simp 2 4 21211 "succulent" 20 1 500
+		setv va07 1
+		setv va06 rand 0 2
+		doif va06 eq 1
+			setv va07 22
+		elif va06 eq 2
+			setv va07 43
+		endi
+
+		new: simp 2 4 21211 "succulent" 20 va07 500
 		attr 208
 		bhvr 0
 		perm 60
@@ -448,10 +477,20 @@ scrp 1 1 21217 9
 		setv ov01 rand 2 5
 		pose ov01
 		setv ov02 0
+		alph rand 0 180 1
+		tint rand 112 142 rand 112 142 rand 112 142 rand 30 220 rand 30 220 
 		mvsf rand 1190 3430 3680
 		tick 100
 
-		new: simp 2 4 21211 "succulent" 20 1 500
+		setv va07 1
+		setv va06 rand 0 2
+		doif va06 eq 1
+			setv va07 22
+		elif va06 eq 2
+			setv va07 43
+		endi
+
+		new: simp 2 4 21211 "succulent" 20 va07 500
 		attr 208
 		bhvr 0
 		perm 60
@@ -461,6 +500,8 @@ scrp 1 1 21217 9
 		setv ov01 rand 2 5
 		pose ov01
 		setv ov02 0
+		alph rand 0 180 1
+		tint rand 112 142 rand 112 142 rand 112 142 rand 30 220 rand 30 220 
 		mvsf rand 1540 3960 3980
 		tick 100
 
@@ -526,7 +567,16 @@ scrp 2 4 21211 1000
 	addv va00 15
 	setv va01 post
 	addv va01 30
-	new: simp 2 3 21211 "succulent" 1 0 4000
+
+	setv va07 0
+	setv va06 rand 0 2
+	doif va06 eq 1
+		setv va07 21
+	elif va06 eq 2
+		setv va07 42
+	endi
+
+	new: simp 2 3 21211 "succulent" 1 va07 4000
 	attr 195
 	bhvr 48
 	perm 60
@@ -535,6 +585,8 @@ scrp 2 4 21211 1000
 	accg 3
 	emit 7 0.5
 	tick rand 600 1200
+	alph rand 0 180 1
+	tint rand 112 142 rand 112 142 rand 112 142 rand 30 220 rand 30 220 
 	mvsf va00 va01
 	velo rand -5 5 rand -5 -10
 	targ ownr
@@ -565,7 +617,16 @@ scrp 2 3 21211 9
 			setv va00 posl
 			subv va00 15
 			setv va01 post
-			new: simp 2 4 21211 "succulent" 20 1 500
+
+			setv va07 1
+			setv va06 rand 0 2
+			doif va06 eq 1
+				setv va07 22
+			elif va06 eq 2
+				setv va07 43
+			endi
+
+			new: simp 2 4 21211 "succulent" 20 va07 500
 			attr 208
 			bhvr 0
 			perm 60
@@ -574,6 +635,8 @@ scrp 2 3 21211 9
 			setv ov00 rand 1 3
 			setv ov01 2
 			setv ov02 0
+			alph rand 0 180 1
+			tint rand 112 142 rand 112 142 rand 112 142 rand 30 220 rand 30 220 
 			mvsf va00 va01
 			anim [0 0 1 1 2]
 			tick 100

@@ -17,7 +17,7 @@ bhvr 0
 elas 0
 aero 0
 accg 0
-mvto 6450 5950
+mvto 6450 5900
 velo 0 0
 tick 500
 
@@ -27,7 +27,7 @@ bhvr 0
 elas 0
 aero 0
 accg 0
-mvto 6850 5950
+mvto 6850 5900
 velo 0 0
 tick 500
 
@@ -37,13 +37,19 @@ bhvr 0
 elas 0
 aero 0
 accg 0
-mvto 6540 5680
+mvto 6540 6180
 velo 0 0
 tick 500
 
 
 scrp 1 1 6603 9
-	doif totl 2 4 6601 lt 6
+
+	setv va03 0
+	esee 2 4 6601
+        addv va03 1
+	next
+
+	doif va03 lt 2
 		setv va00 posl
 		subv va00 15
 		setv va01 post
@@ -62,7 +68,7 @@ scrp 1 1 6603 9
 				kill targ
 			endi
 		velo rand -20 130 rand -1 1
-	elif totl 2 4 6601 gt 6
+	elif va03 gt 2
 		wait 50
 	endi
 endm
