@@ -5,22 +5,22 @@ mvto 853 3265
 
 
 * Add succulents to background
-new: simp 2 2 21211 "succulents_background" 1 0 0
+new: simp 2 21 21211 "succulents_background" 1 0 0
 bhvr 1
 attr 4
 mvto 261 3344
 
-new: simp 2 2 21212 "succulents_background" 1 1 0
+new: simp 2 21 21212 "succulents_background" 1 1 0
 bhvr 1
 attr 4
 mvto 852 3336
 
-scrp 2 2 21211 1
+scrp 2 21 21211 1
 *	vocb is pushed
 	stim writ from 97 1
 
     rtar 1 1 38052
-	anim [0 1 2 3 4 5 6 7 8 9 10 11 12 11 10 9 8 7 6 5 4 3 2 1 0]
+	anim [0 1 2 3 4 5 6 6 6 7 7 7 8 8 8 9 9 9 10 10 10 11 11 11 12 12 12 11 11 11 10 10 10 9 9 9 8 8 8 7 7 7 6 6 6 5 4 3 2 1 0]
 
 	doif from ne null
 		targ from
@@ -32,12 +32,12 @@ scrp 2 2 21211 1
 
 endm
 
-scrp 2 2 21212 1
+scrp 2 21 21212 1
 *	vocb is pushed
 	stim writ from 97 1
 
     rtar 1 1 38052
-	anim [0 1 2 3 4 5 6 7 8 9 10 11 12 11 10 9 8 7 6 5 4 3 2 1 0]
+	anim [0 1 2 3 4 5 6 6 6 7 7 7 8 8 8 9 9 9 10 10 10 11 11 11 12 12 12 11 11 11 10 10 10 9 9 9 8 8 8 7 7 7 6 6 6 5 4 3 2 1 0]
 
 	doif from ne null
 		targ from

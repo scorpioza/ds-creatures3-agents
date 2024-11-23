@@ -1,0 +1,19 @@
+"en-GB"
+
+
+group DSAG "ZE Triff Plant"
+
+"Dependency 1" "moe_c2tods_triff.c16"
+
+"Agent Animation Gallery" "moe_c2tods_triff"
+"Agent Description" "Inject the Triff plant from C2 To DS"
+"Agent Animation File" "moe_c2tods_triff.c16"
+
+"Script Count" 1
+"Script 1" @ "ze_triff_plant.cos"
+
+"Agent Type" 0
+"Dependency Count" 1
+"Dependency Category 1" 2
+
+inline FILE "moe_c2tods_triff.c16" "moe_c2tods_triff.c16"
