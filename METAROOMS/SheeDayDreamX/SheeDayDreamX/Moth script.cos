@@ -155,6 +155,14 @@ scrp 2 13 60000 10
 endm
 
 
+scrp 2 18 60000 10
+
+	attr 7
+
+	bhvr 48
+
+endm
+
 
 * Mothworm script
 
@@ -714,6 +722,22 @@ endm
 * Moth eat script
 
 scrp 2 13 60000 12
+
+	sndc "chwp"
+
+	stim writ from 80 .5
+
+	chem 12 .5
+
+	chem 39 .04
+
+	chem 99 .5
+
+	kill ownr
+
+endm
+
+scrp 2 18 60000 12
 
 	sndc "chwp"
 
