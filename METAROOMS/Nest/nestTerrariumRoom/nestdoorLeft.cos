@@ -1,0 +1,364 @@
+* garden
+new: simp 2 2 38044 "nestdoorleft" 4 6 1
+bhvr 1
+attr 4
+clac 1111
+mvto 3488 5255
+setv va00 room targ
+
+*bottom
+new: simp 2 2 38043 "nestdoorleft" 16 0 3
+bhvr 1
+attr 4
+clac 1111
+mvto 3648 5412
+setv va01 room targ
+seta va03 targ
+
+link va00 va01 100
+
+
+* Wall
+new: simp 1 1 38099 "ntbackwall" 2 0 2
+mvto 3300 5340
+seta va02 targ
+
+
+* Button
+new: simp 2 2 38099 "ntbackwall" 4 2 1
+attr 20
+mvto 3327 5237
+seta ov00 va02
+seta ov01 va03
+frat 3
+
+
+scrp 2 2 38099 1
+
+	anim [1 2 1 0]
+
+	targ ov00
+	doif pose eq 0
+		pose 1
+		targ ownr
+		targ ov01
+		pose 10
+		mvto 3672 5537
+	elif pose eq 1
+		pose 0
+		targ ownr
+		targ ov01
+		pose 0
+		mvto 3648 5412
+	endi
+
+endm
+
+
+** CLAC
+
+** Corridor Door -> Norn Terrarium (CLAC)
+scrp 2 2 38044 1111
+	doif from eq pntr or ownr = from
+		setv va00 0
+	else
+		inst
+		doif from ne null
+			targ from
+			doif fmly eq 4
+				setv va00 1
+			else
+				setv va00 2
+			endi
+		endi
+	endi
+	mesg wrt+ ownr 0 va00 0 0
+endm
+
+** Norn Terrarium -> Corridor Door (CLAC)
+scrp 2 2 38043 1111
+	doif from eq pntr or ownr = from
+		setv va00 0
+	else
+		inst
+		doif from ne null
+			targ from
+			doif fmly eq 4
+				setv va00 1
+			else
+				setv va00 2
+			endi
+		endi
+	endi
+
+	mesg wrt+ ownr 0 va00 0 0
+
+
+endm
+
+****CORRIDOR door activate - norn
+scrp 2 2 38044 1
+	lock
+
+
+	snde "open"
+*	if from a creature set flag
+
+	inst
+	doif from ne null
+		targ from
+		setv va99 0
+		doif fmly eq 4
+			setv va99 1
+*			make it wait around till transferred
+			stim writ targ 75 1
+		endi
+	endi
+	slow
+
+
+*	tell recieving door to open
+	rtar 2 2 38043
+	doif targ ne null
+		setv va00 posx
+		setv va10 posx
+		setv va01 posy
+		setv va11 posy
+		mesg writ targ 1000
+	endi
+*	open yourself
+	targ ownr
+	anim [0 1 2 3]
+*	sort out positions for metaroom fade
+	setv va02 wndw
+	divv va02 2
+	subv va00 va02
+	setv va03 wndh
+	divv va03 2
+	subv va01 va03
+*	adjust foot position of creature
+	addv va11 50
+	over
+*	if from a creature
+	doif va99 eq 1
+		inst
+		doif from ne null
+			targ from
+			doif hhld ne targ
+*		nohh
+				doif carr eq null
+					mvft va10 va11
+					velo 0 0
+				endi
+			endi
+		endi
+		slow
+*	if from the hand
+	elif _p1_ eq 0
+		inst
+		etch 4 0 0
+			doif carr eq null
+				doif hhld ne targ
+*				nohh
+					mvft va10 va11
+					velo 0 0
+				endi
+			endi
+		next
+		doif hhld <> null
+			targ hhld
+			nohh
+		endi
+		slow
+		meta gmap 3648 5412 va00 va01 game "c3_meta_transition"
+	elif _p1_ eq 2 or _p1_ eq 1
+*		otherwise from something else
+		inst
+		etch 4 0 0
+			doif carr eq null
+				doif hhld ne targ
+*					nohh
+					mvft va10 va11
+					velo 0 0
+				endi
+			endi
+		next
+		slow
+	endi
+
+
+*send close message to recieving door
+	rtar 2 2 38043
+	doif targ ne null
+		mesg wrt+ targ 1001 0 0 2
+	endi
+
+
+	inst
+	doif from ne null
+		targ from
+		doif fmly eq 4
+
+*			reduce need to exit + need to wait
+			stim writ targ 95 1
+		endi
+	endi
+
+*	send yourself close message
+	targ ownr
+	unlk
+	mesg writ targ 1001
+
+
+
+endm
+
+
+****TERRARIUM door activate - norn
+scrp 2 2 38043 1
+	lock
+
+	snde "open"
+*	if from a creature set flag
+	inst
+	doif from ne null
+		targ from
+		setv va99 0
+		doif fmly eq 4
+			setv va99 1
+*			make it wait around till transferred
+			stim writ targ 75 1
+
+		endi
+	endi
+	slow
+
+
+
+*tell receiving door to open
+	rtar 2 2 38044
+	doif targ ne null
+		setv va00 posx
+		setv va10 posx
+		setv va01 posy
+		setv va11 posy
+		mesg writ targ 1000
+	endi
+
+
+*	open yourself
+	targ ownr
+	doif pose < 6
+		anim [0 1 2 3 4 5]
+	else
+		anim [10 11 12 13 14 15]
+	endi
+*	sort out positions for metaroom fade
+	setv va02 wndw
+	divv va02 2
+	subv va00 va02
+	setv va03 wndh
+	divv va03 2
+	subv va01 va03
+*	adjust foot position of creature
+	addv va11 50
+	over
+*	if from a creature
+	doif va99 eq 1
+		inst
+		doif from ne null
+			targ from
+			doif carr eq null
+				doif hhld ne from
+*			nohh
+					mvft va10 va11
+					velo 0 0
+				endi
+			endi
+		endi
+		slow
+*	if from the hand
+	elif _p1_ eq 0
+		inst
+		etch 4 0 0
+			doif carr eq null
+				doif hhld ne targ
+*				nohh
+					mvft va10 va11
+					velo 0 0
+				endi
+			endi
+		next
+		doif hhld <> null
+			targ hhld
+			nohh
+		endi
+		slow
+		meta gmap 3550 5255 va00 va01 game "c3_meta_transition"
+	elif _p1_ eq 2 or _p1_ eq 1
+*		otherwise from something else
+		inst
+		etch 4 0 0
+			doif carr eq null
+				doif hhld ne targ
+*				nohh
+					mvft va10 va11
+					velo 0 0
+				endi
+			endi
+		next
+		slow
+	endi
+
+
+*	send close message to recieving door
+	rtar 2 2 38044
+	doif targ ne null
+		mesg wrt+ targ 1001 0 0 2
+	endi
+
+	inst
+	doif from ne null
+		targ from
+		doif fmly eq 4
+*			reduce need to exit + need to wait
+			stim writ targ 95 1
+		endi
+	endi
+	slow
+
+*	send yourself close message
+	targ ownr
+	unlk
+	mesg writ targ 1001
+
+endm
+
+**corridor door animate open - norn
+scrp 2 2 38044 1000
+	snde "open"
+	anim [0 1 2 3]
+endm
+
+**corridor door animate closed - norn
+scrp 2 2 38044 1001
+	anim [3 2 1 0]
+endm
+
+**terrarium door animate open - norn
+scrp 2 2 38043 1000
+	snde "open"
+	doif pose < 6
+		anim [0 1 2 3 4 5]
+	else
+		anim [10 11 12 13 14 15]
+	endi 
+endm
+**terrarium door animate closed - norn
+scrp 2 2 38043 1001
+	doif pose < 6
+		anim [5 4 3 2 1 0]
+	else
+		anim [15 14 13 12 11 10]
+	endi
+endm
