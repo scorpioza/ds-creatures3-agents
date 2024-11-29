@@ -1,6 +1,6 @@
 * Install
 
-new: simp 1 1 20006 "blnk" 0 0 0
+new: simp 1 1 60006 "blnk" 0 0 0
 
 rnge 1500
 
@@ -9,7 +9,7 @@ mvto 9270 8338
 tick 20
 
 
-new: simp 1 1 20006 "blnk" 0 0 0
+new: simp 1 1 60006 "blnk" 0 0 0
 
 rnge 1500
 
@@ -18,7 +18,7 @@ mvto 8000 9000
 tick 20
 
 
-new: simp 1 1 20006 "blnk" 0 0 0
+new: simp 1 1 60006 "blnk" 0 0 0
 
 rnge 1500
 
@@ -27,7 +27,7 @@ mvto 9600 8760
 tick 20
 
 
-new: simp 1 1 20006 "blnk" 0 0 0
+new: simp 1 1 60006 "blnk" 0 0 0
 
 rnge 1500
 
@@ -38,7 +38,7 @@ tick 20
 
 * Creator script
 
-scrp 1 1 20006 9
+scrp 1 1 60006 9
 
 	setv va03 0
 
@@ -202,7 +202,7 @@ scrp 2 13 60001 9
 
 		addv va10 10
 
-		new: simp 2 18 20000 "lc_c1_moth" 5 24 va10
+		new: simp 2 18 60000 "lc_c1_moth" 5 24 va10
 
 		mvsf va00 va01
 
@@ -527,7 +527,7 @@ endm
 
 * Moth cocoon script
 
-scrp 2 18 20000 9
+scrp 2 18 60000 9
 
 	lock
 
