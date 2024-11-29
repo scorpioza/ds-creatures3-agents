@@ -1,0 +1,27 @@
+***********
+*swimmer
+***********
+enum 1 1 61896
+	kill targ
+next
+new: simp 1 1 61896 "blnk" 1 0 1000
+bhvr 0
+attr 0
+mvto 0 0
+tick 100
+endm
+
+scrp 1 1 61896 9
+	inst
+	enum 4 0 0
+		doif carr = null and dead = 0 and aslp = 0
+		* and chem 97 > 0.9 
+			doif rtyp room targ = 8 or rtyp room targ = 9
+				mvsf 460 9220
+			elif posb < 600 and posr < 800
+				mvsf 460 9220
+			endi
+		endi
+	next
+
+endm
