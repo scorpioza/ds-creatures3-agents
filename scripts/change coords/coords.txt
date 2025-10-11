@@ -1,0 +1,204 @@
+setv va00 addr game "toxic_tmp" 105 154 7445 7445 7472 7506
+rtyp va00 8
+rmsc 129 7475 ""
+setv game "toxic_tmp_0" va00
+setv va00 addr game "toxic_tmp" 154 210 7445 7445 7506 7525
+rtyp va00 8
+rmsc 182 7485 ""
+setv game "toxic_tmp_1" va00
+setv va00 addr game "toxic_tmp" 210 265 7445 7445 7525 7525
+rtyp va00 8
+rmsc 237 7485 ""
+setv game "toxic_tmp_2" va00
+setv va00 addr game "toxic_tmp" 265 307 7445 7445 7525 7523
+rtyp va00 8
+rmsc 286 7484 ""
+setv game "toxic_tmp_3" va00
+setv va00 addr game "toxic_tmp" 307 381 7445 7445 7523 7495
+rtyp va00 8
+rmsc 344 7470 ""
+setv game "toxic_tmp_4" va00
+setv va00 addr game "toxic_tmp" 381 430 7445 7445 7495 7467
+rtyp va00 8
+rmsc 405 7456 ""
+setv game "toxic_tmp_5" va00
+setv va00 addr game "toxic_tmp" 430 468 7445 7445 7467 7452
+rtyp va00 8
+rmsc 449 7448 ""
+setv game "toxic_tmp_6" va00
+setv va00 addr game "toxic_tmp" 91 129 7183 7158 7217 7262
+rtyp va00 0
+rmsc 110 7222 ""
+setv game "toxic_tmp_7" va00
+setv va00 addr game "toxic_tmp" 468 504 7354 7354 7452 7437
+rtyp va00 0
+rmsc 486 7395 ""
+setv game "toxic_tmp_8" va00
+setv va00 addr game "toxic_tmp" 89 105 7445 7445 7453 7472
+rtyp va00 8
+rmsc 97 7458 ""
+setv game "toxic_tmp_9" va00
+setv va00 addr game "toxic_tmp" 129 180 7158 7146 7445 7445
+rtyp va00 0
+rmsc 154 7301 ""
+setv game "toxic_tmp_10" va00
+setv va00 addr game "toxic_tmp" 105 129 7277 7268 7445 7445
+rtyp va00 0
+rmsc 117 7361 ""
+setv game "toxic_tmp_11" va00
+setv va00 addr game "toxic_tmp" 180 256 7146 7143 7445 7445
+rtyp va00 0
+rmsc 218 7295 ""
+setv game "toxic_tmp_12" va00
+setv va00 addr game "toxic_tmp" 256 332 7143 7138 7445 7445
+rtyp va00 0
+rmsc 294 7294 ""
+setv game "toxic_tmp_13" va00
+setv va00 addr game "toxic_tmp" 332 388 7138 7117 7445 7445
+rtyp va00 0
+rmsc 360 7291 ""
+setv game "toxic_tmp_14" va00
+setv va00 addr game "toxic_tmp" 388 437 7117 7071 7445 7445
+rtyp va00 0
+rmsc 412 7281 ""
+setv game "toxic_tmp_15" va00
+setv va00 addr game "toxic_tmp" 504 588 7354 7354 7437 7433
+rtyp va00 6
+rmsc 546 7393 ""
+setv game "toxic_tmp_16" va00
+setv va00 addr game "toxic_tmp" 588 662 7354 7354 7433 7444
+rtyp va00 6
+rmsc 625 7399 ""
+setv game "toxic_tmp_17" va00
+setv va00 addr game "toxic_tmp" 662 732 7354 7354 7444 7452
+rtyp va00 6
+rmsc 697 7403 ""
+setv game "toxic_tmp_18" va00
+setv va00 addr game "toxic_tmp" 732 843 7354 7354 7452 7452
+rtyp va00 6
+rmsc 787 7403 ""
+setv game "toxic_tmp_19" va00
+setv va00 addr game "toxic_tmp" 843 983 7354 7354 7452 7453
+rtyp va00 6
+rmsc 913 7403 ""
+setv game "toxic_tmp_20" va00
+setv va00 addr game "toxic_tmp" 983 1084 7354 7354 7453 7453
+rtyp va00 6
+rmsc 1033 7403 ""
+setv game "toxic_tmp_21" va00
+setv va00 addr game "toxic_tmp" 1084 1152 7354 7354 7453 7447
+rtyp va00 6
+rmsc 1118 7400 ""
+setv game "toxic_tmp_22" va00
+setv va00 addr game "toxic_tmp" 1152 1194 7354 7354 7447 7424
+rtyp va00 6
+rmsc 1173 7389 ""
+setv game "toxic_tmp_23" va00
+setv va00 addr game "toxic_tmp" 1194 1210 7217 7252 7424 7385
+rtyp va00 0
+rmsc 1202 7301 ""
+setv game "toxic_tmp_24" va00
+setv va00 addr game "toxic_tmp" 1162 1194 7189 7217 7354 7354
+rtyp va00 0
+rmsc 1178 7271 ""
+setv game "toxic_tmp_25" va00
+setv va00 addr game "toxic_tmp" 1098 1162 7186 7189 7354 7354
+rtyp va00 0
+rmsc 1130 7270 ""
+setv game "toxic_tmp_26" va00
+setv va00 addr game "toxic_tmp" 920 1098 7188 7186 7354 7354
+rtyp va00 0
+rmsc 1009 7271 ""
+setv game "toxic_tmp_27" va00
+setv va00 addr game "toxic_tmp" 789 920 7191 7188 7354 7354
+rtyp va00 0
+rmsc 854 7272 ""
+setv game "toxic_tmp_28" va00
+setv va00 addr game "toxic_tmp" 732 789 7185 7191 7354 7354
+rtyp va00 0
+rmsc 760 7269 ""
+setv game "toxic_tmp_29" va00
+setv va00 addr game "toxic_tmp" 468 537 7010 6930 7354 7354
+rtyp va00 0
+rmsc 502 7182 ""
+setv game "toxic_tmp_30" va00
+setv va00 addr game "toxic_tmp" 537 628 6916 6820 7354 7354
+rtyp va00 0
+rmsc 582 7135 ""
+setv game "toxic_tmp_31" va00
+setv va00 addr game "toxic_tmp" 628 689 6820 6769 7354 7354
+rtyp va00 0
+rmsc 658 7087 ""
+setv game "toxic_tmp_32" va00
+setv va00 addr game "toxic_tmp" 689 732 6769 6742 7354 7354
+rtyp va00 0
+rmsc 710 7061 ""
+setv game "toxic_tmp_33" va00
+setv va00 addr game "toxic_tmp" 732 753 6742 6731 7168 7156
+rtyp va00 0
+rmsc 742 6949 ""
+setv game "toxic_tmp_34" va00
+setv va00 addr game "toxic_tmp" 753 787 7071 7071 7156 7170
+rtyp va00 6
+rmsc 770 7120 ""
+setv game "toxic_tmp_35" va00
+setv va00 addr game "toxic_tmp" 787 828 7071 7071 7170 7172
+rtyp va00 6
+rmsc 807 7121 ""
+setv game "toxic_tmp_36" va00
+setv va00 addr game "toxic_tmp" 828 942 7071 7071 7172 7172
+rtyp va00 6
+rmsc 885 7121 ""
+setv game "toxic_tmp_37" va00
+setv va00 addr game "toxic_tmp" 1032 1144 7071 7071 7161 7148
+rtyp va00 6
+rmsc 1088 7109 ""
+setv game "toxic_tmp_38" va00
+setv va00 addr game "toxic_tmp" 1144 1180 7071 7071 7148 7140
+rtyp va00 6
+rmsc 1162 7105 ""
+setv game "toxic_tmp_39" va00
+setv va00 addr game "toxic_tmp" 1144 1180 6868 6886 7071 7071
+rtyp va00 0
+rmsc 1162 6969 ""
+setv game "toxic_tmp_40" va00
+setv va00 addr game "toxic_tmp" 753 821 6731 6710 7071 7071
+rtyp va00 0
+rmsc 787 6901 ""
+setv game "toxic_tmp_41" va00
+setv va00 addr game "toxic_tmp" 821 874 6710 6705 7071 7071
+rtyp va00 0
+rmsc 847 6890 ""
+setv game "toxic_tmp_42" va00
+setv va00 addr game "toxic_tmp" 874 929 6705 6707 7071 7071
+rtyp va00 0
+rmsc 901 6888 ""
+setv game "toxic_tmp_43" va00
+setv va00 addr game "toxic_tmp" 929 1017 6707 6728 7071 7071
+rtyp va00 0
+rmsc 973 6889 ""
+setv game "toxic_tmp_44" va00
+setv va00 addr game "toxic_tmp" 1017 1083 6728 6755 7071 7071
+rtyp va00 0
+rmsc 1050 6899 ""
+setv game "toxic_tmp_45" va00
+setv va00 addr game "toxic_tmp" 1083 1111 6755 6773 7071 7071
+rtyp va00 0
+rmsc 1097 6913 ""
+setv game "toxic_tmp_46" va00
+setv va00 addr game "toxic_tmp" 1111 1144 6836 6868 7071 7071
+rtyp va00 0
+rmsc 1127 6953 ""
+setv game "toxic_tmp_47" va00
+setv va00 addr game "toxic_tmp" 437 468 7071 7010 7445 7445
+rtyp va00 0
+rmsc 452 7258 ""
+setv game "toxic_tmp_48" va00
+setv va00 addr game "toxic_tmp" 89 105 7309 7277 7445 7445
+rtyp va00 0
+rmsc 97 7377 ""
+setv game "toxic_tmp_49" va00
+setv va00 addr game "toxic_tmp" 942 1032 7071 7071 7172 7161
+rtyp va00 6
+rmsc 987 7116 ""
+setv game "toxic_tmp_50" va00
