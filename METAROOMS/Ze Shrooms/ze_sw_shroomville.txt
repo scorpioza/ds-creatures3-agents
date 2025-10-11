@@ -1,0 +1,76 @@
+"en-GB"
+
+
+group DSAG "Ze Shrooms"
+
+"Dependency 1" "ZeSW-Shroom_Dome.blk"
+"Dependency 2" "ZeWoodlandTemp_Bkg.blk"
+"Dependency 3" "ZeSWRightOverlay.c16"
+"Dependency 4" "SW-Fav_Shroom_Dome.c16"
+"Dependency 5" "SW-Fav_Treehuggers_Dome.c16"
+"Dependency 6" "SW_Tree12.c16"
+"Dependency 7" "SW_Door_S-Open.c16"
+"Dependency 8" "SW_THR-LT.c16"
+"Dependency 9" "SW_WarpShroom.c16"
+"Dependency 10" "SW-Random_Bits.c16"
+"Dependency 11" "SW_SroomLiftOverlay.c16"
+"Dependency 12" "SW_TreeHuggers_Seedbank.c16"
+"Dependency 13" "gp_c2berries.c16"
+"Dependency 14" "gp_inkcap_mushroom_JESS.c16"
+"Dependency 15" "C3_lift.c16"
+
+
+"Agent Animation Gallery" "SW-Fav_Shroom_Dome"
+"Pray_File" "SW_ShroomVille.agents"
+"Agent Description" "alpha v-1. ShroomVille is currently unfineshed"
+"Agent Animation File" "SW-Fav_Shroom_Dome.c16"
+"Agent animation String" "0 1 2"
+"Agent Animation Gallery" "SW-Fav_Shroom_Dome"
+"Remove script" "enum 2 2 90102\n	kill targ\nnext\nscrx 2 2 90102 1\n\nenum 1 1 90200\n	kill targ\nnext\nscrx 2 2 90200 1\n\nenum 1 1 90201\n	kill targ\nnext\nscrx 2 2 90201 1\n\n\nenum 1 1 90203\n	kill targ\nnext\nscrx 2 2 90203 1\n\nenum 1 1 90204\n	kill targ\nnext\nscrx 2 2 90204 1\n\nenum 1 1 90205\n	kill targ\n	scrx 2 2 90205 1\nnext\nenum 1 1 90206\n	kill targ\nnext\nscrx 2 2 90206 1\n\nenum 1 1 90207\n	kill targ\nnext\nscrx 2 2 90207 1\n\nenum 1 1 90208\n	kill targ\nnext\nscrx 2 2 90208 1\n\nenum 1 1 90209\n	kill targ\nnext\nscrx 2 2 90209 1\n\nenum 1 1 90110\n	kill targ\nnext\nscrx 2 2 90210 1\n\nenum 1 1 90211\n	kill targ\nnext\nscrx 2 2 90211 1\n\nenum 1 1 90112\n	kill targ\nnext\nscrx 2 2 90212 1\n\n\nenum 1 1 90113\n	kill targ\nnext\nscrx 2 2 90213 1\n\nenum 1 1 90114\n	kill targ\nnext\nscrx 2 2 90214 1\n\nenum 1 1 90115\n	kill targ\nnext\nscrx 2 2 90215 1\n\n\n\nenum 1 1 90220\n	kill targ\nnext\nscrx 2 2 90220 1\n\nenum 1 1 90221\n	kill targ\nnext\nscrx 2 2 90221 1\n\nenum 1 1 90222\n	kill targ\nnext\nscrx 2 2 90222 1\n\nenum 1 1 90223\n	kill targ\nnext\nscrx 2 2 90223 1\n\nenum 1 1 90224\n	kill targ\nnext\nscrx 2 2 90224 1\n\nenum 1 1 90225\n	kill targ\nnext\nscrx 2 2 90225 1\n\nenum 1 1 90226\n	kill targ\nnext\nscrx 2 2 90226 1\n\nenum 1 1 90227\n	kill targ\nnext\nscrx 2 2 90227 1\n\nenum 1 1 90228\n	kill targ\nnext\nscrx 2 2 90228 1\n\nenum 1 1 90229\n	kill targ\nnext\nscrx 2 2 90229 1\nenum 1 1 90230\n	kill targ\nnext\nscrx 2 2 90230 1\n\nenum 1 1 90231\n	kill targ\nnext\nscrx 2 2 90231 1\n\n\n\nenum 1 1 90240\n	kill targ\nnext\nscrx 2 2 90240 1\n\nenum 1 1 90241\n	kill targ\nnext\nscrx 2 2 90241 1\n\nenum 1 1 90242\n	kill targ\nnext\nscrx 2 2 90242 1\n\nenum 1 1 90243\n	kill targ\nnext\nscrx 2 2 90243 1\n\nenum 1 1 90244\n	kill targ\nnext\nscrx 2 2 90244 1\n\nenum 1 1 90245\n	kill targ\nnext\nscrx 2 2 90245 1\n\nenum 1 1 90246\n	kill targ\nnext\nscrx 2 2 90246 1\n\nenum 1 1 90247\n	kill targ\nnext\nscrx 2 2 90247 1\n\nenum 1 1 90248\n	kill targ\nnext\nscrx 2 2 90248 1\n\nenum 1 1 90249\n	kill targ\nnext\nscrx 2 2 90249 1\n\n\n\nenum 1 1 90250\n	kill targ\nnext\nscrx 2 2 90250 1\n\nenum 1 1 90251\n	kill targ\nnext\nscrx 2 2 90251 1\n\nenum 1 1 90252\n	kill targ\nnext\nscrx 2 2 90252 1\n\nenum 1 1 90253\n	kill targ\nnext\nscrx 2 2 90253 1\n\nenum 1 1 90254\n	kill targ\nnext\nscrx 2 2 90254 1\n\nenum 1 1 90255\n	kill targ\nnext\nscrx 2 2 90255 1\nenum 1 1 90256\n	kill targ\n\n	enum 1 1 90257\n		kill targ\n	next\n	scrx 2 2 90257 1"
+
+"Script Count" 6
+"Script 1" @ "SW_ShroomVille script.cos"
+"Script 2" @ "ze_main_emitters.cos"
+"Script 3" @ "ze_blue_fungi.cos"
+"Script 4" @ "ze_grendel_berries.cos"
+"Script 5" @ "ze_plants.cos"
+"Script 6" @ "SW_ShroomVille Lifts script.cos"
+
+"Agent Type" 0
+"Dependency Count" 15
+"Dependency Category 1" 6
+"Dependency Category 2" 6
+"Dependency Category 3" 2
+"Dependency Category 4" 2
+"Dependency Category 5" 2
+"Dependency Category 6" 2
+"Dependency Category 7" 2
+"Dependency Category 8" 2
+"Dependency Category 9" 2
+"Dependency Category 10" 2
+"Dependency Category 11" 2
+"Dependency Category 12" 2
+"Dependency Category 13" 2
+"Dependency Category 14" 2
+"Dependency Category 15" 2
+"Agent Sprite First Image" 1
+
+
+
+inline FILE "SW-Fav_Shroom_Dome.c16" "SW-Fav_Shroom_Dome.c16"
+inline FILE "SW-Fav_Treehuggers_Dome.c16" "SW-Fav_Treehuggers_Dome.c16"
+inline FILE "SW-Random_Bits.c16" "SW-Random_Bits.c16"
+inline FILE "ZeSW-Shroom_Dome.blk" "ZeSW-Shroom_Dome.blk"
+inline FILE "ZeSWRightOverlay.c16" "ZeSWRightOverlay.c16"
+inline FILE "SW_Door_S-Open.c16" "SW_Door_S-Open.c16"
+inline FILE "SW_SroomLiftOverlay.c16" "SW_SroomLiftOverlay.c16"
+inline FILE "SW_THR-LT.c16" "SW_THR-LT.c16"
+inline FILE "SW_Tree12.c16" "SW_Tree12.c16"
+inline FILE "SW_TreeHuggers_Seedbank.c16" "SW_TreeHuggers_Seedbank.c16"
+inline FILE "SW_WarpShroom.c16" "SW_WarpShroom.c16"
+inline FILE "ZeWoodlandTemp_Bkg.blk" "ZeWoodlandTemp_Bkg.blk"
+
+inline FILE "gp_c2berries.c16" "gp_c2berries.c16"
+inline FILE "gp_inkcap_mushroom_JESS.c16" "gp_inkcap_mushroom_JESS.c16"
+
+inline FILE "C3_lift.c16" "C3_lift.c16"

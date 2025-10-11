@@ -1,0 +1,66 @@
+** Inkcap mushroom
+reps 10
+** Lower jungle
+	new: simp 1 1 21844 "blnk" 1 0 10
+	mvto 96750 82310
+	tick 1
+
+	new: simp 1 1 21844 "blnk" 1 0 10
+	mvto 98900 84320
+	tick 1
+repe
+
+**
+** C2 berries
+**
+** jungle tree
+new: simp 1 1 21848 "blnk" 1 0 0
+setv ov05 98500
+setv ov06 100
+setv ov07 81700
+setv ov08 18
+mvto 98500 81700
+tick 1
+**
+** tropical biome tree
+new: simp 1 1 21848 "blnk" 1 0 0
+setv ov05 97360
+setv ov06 150
+setv ov07 81620
+setv ov08 47
+setv ov04 2
+mvto 97360 81620
+tick 1
+**
+** Main mother leaves (yellow)
+new: simp 1 1 21848 "blnk" 1 0 0
+setv ov05 98000
+setv ov06 80
+setv ov07 81670
+setv ov08 71
+setv ov04 1
+mvto 98000 81670
+tick 1
+
+***** JUNGLE *****
+
+**
+** tropical biome tree
+new: simp 1 1 21848 "blnk" 1 0 0
+setv ov05 97688
+setv ov06 372
+setv ov07 83350
+setv ov08 47
+setv ov04 2
+mvto 97688 83350
+tick 1
+**
+** Main mother leaves (yellow)
+new: simp 1 1 21848 "blnk" 1 0 0
+setv ov05 99120
+setv ov06 470
+setv ov07 83350
+setv ov08 71
+setv ov04 1
+mvto 99120 83350
+tick 1

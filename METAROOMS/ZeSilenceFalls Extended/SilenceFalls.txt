@@ -1,0 +1,96 @@
+"en-GB"
+
+
+group AGNT "Silence Falls (C3)"
+
+"Agent Animation File" "fav_place_waterfall.c16"
+"Agent Animation Gallery" "fav_place_waterfall"
+"Agent Animation String" "1 1 1 1 2 2 2 2 255"
+"Agent Description" "The native home of the Waterfall Grendels."
+"Dependency 1" "fav_place_waterfall.c16"
+"Dependency 10" "SilenceFalls.catalogue"
+"Dependency 11" "waterfall-room-v3a.blk"
+"Dependency 2" "blank.c16"
+"Dependency 3" "blnk.c16"
+"Dependency 4" "waterfall_navigation.c16"
+"Dependency 5" "waterfall_cmsh.c16"
+"Dependency 6" "watercup_shroom.c16"
+"Dependency 7" "waterfall_droplet.c16"
+"Dependency 8" "fp_1.wav"
+"Dependency 9" "chwp.wav"
+"Remove script" "enum 1 2 18885 kill targ next enum 1 1 18886 kill targ next enum 1 1 18887 kill targ next enum 1 1 18888 kill targ next enum 1 1 18889 kill targ next enum 1 1 18785 kill targ next enum 2 19 18785 kill targ next enum 3 1 18885 kill targ next enum 2 2 18885 kill targ next enum 2 3 18785 kill targ next enum 2 4 18785 kill targ next enum 2 11 18785 kill targ next enum 2 3 18885 kill targ next enum 2 4 18885 kill targ next enum 2 8 18885 kill targ next  scrx 1 2 18885 9 scrx 1 2 18885 1 scrx 1 1 18886 9 scrx 1 1 18886 255 scrx 1 1 18887 1000 scrx 1 1 18888 9 scrx 1 1 18889 6 scrx 1 1 18889 9 scrx 1 1 18785 9 scrx 2 19 18785 9 scrx 2 19 18785 6 scrx 3 1 18885 1 scrx 3 1 18885 2 scrx 2 2 18885 1 scrx 2 3 18785 9 scrx 2 3 18785 12 scrx 2 3 18785 255 scrx 2 4 18785 9 scrx 2 4 18785 1 scrx 2 4 18785 2 scrx 2 4 18785 255 scrx 2 11 18785 9 scrx 2 11 18785 12 scrx 2 3 18885 9 scrx 2 3 18885 12 scrx 2 3 18885 255 scrx 2 4 18885 1 scrx 2 4 18885 9 scrx 2 4 18885 255 scrx 2 8 18885 9 scrx 2 8 18885 12"
+
+"Script Count" 2
+"Script 1" @ "Silence Falls (C3) script.cos"
+"Script 2" @ "ZilenceFalls.cos"
+
+"Agent Bioenergy Value" 0
+"Agent Type" 0
+"Dependency Category 1" 2
+"Dependency Category 10" 7
+"Dependency Category 11" 6
+"Dependency Category 2" 2
+"Dependency Category 3" 2
+"Dependency Category 4" 2
+"Dependency Category 5" 2
+"Dependency Category 6" 2
+"Dependency Category 7" 2
+"Dependency Category 8" 1
+"Dependency Category 9" 1
+"Dependency Count" 11
+
+
+
+group DSAG "Silence Falls (DS)"
+
+"Agent Animation File" "fav_place_waterfall.c16"
+"Agent Animation Gallery" "fav_place_waterfall"
+"Agent Animation String" "1 1 1 1 2 2 2 2 255"
+"Agent Description" "Silence Falls is the native home of the Waterfall Grendels. Its ecology is based around the massive waterfall that gives the area its name. \n\nGraphics by mea and co. Coding by Grendel Man."
+"Dependency 1" "fav_place_waterfall.c16"
+"Dependency 10" "SilenceFalls.catalogue"
+"Dependency 11" "waterfall-room-v3a.blk"
+"Dependency 2" "blank.c16"
+"Dependency 3" "blnk.c16"
+"Dependency 4" "waterfall_navigation.c16"
+"Dependency 5" "waterfall_cmsh.c16"
+"Dependency 6" "watercup_shroom.c16"
+"Dependency 7" "waterfall_droplet.c16"
+"Dependency 8" "fp_1.wav"
+"Dependency 9" "chwp.wav"
+"Remove script" "enum 1 2 18885 kill targ next enum 1 1 18886 kill targ next enum 1 1 18887 kill targ next enum 1 1 18888 kill targ next enum 1 1 18889 kill targ next enum 1 1 18785 kill targ next enum 2 19 18785 kill targ next enum 3 1 18885 kill targ next enum 2 2 18885 kill targ next enum 2 3 18785 kill targ next enum 2 4 18785 kill targ next enum 2 11 18785 kill targ next enum 2 3 18885 kill targ next enum 2 4 18885 kill targ next enum 2 8 18885 kill targ next  scrx 1 2 18885 9 scrx 1 2 18885 1 scrx 1 1 18886 9 scrx 1 1 18886 255 scrx 1 1 18887 1000 scrx 1 1 18888 9 scrx 1 1 18889 6 scrx 1 1 18889 9 scrx 1 1 18785 9 scrx 2 19 18785 9 scrx 2 19 18785 6 scrx 3 1 18885 1 scrx 3 1 18885 2 scrx 2 2 18885 1 scrx 2 3 18785 9 scrx 2 3 18785 12 scrx 2 3 18785 255 scrx 2 4 18785 9 scrx 2 4 18785 1 scrx 2 4 18785 2 scrx 2 4 18785 255 scrx 2 11 18785 9 scrx 2 11 18785 12 scrx 2 3 18885 9 scrx 2 3 18885 12 scrx 2 3 18885 255 scrx 2 4 18885 1 scrx 2 4 18885 9 scrx 2 4 18885 255 scrx 2 8 18885 9 scrx 2 8 18885 12 scrx 1 2 18885 9 scrx 1 2 18885 1 scrx 1 1 18886 9 scrx 1 1 18886 255 scrx 1 1 18887 1000 scrx 1 1 18888 9 scrx 1 1 18889 6 scrx 1 1 18889 9 scrx 1 1 18785 9 scrx 2 19 18785 9 scrx 2 19 18785 6 scrx 3 1 18885 1 scrx 3 1 18885 2 scrx 2 2 18885 1 scrx 2 3 18785 9 scrx 2 3 18785 12 scrx 2 3 18785 255 scrx 2 4 18785 9 scrx 2 4 18785 1 scrx 2 4 18785 2 scrx 2 4 18785 255 scrx 2 11 18785 9 scrx 2 11 18785 12 scrx 2 3 18885 9 scrx 2 3 18885 12 scrx 2 3 18885 255 scrx 2 4 18885 1 scrx 2 4 18885 9 scrx 2 4 18885 255 scrx 2 8 18885 9 scrx 2 8 18885 12"
+"Web Label" "My Little Hole"
+"Web URL" "http://grendelman.blogspot.com/"
+
+"Script Count" 1
+"Script 1" @ "Silence Falls (DS) script.cos"
+
+"Agent Sprite First Image" 0
+"Agent Type" 0
+"Dependency Category 1" 2
+"Dependency Category 10" 7
+"Dependency Category 11" 6
+"Dependency Category 2" 2
+"Dependency Category 3" 2
+"Dependency Category 4" 2
+"Dependency Category 5" 2
+"Dependency Category 6" 2
+"Dependency Category 7" 2
+"Dependency Category 8" 1
+"Dependency Category 9" 1
+"Dependency Count" 11
+
+
+
+inline FILE "SilenceFalls.catalogue" "SilenceFalls.catalogue"
+inline FILE "blank.c16" "blank.c16"
+inline FILE "blnk.c16" "blnk.c16"
+inline FILE "chwp.wav" "chwp.wav"
+inline FILE "fav_place_waterfall.c16" "fav_place_waterfall.c16"
+inline FILE "fp_1.wav" "fp_1.wav"
+inline FILE "watercup_shroom.c16" "watercup_shroom.c16"
+inline FILE "waterfall-room-v3a.blk" "waterfall-room-v3a.blk"
+inline FILE "waterfall_cmsh.c16" "waterfall_cmsh.c16"
+inline FILE "waterfall_droplet.c16" "waterfall_droplet.c16"
+inline FILE "waterfall_navigation.c16" "waterfall_navigation.c16"
+

@@ -1,0 +1,26 @@
+"en-GB"
+
+
+group DSAG "SW_ShroomVille Lifts"
+
+"Dependency 1" "C3_lift.c16"
+"Agent Animation Gallery" "C3_lift"
+"Pray_File" "SW_ShroomVille.agents"
+"Agent Description" "Lifts For ShroomVille Currently uses C3 lifts"
+"Agent Animation File" "C3_lift.c16"
+"Agent animation String" "0 1 2 3"
+"Agent Animation Gallery" "C3_lift"
+"Remove script" "enum 3 1 8901\n	kill targ\nnext\nscrx 3 1 8901 1\nscrx 3 1 8901 2\nscrx 3 1 8901 9\nscrx 3 1 8901 1500\nscrx 3 1 8901 2000\nscrx 3 1 8901 2001\n\n\nenum 2 12 8900\n	kill targ\nnext\nscrx 2 12 8900 1\nscrx 2 12 8900 2\nscrx 2 12 8900 1500\nscrx 2 12 8900 1501\nscrx 2 12 8900 1000"
+
+"Script Count" 1
+"Script 1" @ "SW_ShroomVille Lifts script.cos"
+
+"Agent Type" 0
+"Dependency Count" 1
+"Dependency Category 1" 2
+"Agent Sprite First Image" 3
+
+
+
+inline FILE "C3_lift.c16" "C3_lift.c16"
+

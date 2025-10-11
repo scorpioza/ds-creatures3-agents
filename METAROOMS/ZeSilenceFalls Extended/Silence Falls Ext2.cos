@@ -1,0 +1,246 @@
+***********************
+* DOOR INSTALL SCRIPT *
+***********************
+
+inst
+new: simp 2 2 4160 "toxic_door" 11 0 4000
+attr 4
+bhvr 1
+mvto 98133 20329
+tran 0 0
+pose 0
+setv va00 grap posx posy
+setv va50 room targ
+
+new: simp 2 2 4161 "toxic_door" 11 11 0
+attr 4
+bhvr 1
+mvto 4382 9372
+tran 0 0
+pose 0
+setv va01 grap posx posy
+link va00 va01 100
+setv va53 room targ
+link va50 va53 100
+
+
+*** DOOR SCRIPTS ***
+scrp 2 2 4160 1
+	lock
+	inst
+	stim writ from 75 1
+	setv va99 0
+	targ from
+	doif targ eq pntr
+		setv va99 1
+	endi
+	sndc "tdor"
+	rtar 2 2 4161
+	doif targ ne null
+		doif ov00 eq 1
+			stop
+		else
+			setv va00 posx
+			setv va01 posy
+			setv va02 gmap va00 va01
+			mesg writ targ 1
+		endi
+	endi
+	targ ownr
+	setv ov00 1
+	anim [0 1 2 3 4 5 6 7 8 9 10]
+	over
+	inst
+	doif from = pntr
+		etch 4 0 0
+			doif targ <> hhld and carr = null and aslp = 0 and dead = 0
+				mvft va00 va01
+				stim writ targ 95 1
+			endi
+		next
+	else
+		doif touc ownr from = 1
+			inst
+			doif from <> null
+				targ from
+				mvft va00 va01
+				stim writ targ 95 1
+				setv va99 0
+			endi
+		endi
+	endi
+	targ ownr
+	doif va99 eq 1
+		inst
+		subv va00 100
+		subv va01 250
+		doif hhld eq null
+			meta va02 va00 va01 0
+			slow
+		endi
+	endi
+	targ ownr
+	anim [10 9 8 7 6 5 4 3 2 1 0]
+	over
+	setv ov00 0
+endm
+
+scrp 2 2 4160 2
+	lock
+	setv ov00 1
+	anim [0 1 2 3 4 5 6 7 8 9 10]
+	over
+	anim [10 9 8 7 6 5 4 3 2 1 0]
+	over
+	setv ov00 0
+endm
+scrp 2 2 4161 1
+	lock
+	inst
+	stim writ from 75 1
+	setv va99 0
+	targ from
+	doif targ eq pntr
+		setv va99 1
+	endi
+	sndc "tdor"
+	rtar 2 2 4160
+	doif targ ne null
+		doif ov00 eq 1
+			stop
+		else
+			setv va00 98171
+			setv va01 20442
+			setv va02 gmap va00 va01
+			mesg writ targ 1
+		endi
+	endi
+	targ ownr
+	setv ov00 1
+	anim [0 1 2 3 4 5 6 7 8 9 10]
+	over
+	inst
+	doif from = pntr
+		etch 4 0 0
+			doif targ <> hhld and carr = null and aslp = 0 and dead = 0
+				mvft va00 va01
+				stim writ targ 95 1
+			endi
+		next
+	else
+		doif touc ownr from = 1
+			inst
+			doif from <> null
+				targ from
+				mvft va00 va01
+				stim writ targ 95 1
+				setv va99 0
+			endi
+		endi
+	endi
+	targ ownr
+	doif va99 eq 1
+		inst
+		subv va00 100
+		subv va01 250
+		doif hhld eq null
+			meta va02 va00 va01 0
+			slow
+		endi
+	endi
+	targ ownr
+	anim [10 9 8 7 6 5 4 3 2 1 0]
+	over
+	setv ov00 0
+endm
+
+scrp 2 2 4161 2
+	lock
+	setv ov00 1
+	anim [0 1 2 3 4 5 6 7 8 9 10]
+	over
+	anim [10 9 8 7 6 5 4 3 2 1 0]
+	over
+	setv ov00 0
+endm
+
+
+
+************ PLANTS ***************
+
+** REDCAP MUSHROOM
+** Upperleft cave
+new: simp 1 1 21849 "blnk" 1 0 rand 200 6000
+mvto 97800 20750
+tick rand 1 100
+
+
+** Gerana
+** Main right
+reps 3
+	new: simp 2 15 21814 "gp_gerana" 42 0 2000
+	mesg wrt+ targ 1000 98000 20500 0
+repe
+** Main hallway
+reps 3
+	new: simp 2 15 21814 "gp_gerana" 42 0 2000
+	mesg wrt+ targ 1000 97800 20750 0
+repe
+
+*
+** Add tubas in desert
+*
+*reps 10
+*create some seeds
+*	new: simp 2 3 16 "tuba" 16 66 305
+*	attr 194
+*	bhvr 48
+*	elas 0
+*	aero 1
+*	perm 40
+*	anim [0 1 2 3 4 5 6 7 255]
+*	emit 7 0.5
+*	mvto 98000 20500
+*	velo rand -10 10 rand 0 -10
+*	tick rand 30 60
+*repe
+
+
+
+************ EMITTERS ***************
+
+*Emitters
+*Set va00 to 1 to make emitters visible
+setv va00 0
+
+*Light
+new: simp 1 1 18887 "blnk" 1 va00 1
+attr 16
+setv ov00 1
+mvto 98000 20400
+
+new: simp 1 1 18887 "blnk" 1 va00 1
+attr 16
+setv ov00 1
+mvto 98000 20740
+
+new: simp 1 1 18887 "blnk" 1 va00 1
+attr 16
+setv ov00 1
+mvto 97630 20740
+
+*Heat
+new: simp 1 1 18887 "blnk" 1 va00 1
+attr 16
+setv ov00 2
+mvto 98000 20400
+
+new: simp 1 1 18887 "blnk" 1 va00 1
+attr 16
+setv ov00 2
+mvto 98000 20740
+
+new: simp 1 1 18887 "blnk" 1 va00 1
+attr 16
+setv ov00 2
+mvto 97630 20740

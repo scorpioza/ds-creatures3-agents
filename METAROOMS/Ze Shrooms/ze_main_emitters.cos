@@ -1,0 +1,320 @@
+*Heat
+
+setv va00 0
+
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.5
+mvto 97590	84200
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 97590	84200
+
+*Heat
+
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 2.0
+mvto 98340	84020
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 98340	84020
+
+*Heat
+
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 2.0
+mvto 99200	84020
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 99200	84020
+
+
+* Top Bridge 
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 97504 83520
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 97504 83520
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 98000 83520
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 98000 83520
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 98250 83700
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 98250 83700
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 98860 83700
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 98860 83700
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 99520 83700
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 99520 83700
+
+*** inner
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 98900 84300
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 98900 84300
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 98900 84600
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 98900 84600
+
+
+***************** MAIN AREA ****************
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 96700 82250
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 96700 82250
+
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 97260 82250
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 97260 82250
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 97800 82300
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 97800 82300
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 98300 82300
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 98300 82300
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 98700 82300
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 98700 82300
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 99300 82300
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 99300 82300
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 98500 81830
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 98500 81830
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 99000 81830
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 99000 81830
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 99500 81830
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 99500 81830
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 96700 82430
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 96700 82430
+
+
+* Heat
+new: simp 1 1 30128 "blnk" 1 va00 8000
+attr 16
+clac 0
+emit 2 1.0
+mvto 96700 82000
+
+* Light
+new: simp 1 1 30128 "blnk" 1 0 0
+attr 16
+pose va00
+emit 1 1.0
+mvto 96700 82000

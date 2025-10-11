@@ -1,0 +1,2275 @@
+* Script 1 extracted from C:_Walker-777DEVELOPMENT FOLDERTools.0.5to agent folderMain folderchecking folder_ShroomVille_bundled.agents by Mirality REVELATION
+
+*************************************************************
+****Shroom Room 00 By StonedMonkeyBoy aka ShadowWalker777****
+*************************************************************
+* CAOS2PRAY CHUNK
+*# Pray_File = "SW_ShroomVille.agents"
+*# DS-Name "SW_ShroomVille"
+*# attach SW-Shroom_Dome.blk WoodlandTemp_Bkg.blk SW_Bush-00.c16 SW-Fav_Shroom_Dome.c16 SW-Fav_Treehuggers_Dome.c16 SW_Tree12.c16 SW_Door_S-Open.c16 SW_THR-LT.c16 SW_WarpShroom.c16 SW-Random_Bits.c16 SW_SroomLiftOverlay.c16 SW_TreeHuggers_Seedbank.c16 
+*# desc = "alpha v-1. ShroomVille is currently unfineshed"
+*# Agent Animation File = "SW-Fav_Shroom_Dome.c16"
+*# Agent animation String = "0 1 2"
+*# Agent Sprite First Image = 1
+*# Agent Animation Gallery = "SW-Fav_Shroom_Dome"
+
+*******************
+*Enlarge Map Check*
+*******************
+doif maph < 100000
+	mapd mapw 100000
+endi
+*************
+*Enlarge Map*
+*************
+doif mapw < 100000
+	mapd 100000 maph
+endi
+
+**************
+*Set Metaroom*
+**************
+setv game "SW_ShroomRoom-00_tmp" addm 96996 83340 3000 1400 "ZeSW-Shroom_Dome"
+mmsc 98496 84040 ""
+********************
+*Set Internal Rooms*
+********************
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98575 98613 84621 84639 84658 84662
+rtyp va00 9
+rmsc 98594 84641 ""
+setv game "SW_ShroomRoom-00_tmp_0" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98517 98575 84594 84621 84636 84658
+rtyp va00 9
+rmsc 98546 84626 ""
+setv game "SW_ShroomRoom-00_tmp_1" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98472 98517 84576 84594 84595 84636
+rtyp va00 9
+rmsc 98494 84606 ""
+setv game "SW_ShroomRoom-00_tmp_2" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98613 98661 84639 84663 84662 84670
+rtyp va00 9
+rmsc 98637 84654 ""
+setv game "SW_ShroomRoom-00_tmp_3" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97121 97224 83732 83600 83762 83762
+rtyp va00 0
+rmsc 97172 83738 ""
+setv game "SW_ShroomRoom-00_tmp_4" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97224 97348 83600 83600 83762 83762
+rtyp va00 0
+rmsc 97286 83637 ""
+setv game "SW_ShroomRoom-00_tmp_5" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97348 97477 83600 83600 83762 83762
+rtyp va00 0
+rmsc 97412 83637 ""
+setv game "SW_ShroomRoom-00_tmp_6" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97477 97605 83600 83600 83762 83762
+rtyp va00 0
+rmsc 97541 83637 ""
+setv game "SW_ShroomRoom-00_tmp_7" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97605 97715 83600 83600 83762 83762
+rtyp va00 0
+rmsc 97660 83637 ""
+setv game "SW_ShroomRoom-00_tmp_8" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97715 97820 83600 83600 83762 83762
+rtyp va00 0
+rmsc 97767 83637 ""
+setv game "SW_ShroomRoom-00_tmp_9" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97820 97997 83600 83600 83762 83762
+rtyp va00 0
+rmsc 97908 83637 ""
+setv game "SW_ShroomRoom-00_tmp_10" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97997 98206 83600 83600 83762 83762
+rtyp va00 0
+rmsc 98101 83637 ""
+setv game "SW_ShroomRoom-00_tmp_11" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98206 98342 83531 83531 83762 83762
+rtyp va00 0
+rmsc 98274 83637 ""
+setv game "SW_ShroomRoom-00_tmp_12" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98342 98471 83531 83531 83762 83762
+rtyp va00 0
+rmsc 98406 83637 ""
+setv game "SW_ShroomRoom-00_tmp_13" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98471 98607 83531 83531 83762 83762
+rtyp va00 0
+rmsc 98539 83637 ""
+setv game "SW_ShroomRoom-00_tmp_14" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98607 98763 83531 83531 83762 83762
+rtyp va00 0
+rmsc 98685 83637 ""
+setv game "SW_ShroomRoom-00_tmp_15" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98763 98934 83531 83531 83762 83762
+rtyp va00 0
+rmsc 98848 83637 ""
+setv game "SW_ShroomRoom-00_tmp_16" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98934 99112 83531 83531 83762 83762
+rtyp va00 0
+rmsc 99023 83637 ""
+setv game "SW_ShroomRoom-00_tmp_17" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99112 99270 83531 83531 83762 83762
+rtyp va00 0
+rmsc 99191 83637 ""
+setv game "SW_ShroomRoom-00_tmp_18" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99270 99495 83531 83531 83762 83762
+rtyp va00 0
+rmsc 99382 83637 ""
+setv game "SW_ShroomRoom-00_tmp_19" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99495 99623 83531 83531 83762 83762
+rtyp va00 0
+rmsc 99559 83637 ""
+setv game "SW_ShroomRoom-00_tmp_20" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99623 99750 83531 83531 83762 83762
+rtyp va00 0
+rmsc 99686 83637 ""
+setv game "SW_ShroomRoom-00_tmp_21" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99750 99830 83531 83679 83762 83762
+rtyp va00 0
+rmsc 99790 83637 ""
+setv game "SW_ShroomRoom-00_tmp_22" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99623 99750 83377 83521 83531 83531
+rtyp va00 0
+rmsc 99686 83454 ""
+setv game "SW_ShroomRoom-00_tmp_23" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99495 99623 83377 83377 83531 83531
+rtyp va00 0
+rmsc 99559 83454 ""
+setv game "SW_ShroomRoom-00_tmp_24" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99270 99495 83377 83377 83531 83531
+rtyp va00 0
+rmsc 99382 83454 ""
+setv game "SW_ShroomRoom-00_tmp_25" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99112 99270 83377 83377 83531 83531
+rtyp va00 0
+rmsc 99191 83454 ""
+setv game "SW_ShroomRoom-00_tmp_26" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98934 99112 83377 83377 83531 83531
+rtyp va00 0
+rmsc 99023 83454 ""
+setv game "SW_ShroomRoom-00_tmp_27" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98763 98934 83376 83377 83531 83531
+rtyp va00 0
+rmsc 98848 83453 ""
+setv game "SW_ShroomRoom-00_tmp_28" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98607 98763 83376 83376 83531 83531
+rtyp va00 0
+rmsc 98685 83453 ""
+setv game "SW_ShroomRoom-00_tmp_29" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98471 98607 83375 83376 83531 83531
+rtyp va00 0
+rmsc 98539 83453 ""
+setv game "SW_ShroomRoom-00_tmp_30" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98342 98471 83376 83375 83531 83531
+rtyp va00 0
+rmsc 98406 83453 ""
+setv game "SW_ShroomRoom-00_tmp_31" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98206 98342 83376 83376 83531 83531
+rtyp va00 0
+rmsc 98274 83453 ""
+setv game "SW_ShroomRoom-00_tmp_32" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97997 98206 83376 83376 83585 83585
+rtyp va00 0
+rmsc 98101 83453 ""
+setv game "SW_ShroomRoom-00_tmp_33" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97820 97997 83376 83376 83585 83585
+rtyp va00 0
+rmsc 97908 83453 ""
+setv game "SW_ShroomRoom-00_tmp_34" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97605 97820 83376 83376 83585 83585
+rtyp va00 0
+rmsc 97712 83453 ""
+setv game "SW_ShroomRoom-00_tmp_35" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97477 97605 83375 83376 83595 83585
+rtyp va00 0
+rmsc 97541 83453 ""
+setv game "SW_ShroomRoom-00_tmp_36" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97348 97477 83376 83375 83595 83595
+rtyp va00 0
+rmsc 97412 83453 ""
+setv game "SW_ShroomRoom-00_tmp_37" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97224 97348 83517 83376 83595 83595
+rtyp va00 0
+rmsc 97286 83524 ""
+setv game "SW_ShroomRoom-00_tmp_38" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98244 98342 84369 84369 84398 84398
+rtyp va00 0
+rmsc 98293 84383 ""
+setv game "SW_ShroomRoom-00_tmp_39" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98661 98759 84585 84585 84663 84668
+rtyp va00 9
+rmsc 98710 84626 ""
+setv game "SW_ShroomRoom-00_tmp_40" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98517 98613 84585 84585 84594 84639
+rtyp va00 9
+rmsc 98565 84612 ""
+setv game "SW_ShroomRoom-00_tmp_41" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98613 98661 84585 84585 84639 84663
+rtyp va00 9
+rmsc 98637 84624 ""
+setv game "SW_ShroomRoom-00_tmp_42" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98759 98856 84585 84585 84668 84664
+rtyp va00 9
+rmsc 98807 84624 ""
+setv game "SW_ShroomRoom-00_tmp_43" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98856 98952 84585 84585 84664 84666
+rtyp va00 9
+rmsc 98904 84625 ""
+setv game "SW_ShroomRoom-00_tmp_44" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98952 99044 84585 84585 84666 84666
+rtyp va00 9
+rmsc 98998 84625 ""
+setv game "SW_ShroomRoom-00_tmp_45" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99044 99136 84585 84585 84666 84665
+rtyp va00 9
+rmsc 99090 84625 ""
+setv game "SW_ShroomRoom-00_tmp_46" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99136 99233 84585 84585 84665 84662
+rtyp va00 9
+rmsc 99184 84623 ""
+setv game "SW_ShroomRoom-00_tmp_47" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99233 99321 84585 84585 84662 84600
+rtyp va00 9
+rmsc 99277 84592 ""
+*Lift Shaft Bottom
+setv game "SW_ShroomRoom-00_tmp_48" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98244 98370 84398 84398 84574 84574
+rtyp va00 0
+rmsc 98307 84486 ""
+*Lift Shaft Bottom
+setv game "SW_ShroomRoom-00_tmp_49" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98370 98466 84412 84412 84574 84574
+rtyp va00 0
+rmsc 98418 84493 ""
+setv game "SW_ShroomRoom-00_tmp_50" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98466 98517 84412 84412 84574 84594
+rtyp va00 0
+rmsc 98491 84503 ""
+setv game "SW_ShroomRoom-00_tmp_51" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98517 98613 84440 84440 84585 84585
+rtyp va00 0
+rmsc 98565 84512 ""
+setv game "SW_ShroomRoom-00_tmp_52" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98613 98661 84417 84417 84585 84585
+rtyp va00 0
+rmsc 98637 84501 ""
+setv game "SW_ShroomRoom-00_tmp_53" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98661 98759 84417 84417 84585 84585
+rtyp va00 0
+rmsc 98710 84501 ""
+setv game "SW_ShroomRoom-00_tmp_54" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98759 98856 84417 84423 84585 84585
+rtyp va00 0
+rmsc 98807 84501 ""
+setv game "SW_ShroomRoom-00_tmp_55" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98856 98952 84470 84426 84585 84585
+rtyp va00 0
+rmsc 98904 84527 ""
+setv game "SW_ShroomRoom-00_tmp_56" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98952 99044 84426 84433 84585 84585
+rtyp va00 0
+rmsc 98998 84505 ""
+setv game "SW_ShroomRoom-00_tmp_57" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99044 99136 84433 84435 84585 84585
+rtyp va00 0
+rmsc 99090 84509 ""
+setv game "SW_ShroomRoom-00_tmp_58" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99136 99233 84435 84435 84585 84585
+rtyp va00 0
+rmsc 99184 84510 ""
+setv game "SW_ShroomRoom-00_tmp_59" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99233 99321 84435 84428 84585 84585
+rtyp va00 0
+rmsc 99277 84510 ""
+setv game "SW_ShroomRoom-00_tmp_60" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99321 99361 84428 84430 84585 84480
+rtyp va00 0
+rmsc 99341 84454 ""
+setv game "SW_ShroomRoom-00_tmp_61" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98244 98342 84157 84157 84369 84369
+rtyp va00 0
+rmsc 98293 84263 ""
+*lift Shaft Middle
+setv game "SW_ShroomRoom-00_tmp_62" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98342 98474 84203 84170 84369 84368
+rtyp va00 7
+rmsc 98408 84285 ""
+*lift Shaft Middle
+setv game "SW_ShroomRoom-00_tmp_63" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98474 98603 84170 84142 84368 84366
+rtyp va00 7
+rmsc 98538 84268 ""
+setv game "SW_ShroomRoom-00_tmp_64" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98603 98762 84142 84137 84366 84367
+rtyp va00 7
+rmsc 98682 84254 ""
+setv game "SW_ShroomRoom-00_tmp_65" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98762 98928 84137 84136 84367 84368
+rtyp va00 7
+rmsc 98845 84252 ""
+setv game "SW_ShroomRoom-00_tmp_66" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98928 99052 84136 84139 84368 84362
+rtyp va00 7
+rmsc 98990 84249 ""
+setv game "SW_ShroomRoom-00_tmp_67" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99052 99186 84139 84142 84362 84362
+rtyp va00 7
+rmsc 99119 84250 ""
+setv game "SW_ShroomRoom-00_tmp_68" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99186 99303 84142 84165 84362 84363
+rtyp va00 7
+rmsc 99244 84252 ""
+setv game "SW_ShroomRoom-00_tmp_69" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99303 99353 84165 84212 84363 84363
+rtyp va00 7
+rmsc 99328 84264 ""
+setv game "SW_ShroomRoom-00_tmp_70" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99353 99385 84212 84233 84363 84363
+rtyp va00 7
+rmsc 99369 84287 ""
+setv game "SW_ShroomRoom-00_tmp_71" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98244 98342 84145 84145 84157 84157
+rtyp va00 0
+rmsc 98293 84151 ""
+*Lift Shaft Viv
+setv game "SW_ShroomRoom-00_tmp_72" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98244 98342 83965 83965 84145 84145
+rtyp va00 0
+rmsc 98293 84055 ""
+*Lift Shaft Viv
+setv game "SW_ShroomRoom-00_tmp_73" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98206 98244 83965 83965 84135 84145
+rtyp va00 0
+rmsc 98225 84055 ""
+setv game "SW_ShroomRoom-00_tmp_74" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98070 98206 83965 83965 84181 84135
+rtyp va00 0
+rmsc 98138 84050 ""
+setv game "SW_ShroomRoom-00_tmp_75" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97997 98070 83965 83965 84208 84181
+rtyp va00 0
+rmsc 98033 84073 ""
+setv game "SW_ShroomRoom-00_tmp_76" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97885 97997 84174 84174 84265 84208
+rtyp va00 0
+rmsc 97941 84191 ""
+setv game "SW_ShroomRoom-00_tmp_77" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97820 97885 84174 84174 84294 84265
+rtyp va00 0
+rmsc 97852 84219 ""
+setv game "SW_ShroomRoom-00_tmp_78" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97715 97820 84174 84174 84293 84294
+rtyp va00 5
+rmsc 97767 84234 ""
+setv game "SW_ShroomRoom-00_tmp_79" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97605 97715 84174 84174 84293 84293
+rtyp va00 5
+rmsc 97660 84233 ""
+setv game "SW_ShroomRoom-00_tmp_80" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97477 97605 84174 84174 84293 84293
+rtyp va00 5
+rmsc 97541 84233 ""
+setv game "SW_ShroomRoom-00_tmp_81" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97348 97477 84174 84174 84293 84293
+rtyp va00 5
+rmsc 97412 84233 ""
+setv game "SW_ShroomRoom-00_tmp_82" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97224 97348 84174 84174 84284 84293
+rtyp va00 5
+rmsc 97286 84233 ""
+setv game "SW_ShroomRoom-00_tmp_83" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97173 97224 84174 84174 84183 84284
+rtyp va00 5
+rmsc 97198 84229 ""
+setv game "SW_ShroomRoom-00_tmp_84" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97885 97997 83965 83965 84174 84174
+rtyp va00 0
+rmsc 97941 84069 ""
+setv game "SW_ShroomRoom-00_tmp_85" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97820 97885 83965 83965 84174 84174
+rtyp va00 0
+rmsc 97852 84069 ""
+setv game "SW_ShroomRoom-00_tmp_86" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97715 97820 83965 83965 84174 84174
+rtyp va00 0
+rmsc 97767 84069 ""
+setv game "SW_ShroomRoom-00_tmp_87" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97605 97715 83965 83965 84174 84174
+rtyp va00 0
+rmsc 97660 84069 ""
+setv game "SW_ShroomRoom-00_tmp_88" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97477 97605 83965 83965 84174 84174
+rtyp va00 0
+rmsc 97541 84069 ""
+setv game "SW_ShroomRoom-00_tmp_89" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97348 97477 83965 83965 84174 84174
+rtyp va00 0
+rmsc 97412 84069 ""
+setv game "SW_ShroomRoom-00_tmp_90" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97224 97348 83965 83965 84174 84174
+rtyp va00 0
+rmsc 97286 84069 ""
+setv game "SW_ShroomRoom-00_tmp_91" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97173 97224 83965 83965 84174 84174
+rtyp va00 0
+rmsc 97198 84069 ""
+setv game "SW_ShroomRoom-00_tmp_92" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97089 97173 83965 83965 83995 84174
+rtyp va00 0
+rmsc 97131 84069 ""
+setv game "SW_ShroomRoom-00_tmp_93" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97089 97173 83762 83762 83965 83965
+rtyp va00 0
+rmsc 97131 83854 ""
+setv game "SW_ShroomRoom-00_tmp_94" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97173 97224 83762 83762 83965 83965
+rtyp va00 0
+rmsc 97198 83854 ""
+setv game "SW_ShroomRoom-00_tmp_95" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97224 97348 83762 83762 83965 83965
+rtyp va00 0
+rmsc 97286 83854 ""
+setv game "SW_ShroomRoom-00_tmp_96" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97348 97477 83762 83762 83965 83965
+rtyp va00 0
+rmsc 97412 83854 ""
+setv game "SW_ShroomRoom-00_tmp_97" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97477 97605 83762 83762 83965 83965
+rtyp va00 0
+rmsc 97541 83854 ""
+setv game "SW_ShroomRoom-00_tmp_98" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97605 97715 83762 83762 83965 83965
+rtyp va00 0
+rmsc 97660 83854 ""
+setv game "SW_ShroomRoom-00_tmp_99" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97715 97820 83762 83762 83965 83965
+rtyp va00 0
+rmsc 97767 83854 ""
+setv game "SW_ShroomRoom-00_tmp_100" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97820 97885 83762 83762 83965 83965
+rtyp va00 0
+rmsc 97852 83854 ""
+setv game "SW_ShroomRoom-00_tmp_101" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97885 97997 83762 83762 83965 83965
+rtyp va00 0
+rmsc 97941 83854 ""
+setv game "SW_ShroomRoom-00_tmp_102" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 97997 98070 83762 83762 83965 83965
+rtyp va00 0
+rmsc 98033 83854 ""
+setv game "SW_ShroomRoom-00_tmp_103" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98070 98206 83762 83762 83965 83965
+rtyp va00 0
+rmsc 98138 83854 ""
+setv game "SW_ShroomRoom-00_tmp_104" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98206 98342 83780 83780 83965 83965
+rtyp va00 0
+rmsc 98274 83854 ""
+setv game "SW_ShroomRoom-00_tmp_105" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98342 98471 83965 83965 84145 84134
+rtyp va00 5
+rmsc 98406 84049 ""
+setv game "SW_ShroomRoom-00_tmp_106" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98471 98607 83965 83965 84134 84125
+rtyp va00 5
+rmsc 98539 84045 ""
+setv game "SW_ShroomRoom-00_tmp_107" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98607 98763 83965 83965 84125 84110
+rtyp va00 5
+rmsc 98685 84037 ""
+setv game "SW_ShroomRoom-00_tmp_108" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98763 98934 83965 83965 84110 84094
+rtyp va00 5
+rmsc 98848 84029 ""
+setv game "SW_ShroomRoom-00_tmp_109" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98934 99112 83965 83965 84094 84082
+rtyp va00 5
+rmsc 99023 84023 ""
+setv game "SW_ShroomRoom-00_tmp_110" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99112 99270 83965 83965 84082 84089
+rtyp va00 5
+rmsc 99191 84027 ""
+setv game "SW_ShroomRoom-00_tmp_111" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99270 99310 83965 83965 84089 84109
+rtyp va00 5
+rmsc 99290 84037 ""
+setv game "SW_ShroomRoom-00_tmp_112" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99310 99353 83965 83965 84109 84113
+rtyp va00 0
+rmsc 99331 84039 ""
+setv game "SW_ShroomRoom-00_tmp_113" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99353 99433 83965 83965 84113 84113
+rtyp va00 6
+rmsc 99393 84039 ""
+setv game "SW_ShroomRoom-00_tmp_114" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99433 99495 83965 83965 84113 84114
+rtyp va00 0
+rmsc 99464 84039 ""
+setv game "SW_ShroomRoom-00_tmp_115" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99495 99559 83965 83965 84114 84114
+rtyp va00 6
+rmsc 99527 84039 ""
+setv game "SW_ShroomRoom-00_tmp_116" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99559 99623 83965 83965 84114 84114
+rtyp va00 0
+rmsc 99591 84039 ""
+setv game "SW_ShroomRoom-00_tmp_117" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99623 99789 83965 83965 84114 84115
+rtyp va00 6
+rmsc 99706 84040 ""
+setv game "SW_ShroomRoom-00_tmp_118" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99789 99824 83965 83965 84115 84074
+rtyp va00 0
+rmsc 99806 84019 ""
+setv game "SW_ShroomRoom-00_tmp_119" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99824 99873 83965 83965 84074 84057
+rtyp va00 0
+rmsc 99848 84011 ""
+setv game "SW_ShroomRoom-00_tmp_120" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98342 98471 83780 83780 83965 83965
+rtyp va00 0
+rmsc 98406 83854 ""
+setv game "SW_ShroomRoom-00_tmp_121" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98471 98607 83780 83780 83965 83965
+rtyp va00 0
+rmsc 98539 83854 ""
+setv game "SW_ShroomRoom-00_tmp_122" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98607 98763 83780 83780 83965 83965
+rtyp va00 0
+rmsc 98685 83854 ""
+setv game "SW_ShroomRoom-00_tmp_123" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98763 98934 83780 83780 83965 83965
+rtyp va00 0
+rmsc 98848 83854 ""
+setv game "SW_ShroomRoom-00_tmp_124" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 98934 99112 83780 83780 83965 83965
+rtyp va00 0
+rmsc 99023 83854 ""
+setv game "SW_ShroomRoom-00_tmp_125" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99112 99270 83780 83780 83965 83965
+rtyp va00 0
+rmsc 99191 83854 ""
+setv game "SW_ShroomRoom-00_tmp_126" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99270 99353 83780 83780 83965 83965
+rtyp va00 0
+rmsc 99311 83854 ""
+setv game "SW_ShroomRoom-00_tmp_127" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99353 99495 83780 83780 83965 83965
+rtyp va00 0
+rmsc 99424 83854 ""
+setv game "SW_ShroomRoom-00_tmp_128" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99495 99623 83780 83780 83965 83965
+rtyp va00 0
+rmsc 99559 83854 ""
+setv game "SW_ShroomRoom-00_tmp_129" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99623 99789 83780 83780 83965 83965
+rtyp va00 0
+rmsc 99706 83854 ""
+setv game "SW_ShroomRoom-00_tmp_130" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99789 99848 83762 83762 83965 83965
+rtyp va00 0
+rmsc 99818 83854 ""
+setv game "SW_ShroomRoom-00_tmp_131" va00
+setv va00 addr game "SW_ShroomRoom-00_tmp" 99848 99873 83762 83886 83965 83965
+rtyp va00 0
+rmsc 99860 83854 ""
+setv game "SW_ShroomRoom-00_tmp_132" va00
+
+door game "SW_ShroomRoom-00_tmp_0" game "SW_ShroomRoom-00_tmp_41" 50
+door game "SW_ShroomRoom-00_tmp_1" game "SW_ShroomRoom-00_tmp_41" 50
+door game "SW_ShroomRoom-00_tmp_2" game "SW_ShroomRoom-00_tmp_51" 50
+door game "SW_ShroomRoom-00_tmp_3" game "SW_ShroomRoom-00_tmp_42" 50
+door game "SW_ShroomRoom-00_tmp_39" game "SW_ShroomRoom-00_tmp_49" 50
+door game "SW_ShroomRoom-00_tmp_39" game "SW_ShroomRoom-00_tmp_62" 50
+door game "SW_ShroomRoom-00_tmp_62" game "SW_ShroomRoom-00_tmp_72" 50
+door game "SW_ShroomRoom-00_tmp_72" game "SW_ShroomRoom-00_tmp_73" 50
+
+
+delg "SW_ShroomRoom-00_tmp_0"
+delg "SW_ShroomRoom-00_tmp_1"
+delg "SW_ShroomRoom-00_tmp_2"
+delg "SW_ShroomRoom-00_tmp_3"
+delg "SW_ShroomRoom-00_tmp_4"
+delg "SW_ShroomRoom-00_tmp_5"
+delg "SW_ShroomRoom-00_tmp_6"
+delg "SW_ShroomRoom-00_tmp_7"
+delg "SW_ShroomRoom-00_tmp_8"
+delg "SW_ShroomRoom-00_tmp_9"
+delg "SW_ShroomRoom-00_tmp_10"
+delg "SW_ShroomRoom-00_tmp_11"
+delg "SW_ShroomRoom-00_tmp_12"
+delg "SW_ShroomRoom-00_tmp_13"
+delg "SW_ShroomRoom-00_tmp_14"
+delg "SW_ShroomRoom-00_tmp_15"
+delg "SW_ShroomRoom-00_tmp_16"
+delg "SW_ShroomRoom-00_tmp_17"
+delg "SW_ShroomRoom-00_tmp_18"
+delg "SW_ShroomRoom-00_tmp_19"
+delg "SW_ShroomRoom-00_tmp_20"
+delg "SW_ShroomRoom-00_tmp_21"
+delg "SW_ShroomRoom-00_tmp_22"
+delg "SW_ShroomRoom-00_tmp_23"
+delg "SW_ShroomRoom-00_tmp_24"
+delg "SW_ShroomRoom-00_tmp_25"
+delg "SW_ShroomRoom-00_tmp_26"
+delg "SW_ShroomRoom-00_tmp_27"
+delg "SW_ShroomRoom-00_tmp_28"
+delg "SW_ShroomRoom-00_tmp_29"
+delg "SW_ShroomRoom-00_tmp_30"
+delg "SW_ShroomRoom-00_tmp_31"
+delg "SW_ShroomRoom-00_tmp_32"
+delg "SW_ShroomRoom-00_tmp_33"
+delg "SW_ShroomRoom-00_tmp_34"
+delg "SW_ShroomRoom-00_tmp_35"
+delg "SW_ShroomRoom-00_tmp_36"
+delg "SW_ShroomRoom-00_tmp_37"
+delg "SW_ShroomRoom-00_tmp_38"
+delg "SW_ShroomRoom-00_tmp_39"
+delg "SW_ShroomRoom-00_tmp_40"
+delg "SW_ShroomRoom-00_tmp_41"
+delg "SW_ShroomRoom-00_tmp_42"
+delg "SW_ShroomRoom-00_tmp_43"
+delg "SW_ShroomRoom-00_tmp_44"
+delg "SW_ShroomRoom-00_tmp_45"
+delg "SW_ShroomRoom-00_tmp_46"
+delg "SW_ShroomRoom-00_tmp_47"
+delg "SW_ShroomRoom-00_tmp_48"
+delg "SW_ShroomRoom-00_tmp_49"
+delg "SW_ShroomRoom-00_tmp_50"
+delg "SW_ShroomRoom-00_tmp_51"
+delg "SW_ShroomRoom-00_tmp_52"
+delg "SW_ShroomRoom-00_tmp_53"
+delg "SW_ShroomRoom-00_tmp_54"
+delg "SW_ShroomRoom-00_tmp_55"
+delg "SW_ShroomRoom-00_tmp_56"
+delg "SW_ShroomRoom-00_tmp_57"
+delg "SW_ShroomRoom-00_tmp_58"
+delg "SW_ShroomRoom-00_tmp_59"
+delg "SW_ShroomRoom-00_tmp_60"
+delg "SW_ShroomRoom-00_tmp_61"
+delg "SW_ShroomRoom-00_tmp_62"
+delg "SW_ShroomRoom-00_tmp_63"
+delg "SW_ShroomRoom-00_tmp_64"
+delg "SW_ShroomRoom-00_tmp_65"
+delg "SW_ShroomRoom-00_tmp_66"
+delg "SW_ShroomRoom-00_tmp_67"
+delg "SW_ShroomRoom-00_tmp_68"
+delg "SW_ShroomRoom-00_tmp_69"
+delg "SW_ShroomRoom-00_tmp_70"
+delg "SW_ShroomRoom-00_tmp_71"
+delg "SW_ShroomRoom-00_tmp_72"
+delg "SW_ShroomRoom-00_tmp_73"
+delg "SW_ShroomRoom-00_tmp_74"
+delg "SW_ShroomRoom-00_tmp_75"
+delg "SW_ShroomRoom-00_tmp_76"
+delg "SW_ShroomRoom-00_tmp_77"
+delg "SW_ShroomRoom-00_tmp_78"
+delg "SW_ShroomRoom-00_tmp_79"
+delg "SW_ShroomRoom-00_tmp_80"
+delg "SW_ShroomRoom-00_tmp_81"
+delg "SW_ShroomRoom-00_tmp_82"
+delg "SW_ShroomRoom-00_tmp_83"
+delg "SW_ShroomRoom-00_tmp_84"
+delg "SW_ShroomRoom-00_tmp_85"
+delg "SW_ShroomRoom-00_tmp_86"
+delg "SW_ShroomRoom-00_tmp_87"
+delg "SW_ShroomRoom-00_tmp_88"
+delg "SW_ShroomRoom-00_tmp_89"
+delg "SW_ShroomRoom-00_tmp_90"
+delg "SW_ShroomRoom-00_tmp_91"
+delg "SW_ShroomRoom-00_tmp_92"
+delg "SW_ShroomRoom-00_tmp_93"
+delg "SW_ShroomRoom-00_tmp_94"
+delg "SW_ShroomRoom-00_tmp_95"
+delg "SW_ShroomRoom-00_tmp_96"
+delg "SW_ShroomRoom-00_tmp_97"
+delg "SW_ShroomRoom-00_tmp_98"
+delg "SW_ShroomRoom-00_tmp_99"
+delg "SW_ShroomRoom-00_tmp_100"
+delg "SW_ShroomRoom-00_tmp_101"
+delg "SW_ShroomRoom-00_tmp_102"
+delg "SW_ShroomRoom-00_tmp_103"
+delg "SW_ShroomRoom-00_tmp_104"
+delg "SW_ShroomRoom-00_tmp_105"
+delg "SW_ShroomRoom-00_tmp_106"
+delg "SW_ShroomRoom-00_tmp_107"
+delg "SW_ShroomRoom-00_tmp_108"
+delg "SW_ShroomRoom-00_tmp_109"
+delg "SW_ShroomRoom-00_tmp_110"
+delg "SW_ShroomRoom-00_tmp_111"
+delg "SW_ShroomRoom-00_tmp_112"
+delg "SW_ShroomRoom-00_tmp_113"
+delg "SW_ShroomRoom-00_tmp_114"
+delg "SW_ShroomRoom-00_tmp_115"
+delg "SW_ShroomRoom-00_tmp_116"
+delg "SW_ShroomRoom-00_tmp_117"
+delg "SW_ShroomRoom-00_tmp_118"
+delg "SW_ShroomRoom-00_tmp_119"
+delg "SW_ShroomRoom-00_tmp_120"
+delg "SW_ShroomRoom-00_tmp_121"
+delg "SW_ShroomRoom-00_tmp_122"
+delg "SW_ShroomRoom-00_tmp_123"
+delg "SW_ShroomRoom-00_tmp_124"
+delg "SW_ShroomRoom-00_tmp_125"
+delg "SW_ShroomRoom-00_tmp_126"
+delg "SW_ShroomRoom-00_tmp_127"
+delg "SW_ShroomRoom-00_tmp_128"
+delg "SW_ShroomRoom-00_tmp_129"
+delg "SW_ShroomRoom-00_tmp_130"
+delg "SW_ShroomRoom-00_tmp_131"
+delg "SW_ShroomRoom-00_tmp_132"
+
+**CA Links
+*link, SW_ShroomRoom-00_tmp_48, SW_ShroomRoom-00_tmp_62 100
+*link, SW_ShroomRoom-00_tmp_48, SW_ShroomRoom-00_tmp_72 100
+
+
+***************************
+******Room CA Links *******
+*******ov40 > ov50*********
+***************************
+
+*Lift shaft
+setv va40 grap 98307 84486
+*Bottom
+setv va41 grap 98293 84263
+*Middle
+setv va42 grap 98293 84055
+*Top
+link va40 va41 100
+link va41 va42 100
+
+*****************************
+*******Shroom Room CA********
+********Shroom Room**********
+*****Rooms Left to Right*****
+******************************
+
+***MainRoom Norn Home Smell***
+*new: simp 3 5 1 "blnk" 2 0 0 ...Original values 0 1 1 to make visibleI think well it works
+new: simp 3 5 90220 "blnk" 2 0 0
+attr 18
+mvto 99305 83930
+emit 15 .05
+
+new: simp 3 5 90221 "blnk" 2 0 0
+attr 18
+mvto 97530 84150
+emit 15 .25
+
+***Shroom House Left
+*Light
+new: simp 3 5 90222 "blnk" 2 0 0
+attr 16
+mvto 97647 84070
+emit 1 .95
+*Water
+new: simp 3 5 90223 "blnk" 2 0 0
+attr 16
+mvto 97530 84000
+emit 3 .9
+*Nutrients
+new: simp 3 5 90224 "blnk" 2 0 0
+attr 16
+mvto 97280 84190
+emit 4 .9
+*Heat
+new: simp 3 5 90225 "blnk" 2 0 0
+attr 16
+mvto 97280 84050
+emit 2 .95
+*Nutrients
+new: simp 3 5 90226 "blnk" 2 0 0
+attr 16
+mvto 97760 84190
+emit 4 .9
+*Heat
+new: simp 3 5 90227 "blnk" 2 0 0
+attr 16
+mvto 97760 84050
+emit 2 .95
+
+***Shroom House Red Cap
+*Light
+new: simp 3 5 90228 "blnk" 2 0 0
+attr 16
+mvto 98679 83800
+emit 1 .95
+*Water
+new: simp 3 5 90229 "blnk" 2 0 0
+attr 16
+mvto 98534 83820
+emit 3 .9
+*Nutrients
+new: simp 3 5 1 "blnk" 2 0 0
+attr 16
+mvto 98370 84050
+emit 4 .9
+*Heat
+new: simp 3 5 90230 "blnk" 2 0 0
+attr 16
+mvto 98534 83900
+emit 2 .3
+*Water
+new: simp 3 5 90231 "blnk" 2 0 0
+attr 16
+mvto 99000 83820
+emit 3 .9
+*Nutrients
+new: simp 3 5 90232 "blnk" 2 0 0
+attr 16
+mvto 99000 84010
+emit 4 .95
+*Heat
+new: simp 3 5 90233 "blnk" 2 0 0
+attr 16
+mvto 99000 83900
+emit 2 .3
+
+*Swampy Bit
+*Nutrients
+new: simp 3 5 90234 "blnk" 2 0 0
+attr 16
+mvto 99700 84000
+emit 4 .3
+*Water
+new: simp 3 5 90235 "blnk" 2 0 0
+attr 16
+mvto 99600 84067
+emit 3 .9
+*Heat
+new: simp 3 5 36 "blnk" 2 0 0
+attr 16
+mvto 99700 84011
+emit 2 .3
+
+
+
+*Sauna Room
+*Water
+new: simp 3 5 90237 "blnk" 2 0 0
+attr 16
+mvto 98902 84611
+emit 3 .95
+*Heat
+new: simp 3 5 90238 "blnk" 2 0 0
+attr 16
+mvto 98902 84471
+emit 2 .95
+
+**************END*****************
+****************
+*Overlay Images*
+****************
+
+* new: simp 1 1 90203 "SW_Bush-00" 0 0 6500
+* mvto 97235 84015
+
+* new: simp 1 1 90204 "SW_Bush-00" 0 0 6500
+* mvto 97800 84015
+
+new: simp 1 1 90205 "SW_SroomLiftOverlay" 0 0 6500
+mvto 97878 84130
+
+****************************************
+**End of room set up on to the next bit*                      *
+****************************************
+
+
+
+************************************************************
+****************ROOM Trehuggers Retreat*********************
+
+* #	Room type name	Example
+* 0	Atmosphere	Used for rooms that do not have a floor
+* 1	Wooden walkway	For example: the Norn Terrarium treehouse
+* 2	Concrete walkway	
+* 3	Indoor corridor	Most of the ships' interior spaces, eg. the Bridge and most hallways
+* 4	Outdoor concrete	
+* 5	Normal soil	Ground type in Norn Terrarium
+* 6	Boggy soil	Ground type in Grendel Jungle and lower Norn Meso
+* 7	Drained soil	Ground type in Ettin Desert
+* 8	Freshwater	For example: the Stickeltrout and Piranha ponds
+* 9	Saltwater	The Marine Terrarium oceans
+* 10	Ettin Home*	Used for the underground part of the Desert Terrarium.
+
+
+**************
+*Set Metaroom*
+**************
+setv game "SW_TreeHuggers_Viv" addm 95822 81590 4112 1300 "ZeWoodlandTemp_Bkg"
+mmsc 97878 82240 ""
+addb game "SW_TreeHuggers_Viv" "ZeWoodlandTemp_Bkg"
+setv va00 addr game "SW_TreeHuggers_Viv" 98846 98921 82631 82632 82773 82787
+rtyp va00 0
+rmsc 98883 82709 ""
+setv game "SW_TreeHuggers_Viv_0" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96303 96325 82127 82127 82270 82270
+rtyp va00 0
+rmsc 96314 82198 ""
+setv game "SW_TreeHuggers_Viv_1" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96153 96218 82315 82355 82363 82385
+rtyp va00 0
+rmsc 96185 82350 ""
+setv game "SW_TreeHuggers_Viv_2" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99726 99925 82642 82642 82843 82843
+rtyp va00 6
+rmsc 99825 82742 ""
+setv game "SW_TreeHuggers_Viv_3" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99691 99726 82639 82642 82841 82843
+rtyp va00 6
+rmsc 99708 82741 ""
+setv game "SW_TreeHuggers_Viv_4" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99643 99691 82662 82639 82835 82841
+rtyp va00 6
+rmsc 99667 82751 ""
+setv game "SW_TreeHuggers_Viv_5" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99573 99643 82662 82662 82830 82835
+rtyp va00 6
+rmsc 99608 82748 ""
+setv game "SW_TreeHuggers_Viv_6" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99506 99573 82650 82662 82829 82830
+rtyp va00 6
+rmsc 99539 82740 ""
+setv game "SW_TreeHuggers_Viv_7" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99475 99506 82636 82650 82830 82829
+rtyp va00 6
+rmsc 99490 82732 ""
+setv game "SW_TreeHuggers_Viv_8" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99315 99475 82630 82636 82827 82830
+rtyp va00 6
+rmsc 99395 82730 ""
+setv game "SW_TreeHuggers_Viv_9" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99152 99315 82622 82630 82813 82827
+rtyp va00 6
+rmsc 99233 82724 ""
+setv game "SW_TreeHuggers_Viv_10" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99041 99152 82623 82622 82803 82813
+rtyp va00 6
+rmsc 99096 82718 ""
+setv game "SW_TreeHuggers_Viv_11" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98963 99041 82620 82623 82788 82803
+rtyp va00 6
+rmsc 99002 82711 ""
+setv game "SW_TreeHuggers_Viv_12" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98921 98963 82632 82620 82787 82788
+rtyp va00 6
+rmsc 98942 82710 ""
+setv game "SW_TreeHuggers_Viv_13" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97011 97043 82170 82170 82343 82344
+rtyp va00 7
+rmsc 97027 82263 ""
+setv game "SW_TreeHuggers_Viv_14" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96991 97011 82170 82170 82340 82343
+rtyp va00 7
+rmsc 97001 82275 ""
+setv game "SW_TreeHuggers_Viv_15" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96977 96991 82170 82170 82342 82340
+rtyp va00 7
+rmsc 96984 82289 ""
+setv game "SW_TreeHuggers_Viv_16" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97306 97345 81927 81927 82158 82158
+rtyp va00 0
+rmsc 97325 82042 ""
+setv game "SW_TreeHuggers_Viv_17" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97571 97897 81927 81927 82158 82158
+rtyp va00 0
+rmsc 97734 82042 ""
+setv game "SW_TreeHuggers_Viv_18" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97897 98196 81788 81788 82158 82158
+rtyp va00 0
+rmsc 98046 81973 ""
+setv game "SW_TreeHuggers_Viv_19" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98196 98387 81788 81788 81914 81914
+rtyp va00 0
+rmsc 98291 81851 ""
+setv game "SW_TreeHuggers_Viv_20" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98196 98387 81914 81914 82037 82037
+rtyp va00 0
+rmsc 98291 81975 ""
+setv game "SW_TreeHuggers_Viv_21" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98196 98387 82037 82037 82158 82159
+rtyp va00 0
+rmsc 98291 82098 ""
+setv game "SW_TreeHuggers_Viv_22" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98387 98625 82037 82035 82159 82159
+rtyp va00 0
+rmsc 98506 82098 ""
+setv game "SW_TreeHuggers_Viv_23" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98387 98625 81930 81930 82037 82035
+rtyp va00 0
+rmsc 98506 81974 ""
+setv game "SW_TreeHuggers_Viv_24" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98625 98861 81930 81930 82035 82035
+rtyp va00 0
+rmsc 98743 81974 ""
+setv game "SW_TreeHuggers_Viv_25" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98625 98861 82035 82035 82159 82159
+rtyp va00 0
+rmsc 98743 82097 ""
+setv game "SW_TreeHuggers_Viv_26" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98861 99089 81930 81930 82035 82035
+rtyp va00 0
+rmsc 98975 81974 ""
+setv game "SW_TreeHuggers_Viv_27" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98861 99089 82035 82035 82159 82159
+rtyp va00 0
+rmsc 98975 82097 ""
+setv game "SW_TreeHuggers_Viv_28" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99089 99223 81932 81932 82159 82159
+rtyp va00 0
+rmsc 99156 82045 ""
+setv game "SW_TreeHuggers_Viv_29" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99223 99382 81932 81931 82159 82156
+rtyp va00 0
+rmsc 99302 82044 ""
+setv game "SW_TreeHuggers_Viv_30" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99089 99211 81930 81930 81932 81932
+rtyp va00 0
+rmsc 99150 81931 ""
+setv game "SW_TreeHuggers_Viv_31" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99382 99616 81931 81934 82156 82158
+rtyp va00 0
+rmsc 99499 82044 ""
+setv game "SW_TreeHuggers_Viv_32" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99616 99729 81934 81934 82158 82158
+rtyp va00 0
+rmsc 99672 82046 ""
+setv game "SW_TreeHuggers_Viv_33" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97306 97345 82158 82158 82344 82344
+rtyp va00 5
+rmsc 97325 82251 ""
+setv game "SW_TreeHuggers_Viv_34" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97345 97531 82158 82158 82344 82376
+rtyp va00 7
+rmsc 97438 82267 ""
+setv game "SW_TreeHuggers_Viv_35" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97531 97725 82158 82158 82376 82401
+rtyp va00 5
+rmsc 97628 82279 ""
+setv game "SW_TreeHuggers_Viv_36" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97725 97939 82158 82158 82401 82410
+rtyp va00 5
+rmsc 97832 82284 ""
+setv game "SW_TreeHuggers_Viv_37" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99616 99729 82410 82410 82457 82456
+rtyp va00 0
+rmsc 99672 82433 ""
+setv game "SW_TreeHuggers_Viv_38" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97939 98161 82158 82158 82410 82411
+rtyp va00 5
+rmsc 98050 82284 ""
+setv game "SW_TreeHuggers_Viv_39" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98161 98387 82158 82159 82411 82414
+rtyp va00 5
+rmsc 98274 82286 ""
+setv game "SW_TreeHuggers_Viv_40" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98387 98625 82159 82159 82414 82408
+rtyp va00 5
+rmsc 98506 82283 ""
+setv game "SW_TreeHuggers_Viv_41" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98625 98861 82159 82159 82408 82401
+rtyp va00 5
+rmsc 98743 82280 ""
+setv game "SW_TreeHuggers_Viv_42" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98861 99089 82159 82159 82401 82403
+rtyp va00 5
+rmsc 98975 82281 ""
+setv game "SW_TreeHuggers_Viv_43" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99089 99223 82159 82159 82403 82400
+rtyp va00 6
+rmsc 99156 82279 ""
+setv game "SW_TreeHuggers_Viv_44" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97264 97306 81927 81927 82170 82170
+rtyp va00 7
+rmsc 97285 82042 ""
+setv game "SW_TreeHuggers_Viv_45" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97345 97571 81927 81927 82158 82158
+rtyp va00 0
+rmsc 97458 82042 ""
+setv game "SW_TreeHuggers_Viv_46" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99223 99382 82159 82156 82400 82330
+rtyp va00 6
+rmsc 99302 82285 ""
+setv game "SW_TreeHuggers_Viv_47" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99382 99616 82156 82158 82330 82360
+rtyp va00 6
+rmsc 99499 82283 ""
+setv game "SW_TreeHuggers_Viv_48" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99616 99729 82158 82158 82360 82410
+rtyp va00 6
+rmsc 99672 82284 ""
+setv game "SW_TreeHuggers_Viv_49" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99729 99926 82158 82158 82410 82410
+rtyp va00 6
+rmsc 99827 82284 ""
+setv game "SW_TreeHuggers_Viv_50" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99729 99926 81934 81935 82158 82158
+rtyp va00 0
+rmsc 99827 82046 ""
+setv game "SW_TreeHuggers_Viv_51" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99616 99729 82457 82456 82590 82590
+rtyp va00 6
+rmsc 99672 82523 ""
+setv game "SW_TreeHuggers_Viv_52" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99482 99616 82457 82457 82590 82590
+rtyp va00 6
+rmsc 99549 82523 ""
+setv game "SW_TreeHuggers_Viv_53" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99426 99482 82457 82457 82590 82590
+rtyp va00 6
+rmsc 99454 82523 ""
+setv game "SW_TreeHuggers_Viv_54" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99387 99426 82457 82457 82594 82590
+rtyp va00 6
+rmsc 99406 82523 ""
+setv game "SW_TreeHuggers_Viv_55" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99224 99387 82474 82457 82594 82594
+rtyp va00 6
+rmsc 99305 82534 ""
+setv game "SW_TreeHuggers_Viv_56" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99088 99224 82496 82474 82588 82594
+rtyp va00 6
+rmsc 99156 82545 ""
+setv game "SW_TreeHuggers_Viv_57" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99021 99088 82513 82496 82587 82588
+rtyp va00 6
+rmsc 99054 82550 ""
+setv game "SW_TreeHuggers_Viv_58" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98984 99021 82511 82513 82557 82587
+rtyp va00 6
+rmsc 99002 82549 ""
+setv game "SW_TreeHuggers_Viv_59" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97707 97865 82425 82440 82573 82585
+rtyp va00 7
+rmsc 97786 82505 ""
+setv game "SW_TreeHuggers_Viv_60" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97865 98013 82440 82440 82585 82581
+rtyp va00 7
+rmsc 97939 82510 ""
+setv game "SW_TreeHuggers_Viv_61" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98013 98159 82440 82439 82581 82581
+rtyp va00 7
+rmsc 98086 82510 ""
+setv game "SW_TreeHuggers_Viv_62" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98159 98324 82439 82441 82581 82583
+rtyp va00 7
+rmsc 98241 82511 ""
+setv game "SW_TreeHuggers_Viv_63" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98324 98473 82441 82441 82583 82585
+rtyp va00 7
+rmsc 98398 82513 ""
+setv game "SW_TreeHuggers_Viv_64" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98473 98616 82441 82436 82585 82585
+rtyp va00 7
+rmsc 98544 82513 ""
+setv game "SW_TreeHuggers_Viv_65" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98616 98734 82436 82439 82585 82586
+rtyp va00 7
+rmsc 98675 82511 ""
+setv game "SW_TreeHuggers_Viv_66" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98734 98845 82439 82440 82586 82581
+rtyp va00 7
+rmsc 98789 82510 ""
+setv game "SW_TreeHuggers_Viv_67" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98845 98871 82440 82447 82581 82581
+rtyp va00 7
+rmsc 98858 82510 ""
+setv game "SW_TreeHuggers_Viv_68" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98871 98921 82447 82503 82581 82580
+rtyp va00 7
+rmsc 98896 82513 ""
+setv game "SW_TreeHuggers_Viv_69" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96492 96521 82375 82368 82514 82514
+rtyp va00 7
+rmsc 96506 82444 ""
+setv game "SW_TreeHuggers_Viv_70" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96521 96619 82368 82369 82514 82511
+rtyp va00 7
+rmsc 96570 82439 ""
+setv game "SW_TreeHuggers_Viv_71" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96619 96728 82369 82371 82511 82509
+rtyp va00 7
+rmsc 96673 82439 ""
+setv game "SW_TreeHuggers_Viv_72" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96728 96833 82371 82372 82509 82508
+rtyp va00 7
+rmsc 96780 82439 ""
+setv game "SW_TreeHuggers_Viv_73" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96833 96941 82372 82371 82508 82509
+rtyp va00 7
+rmsc 96887 82440 ""
+setv game "SW_TreeHuggers_Viv_74" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96941 97034 82371 82374 82509 82510
+rtyp va00 7
+rmsc 96987 82440 ""
+setv game "SW_TreeHuggers_Viv_75" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97034 97158 82374 82376 82510 82511
+rtyp va00 7
+rmsc 97096 82442 ""
+setv game "SW_TreeHuggers_Viv_76" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97158 97268 82376 82383 82511 82509
+rtyp va00 7
+rmsc 97213 82442 ""
+setv game "SW_TreeHuggers_Viv_77" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97268 97379 82383 82394 82509 82524
+rtyp va00 7
+rmsc 97323 82453 ""
+setv game "SW_TreeHuggers_Viv_78" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97379 97496 82394 82404 82524 82551
+rtyp va00 7
+rmsc 97437 82472 ""
+setv game "SW_TreeHuggers_Viv_79" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97496 97616 82404 82416 82551 82564
+rtyp va00 7
+rmsc 97556 82484 ""
+setv game "SW_TreeHuggers_Viv_80" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96787 96975 81927 81927 82119 82170
+rtyp va00 7
+rmsc 96881 82028 ""
+setv game "SW_TreeHuggers_Viv_81" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96975 97160 81927 81927 82170 82170
+rtyp va00 7
+rmsc 97067 82044 ""
+setv game "SW_TreeHuggers_Viv_82" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96477 96801 81879 81749 81927 81927
+rtyp va00 0
+rmsc 96639 81903 ""
+setv game "SW_TreeHuggers_Viv_83" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96801 96975 81788 81788 81927 81927
+rtyp va00 0
+rmsc 96888 81857 ""
+setv game "SW_TreeHuggers_Viv_84" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96801 96975 81749 81693 81788 81788
+rtyp va00 0
+rmsc 96888 81768 ""
+setv game "SW_TreeHuggers_Viv_85" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96975 97237 81788 81788 81927 81927
+rtyp va00 0
+rmsc 97106 81857 ""
+setv game "SW_TreeHuggers_Viv_86" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96975 97237 81693 81625 81788 81788
+rtyp va00 0
+rmsc 97106 81740 ""
+setv game "SW_TreeHuggers_Viv_87" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97237 97419 81625 81590 81788 81788
+rtyp va00 0
+rmsc 97328 81706 ""
+setv game "SW_TreeHuggers_Viv_88" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97237 97571 81788 81788 81927 81927
+rtyp va00 0
+rmsc 97404 81857 ""
+setv game "SW_TreeHuggers_Viv_89" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97419 97571 81590 81590 81788 81788
+rtyp va00 0
+rmsc 97495 81689 ""
+setv game "SW_TreeHuggers_Viv_90" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97571 97897 81788 81788 81927 81927
+rtyp va00 0
+rmsc 97734 81857 ""
+setv game "SW_TreeHuggers_Viv_91" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97571 97897 81590 81591 81788 81788
+rtyp va00 0
+rmsc 97734 81689 ""
+setv game "SW_TreeHuggers_Viv_92" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97616 97707 82416 82425 82564 82573
+rtyp va00 7
+rmsc 97661 82494 ""
+setv game "SW_TreeHuggers_Viv_93" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96153 96277 82363 82404 82511 82511
+rtyp va00 9
+rmsc 96215 82437 ""
+setv game "SW_TreeHuggers_Viv_94" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97897 98196 81591 81590 81788 81788
+rtyp va00 0
+rmsc 98046 81689 ""
+setv game "SW_TreeHuggers_Viv_95" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98196 98387 81590 81590 81788 81788
+rtyp va00 0
+rmsc 98291 81689 ""
+setv game "SW_TreeHuggers_Viv_96" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98387 98625 81748 81748 81924 81924
+rtyp va00 0
+rmsc 98506 81831 ""
+setv game "SW_TreeHuggers_Viv_97" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98625 98861 81748 81748 81924 81924
+rtyp va00 0
+rmsc 98743 81831 ""
+setv game "SW_TreeHuggers_Viv_98" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98861 99089 81748 81748 81924 81924
+rtyp va00 0
+rmsc 98975 81831 ""
+setv game "SW_TreeHuggers_Viv_99" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99089 99224 81748 81748 81924 81914
+rtyp va00 0
+rmsc 99156 81831 ""
+setv game "SW_TreeHuggers_Viv_100" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98387 98625 81590 81590 81748 81748
+rtyp va00 0
+rmsc 98506 81669 ""
+setv game "SW_TreeHuggers_Viv_101" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98625 98861 81590 81590 81748 81748
+rtyp va00 0
+rmsc 98743 81669 ""
+setv game "SW_TreeHuggers_Viv_102" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 98861 99089 81590 81591 81748 81748
+rtyp va00 0
+rmsc 98975 81669 ""
+setv game "SW_TreeHuggers_Viv_103" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99089 99280 81591 81590 81748 81748
+rtyp va00 0
+rmsc 99184 81669 ""
+setv game "SW_TreeHuggers_Viv_104" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99224 99566 81748 81748 81914 81914
+rtyp va00 7
+rmsc 99395 81831 ""
+setv game "SW_TreeHuggers_Viv_105" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99566 99767 81748 81748 81914 81914
+rtyp va00 7
+rmsc 99666 81831 ""
+setv game "SW_TreeHuggers_Viv_106" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99767 99932 81748 81748 81914 81914
+rtyp va00 7
+rmsc 99849 81831 ""
+setv game "SW_TreeHuggers_Viv_107" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99280 99566 81590 81590 81748 81748
+rtyp va00 0
+rmsc 99423 81669 ""
+setv game "SW_TreeHuggers_Viv_108" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99566 99767 81590 81590 81748 81748
+rtyp va00 0
+rmsc 99666 81669 ""
+setv game "SW_TreeHuggers_Viv_109" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99767 99932 81590 81590 81748 81748
+rtyp va00 0
+rmsc 99849 81669 ""
+setv game "SW_TreeHuggers_Viv_110" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96277 96303 82404 82412 82511 82510
+rtyp va00 9
+rmsc 96290 82457 ""
+setv game "SW_TreeHuggers_Viv_111" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 95933 96153 82361 82363 82523 82511
+rtyp va00 9
+rmsc 96043 82436 ""
+setv game "SW_TreeHuggers_Viv_112" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 95955 96126 82290 82343 82361 82363
+rtyp va00 9
+rmsc 96040 82326 ""
+setv game "SW_TreeHuggers_Viv_113" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97160 97264 81927 81927 82170 82170
+rtyp va00 7
+rmsc 97212 82048 ""
+setv game "SW_TreeHuggers_Viv_114" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 95986 96101 82265 82275 82300 82335
+rtyp va00 9
+rmsc 96043 82300 ""
+setv game "SW_TreeHuggers_Viv_115" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96021 96088 82246 82250 82268 82274
+rtyp va00 9
+rmsc 96054 82260 ""
+setv game "SW_TreeHuggers_Viv_116" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 95952 95988 82522 82520 82544 82571
+rtyp va00 9
+rmsc 95970 82546 ""
+setv game "SW_TreeHuggers_Viv_117" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 95988 96053 82520 82516 82571 82564
+rtyp va00 9
+rmsc 96020 82542 ""
+setv game "SW_TreeHuggers_Viv_118" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96053 96083 82516 82515 82564 82548
+rtyp va00 9
+rmsc 96068 82532 ""
+setv game "SW_TreeHuggers_Viv_119" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96083 96124 82515 82513 82548 82519
+rtyp va00 9
+rmsc 96103 82517 ""
+setv game "SW_TreeHuggers_Viv_120" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 95933 95955 82350 82308 82361 82361
+rtyp va00 9
+rmsc 95944 82355 ""
+setv game "SW_TreeHuggers_Viv_121" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 95963 95986 82271 82274 82292 82300
+rtyp va00 9
+rmsc 95974 82285 ""
+setv game "SW_TreeHuggers_Viv_122" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 95992 96021 82259 82246 82266 82268
+rtyp va00 9
+rmsc 96006 82263 ""
+setv game "SW_TreeHuggers_Viv_123" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96101 96119 82275 82326 82335 82341
+rtyp va00 9
+rmsc 96110 82308 ""
+setv game "SW_TreeHuggers_Viv_124" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96455 96492 82388 82375 82513 82514
+rtyp va00 7
+rmsc 96473 82451 ""
+setv game "SW_TreeHuggers_Viv_125" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96325 96455 82388 82388 82511 82513
+rtyp va00 7
+rmsc 96390 82450 ""
+setv game "SW_TreeHuggers_Viv_126" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96303 96325 82388 82388 82510 82511
+rtyp va00 7
+rmsc 96314 82449 ""
+setv game "SW_TreeHuggers_Viv_127" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96303 96325 82341 82341 82388 82388
+rtyp va00 0
+rmsc 96314 82364 ""
+setv game "SW_TreeHuggers_Viv_128" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96325 96445 82341 82340 82388 82388
+rtyp va00 0
+rmsc 96385 82364 ""
+setv game "SW_TreeHuggers_Viv_129" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96148 96218 82269 82269 82312 82355
+rtyp va00 0
+rmsc 96183 82312 ""
+setv game "SW_TreeHuggers_Viv_130" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96218 96265 82269 82270 82355 82373
+rtyp va00 0
+rmsc 96241 82321 ""
+setv game "SW_TreeHuggers_Viv_131" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96265 96303 82270 82270 82373 82388
+rtyp va00 0
+rmsc 96284 82329 ""
+setv game "SW_TreeHuggers_Viv_132" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96303 96325 82270 82270 82341 82341
+rtyp va00 0
+rmsc 96314 82305 ""
+setv game "SW_TreeHuggers_Viv_133" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96325 96445 82270 82270 82341 82340
+rtyp va00 0
+rmsc 96385 82305 ""
+setv game "SW_TreeHuggers_Viv_134" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96445 96530 82270 82270 82340 82340
+rtyp va00 7
+rmsc 96487 82305 ""
+setv game "SW_TreeHuggers_Viv_135" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96445 96499 82146 82215 82270 82270
+rtyp va00 7
+rmsc 96472 82208 ""
+setv game "SW_TreeHuggers_Viv_136" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96383 96445 82135 82146 82270 82270
+rtyp va00 0
+rmsc 96414 82202 ""
+setv game "SW_TreeHuggers_Viv_137" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96325 96383 82127 82135 82270 82270
+rtyp va00 0
+rmsc 96354 82198 ""
+setv game "SW_TreeHuggers_Viv_138" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96218 96303 82128 82127 82269 82270
+rtyp va00 0
+rmsc 96260 82199 ""
+setv game "SW_TreeHuggers_Viv_139" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96148 96218 82184 82128 82269 82269
+rtyp va00 0
+rmsc 96183 82226 ""
+setv game "SW_TreeHuggers_Viv_140" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96499 96530 82215 82177 82270 82270
+rtyp va00 7
+rmsc 96514 82242 ""
+setv game "SW_TreeHuggers_Viv_141" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96530 96557 82177 82153 82270 82270
+rtyp va00 7
+rmsc 96543 82223 ""
+setv game "SW_TreeHuggers_Viv_142" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96530 96601 82270 82270 82340 82339
+rtyp va00 7
+rmsc 96565 82304 ""
+setv game "SW_TreeHuggers_Viv_143" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96557 96601 82153 82141 82270 82270
+rtyp va00 7
+rmsc 96579 82211 ""
+setv game "SW_TreeHuggers_Viv_144" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96601 96696 82270 82269 82339 82340
+rtyp va00 7
+rmsc 96648 82305 ""
+setv game "SW_TreeHuggers_Viv_145" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96696 96786 82269 82268 82340 82338
+rtyp va00 7
+rmsc 96741 82303 ""
+setv game "SW_TreeHuggers_Viv_146" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96786 96873 82268 82265 82338 82338
+rtyp va00 7
+rmsc 96829 82303 ""
+setv game "SW_TreeHuggers_Viv_147" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96873 96977 82265 82266 82338 82344
+rtyp va00 7
+rmsc 96912 82304 ""
+setv game "SW_TreeHuggers_Viv_148" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96601 96696 82141 82126 82270 82269
+rtyp va00 0
+rmsc 96648 82205 ""
+setv game "SW_TreeHuggers_Viv_149" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96696 96786 82126 82131 82269 82268
+rtyp va00 0
+rmsc 96741 82197 ""
+setv game "SW_TreeHuggers_Viv_150" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96786 96873 82131 82160 82268 82265
+rtyp va00 0
+rmsc 96829 82198 ""
+setv game "SW_TreeHuggers_Viv_151" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96873 96977 82160 82200 82265 82266
+rtyp va00 0
+rmsc 96912 82203 ""
+setv game "SW_TreeHuggers_Viv_152" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97043 97069 82170 82170 82344 82343
+rtyp va00 7
+rmsc 97056 82269 ""
+setv game "SW_TreeHuggers_Viv_153" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97069 97195 82170 82170 82343 82342
+rtyp va00 7
+rmsc 97132 82269 ""
+setv game "SW_TreeHuggers_Viv_154" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 97195 97306 82170 82170 82342 82344
+rtyp va00 7
+rmsc 97250 82270 ""
+setv game "SW_TreeHuggers_Viv_155" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96613 96787 81927 81927 82115 82119
+rtyp va00 7
+rmsc 96700 82023 ""
+setv game "SW_TreeHuggers_Viv_156" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96535 96613 81927 81927 82115 82115
+rtyp va00 7
+rmsc 96574 82021 ""
+setv game "SW_TreeHuggers_Viv_157" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96368 96535 81927 81927 82114 82115
+rtyp va00 7
+rmsc 96451 82021 ""
+setv game "SW_TreeHuggers_Viv_158" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96384 96477 81921 81879 81927 81927
+rtyp va00 0
+rmsc 96430 81924 ""
+setv game "SW_TreeHuggers_Viv_159" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 96216 96368 82019 81927 82119 82114
+rtyp va00 7
+rmsc 96292 82066 ""
+setv game "SW_TreeHuggers_Viv_160" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99426 99616 82411 82410 82457 82457
+rtyp va00 0
+rmsc 99521 82434 ""
+setv game "SW_TreeHuggers_Viv_161" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99729 99926 82410 82410 82456 82458
+rtyp va00 0
+rmsc 99827 82434 ""
+setv game "SW_TreeHuggers_Viv_162" va00
+setv va00 addr game "SW_TreeHuggers_Viv" 99729 99926 82456 82458 82590 82590
+rtyp va00 6
+rmsc 99827 82523 ""
+setv game "SW_TreeHuggers_Viv_163" va00
+
+door game "SW_TreeHuggers_Viv_1" game "SW_TreeHuggers_Viv_138" 50
+door game "SW_TreeHuggers_Viv_111" game "SW_TreeHuggers_Viv_127" 0
+door game "SW_TreeHuggers_Viv_129" game "SW_TreeHuggers_Viv_134" 50
+door game "SW_TreeHuggers_Viv_133" game "SW_TreeHuggers_Viv_134" 50
+
+delg "SW_TreeHuggers_Viv_0"
+delg "SW_TreeHuggers_Viv_1"
+delg "SW_TreeHuggers_Viv_2"
+delg "SW_TreeHuggers_Viv_3"
+delg "SW_TreeHuggers_Viv_4"
+delg "SW_TreeHuggers_Viv_5"
+delg "SW_TreeHuggers_Viv_6"
+delg "SW_TreeHuggers_Viv_7"
+delg "SW_TreeHuggers_Viv_8"
+delg "SW_TreeHuggers_Viv_9"
+delg "SW_TreeHuggers_Viv_10"
+delg "SW_TreeHuggers_Viv_11"
+delg "SW_TreeHuggers_Viv_12"
+delg "SW_TreeHuggers_Viv_13"
+delg "SW_TreeHuggers_Viv_14"
+delg "SW_TreeHuggers_Viv_15"
+delg "SW_TreeHuggers_Viv_16"
+delg "SW_TreeHuggers_Viv_17"
+delg "SW_TreeHuggers_Viv_18"
+delg "SW_TreeHuggers_Viv_19"
+delg "SW_TreeHuggers_Viv_20"
+delg "SW_TreeHuggers_Viv_21"
+delg "SW_TreeHuggers_Viv_22"
+delg "SW_TreeHuggers_Viv_23"
+delg "SW_TreeHuggers_Viv_24"
+delg "SW_TreeHuggers_Viv_25"
+delg "SW_TreeHuggers_Viv_26"
+delg "SW_TreeHuggers_Viv_27"
+delg "SW_TreeHuggers_Viv_28"
+delg "SW_TreeHuggers_Viv_29"
+delg "SW_TreeHuggers_Viv_30"
+delg "SW_TreeHuggers_Viv_31"
+delg "SW_TreeHuggers_Viv_32"
+delg "SW_TreeHuggers_Viv_33"
+delg "SW_TreeHuggers_Viv_34"
+delg "SW_TreeHuggers_Viv_35"
+delg "SW_TreeHuggers_Viv_36"
+delg "SW_TreeHuggers_Viv_37"
+delg "SW_TreeHuggers_Viv_38"
+delg "SW_TreeHuggers_Viv_39"
+delg "SW_TreeHuggers_Viv_40"
+delg "SW_TreeHuggers_Viv_41"
+delg "SW_TreeHuggers_Viv_42"
+delg "SW_TreeHuggers_Viv_43"
+delg "SW_TreeHuggers_Viv_44"
+delg "SW_TreeHuggers_Viv_45"
+delg "SW_TreeHuggers_Viv_46"
+delg "SW_TreeHuggers_Viv_47"
+delg "SW_TreeHuggers_Viv_48"
+delg "SW_TreeHuggers_Viv_49"
+delg "SW_TreeHuggers_Viv_50"
+delg "SW_TreeHuggers_Viv_51"
+delg "SW_TreeHuggers_Viv_52"
+delg "SW_TreeHuggers_Viv_53"
+delg "SW_TreeHuggers_Viv_54"
+delg "SW_TreeHuggers_Viv_55"
+delg "SW_TreeHuggers_Viv_56"
+delg "SW_TreeHuggers_Viv_57"
+delg "SW_TreeHuggers_Viv_58"
+delg "SW_TreeHuggers_Viv_59"
+delg "SW_TreeHuggers_Viv_60"
+delg "SW_TreeHuggers_Viv_61"
+delg "SW_TreeHuggers_Viv_62"
+delg "SW_TreeHuggers_Viv_63"
+delg "SW_TreeHuggers_Viv_64"
+delg "SW_TreeHuggers_Viv_65"
+delg "SW_TreeHuggers_Viv_66"
+delg "SW_TreeHuggers_Viv_67"
+delg "SW_TreeHuggers_Viv_68"
+delg "SW_TreeHuggers_Viv_69"
+delg "SW_TreeHuggers_Viv_70"
+delg "SW_TreeHuggers_Viv_71"
+delg "SW_TreeHuggers_Viv_72"
+delg "SW_TreeHuggers_Viv_73"
+delg "SW_TreeHuggers_Viv_74"
+delg "SW_TreeHuggers_Viv_75"
+delg "SW_TreeHuggers_Viv_76"
+delg "SW_TreeHuggers_Viv_77"
+delg "SW_TreeHuggers_Viv_78"
+delg "SW_TreeHuggers_Viv_79"
+delg "SW_TreeHuggers_Viv_80"
+delg "SW_TreeHuggers_Viv_81"
+delg "SW_TreeHuggers_Viv_82"
+delg "SW_TreeHuggers_Viv_83"
+delg "SW_TreeHuggers_Viv_84"
+delg "SW_TreeHuggers_Viv_85"
+delg "SW_TreeHuggers_Viv_86"
+delg "SW_TreeHuggers_Viv_87"
+delg "SW_TreeHuggers_Viv_88"
+delg "SW_TreeHuggers_Viv_89"
+delg "SW_TreeHuggers_Viv_90"
+delg "SW_TreeHuggers_Viv_91"
+delg "SW_TreeHuggers_Viv_92"
+delg "SW_TreeHuggers_Viv_93"
+delg "SW_TreeHuggers_Viv_94"
+delg "SW_TreeHuggers_Viv_95"
+delg "SW_TreeHuggers_Viv_96"
+delg "SW_TreeHuggers_Viv_97"
+delg "SW_TreeHuggers_Viv_98"
+delg "SW_TreeHuggers_Viv_99"
+delg "SW_TreeHuggers_Viv_100"
+delg "SW_TreeHuggers_Viv_101"
+delg "SW_TreeHuggers_Viv_102"
+delg "SW_TreeHuggers_Viv_103"
+delg "SW_TreeHuggers_Viv_104"
+delg "SW_TreeHuggers_Viv_105"
+delg "SW_TreeHuggers_Viv_106"
+delg "SW_TreeHuggers_Viv_107"
+delg "SW_TreeHuggers_Viv_108"
+delg "SW_TreeHuggers_Viv_109"
+delg "SW_TreeHuggers_Viv_110"
+delg "SW_TreeHuggers_Viv_111"
+delg "SW_TreeHuggers_Viv_112"
+delg "SW_TreeHuggers_Viv_113"
+delg "SW_TreeHuggers_Viv_114"
+delg "SW_TreeHuggers_Viv_115"
+delg "SW_TreeHuggers_Viv_116"
+delg "SW_TreeHuggers_Viv_117"
+delg "SW_TreeHuggers_Viv_118"
+delg "SW_TreeHuggers_Viv_119"
+delg "SW_TreeHuggers_Viv_120"
+delg "SW_TreeHuggers_Viv_121"
+delg "SW_TreeHuggers_Viv_122"
+delg "SW_TreeHuggers_Viv_123"
+delg "SW_TreeHuggers_Viv_124"
+delg "SW_TreeHuggers_Viv_125"
+delg "SW_TreeHuggers_Viv_126"
+delg "SW_TreeHuggers_Viv_127"
+delg "SW_TreeHuggers_Viv_128"
+delg "SW_TreeHuggers_Viv_129"
+delg "SW_TreeHuggers_Viv_130"
+delg "SW_TreeHuggers_Viv_131"
+delg "SW_TreeHuggers_Viv_132"
+delg "SW_TreeHuggers_Viv_133"
+delg "SW_TreeHuggers_Viv_134"
+delg "SW_TreeHuggers_Viv_135"
+delg "SW_TreeHuggers_Viv_136"
+delg "SW_TreeHuggers_Viv_137"
+delg "SW_TreeHuggers_Viv_138"
+delg "SW_TreeHuggers_Viv_139"
+delg "SW_TreeHuggers_Viv_140"
+delg "SW_TreeHuggers_Viv_141"
+delg "SW_TreeHuggers_Viv_142"
+delg "SW_TreeHuggers_Viv_143"
+delg "SW_TreeHuggers_Viv_144"
+delg "SW_TreeHuggers_Viv_145"
+delg "SW_TreeHuggers_Viv_146"
+delg "SW_TreeHuggers_Viv_147"
+delg "SW_TreeHuggers_Viv_148"
+delg "SW_TreeHuggers_Viv_149"
+delg "SW_TreeHuggers_Viv_150"
+delg "SW_TreeHuggers_Viv_151"
+delg "SW_TreeHuggers_Viv_152"
+delg "SW_TreeHuggers_Viv_153"
+delg "SW_TreeHuggers_Viv_154"
+delg "SW_TreeHuggers_Viv_155"
+delg "SW_TreeHuggers_Viv_156"
+delg "SW_TreeHuggers_Viv_157"
+delg "SW_TreeHuggers_Viv_158"
+delg "SW_TreeHuggers_Viv_159"
+delg "SW_TreeHuggers_Viv_160"
+delg "SW_TreeHuggers_Viv_161"
+delg "SW_TreeHuggers_Viv_162"
+delg "SW_TreeHuggers_Viv_163"
+
+
+
+*CA For Treehuggers Pod
+***Stump House
+
+**Norn Home
+new: simp 3 5 90240 "blnk" 2 0 0
+attr 18
+mvto 97850 82262
+emit 15 .25
+**
+*Light
+new: simp 3 5 90241 "blnk" 2 0 0
+attr 16
+mvto 97638 81824
+emit 1 .95
+*Light
+new: simp 3 5 90242 "blnk" 2 0 0
+attr 16
+mvto 98338 81824
+emit 1 .95
+*Nutrients
+new: simp 3 5 90243 "blnk" 2 0 0
+attr 16
+mvto 99303 82290
+emit 4 .9
+*Heat
+new: simp 3 5 90244 "blnk" 2 0 0
+attr 16
+mvto 98033 82101
+emit 2 .5
+*Nutrients
+new: simp 3 5 90245 "blnk" 2 0 0
+attr 16
+mvto 98784 82253
+emit 4 .9
+*Heat
+new: simp 3 5 90246 "blnk" 2 0 0
+attr 16
+mvto 98775 82101
+emit 2 .5
+*Heat
+new: simp 3 5 90247 "blnk" 2 0 0
+attr 16
+mvto 98786 82290
+emit 2 .5
+*Light
+new: simp 3 5 90248 "blnk" 2 0 0
+attr 16
+mvto 97135 82024
+emit 1 .95
+*Nutrients
+new: simp 3 5 90249 "blnk" 2 0 0
+attr 16
+mvto 98070 82283
+emit 4 .9
+*Nutrients
+new: simp 3 5 90250 "blnk" 2 0 0
+attr 16
+mvto 97904 82283
+emit 4 .9
+*Heat
+new: simp 3 5 90251 "blnk" 2 0 0
+attr 16
+mvto 97757 82073
+emit 2 .5
+*Water tank
+new: simp 3 5 90252 "blnk" 2 0 0
+attr 16
+mvto 96043 82450
+emit 3 .95
+*Water Pond
+new: simp 3 5 90253 "blnk" 2 0 0
+attr 16
+mvto 99435 82291
+emit 3 .5
+*Heat
+new: simp 3 5 90254 "blnk" 2 0 0
+attr 16
+mvto 96657 82266
+emit 2 .5
+*Water
+new: simp 3 5 90255 "blnk" 2 0 0
+attr 16
+mvto 98309 82305
+emit 3 .5
+
+
+****************
+*Overlay Images*
+****************
+
+
+*new: simp 1 1 90206 "SW_SR-ShipNose-OL" 0 0 7900
+*mvto 95822 82066
+*mvto 97878 82240
+*new: simp 1 1 90207 "SW_SR-Coridor-OL" 0 0 7900
+*mvto 96880 82152
+*mvto 97878 82240
+*new: simp 1 1 90208 "SW_WR_MM" 0 0 7900
+*mvto 98515 81587
+*mvto 97878 82240
+
+
+* new: simp 1 1 90209 "SW_Bush-00" 0 0 7000
+* mvto 97770 82130
+
+* new: simp 1 1 90209 "SW_Bush-00" 0 0 1
+* mvto 97900 82118
+
+* new: simp 1 1 90209 "SW_Bush-00" 0 0 7000
+* mvto 98050 82132
+
+* new: simp 1 1 90209 "SW_Bush-00" 0 0 1
+* mvto 98250 82080
+
+
+* new: simp 1 1 90209 "SW_Bush-00" 0 0 1
+* mvto 99005 82115
+
+
+* new: simp 1 1 90209 "SW_Bush-00" 0 0 7000
+* mvto 98818 82145
+
+
+* new: simp 1 1 90209 "SW_Bush-00" 0 0 7000
+* mvto 98650 82145
+
+
+* new: simp 1 1 90209 "SW_Bush-00" 0 0 1
+* mvto 98525 82097
+
+
+* new: simp 1 1 90210 "SW_Tree12" 0 0 7000
+* mvto 99435 81842
+
+new: simp 1 1 90211 "vents" 23 25 500
+attr 0
+mvto 96144 82360
+frat 2
+anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 255]
+
+new: simp 1 1 90212 "vents" 23 25 500
+attr 0
+mvto 95999 82400
+frat 2
+anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 255]
+
+* new: simp 1 1 90213 "SW_Door_S-Open" 0 0 2
+* mvto 98625 82420
+
+* new: simp 1 1 90214 "vents" 23 25 500
+* attr 0
+* mvto 99560 82440
+* frat 2
+* anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 255]
+
+* new: simp 1 1 90215 "vents" 23 25 500
+* attr 0
+* mvto 99150 82450
+* frat 2
+* anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 255]
+
+*new: simp 1 1 90216 "SW_Random_Bits" 0 0 7899
+*mvto 96187 81990
+
+*LiftTubeAirCirculationUnitThingy
+* new: simp 1 1 90216 "SW-Random_Bits" 1 1 7010
+* mvto 95822 81591
+
+* 3794 - offset, 95822, 81590 - top left corner
+
+new: simp 1 1 90216 "ZeSWRightOverlay" 0 0 7899
+mvto 99616 81590
+
+***Whole room overlay
+
+* new: simp 1 1 90216 "SW_THR-LT" 0 0 7000
+* mvto 96045 81953
+
+* new: simp 1 1 90216 "SW_THR-LT" 1 1 2
+* mvto 96348 82100
+
+*Pipe to fresh water monitor
+*new: simp 1 1 90218 "SW-Random_Bits" 2 1 7800
+*mvto 96833 81390
+
+
+***WoodlandEcoInjector
+*Tempry placeholder image not done eco system yet :-/
+*new: simp 1 1 90256 "SW_TreeHuggers_Seedbank" 0 0 0
+*mvto 96705 82170
+
+
+
+***ShroomDomeEcoInjector
+*Tempry placeholder image not done eco system yet :-/
+* new: simp 1 1 90257 "SW_TreeHuggers_Seedbank" 0 0 0
+* mvto 98820 84200
+
+inst
+**************************
+* Install fav place agent*
+**************************
+new: simp 1 3 90200 "SW-Fav_Shroom_Dome" 1 0 1
+attr 272
+mvto 98664 83460
+* mvto 99240 84100
+cmrt 1
+tick 10
+
+**************************
+*   Install fav place    *
+**************************
+new: simp 1 3 90201 "SW-Fav_Treehuggers_Dome" 1 0 1
+attr 272
+mvto 97000 82200
+* cmrt 1
+tick 10
+
+***********Four Doors*****
+*Original Script by Pilla*
+**************************
+
+* Door to Shroom room *
+*ov00>ov03*
+
+inst
+new: simp 2 2 90102 "SW_WarpShroom" 0 0 550
+attr 4
+bhvr 1
+setv ov00 0
+mvto 985 9535
+setv va00 grap posx posy
+*door 2
+new: simp 2 2 90102 "SW_WarpShroom" 0 0 550
+attr 4
+bhvr 1
+setv ov00 0
+mvto 99450 83950
+setv va01 grap posx posy
+*link doors
+link va00 va01 100
+
+*Door to Norn room*
+*********************
+
+new: simp 2 2 90102 "SW_WarpShroom" 0 0 6999
+attr 4
+bhvr 1
+setv ov00 1
+**mvto 98900 82180
+mvto 99650 82250
+setv va00 grap posx posy
+new: simp 2 2 90102 "SW_WarpShroom" 0 0 3
+attr 4
+bhvr 1
+setv ov00 1
+mvto 97440 84135
+setv va01 grap posx posy
+link va00 va01 100
+
+******EventScript******
+****     Doors     ****
+***********************
+
+scrp 2 2 90102 1
+	lock
+	stim writ from 75 1
+	setv va00 ov00
+	seta va01 targ
+	enum 2 2 90102
+		doif targ ne va01
+			doif ov00 eq va00
+				setv va02 posx
+				setv va03 posy
+				doif from eq pntr
+					cmrp va02 va03 1
+					targ ownr
+					etch 4 0 0
+						stim writ targ 95 1
+						doif tmvf va02 va03 eq 1
+							mvft va02 va03
+						endi
+					next
+				endi
+
+				doif crea from eq 1
+					stim writ from 95 1.
+					targ from
+					doif tmvf va02 va03 eq 1
+						doif trck eq from
+							cmrp va02 va03 1
+						endi
+						mvft va02 va03
+					endi
+				endi
+				stop
+			endi
+		endi
+	next
+	unlk
+endm
+
+rscr
+enum 2 2 90102
+	kill targ
+next
+scrx 2 2 90102 1
+
+***Favorite place markers
+enum 1 1 90200
+	kill targ
+next
+scrx 2 2 90200 1
+
+enum 1 1 90201
+	kill targ
+next
+scrx 2 2 90201 1
+
+*****Overlays
+
+enum 1 1 90203
+	kill targ
+next
+scrx 2 2 90203 1
+
+enum 1 1 90204
+	kill targ
+next
+scrx 2 2 90204 1
+
+enum 1 1 90205
+	kill targ
+	scrx 2 2 90205 1
+next
+enum 1 1 90206
+	kill targ
+next
+scrx 2 2 90206 1
+
+enum 1 1 90207
+	kill targ
+next
+scrx 2 2 90207 1
+
+enum 1 1 90208
+	kill targ
+next
+scrx 2 2 90208 1
+
+enum 1 1 90209
+	kill targ
+next
+scrx 2 2 90209 1
+
+enum 1 1 90110
+	kill targ
+next
+scrx 2 2 90210 1
+
+enum 1 1 90211
+	kill targ
+next
+scrx 2 2 90211 1
+
+enum 1 1 90112
+	kill targ
+next
+scrx 2 2 90212 1
+
+
+enum 1 1 90113
+	kill targ
+next
+scrx 2 2 90213 1
+
+enum 1 1 90114
+	kill targ
+next
+scrx 2 2 90214 1
+
+enum 1 1 90115
+	kill targ
+next
+scrx 2 2 90215 1
+
+
+
+****CA Emitters
+enum 1 1 90220
+	kill targ
+next
+scrx 2 2 90220 1
+
+enum 1 1 90221
+	kill targ
+next
+scrx 2 2 90221 1
+
+enum 1 1 90222
+	kill targ
+next
+scrx 2 2 90222 1
+
+enum 1 1 90223
+	kill targ
+next
+scrx 2 2 90223 1
+
+enum 1 1 90224
+	kill targ
+next
+scrx 2 2 90224 1
+
+enum 1 1 90225
+	kill targ
+next
+scrx 2 2 90225 1
+
+enum 1 1 90226
+	kill targ
+next
+scrx 2 2 90226 1
+
+enum 1 1 90227
+	kill targ
+next
+scrx 2 2 90227 1
+
+enum 1 1 90228
+	kill targ
+next
+scrx 2 2 90228 1
+
+enum 1 1 90229
+	kill targ
+next
+scrx 2 2 90229 1
+enum 1 1 90230
+	kill targ
+next
+scrx 2 2 90230 1
+
+enum 1 1 90231
+	kill targ
+next
+scrx 2 2 90231 1
+
+
+
+enum 1 1 90240
+	kill targ
+next
+scrx 2 2 90240 1
+
+enum 1 1 90241
+	kill targ
+next
+scrx 2 2 90241 1
+
+enum 1 1 90242
+	kill targ
+next
+scrx 2 2 90242 1
+
+enum 1 1 90243
+	kill targ
+next
+scrx 2 2 90243 1
+
+enum 1 1 90244
+	kill targ
+next
+scrx 2 2 90244 1
+
+enum 1 1 90245
+	kill targ
+next
+scrx 2 2 90245 1
+
+enum 1 1 90246
+	kill targ
+next
+scrx 2 2 90246 1
+
+enum 1 1 90247
+	kill targ
+next
+scrx 2 2 90247 1
+
+enum 1 1 90248
+	kill targ
+next
+scrx 2 2 90248 1
+
+enum 1 1 90249
+	kill targ
+next
+scrx 2 2 90249 1
+
+
+
+enum 1 1 90250
+	kill targ
+next
+scrx 2 2 90250 1
+
+enum 1 1 90251
+	kill targ
+next
+scrx 2 2 90251 1
+
+enum 1 1 90252
+	kill targ
+next
+scrx 2 2 90252 1
+
+enum 1 1 90253
+	kill targ
+next
+scrx 2 2 90253 1
+
+enum 1 1 90254
+	kill targ
+next
+scrx 2 2 90254 1
+
+enum 1 1 90255
+	kill targ
+next
+scrx 2 2 90255 1
+**********
+**Seedbanks Blank for now
+enum 1 1 90256
+	kill targ
+*next
+*scrx 2 2 90256 1
+
+	enum 1 1 90257
+		kill targ
+	next
+	scrx 2 2 90257 1
+
+**************
+**End Script**
+**************
