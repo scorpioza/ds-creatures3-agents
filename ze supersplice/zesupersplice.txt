@@ -1,0 +1,45 @@
+"en-GB"
+
+
+group DSAG "Ze Supersplicer DS"
+
+"Agent Animation File" "zesupersplice.c16"
+"Agent Animation Gallery" "zesupersplice"
+"Agent Animation String" "0"
+"Agent Description" "Splices a lot of Creatures and Eggs at once"
+"Dependency 1" "zesupersplice.c16"
+"Dependency 2" "supersplice.catalogue"
+"Dependency 3" "1bep.wav"
+"Dependency 4" "2bep.wav"
+"Dependency 5" "3bep.wav"
+"Dependency 6" "beep.wav"
+"Dependency 7" "bep2.wav"
+"Dependency 8" "whiteontransparentchars.s16"
+"Remove script" "enum 3 10 22804 kill targ next scrx 3 10 22804 1 scrx 3 10 22804 1000 scrx 3 10 22804 1001 scrx 3 10 22804 1002 scrx 3 10 22804 1003 scrx 3 10 22804 1004 scrx 3 10 22804 1005 scrx 3 10 22804 1006 scrx 3 10 22804 1007 scrx 3 10 22804 1008 scrx 3 10 22804 1009 scrx 3 10 22804 1010 scrx 3 10 22804 1011"
+
+"Script Count" 1
+"Script 1" @ "Supersplicer DS script.cos"
+
+"Agent Sprite First Image" 0
+"Agent Type" 0
+"Dependency Category 1" 2
+"Dependency Category 2" 7
+"Dependency Category 3" 1
+"Dependency Category 4" 1
+"Dependency Category 5" 1
+"Dependency Category 6" 1
+"Dependency Category 7" 1
+"Dependency Category 8" 2
+"Dependency Count" 8
+
+
+
+inline FILE "1bep.wav" "1bep.wav"
+inline FILE "2bep.wav" "2bep.wav"
+inline FILE "3bep.wav" "3bep.wav"
+inline FILE "beep.wav" "beep.wav"
+inline FILE "bep2.wav" "bep2.wav"
+inline FILE "zesupersplice.c16" "zesupersplice.c16"
+inline FILE "supersplice.catalogue" "supersplice.catalogue"
+inline FILE "whiteontransparentchars.s16" "whiteontransparentchars.s16"
+

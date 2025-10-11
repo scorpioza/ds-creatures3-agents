@@ -1,0 +1,510 @@
+* This should be a chamber which splices whole
+* groups of creatures and eggs together
+*
+* ov01 = what to splice
+* ov15 = how you want the mutant
+* ov28 = gender definition
+* ov43 = chance on mutation
+* ov56 = mutationrate
+*
+* Installation
+
+new: vhcl 3 10 22804 "supersplice" 1 0 500
+accg 5
+aero 5
+fric 85
+elas 10
+perm 100
+attr 222
+cabn 20 70 325 245
+
+* splice eggs button
+pat: butt 1 "supersplice" 1 2 50 7 0 [] 1000 0
+
+* splice norns button
+pat: butt 2 "supersplice" 3 2 85 7 0 [] 1001 0
+
+* splice both button
+pat: butt 3 "supersplice" 5 2 127 7 0 [] 1002 0
+
+* drop button
+pat: butt 4 "supersplice" 7 1 170 7 0 [] 1003 0
+
+* make-it-a-norn button
+pat: butt 5 "supersplice" 3 2 368 119 0 [] 1004 0
+
+* make-it-an-egg button
+pat: butt 6 "supersplice" 1 2 407 119 0 [] 1005 0
+
+* male button
+pat: butt 7 "supersplice" 8 2 363 151 0 [] 1006 0
+
+* female button
+pat: butt 8 "supersplice" 10 2 393 151 0 [] 1007 0
+
+* random gender
+pat: butt 9 "supersplice" 12 2 416 151 0 [] 1008 0
+
+* Actual Splice-Button
+pat: butt 10 "supersplice" 14 2 365 183 0 [] 1009 0
+
+* Chance on Mutation
+pat: text 11 "supersplice" 16 358 19 0 1010 "whiteontransparentchars"
+
+* Mutationrate
+pat: text 12 "supersplice" 16 358 40 0 1011 "whiteontransparentchars"
+
+* iniziating default variables and button poses
+part 1
+pose 1
+part 5
+pose 1
+part 7
+pose 1
+part 11
+ptxt "128"
+part 12
+ptxt "128"
+setv ov01 0
+setv ov15 0
+setv ov28 0
+setv ov43 128
+setv ov56 128
+
+* teleport to a random position and show it someone
+loop
+	setv va00 rand 0 1000000
+	setv va01 rand 0 1000000
+untl tmvt va00 va01 = 1
+mvto va00 va01
+cmrp posx posy 1
+velo rand -10 10 rand -5 -15
+
+
+
+* pick up selected things
+scrp 3 10 22804 1
+snde "beep"
+
+* eggs
+doif ov01 = 0
+	gpas 3 4 0 1
+
+* creatures
+elif ov01 = 1
+	gpas 4 0 0 1
+
+*both
+else
+	gpas 3 4 0 1
+	gpas 4 0 0 1
+endi
+endm
+
+
+
+* set to splice eggs only
+scrp 3 10 22804 1000
+setv ov01 0
+snde "1bep"
+part 1
+pose 1
+part 2
+pose 0
+part 3
+pose 0
+part 0
+endm
+
+
+
+* set to splice norns only
+scrp 3 10 22804 1001
+setv ov01 1
+snde "1bep"
+part 1
+pose 0
+part 2
+pose 1
+part 3
+pose 0
+part 0
+endm
+
+
+
+* set to splice both
+scrp 3 10 22804 1002
+setv ov01 2
+snde "1bep"
+part 1
+pose 0
+part 2
+pose 0
+part 3
+pose 1
+part 0
+endm
+
+
+
+* drop the selected
+scrp 3 10 22804 1003
+snde "beep"
+
+* eggs
+doif ov01 = 0
+	dpas 3 4 0
+
+* creatures
+elif ov01 = 1
+	dpas 4 0 0
+
+*both
+else
+	dpas 3 4 0
+	dpas 4 0 0
+endi
+endm
+
+* make a norn
+scrp 3 10 22804 1004
+snde "2bep"
+setv ov15 0
+part 5
+pose 1
+part 6
+pose 0
+part 0
+endm
+
+
+
+* make an egg
+scrp 3 10 22804 1005
+snde "2bep"
+setv ov15 1
+part 5
+pose 0
+part 6
+pose 1
+part 0
+endm
+
+
+
+* I want a male
+scrp 3 10 22804 1006
+setv ov28 0
+snde "3bep"
+part 7
+pose 1
+part 8
+pose 0
+part 9
+pose 0
+part 0
+endm
+
+
+
+* Or better female
+scrp 3 10 22804 1007
+setv ov28 1
+snde "3bep"
+part 7
+pose 0
+part 8
+pose 1
+part 9
+pose 0
+part 0
+endm
+
+
+
+* Random Gender (actual randomness comes later to make it per splice and not per buttonpress)
+scrp 3 10 22804 1008
+setv ov28 2
+snde "3bep"
+part 7
+pose 0
+part 8
+pose 0
+part 9
+pose 1
+part 0
+endm
+
+
+
+* The field for Chance got used!
+scrp 3 10 22804 1010
+part 11
+
+* make the text to a number
+setv ov43 stoi ptxt
+
+
+* we want it in the valid range between 0 and 255
+absv ov43
+doif ov43 > 255
+	setv ov43 255
+endi
+
+* show what we did with the text you entered :P
+setv va00 ov43
+sets va00 vtos va00
+ptxt va00
+
+* focus back to hand
+rtar 1 2 3
+	doif targ <> null
+		part 1
+		fcus
+		part 0
+	endi
+targ ownr
+part 0
+endm
+
+
+
+* Someone wants to set the mutationrate!
+scrp 3 10 22804 1011
+part 12
+
+* make the text to a number
+setv ov56 stoi ptxt
+
+
+* we want it in the valid range between 0 and 255
+absv ov56
+doif ov56 > 255
+	setv ov56 255
+endi
+
+* show what we did with the text you entered :P
+setv va00 ov56
+sets va00 vtos va00
+ptxt va00
+
+* focus back to hand
+rtar 1 2 3
+	doif targ <> null
+		part 1
+		fcus
+		part 0
+	endi
+targ ownr
+part 0
+endm
+
+
+
+
+
+* Splicing... If that'll go right?
+scrp 3 10 22804 1009
+
+* decorative stuff
+part 10
+anim [0 1 0 1 0 1 0 1 0 1 0]
+snde "bep2"
+
+inst
+
+* save position
+setv va60 posx
+absv va60
+setv va61 posy
+absv va61
+
+* clear out slots from older splices
+gene kill ownr 1
+gene kill ownr 2
+gene kill ownr 3
+
+
+
+* we wanna splice eggs
+doif ov01 = 0
+	gsub eggsplice
+	targ ownr
+	doif gtos 1 <> ""
+		gene move ownr 3 ownr 1
+		epas 3 4 0
+			kill targ
+		next
+	endi
+
+* naw, better creatures
+elif ov01 = 1
+	gsub nornsplice
+	targ ownr
+	doif gtos 2 <> ""
+		gene move ownr 3 ownr 2
+		epas 4 0 0
+			dead
+			kill targ
+		next
+	endi
+
+* Hey, now we'll splice them both!
+else
+	gsub eggsplice
+	gsub nornsplice
+	targ ownr
+	doif gtos 1 <> "" and gtos 2 <> ""
+		gene cros ownr 3 ownr 2 ownr 1 ov43 ov56 ov43 ov56
+		epas 3 4 0
+			kill targ
+		next
+		epas 4 0 0
+			dead
+			kill targ
+		next
+	endi
+endi
+	
+* hopefully we got so far, if yes I coded the gene-crap right and slot 3 is filled now
+targ ownr
+doif gtos 3 <> ""
+
+*	clone to prevent a "strange" creature history
+	gene clon ownr 3 ownr 3
+
+*	gender definition
+	doif ov28 = 0
+		setv va28 1
+	elif ov28 = 1
+		setv va28 2
+	else
+		setv va28 rand 1 2
+	endi
+
+*	the user wanted a living creature
+	doif ov15 = 0
+		new: crea 4 ownr 3 va28 0
+		born
+		accg game "c3_creature_accg"
+		bhvr game "c3_creature_bhvr"
+		attr game "c3_creature_attr"
+		perm game "c3_creature_perm"
+		setv va91 11
+		addv va91 gnus
+		emit va91 0.5
+		mvft va60 va61
+
+* no, the user an egg
+	else
+		new: simp 3 4 1 "supersplice" 8 17 5000
+		attr 195
+		bhvr 32
+		tick 100
+		elas 10
+		accg 4
+		fric 100
+		perm 60
+		aero 10
+		emit 11 0.5
+		gene clon targ 1 ownr 3
+		setv ov01 va28
+		mvsf va60 va61
+	endi
+
+endi
+
+
+
+* the subroutine to splice eggs together and save it to OWNR's slot 1
+subr eggsplice
+	inst
+	epas 3 4 0
+		addv va00 1
+	next
+	seta va01 null
+	seta va02 null
+	doif va00 > 1
+		epas 3 4 0
+			doif va01 = null and gtos 1 <> ""
+				seta va01 targ
+			elif va02 = null and gtos 1 <> ""
+				seta va02 targ
+			endi
+			doif va01 <> null and va02 <> null
+				targ ownr
+				doif gtos 1 = ""
+					gene cros ownr 1 va01 1 va02 1 ov43 ov56 ov43 ov56
+					seta va01 null
+					seta va02 null
+				else
+					gene cros ownr 1 ownr 1 va01 1 ov43 ov56 ov43 ov56
+					gene cros ownr 1 ownr 1 va02 1 ov43 ov56 ov43 ov56
+					seta va01 null
+					seta va02 null
+				endi
+			endi
+		next
+	endi
+	slow
+retn
+	
+
+
+* the subroutine to splice Norns together and save it to OWNR's slot 2
+subr nornsplice
+	inst
+	epas 4 0 0
+		addv va00 1
+	next
+	seta va01 null
+	seta va02 null
+	doif va00 > 1
+		epas 4 0 0
+			doif va01 = null and gtos 0 <> ""
+				seta va01 targ
+			elif va02 = null and gtos 0 <> ""
+				seta va02 targ
+			endi
+			doif va01 <> null and va02 <> null
+				targ ownr
+				doif gtos 2 = ""
+					gene cros ownr 2 va01 0 va02 0 ov43 ov56 ov43 ov56
+					seta va01 null
+					seta va02 null
+				else
+					gene cros ownr 2 ownr 2 va01 0 ov43 ov56 ov43 ov56
+					gene cros ownr 2 ownr 2 va02 0 ov43 ov56 ov43 ov56
+					seta va01 null
+					seta va02 null
+				endi
+			endi
+		next
+	endi
+	slow
+retn
+slow
+endm
+
+
+
+
+
+rscr
+enum 3 10 22804
+	kill targ
+next
+scrx 3 10 22804 1
+scrx 3 10 22804 1000
+scrx 3 10 22804 1001
+scrx 3 10 22804 1002
+scrx 3 10 22804 1003
+scrx 3 10 22804 1004
+scrx 3 10 22804 1005
+scrx 3 10 22804 1006
+scrx 3 10 22804 1007
+scrx 3 10 22804 1008
+scrx 3 10 22804 1009
+scrx 3 10 22804 1010
+scrx 3 10 22804 1011
