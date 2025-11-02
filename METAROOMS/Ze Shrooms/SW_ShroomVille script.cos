@@ -1929,7 +1929,7 @@ inst
 **************************
 * Install fav place agent*
 **************************
-new: simp 1 3 90200 "SW-Fav_Shroom_Dome" 1 0 1
+new: simp 1 3 888 "sw-fav_shroom_dome" 1 0 1
 attr 272
 mvto 98664 83460
 * mvto 99240 84100
@@ -1939,7 +1939,7 @@ tick 10
 **************************
 *   Install fav place    *
 **************************
-new: simp 1 3 90201 "SW-Fav_Treehuggers_Dome" 1 0 1
+new: simp 1 3 888 "sw-fav_treehuggers_dome" 1 0 1
 attr 272
 mvto 97000 82200
 * cmrt 1
