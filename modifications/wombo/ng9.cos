@@ -1,0 +1,1368 @@
+**birdie
+*bird 2 15 31940
+*egg 2 18 31941
+
+**************************
+**********bird ticksript
+scrp 2 15 31940 9
+
+*ov00 occupation 0 sleeping 1 awake-checking 2 flying to hunt 3 flying to mate 4 flying to feed 5 hunting 6 mating activ 7 mating passiv 8 feeding 9 egglaying 10 singing to find mate 11 just singing 12 flytosky
+*ov05 0 single 1 pregnant 2 feeding babies
+*ov10 -1-left 0-standing 1-right
+*ov11 -1 up 1 down
+*ov16 targ (pray or mate or egg)
+*ov17 targ posx
+*ov18 targ posy
+*ov88 sleeping countdown
+*ov67 range
+*ov96 - 98 Baby targ posx posy
+*ov99 - memory of an inefective hunting place
+*use energy
+
+subv ov02 1
+*age
+addv ov01 1
+* if in water fly up
+
+doif rtyp room targ = 8 or rtyp room targ = 9
+	gsub abort
+	velo rand -2 2 -5
+endi
+*get away from norn
+doif accg ne 0
+	setv va07 0
+	inst
+	etch 4 0 0
+		setv va07 1
+	next
+	slow
+	doif va07 = 1
+		gsub abort
+	endi
+endi
+*sleeping
+doif ov00 = 0
+	doif fall = 0 and velx = 0 and vely = 0
+		base 0
+		pose 3
+		addv ov02 2
+		addv ov88 rand 1 3
+		doif ov88 > 50
+			setv ov88 0
+			setv ov00 1
+			doif accg = 0
+				gsub abort
+			endi
+		endi
+		gsub touch
+	else
+		gsub abort
+	endi
+elif ov00 = 1
+*sitting
+	doif ov05 = 2
+		gsub pray
+	endi
+	gsub agecheck
+	wait 10
+	doif fall = 0 and velx = 0 and vely = 0
+		addv ov88 rand 1 3
+		gsub hunt
+		gsub blink
+		doif ov88 > 7
+			setv ov88 0
+			gsub adopt
+			gsub hungercheck
+		endi
+		gsub touch 
+	else
+		gsub abort
+	endi
+elif ov00 = 2	
+*fly to hunt
+	addv ov88 1
+	gsub hunt
+	doif va21 ne 0 
+		gsub flyani 
+		doif ov05 = 2
+			gsub flyfeed 
+		endi
+	endi	
+	gsub traveling
+	doif va22 = 2 and vely = 0 and velx = 0
+		base 0
+		pose 0
+		setv ov00 5
+		setv ov88 0
+		gsub touch
+	endi
+	doif ov88 > 50
+		gsub abort
+	endi 
+elif ov00 = 3
+*fly to mate
+	
+	addv ov88 1
+	gsub targ
+	gsub traveling
+	doif va22 = 1
+		setv ov00 6
+		setv ov88 0
+	endi
+	doif ov88 > 200
+		gsub abort
+	endi 
+elif ov00 = 4
+*fly to feed
+
+	addv ov88 1
+
+	doif ov96 ne null
+		gsub eggtarg
+	else
+		setv ov05 0
+		gsub abort
+	endi
+	gsub traveling
+	doif va22 = 1
+		plne 400
+	elif va22 = 2
+		setv ov00 8
+		setv ov88 0
+	endi
+	doif ov88 > 300
+		gsub abort
+	endi	
+elif ov00 = 5
+*hunting
+	base 0
+	pose 0
+	addv ov88 rand 1 3
+	gsub hunt 
+	doif ov02 > 300 and va21 ne 0
+		setv va21 3
+	endi
+	doif ov05 ne 2
+		doif ov88 > 30 or va21 = 3
+			setv ov88 0
+			gsub abort
+		endi
+	else
+		doif va21 ne 3 and ov88 > 30
+			seta ov99 ov16
+			gsub pray 
+		endi
+	endi 
+	
+elif ov00 = 6
+*mating	activ
+	doif game "ngsean" = 2
+		gsub abort	
+	endi
+	
+	doif ov88 = 0
+		doif ov16 ne null
+			inst
+			targ ov16
+			setv ov88 100
+			doif ov05 > 0 and ov05 < 3
+				setv ov00 12
+				
+				setv ov88 0
+				setv ov10 0
+				setv ov11 -1
+				base 6
+				frat 1
+				anim [2 3 2 4 0 1 255]
+				accg 0
+				seta va16 null
+			else 
+				accg 1
+				base 0
+				pose 10
+				setv ov00 7
+				plne 3002
+				seta va16 targ
+			endi
+			slow 
+			targ ownr
+			seta ov16 va16
+		else
+			gsub abort
+		endi		
+	elif ov88 >= 20  
+		doif ov16 ne null 
+			doif touc ownr ov16 = 1 and ov05 ne 3
+				setv ov05 1
+			endi
+			inst
+			targ ov16
+			setv ov88 120
+			targ ownr
+			slow
+		endi
+		gsub abort
+	else
+		doif ov16 ne null
+			gsub targ
+			doif touc ownr ov16 = 1
+				addv ov88 3
+				setv ov10 0
+				gsub flyani
+				velo 0 -2
+				accg 1
+			else
+				gsub poscheck
+				doif va22 = 1
+					gsub float
+				else
+					gsub fly
+				endi
+			endi
+		else
+			gsub abort
+		endi
+	endi
+	addv ov88 1
+elif ov00 = 7 
+*mating passiv 
+	plne 3005
+	addv ov88 1
+	*if having been touched by another bird
+	*if floating - fly away
+	doif velx ne 0 or vely ne 0
+		gsub abort
+	endi
+	doif ov88 >= 100 and fall = 0 and accg = 1
+	*if pregnant or havin kids fly away
+		doif ov05 = 0 or ov05 = 3
+			frat 3
+			base 0
+			anim [0 4 255]
+		else
+			gsub abort
+			plne 3001
+		endi
+		doif ov88 > 110
+			setv ov88 0
+			plne 3001
+			base 0
+			pose 0
+			setv ov00 0
+		endi
+ 	elif ov88 > 40 and ov88 < 100 or ov05 = 1
+ 		gsub abort
+ 		plne 3001
+	else
+		gsub blink
+	endi
+elif ov00 = 8
+*feeding 
+	velo 0 0
+	frat 1
+	base 0
+	anim [8 9 8 7 8 9 8 7 8 9 8 7 8 9 8 7]
+	over
+	inst
+	doif ov96 ne null
+		inst
+
+		targ ov96
+		setv ov05 3
+		addv ov02 10
+		tick 5
+		targ ownr
+
+		slow
+		subv ov02 50
+	else
+		setv ov05 0
+	endi
+	gsub blink 
+	gsub pray
+	plne 3001
+
+elif ov00 = 9 
+*egglaying 
+	gsub blink 
+	*if there is already an egg go somewhere else
+	setv va09 0
+	etch 2 18 31941
+		setv va09 1
+	next
+	*if population is too big dont lay your egg
+	setv va10 0
+	rnge 1300
+	velo 0 0
+	inst
+	accg 0
+	perm 40
+	setv va10 0
+	esee 2 15 31940
+		addv va10 1
+	next
+	gsub perm
+	accg 1
+	slow
+	doif va09 = 1
+		gsub abort
+	elif va10 > 7
+		setv ov05 0
+		gsub abort
+	else 
+		doif velx = 0 and vely = 0
+			*a little exitement
+
+			reps rand 3 7
+			frat 2
+			base 0
+			anim [0 4 0 1 2]
+			over
+			snde "nbd1"
+			repe
+
+			*go lay egg
+			frat 5
+			base 0
+			anim [0 1 0 1 0 1 0 1 0]
+			over
+			gsub egg
+			doif va16 ne null
+				setv ov05 2
+				setv ov00 11
+				seta ov96 va16
+			else
+				setv ov00 1
+				doif accg = 0
+					gsub abort
+				endi
+			endi 
+		else
+			gsub abort
+		endi
+	endi	
+elif ov00 = 10 
+*singing to find mate 
+	doif vely = 0 and velx = 0
+		gsub blink 
+		addv ov88 1
+		gsub hunt 
+
+		reps rand 15 30
+		frat 1
+		base 0
+		anim [1 2]
+		setv va03 rand 0 4
+		over
+		doif va03 = 0
+			snde "nbd1"
+		elif va03 = 1
+			snde "nbd2"
+		elif va03 = 2
+			snde "nbd3"
+		elif va03 = 3
+			snde "nbd4"
+		elif va03 = 4
+			snde "nbd5"
+		endi
+		anim [2 0]
+		over
+		repe
+
+		inst 
+		accg 0
+		perm 40
+		setv va22 0
+		setv va23 0
+		rnge 1200
+		esee 2 15 31940
+			doif targ ne ownr and accg ne 0 and carr = null and ov05 ne 2 and ov05 ne 1 and vely = 0 and velx = 0
+				frat 5
+				base 0
+				anim [0 4 0 4 0 4 0]
+				setv ov00 7
+				setv ov88 0
+				setv va22 1
+				seta va16 targ
+			endi
+		next
+		
+		gsub perm
+		accg 1
+		slow 
+		doif va22 = 1
+			seta ov16 va16
+			gsub targ
+			gsub start	
+			setv ov00 3
+			setv ov88 0
+		endi	
+		doif ov02 < 100 or ov88 > 20
+			gsub abort 
+		endi
+	else
+		gsub abort
+	endi
+elif ov00 = 11 
+*just singing
+
+	gsub hunt
+
+	addv ov88 1
+	gsub blink 
+	frat 5
+	base 0
+	anim [1 2]
+	over
+	snde "nbd6"
+	anim [1 0]
+	over
+
+	doif ov88 > 7
+		setv ov88 0
+		doif ov05 = 2
+			setv ov67 500
+			gsub pray
+		else
+			gsub abort
+		endi
+	endi 
+elif ov00 = 12	
+*just flying away
+	doif ov05 = 2
+		gsub pray
+	endi
+	addv ov88 rand 1 2
+	doif ov88 > 15 
+		doif accg = 0
+			gsub float
+		else
+			doif fall = 0
+				setv ov00 1
+				setv ov88 0
+				gsub touch 
+			endi
+		endi 
+	endi 
+	doif accg = 0
+		setv va10 rand 0 20
+		doif va10 = 1
+			gsub xturn
+		elif va10 = 0
+			gsub yturn
+		endi
+		doif ov10 = 0 
+			setv ov10 rand -1 1
+			gsub flyani
+		endi
+		gsub fly
+	endi
+endi
+doif ov00 > 1 and ov00 < 7
+	tick rand 2 4
+else
+	tick rand 30 40
+endi	
+****
+***
+subr agecheck
+*if run out of energy-or too old die
+doif ov01 > 2500 and ov05 ne 3
+	tint 128 128 128 166 166
+	setv ov05 3
+elif ov02 <= 0 or ov01 > 3500
+	doif ov05 = 1
+		gsub egg
+	endi
+	inst
+	setv va00 posl
+	addv va00 33
+	setv va01 post
+	addv va01 23
+	new: simp 2 10 31933 "ngvoggl1" 9 24 999
+		attr 198
+		bhvr 48
+		accg 2
+		aero 1
+		elas 5
+		perm 96
+		setv ov02 8
+		tick rand 100 500
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			kill targ
+		endi
+	kill ownr
+endi
+retn
+****
+subr eggtarg
+	inst
+	targ ov96
+	setv va17 posx
+	setv va18 posy
+	subv va18 50
+	targ ownr
+	slow
+	seta ov16 ov96
+	setv ov17 va17
+	setv ov18 va18
+retn	
+subr egg
+	setv va00 posl
+	addv va00 33
+	setv va01 post
+	seta va16 null
+				
+	new: simp 2 18 31941 "ngvoggl1" 14 33 999
+		attr 198
+		bhvr 48
+		accg 2
+		aero 1
+		fric 100
+		elas 5
+		perm 96
+		setv ov02 20
+		tick rand 200 300
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+			seta va16 targ
+		else
+			kill targ
+		endi
+	targ ownr
+		
+retn
+*****
+subr targ
+doif ov16 ne null
+	targ ov16
+	inst
+	setv va17 posx
+	setv va18 post
+	targ ownr
+	slow 
+	setv ov17 va17
+	setv ov18 va18
+else
+	gsub abort
+endi
+retn
+subr flyani
+inst
+doif ov10 > 0
+	base 19
+elif ov10 < 0
+	base 14
+else
+	base 6
+endi
+frat 1
+anim [2 3 2 4 0 1 255]
+slow
+retn
+******
+subr turnani
+	base 6
+	anim [2 3 2 4 0 1]
+	over
+retn
+****
+subr touch
+	inst
+	setv va13 0
+	etch 2 5 31933
+		setv va13 1
+	next
+	doif ov00 < 6 and ov00 > 7
+		setv va17 posx
+		etch 2 15 31940
+			doif targ ne null
+				subv va17 posx
+				doif targ ne ownr
+					doif va17 > -20 and va17 < 20
+						setv va13 1
+					endi
+				endi
+			endi
+		next
+		etch 4 0 0
+			setv va13 1
+		next
+		gsub adopt
+
+	endi
+	doif va13 = 1
+		gsub abort
+	endi 
+	slow
+	
+retn
+*********
+subr adopt
+*if finding a starving baby adopt it
+	seta va16 null
+	inst
+	esee 2 18 31941
+	
+		doif ov02 < 20 and targ ne null 
+			seta va16 targ
+		endi
+	next
+	slow
+	doif va16 ne null and ov02 > 100 and ov05 = 0
+		seta ov96 va16
+		setv ov05 2
+		setv ov00 8
+	endi 
+retn
+*********
+subr flyfeed
+	doif ov96 ne null
+		gsub eggtarg
+		gsub start
+		setv ov00 4
+		stop
+	else
+		setv ov00 1
+		doif accg = 0
+			gsub abort
+		endi 
+		setv ov05 0
+	endi
+	setv ov88 0
+retn
+
+********************
+subr hunt
+*check if touch a bug or bad bug
+	seta va16 null
+	setv va17 posx 
+	setv va18 posy
+	setv va21 0
+	setv va19 13
+	inst
+	*get a babytribble
+	etch 2 15 31900
+		doif ov00 = 60
+			velo 0 0
+			subv va17 posx
+			doif va17 > -15 or va17 < 15
+				doif post > va18
+					setv va21 1
+				else
+					setv va21 2
+				endi
+				seta va16 targ
+			endi
+		endi
+	next
+	*better get a bug
+
+	reps 2
+	etch 2 va19 0
+		velo 0 0
+		subv va17 posx
+		doif va17 > -15 or va17 < 15
+			doif post > va18
+				setv va21 1
+			else
+				setv va21 2
+			endi
+			seta va16 targ
+		endi
+	next
+	addv va19 1
+	repe
+
+	*eat the bug high and low
+	doif va21 = 1
+		frat 1
+		base 0
+		anim [11 12 13]
+		over
+		gsub eatit
+		base 0
+		anim [12 11 0]
+		over
+		
+	elif va21 = 2
+		base 0
+		pose 5
+		gsub eatit 
+		base 0
+		pose 0
+	elif va21 = 0 and ov00 = 5
+	*if there has not been a bug remember this place as a bad location to hunt 
+		seta ov99 ov16
+	endi
+	slow 
+	
+*if feeding return to baby if hunt was sucessfull if not try find a better place
+	doif ov05 = 2  and va21 ne 0
+		gsub flyfeed
+	endi
+
+retn
+***
+subr eatit
+	doif va16 ne null
+		inst
+		doif ov66 = 66
+			mesg writ va16 12
+		else
+			kill va16 
+		endi
+		slow
+		addv ov02 100
+		wait 1
+	endi
+retn
+***
+subr traveling
+	setv va22 0
+	doif accg = 0
+		gsub poscheck
+		doif va22 ne 1
+			gsub fly
+		else
+			gsub float
+		endi
+	else
+		doif fall = 0
+			accg 1
+			setv va22 2
+		endi
+	endi
+retn
+****************
+subr float
+inst	
+	base 0
+	frat 4
+	anim [10 9 255]
+	accg .5
+	setv va14 0
+	gsub perm
+retn
+*********
+subr perm
+inst
+	setv va00 posl
+	setv va01 post
+	enum 2 6 31941 
+		doif tmvt va00 va01 = 1
+			setv va14 1
+		endi
+	next
+	doif va14 = 1
+		perm 96
+	endi
+slow
+retn
+
+subr start
+	frat 1
+	base 0
+	anim [11 12 11]
+	over
+	perm 40
+	plne 3001
+	accg 0
+	doif obst _up_ > 30
+		velo 0 -5
+	endi
+	gsub flyani
+	gsub fly
+	
+retn
+******
+subr fly
+	setv va10 ov10
+	mulv va10 rand 3 4
+	setv va11 ov11
+	mulv va11 rand 3 4
+	velo va10 va11	
+retn
+******************
+subr poscheck
+
+	setv va17 ov17
+	setv va18 ov18
+
+	subv va17 posx
+	subv va18 posb
+
+	doif va17 < -20 and va17 >= -50
+		doif ov10 ne 0
+			setv ov10 0
+			gsub turnani
+			gsub flyani
+		endi
+		setv ov10 -1
+	elif va17 > 20 and va17 <= 50
+		doif ov10 ne 0
+			setv ov10 0
+			gsub turnani
+			gsub flyani
+		endi
+		setv ov10 1
+	elif va17 < -50 
+		doif ov10 ne -1
+			setv ov10 -1
+			gsub turnani
+			gsub flyani
+		endi
+	elif va17 > 50
+		doif ov10 ne 1
+			setv ov10 1
+			gsub turnani
+			gsub flyani
+		endi
+	else
+		doif ov10 ne 0
+			setv ov10 0
+			gsub flyani
+		endi
+		velo 0 0
+		setv va22 1
+	endi
+	doif va18 < -20
+		setv ov11 -1
+		setv va22 0
+	elif va18 > 20
+		setv ov11 1
+		setv va22 0
+	else
+		setv ov11 0
+		velo 0 0
+	endi
+
+retn
+*************************
+subr xturn
+
+doif ov10 > 0
+	setv ov10 -1
+	gsub turnani
+else
+	setv ov10 1
+	gsub turnani
+endi
+gsub flyani
+retn
+*************************
+subr yturn
+
+doif ov11 > 0
+	setv ov11 -1
+	gsub turnani
+else
+	setv ov11 1
+	gsub turnani
+endi
+gsub flyani
+retn 
+	
+***********************
+subr blink
+	reps rand 1 3
+	base 0
+	anim [3 0]
+	over
+	wait rand 10 20
+	repe
+retn	
+**************
+subr abort
+
+	gsub start
+	setv ov00 12
+	setv ov88 0
+	tick 10
+		
+retn
+******
+subr hungercheck
+	doif ov05 = 2
+		gsub pray
+	else
+		doif ov02 < 60 or game "ngsean" = 3
+			setv ov00 0
+			base 0
+			pose 3
+		elif ov02 > 200 and ov02 <= 500 and game "ngsean" ne 3
+			setv va09 rand 0 3
+			doif ov05 > 0 or va09 = 3
+				gsub pray
+			elif ov05 = 0
+				setv ov00 11
+			endi
+		elif ov02 > 500 and game "ngsean" ne 3
+			doif ov05 = 0  or ov05 = 3
+				doif game "ngsean" = 0	 
+					setv ov00 10
+				else
+					setv ov00 11
+				endi
+			elif ov05 = 1 
+				doif ov02 > 800
+					setv ov00 9
+				else
+					setv ov00 11
+				endi
+			endi
+		elif ov02 <= 200 and ov02 > 60 and game "ngsean" ne 3
+			gsub pray
+
+		endi
+	endi
+retn
+********************
+subr pray
+*find a good place to hunt bugs to fly at
+
+	setv va15 0
+	seta va16 null
+	rnge ov67
+	setv va12 13
+	inst 
+	velo 0 0
+	accg 0
+	perm 40
+
+	reps 4
+
+	esee 2 va12 0
+		setv va13 rand 0 1
+		doif va13 = 0 and velx = 0 and vely = 0
+			setv va17 posx
+			setv va18 posy
+			seta va16 targ
+			setv va15 1	
+		endi
+	next 
+	doif va12 = 13
+		setv va12 14
+	elif va12 = 14
+		setv va12 10
+	elif va12 = 10
+		setv va12 17
+	endi 
+	repe
+
+	*if bubblebeenest present this would be our first choice
+	esee 2 17 31940
+		setv va17 posx
+		setv va18 posy
+		seta va16 targ
+		setv va15 1	
+	next 
+	*if a rubbadubbafruit there- even better!
+	esee 2 8 31934
+		doif pose > 1
+			setv va17 posx
+			setv va18 posy
+			seta va16 targ
+			setv va15 1	
+		endi
+	next 
+	slow
+	doif va15 = 1 and va16 ne null and va16 ne ov99
+		seta ov16 va16
+
+		setv ov17 va17
+		setv ov18 va18
+		gsub start
+		setv ov00 2
+		setv ov67 500
+	else
+		doif ov05 ne 2 or ov00 = 8
+			gsub abort
+			setv ov67 500
+		else
+			doif ov67 < 1400
+				addv ov67 200
+			else
+				gsub abort
+				setv ov67 500
+			endi
+		endi
+	endi
+retn
+endm
+*push, pull, hit
+scrp 2 15 31940 1
+	frat 1
+	base 0
+	anim [1 2 0]
+	over
+	snde "nbd2"
+	anim [11 12 11]
+	over
+	perm 40
+	accg 0
+	velo rand -5 5 -5 
+	base 6
+	frat 1
+	anim [2 3 2 4 0 1 255]
+	setv ov00 12
+	tick 3
+	stim writ from 86 1
+endm
+scrp 2 15 31940 2
+	frat 1
+	base 0
+	anim [1 2 0]
+	over
+	snde "nbd3"
+	anim [11 12 11]
+	over
+	perm 40
+	accg 0
+	velo rand -5 5 -5 
+	base 6
+	frat 1
+	anim [2 3 2 4 0 1 255]
+	setv ov00 12
+	tick 3
+	stim writ from 86 1
+endm
+scrp 2 15 31940 3
+	frat 1
+	base 0
+	anim [1 2 0]
+	over
+	snde "nbd4"
+	anim [11 12 11]
+	over
+	perm 40
+	accg 0
+	velo rand -5 5 -5 
+	base 6
+	frat 1
+	anim [2 3 2 4 0 1 255]
+	setv ov00 12
+	tick 3
+	stim writ from 86 1
+endm
+
+scrp 2 15 31940 4
+	stim writ from 85 1
+	loop
+	frat 3
+	base 0
+	anim [1 2 0]
+	snde "nbd5"
+	over
+	untl carr = null
+endm
+scrp 2 15 31940 5
+	doif carr = null
+		perm 30
+	endi
+	accg 0
+	velo rand -5 5 -5 
+	frat 1
+	base 0
+	base 6
+	frat 1
+	anim [2 3 2 4 0 1 255]
+	setv ov00 12
+	setv ov88 0
+	tick 1
+endm
+scrp 2 15 31940 6
+	inst
+	doif ov00 = 2 and accg = 0
+		setv ov00 12
+	endi 
+	doif wall = rght
+		pose 4
+		setv ov10 -1
+		base 14
+		frat 1
+		anim [2 3 2 4 0 1 255]
+		setv ov00 12
+	elif wall = left
+		pose 4
+		setv ov10 1
+		base 19
+		frat 1
+		anim [2 3 2 4 0 1 255]
+		setv ov00 12
+	elif wall = down 
+		doif accg ne 0
+	
+			base 0
+			frat 1
+			anim [11 12 11 0]
+			over
+			accg 1
+		endi
+		setv ov11 -1
+	elif wall = _up_ 
+		doif ov88 ne 0
+			addv ov88 1
+		endi
+		setv ov11 1
+	endi
+	tick 3
+endm
+*********
+* eatscript
+scrp 2 15 31940 12
+	lock
+
+	reps rand 2 5
+	snde "nmap"	
+	base 0
+	anim [6 10 2]
+	over
+	snde "nbd5"
+	repe
+
+	stim writ from 80 2
+	setv va00 posl
+	addv va00 43
+	setv va01 post
+	addv va01 23
+	new: simp 2 10 31933 "ngvoggl1" 6 27 999
+			attr 198
+			bhvr 48
+			accg 2
+			aero 1
+			elas 5
+			perm 96
+			setv ov02 5
+			tick rand 500 900
+			velo rand -10 10 -5
+			mvsf va00 va01
+
+	kill ownr 
+endm
+
+*false targ script
+scrp 2 15 31940 255
+	inst 
+	setv ov00 12
+	perm 30
+	plne 3001
+	accg 0
+	velo rand -5 5 -5 
+	base 0
+	anim [8 9 8 10 6 7 255]
+	tick 1
+endm
+
+*egg tickscript
+scrp 2 18 31941 9
+
+*ov00 0 egg 1 small 2 medium 3 big
+*ov05 1 looking, 2 calling 3 eating 4 sleeping 5 dead
+*age and use energy
+addv ov01 1
+subv ov02 1
+doif carr ne null and fall ne 0
+	tick rand 100 200
+	stop
+endi
+*hatch
+doif ov01 = 5
+	frat 2
+	pose 1
+	stop
+elif ov01 > 6 and ov00 = 0
+	setv ov00 1
+	setv ov05 2
+	tick rand 100 200
+	stop
+endi
+
+*base according to age
+doif ov00 = 1
+	base 2
+elif ov00 = 2
+	base 6
+elif ov00 = 3
+	base 10
+*grow to adulthood
+elif ov00 > 3
+	setv va00 posl
+	subv va00 43
+	setv va02 va00
+	addv va02 86
+	setv va01 post
+	subv va01 16
+	doif tmvt va00 va01 = 1 and tmvt va02 va01 = 1
+		new: simp 2 15 31940 "ngvoggl1" 24 0 3001
+		attr 198
+		bhvr 59
+		accg 0
+		aero 2
+		elas 10
+		fric 100
+		perm 40
+		setv ov00 12
+		setv ov02 400
+		setv ov10 0
+		setv ov11 -1
+		seta ov99 null 
+		seta ov16 null 
+		setv ov67 500
+		base 6
+		frat 1
+		anim [2 3 2 4 0 1 255]
+		mvsf va00 va01
+		tick rand 5 10
+		mvsf va00 va01
+
+		kill ownr
+	else 
+		velo rand -5 5 -5
+	endi
+endi
+*posing
+doif ov00 > 0
+	setv va07 13
+	setv va08 0
+	inst
+
+	reps 2
+	etch 2 va07 0
+		inst
+		doif va08 = 0
+			doif ov66 = 66
+				mesg writ targ 12
+			else
+				kill targ 
+			endi 
+			setv va08 1
+		endi
+	next
+	addv va07 1
+	repe
+
+	doif va08 = 1
+		addv ov02 10
+		anim [2 0]
+		over
+	endi
+	slow
+	doif ov05 = 1
+		anim [2 0 0 0 0 0 0 2 0]
+	elif ov05 = 2
+
+		reps rand 3 5
+		snde "nbd6"
+		anim [1 0 0 0 2 0]
+		repe
+
+	elif ov05 = 3
+		anim [1 0 255]
+	elif ov05 = 4
+		pose 2
+	elif ov05 = 5
+		pose 3
+		wait rand 50 600
+		setv va00 posl
+		setv va01 post
+		addv va01 17
+		new: simp 2 10 31933 "ngvoggl1" 7 47 999
+			attr 198
+			bhvr 48
+			accg 2
+			aero 1
+			elas 5
+			perm 96
+			setv ov02 6
+			tick rand 500 900
+			mvsf va00 va01
+			
+		kill ownr
+	endi
+
+	*change state according to energy
+	doif ov02 > 30 and ov01 > 12
+		setv ov02 20 
+		setv ov01 6
+		addv ov00 1
+		setv ov05 2
+	elif ov02 > 30 and ov01 <= 12
+		setv ov05 1
+	elif ov02 > 15 and ov02 <= 30
+		setv ov05 rand 1 4
+		doif ov05 = 3
+			setv ov05 1
+		endi
+	elif ov02 > 0 and ov02 <= 15
+		setv ov05 4
+	elif ov02 <= 0
+		setv ov05 5
+	endi
+endi
+tick rand 100 300
+endm
+
+*egg eatscript
+scrp 2 18 31941 12
+	lock
+	snde "nmap"
+	stim writ from 80 2
+	kill ownr 
+endm
+
+*egg push, pull, hit
+scrp 2 18 31941 1
+velo rand -3 3 -3
+stim writ from 86 1
+doif ov05 ne 5
+	setv ov05 2
+	subv ov02 1
+	tick 1
+endi
+
+endm
+
+scrp 2 18 31941 2
+velo rand -3 3 -3
+stim writ from 86 1
+doif ov05 ne 5
+	setv ov05 2
+	tick 1
+endi 
+
+endm
+
+scrp 2 18 31941 3
+velo rand -3 3 -3
+stim writ from 86 1
+doif ov05 ne 5
+	setv ov05 2
+tick 1
+endi 
+endm
+
+*pickup
+scrp 2 18 31941 4
+stim writ from 85 1
+doif ov05 ne 5
+	setv ov05 2
+endi 
+tick 1
+endm
+
+scrp 2 18 31941 5
+
+tick rand 100 150
+endm 
+
+*remoove scripts
+rscr
+enum 2 15 31940 kill targ next 
+enum 2 18 31941 kill targ next
+
+
+scrx 2 15 31940 1 scrx 2 15 31940 2 scrx 2 15 31940 3 scrx 2 15 31940 4 scrx 2 15 31940 5 scrx 2 15 31940 6 scrx 2 15 31940 9 scrx 2 15 31940 12 scrx 2 15 31940 255 scrx 2 18 31941 1 scrx 2 18 31941 2 scrx 2 18 31941 3 scrx 2 18 31941 4 scrx 2 18 31941 5 scrx 2 18 31941 6 scrx 2 18 31941 9 scrx 2 18 31941 12
+endm

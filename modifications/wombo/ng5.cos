@@ -1,0 +1,387 @@
+*flower 2 4 31933
+*seed 2 3 31933
+*fruit 2 8 31933
+*detritus 2 10 31933
+*ov70 spritefileheight
+*ov71 half spritefilewidth
+*ov72 sptritefilename
+*ov73 0=seed 1=fruit
+***************************************************
+***********The Multiflowerscript******************
+***************************************************
+
+
+**************************************
+****seed eat
+scrp 2 3 31933 12
+	lock
+	snde "chwp"
+	stim writ from 77 3
+	kill ownr
+endm
+
+****seed timer
+
+scrp 2 3 31933 9
+inst
+*check if everything is good for growing
+
+** Get Local Room ID
+setv va00 grap posx posy
+** check light
+doif prop va00 1 > .1
+	setv va10 1
+endi
+	
+** check heat
+doif prop va00 2 > .2
+	setv va11 1
+endi
+	
+**check water
+doif prop va00 3 > .1
+	setv va12 1
+endi
+** check nutr
+
+doif prop va00 4 > .2
+	setv va13 1
+endi
+*count how many others you can see
+setv va55 0
+setv va56 0
+rnge 900
+setv va70 ov70
+esee 2 4 31933
+	doif va70 = ov70
+		addv va55 1
+	endi
+next	
+*if there's less than 6 then ok
+
+doif va55 <= 6 
+	setv va14 1
+endi
+setv va55 0
+etch 2 4 31933
+	addv va55 1
+	doif va70 = ov70
+		setv va14 0
+	endi
+next	
+doif va55 > 1
+	setv va14 0
+endi
+	
+** Room type check
+doif rtyp room targ = 5 or rtyp room targ = 6 or rtyp room targ = 7
+	setv va15 1
+endi
+	
+doif va10 = 1 and va11 = 1 and va12 = 1 and va13 = 1 and va14 = 1 and va15 = 1
+	setv va40 prop va00 3
+	setv va41 prop va00 4
+	subv va40 .1
+	subv va41 .1
+	prop va00 3 va40
+	prop va00 4 va41
+	** You can grow
+	*get the seed position
+
+	setv va00 posx
+	subv va00 ov71
+	setv va01 posb
+	subv va01 ov70
+	setv va70 ov70
+	setv va71 ov71
+	sets va72 ov72
+	setv va73 ov73
+	
+	new: simp 2 4 31933 ov72 22 0 400
+		bhvr 1
+		attr 192
+		perm 60
+		accg 5
+		elas 0
+		fric 100
+		tick rand 500 1200
+		pose 0
+		setv ov70 va70
+		setv ov71 va71
+		sets ov72 va72
+		setv ov73 va73
+		doif tmvt va00 va01 = 1
+			mvsf va00 va01
+		else
+			kill targ
+		endi 
+     	*get rid of the seed
+
+     	kill ownr
+else
+	kill ownr
+
+endi
+endm
+
+*********************		
+* tick script for the plant
+scrp 2 4 31933 9
+
+doif rtyp room targ = 8 or rtyp room targ = 9
+	kill ownr
+endi 
+doif game "ngsean" ne 3
+	setv va15 rand 0 1
+	doif va15 = 0
+		base 0
+	else
+		base 11
+	endi
+	tick 0
+	frat rand 100 255
+	anim [0 0 0 1 1 1 2 2 2 3 3 3 4 4 4]
+	over
+	loop
+
+
+		frat rand 100 255
+		anim [4 4 5 5 5 6 6 6 7 7 7 8 8 8 8 8 9 9 9]
+		over
+		wait rand 200 500
+		inst
+		setv va00 posx
+		setv va01 post
+		subv va00 10
+
+		setv va70 ov70
+		setv va71 ov71
+		sets va72 ov72
+		setv va73 ov73
+		doif ov73 = 0
+			new: simp 2 3 31933 ov72 1 26 1000
+				emit 7 .3
+		elif ov73 = 1
+			new: simp 2 8 31933 ov72 1 26 1000
+				emit 6 .3
+		endi
+				attr 195
+				bhvr 48
+				elas 30
+				fric 90
+				accg 2
+				perm rand 50 60
+				pose 0
+				setv ov66 66
+				tick rand 50 1000
+				setv ov70 va70
+				setv ov71 va71
+				sets ov72 va72
+				setv ov73 va73
+				doif tmvt va00 va01 = 1
+					mvsf va00 va01
+					velo rand -10 10 rand -5 0
+				else
+					kill targ
+				endi 
+		
+			targ ownr
+		pose 10
+		wait rand 200 500
+
+		setv va05 0
+		rnge 500
+		gsub check
+		setv va06 rand 0 9
+
+	untl va05 = 1 or va06 = 3 or game "ngsean" = 3
+	
+	setv va00 posl
+	setv va01 post
+	setv va70 ov70
+	divv va70 2
+	subv va70 1
+	addv va01 va70	
+	new: simp 2 10 31933 ov72 4 22 400
+		attr 195
+		bhvr 48
+		elas 0
+		accg 5
+		fric 100
+		tick rand 100 800
+		setv ov02 3
+		doif tmvt va00 va01 = 1
+			mvsf va00 va01
+		else
+			kill targ
+		endi 
+	targ ownr
+	setv va05 0
+	rnge 1000
+		gsub check	
+	doif va05 = 1
+		kill ownr
+	else
+		pose 0
+		tick rand 300 3000
+	endi
+endi
+subr check
+	setv va70 ov70
+	esee 2 4 21933
+		doif ov70 = va70
+			setv va05 1
+		endi
+	next
+retn
+endm
+
+
+***********************
+*friendly plant pushscript
+	
+scrp 2 4 31933 1
+
+stim writ from 84 1
+
+endm
+	
+
+************************
+*tickscript for the fruit
+scrp 2 8 31933 9
+
+* get the fruits's positions
+setv va00 posx
+setv va01 posy
+doif carr = null
+	inst
+	setv va70 ov70
+	setv va71 ov71
+	sets va72 ov72
+	setv va73 ov73
+	setv va74 perm
+	new: simp 2 3 31933 ov72 1 30 1000
+		attr 195
+		elas 30
+		fric 90
+		accg 2
+		perm va74
+		pose 0
+		emit 7 .3
+		tick rand 50 100
+		setv ov70 va70
+		setv ov71 va71
+		sets ov72 va72
+		setv ov73 va73
+
+		doif tmvt va00 va01 = 1
+			mvsf va00 va01
+			velo rand -10 10 rand -5 0
+		else
+			kill targ
+		endi 
+	targ ownr
+	setv va00 posl
+	setv va01 post
+	
+	
+	new: simp 2 10 31933 ov72 3 27 999
+		attr 195
+		bhvr 48
+		elas 0
+		accg 5
+		perm va74
+		fric 100
+		tick rand 100 500
+		setv ov02 2
+		doif tmvt va00 va01 = 1
+			mvsf va00 va01
+		else
+			kill targ
+		endi 
+		
+	kill ownr
+endi
+endm	
+
+************************
+* eat script for the fruit
+scrp 2 8 31933 12
+
+	lock
+	snde "nmap"
+	stim writ from 78 1
+
+* get the fruits's positions
+setv va00 posx
+setv va01 posy
+
+setv va70 ov70
+setv va71 ov71
+sets va72 ov72
+setv va73 ov73
+
+new: simp 2 3 31933 ov72 1 30 1000
+		attr 195
+		elas 30
+		fric 90
+		accg 2
+		perm 60
+		pose 0
+		tick rand 50 100
+		setv ov66 66
+		setv ov70 va70
+		setv ov71 va71
+		sets ov72 va72
+		setv ov73 va73
+		doif tmvt va00 va01 = 1
+			mvsf va00 va01
+		else
+			kill targ
+		endi 
+kill ownr
+
+endm
+
+
+*(multirott tickscript) works for all kinf of rotting stuf
+		
+scrp 2 10 31933 9
+
+doif pose < ov02	
+setv va02 pose
+addv va02 1
+pose va02
+else
+*this should add some nutrients to the room if it works
+doif room targ <> -1 and carr = null
+		altr room targ 4 0.01
+		altr room targ 3 0.01
+endi
+kill ownr
+endi
+endm
+
+* eat script for the rotting fruit
+scrp 2 10 31933 12
+	lock
+	snde "nmap"
+	stim writ from 81 1
+	kill ownr
+endm
+
+		
+****************
+
+**remoove scripts
+rscr
+
+enum 2 4 31933 kill targ next
+enum 2 3 31933 kill targ next 
+enum 2 8 31933 kill targ next
+enum 2 10 31933 kill targ next
+
+scrx 2 3 31933 9 scrx 2 3 31933 12 scrx 2 4 31933 1 scrx 2 4 31933 9 scrx 2 8 31933 9 scrx 2 8 31933 12 scrx 2 10 31933 9 scrx 2 10 31933 12
+
+

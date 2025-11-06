@@ -1,0 +1,501 @@
+*trasher 2 5 31933
+*trsherfruit 2 11 31933
+*trasherseed 2 3 31934
+*trasherleaf 2 6 31933
+*unidetritus 2 10 31933
+
+*trasherplant
+*ov00 0-growing 1-hunting 2-flowering 3-seeding 4_dying
+
+**************************************	
+*push the trasher
+scrp 2 5 31933 1
+doif ov00 > 0 and ov00 < 3
+	doif from ne pntr
+		spas ownr from
+	else
+		gpas 4 0 0 1
+	endi
+endi		
+*produce unfriendly plant stim
+stim writ from 83 1
+endm
+**************************************	
+*pull the trasher
+scrp 2 5 31933 2
+doif ov00 > 0 and ov00 < 3
+	doif from ne pntr
+		spas ownr from
+	endi
+endi		
+*produce unfriendly plant stim
+stim writ from 83 1
+endm
+**************************************	
+*hit the trasher
+scrp 2 5 31933 3
+inst
+doif ov00 > 0 and ov00 < 3
+		doif ov00 = 2 or ov00 = 3
+			part 2
+			doif pose > 4
+				setv va00 posl
+				setv va01 post			
+				new: simp 2 10 31933 "ngtrasher" 12 35 1000
+					bhvr 48
+					attr 194
+					elas 8
+					fric 90 
+					accg 1
+					setv ov02 11
+					tick rand 70 300
+					doif tmvt va00 va01 = 1
+						mvsf va00 va01
+						velo rand -10 10 rand -5 0
+					else
+						kill targ
+					endi
+				targ ownr
+			endi
+			pat: kill 2
+		endi
+		part 0
+		pose 11
+		setv ov00 4
+endi		
+*reduce boredom a tinybit
+stim writ from 97 .3
+endm
+**************************************	
+*pickup the trasher
+scrp 2 5 31933 4
+inst
+part 0
+pose 5
+doif ov00 = 2 or ov00 = 3
+	part 2
+	doif pose > 4
+		setv va00 posl
+		setv va01 post			
+		new: simp 2 10 31933 "ngtrasher" 12 35 1000
+			bhvr 48
+			attr 194
+			elas 8
+			fric 90 
+			accg 1
+			setv ov02 11
+			tick rand 70 300
+			doif tmvt va00 va01 = 1
+				mvsf va00 va01
+				velo rand -10 10 rand -5 0
+			else
+				kill targ
+			endi
+		targ ownr
+	endi
+	pat: kill 2
+endi 
+setv ov00 5
+endm
+**************************************	
+*drop the trasher
+scrp 2 5 31933 5
+inst
+setv va02 velx
+setv va03 vely
+setv va00 posl
+addv va00 5
+setv va01 post
+addv va01 25
+	new: simp 2 6 31933 "ngtrasher" 4 26 1000
+		bhvr 48
+		attr 194
+		elas 8
+		fric 50 
+		accg 1
+		velo va02 va03
+		tick rand 70 100
+		doif tmvt va00 va01 = 1
+			mvsf va00 va01
+		else
+			kill targ
+		endi
+kill ownr
+endm
+**************************************	
+* passenger script for the vehicle
+scrp 2 5 31933 124
+lock
+doif ov00 > 0 and ov00 < 3
+setv va06 0
+epas 4 0 0
+	setv va06 1
+next
+epas 2 15 0
+	setv va06 2
+next
+epas 2 16 0
+	setv va06 2
+next 
+epas 3 4 0
+	setv va06 3
+next 
+doif va06 >= 1
+	targ ownr
+	doif va06 = 1
+		addv ov02 150
+	elif va06 = 2
+		addv ov02 30
+	elif va06 = 3
+		addv ov02 60
+	endi 
+	setv va05 1
+	sndl "tras"
+	attr 200
+	pat: dull 1 "ngtrasher" 30 -22 -70 30
+	part 1
+	frat 1
+	anim [0 1 2 3 4]
+	over
+	doif va06 = 1
+		epas 4 0 0
+			vocb
+		next
+		wait rand 40 90
+	endi
+
+	* epas 0 0 0
+	* 	kill targ
+	* next
+	
+	part 0
+	setv va02 pose
+	addv va02 1
+	pose va02
+	part 1
+	anim [4 3 2 1 0]
+	over
+	pat: kill 1
+	part 0
+	attr 202
+	addv ov01 1
+	fade
+
+	inst
+
+	* get the trashers position
+	setv va00 posx
+	setv va01 posy
+	snde "tra2"	
+	* inject the trasherfruit
+	reps 6
+		new: simp 2 11 31933 "ngtrasher" 1 54 3000
+			bhvr 48
+			attr 194
+			elas 50
+			fric 80 
+			accg 18
+			velo rand -10 10 rand -5 0
+			tick rand 70 100
+			emit 8 .2
+			doif tmvt va00 va01 = 1
+				mvsf va00 va01
+			else
+				kill targ
+			endi
+	repe
+	targ ownr
+	setv va02 pose
+	subv va02 1
+	pose va02
+
+	* kill ownr
+	dpas 0 0 0
+else
+	dpas 0 0 0
+endi 
+else
+	dpas 0 0 0
+endi
+endm
+**************************************	
+
+*ticksript fot the trasher
+
+scrp 2 5 31933 9
+
+doif ov00 = 0
+	frat rand 100 254
+	anim [0 0 0 1 1 1 2 2 2 3 3]
+	over
+	setv ov00 1
+	setv va02 3
+	setv va03 rand 0 3
+	mulv va03 2
+	addv va02 va03
+	pose va02
+elif ov00 = 1
+	inst
+	subv ov02 1
+	seta va03 null
+
+	etch 2 15 0
+		seta va03 targ
+	next
+	etch 2 16 0
+		seta va03 targ
+	next 
+	etch 3 4 0
+		seta va03 targ
+	next 
+	doif ov02 <= 20
+		etch 4 0 0
+			seta va03 targ
+		next 
+	endi
+	doif va03 ne null
+		spas ownr va03
+	endi
+
+	slow
+	doif game "ngsean" = 2 and ov01 > 5 and ov99 = 0 and ov02 > 80
+		setv ov99 1
+		setv va05 rand -20 20
+		pat: dull 2 "ngtrasher" 12 va05 6 31
+		part 2
+		setv ov00 2
+		frat rand 100 200
+		anim [0 1 2 3 4 5 6 7 8 9 10 11]
+		part 0
+	elif 	game "ngsean" = 2 and ov99 = 1
+		setv ov99 1
+	endi
+elif ov00 = 2
+	doif game "ngsean" = 3 and ov01 > 5
+		setv ov00 3
+		setv ov02 rand 10 40
+		part 2
+		anim [12]
+		part 0
+	endi
+elif ov00 = 3
+	inst
+	part 2
+	setv va00 posl
+	addv va00 36
+	setv va01 post
+	addv va01 26
+	new: simp 2 3 31934 "ngtrasher" 1 25 500
+			bhvr 48
+			attr 194
+			elas 50
+			fric 80 
+			perm 60
+			accg 0
+			velo rand -10 10 rand -5 0
+			tick rand 70 500
+			doif tmvt va00 va01 = 1
+				mvsf va00 va01
+			else
+				kill targ
+			endi
+	targ ownr
+	part 0
+	subv ov02 1
+	doif ov02 = 0
+		inst
+		part 2
+		setv va00 posl
+		setv va01 post
+		new: simp 2 10 31933 "ngtrasher" 12 35 1000
+				bhvr 48
+				attr 194
+				elas 8
+				fric 90 
+				accg 1
+				setv ov02 11
+				velo rand -10 10 rand -5 0
+				tick rand 70 300
+				doif tmvt va00 va01 = 1
+					mvsf va00 va01
+				else
+					kill targ
+				endi
+		targ ownr
+		pat: kill 2
+		part 0
+		pose 11
+		setv ov00 4
+	endi
+elif ov00 = 4
+	inst
+	setv va00 posl
+	addv va00 10
+	setv va01 post
+	addv va01 30
+	new: simp 2 6 31933 "ngtrasher" 4 26 1000
+			pose 2
+			bhvr 48
+			attr 194
+			elas 18
+			fric 90 
+			accg 1
+			tick rand 70 300
+			doif tmvt va00 va01 = 1
+				mvsf va00 va01
+			else
+				kill targ
+			endi
+	kill ownr
+endi	
+tick rand 50 500
+endm
+**************************************	
+*collision script for the leaf
+scrp 2 6 31933 6
+doif wall = down and pose = 0
+	pose 1
+endi
+endm	
+**************************************	
+*tickscript for leaf
+scrp 2 6 31933 9
+doif pose < 3
+	setv va02 pose
+	addv va02 1
+	pose va02
+else
+	wait 100
+	setv va00 posl
+	addv va00 10
+	setv va01 post
+	addv va01 29
+	new: simp 2 10 31933 "ngtrasher" 7 47 1000
+			pose 2
+			bhvr 48
+			attr 194
+			elas 18
+			fric 90 
+			accg .5
+			setv ov02 6
+			tick rand 70 300
+			doif tmvt va00 va01 = 1
+				mvsf va00 va01
+			else
+				kill targ
+			endi
+	kill ownr
+endi
+endm
+**************************************	
+*eat script for the leaf
+scrp 2 6 31933 12
+	lock
+	snde "chwp"
+	stim writ from 77 1
+	kill ownr
+endm
+**************************************	
+*eat script for the fruit
+scrp 2 11 31933 12
+	lock
+	snde "chwp"
+	stim writ from 79 1
+	kill ownr
+endm
+**************************************			
+*tickscript for the fruit
+scrp 2 11 31933 9
+addv ov01 1
+doif ov01 > 9 and carr = null
+	inst
+	setv va00 posl
+	setv va01 post
+	new: simp 2 10 31933 "ngtrasher" 3 55 200
+		attr 192
+		accg 1
+		elas 0
+		fric 100
+		perm 64
+		setv ov02 2
+		doif tmvt va00 va01 = 1
+				mvsf va00 va01
+		else
+			kill targ
+		endi
+		tick rand 30 100
+		slow
+		kill ownr
+endi
+endm
+**************************************		
+*eat script for the seed
+scrp 2 3 31934 12
+	lock
+	snde "chwp"
+	stim writ from 77 2
+	kill ownr
+endm
+
+**************************************	
+*tickscript for seed
+		
+scrp 2 3 31934 9
+inst
+doif accg = 0
+	accg .2
+	elas 15
+	aero 1
+endi
+doif fall = 0 
+	setv va05 0 
+	etch 2 5 31933
+		setv va05 5 
+	next
+	rnge 600
+	esee 2 5 31933
+		addv va05 1 
+	next
+	doif va05 > 4 or carr ne null
+		kill ownr
+	endi
+	doif rtyp room targ < 5 or rtyp room targ > 7
+		kill ownr
+	endi
+	setv va00 posl
+	subv va00 50
+	setv va01 posb
+	subv va01 94
+	new: vhcl 2 5 31933 "ngtrasher" 12 0 350
+		bhvr 11
+		attr 202
+		elas 0
+		perm 60
+		accg 4
+		fric 100
+		clac 0
+		cabp 1
+		cabw 1
+		cabv 5
+		cabn 0 -70 101 90
+		pose 0
+		puhl -1 30 30
+		doif tmvt va00 va01 = 1
+			mvsf va00 va01
+			tick rand 50 300
+		else
+			kill targ
+		endi
+		
+	kill ownr
+endi
+
+endm
+**************************************	
+		
+rscr
+enum 2 5 31933 kill targ next
+enum 2 3 31934 kill targ next
+enum 2 6 31933 kill targ next
+
+scrx 2 5 31933 1 scrx 2 5 31933 2 scrx 2 5 31933 3 scrx 2 5 31933 4 scrx 2 5 31933 5 scrx 2 5 31933 9 scrx 2 5 31933 124 scrx 2 3 31934 9 scrx 2 3 31934 12 scrx 2 5 31933 6 scrx 2 5 31933 9 scrx 2 5 31933 12

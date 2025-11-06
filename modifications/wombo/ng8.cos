@@ -1,0 +1,1012 @@
+**bee-2 13 31934
+*beeflower/queen- 2 7 31934
+*honeyjar-2 25 31934
+
+
+***********queen tickscript
+scrp 2 7 31934 9
+
+*ov00 0-flower 1-seed 2-queen 3-stuck in earth
+*ov10 -1-left 1-right
+*ov11 y heading -1-up 1 down
+
+*flower -open up
+doif ov00 = 0
+	frat 200
+	anim [0 1 2 3 4 5 6]
+	over
+	setv ov00 -1
+elif ov00 = -1
+	* in winter close to seed
+	doif game "ngsean" = 3
+		frat 100
+		base 0
+		anim [6 5 4 3 2 7]
+		over
+		setv ov00 1
+		attr 210
+		accg 2
+	endi
+
+* in spring seed hatches to queen
+elif ov00 = 1
+	doif game "ngsean" = 0
+		frat 3
+		anim [8 9 10 11]
+		over
+		setv ov00 2
+		accg 0
+		setv ov10 1
+		setv ov11 -1
+		frat 1
+		anim [11 12 255]
+		sndl "nbe2"
+	endi
+elif ov00 = 2
+	doif rtyp room targ = 8 or rtyp room targ = 9
+		setv ov11 -1
+		setv vely -5
+	endi
+	addv ov01 1
+	doif ov01 > 1000
+		fade
+		anim []
+		accg 2
+		wait 100
+		kill ownr
+	endi
+	* queen flies away and searches
+	doif obst rght < 5 and ov10 = 1
+		gsub xturn
+	elif obst left < 5 and ov10 = -1 
+		gsub xturn
+	elif obst down < 15 and ov11 = 1
+		setv va05 rand 1 5
+		doif va05 = 5
+			gsub nestcheck
+		else
+			gsub yturn
+		endi
+	elif obst down > 300
+		setv va09 rand 1 3
+		doif va09 = 1
+			setv ov11 1
+		endi
+	elif obst _up_ < 7 and ov11 = -1
+		gsub yturn
+	endi
+	gsub fly
+
+*if having found good place stick into ground
+elif ov00 = 3
+	doif fall = 0
+		fade
+		pose 15
+		wait 200
+		setv va00 posl
+		setv va01 post
+		subv va00 16
+		subv va01 120
+
+	
+*and create the new beehiveplant
+		new: comp 2 5 31934 "ngbee" 11 0 1005
+			bhvr 1
+			attr 192
+			elas 0
+			perm 60
+			fric 100
+			accg 1
+			tick rand 20 60
+			pose 0
+			setv ov05 3
+			doif tmvt va00 va01 = 1
+				mvsf va00 va01
+			else
+				kill targ
+			endi 
+		targ ownr
+		*kill bee
+		wait 400
+		kill ownr
+	endi
+endi
+
+**********
+subr xturn
+
+doif ov10 > 0
+	setv ov10 -1
+	base 0
+	anim [13 14 255]
+else
+	setv ov10 1
+	base 0
+	anim [11 12 255]
+endi
+retn
+
+subr yturn
+
+doif ov11 > 0
+	setv ov11 -1
+else
+	setv ov11 1
+endi
+retn
+*************
+subr fly
+setv va02 rand 1 3
+setv va03 rand 1 3
+mulv va02 ov10
+mulv va03 ov11
+velo va02 va03
+retn
+
+***********
+subr nestcheck	
+
+*when touching ground check if suitable for new plant	
+loop
+	accg 1
+	wait 10
+untl fall = 0
+*check if everything is good for growing
+inst
+** Get Local Room ID
+setv va00 grap posx posy
+** check light
+doif prop va00 1 > .2
+	setv va10 1
+endi
+	
+** check heat
+doif prop va00 2 > .2
+	setv va11 1
+endi
+	
+**check water
+doif prop va00 3 > .1
+	setv va12 1
+endi
+	
+** check nutr
+doif prop va00 4 > .1
+	setv va13 1
+endi
+	
+*count how many beeplants you can see
+rnge 600
+setv va55 0
+esee 2 5 31934
+	doif ov00 < 2
+		addv va55 1
+	endi
+next
+
+*if there's less than 1 then ok
+
+doif va55 < 1
+	setv va14 1
+endi
+		
+** Check for touching other beeplants 
+
+etch 2 5 31934
+	setv va14 0
+next
+etch 2 7 31934
+	doif targ ne ownr
+		setv va14 0
+	endi
+next
+targ ownr
+
+** Room type check
+doif rtyp room targ = 5 or rtyp room targ = 6 or rtyp room targ = 7
+	setv va15 1
+endi
+	
+doif va10 = 1 and va11 = 1 and va12 = 1 and va13 = 1 and va14 = 1 and va15 = 1
+	setv ov00 3
+else
+	accg 0
+	gsub yturn
+endi
+
+retn
+endm
+******
+*queen eat
+scrp 2 7 31934 12
+	lock
+	sndc "nmap"
+	stim writ from 80 .4
+	kill ownr
+endm 
+*********************
+*plant tickscript
+scrp 2 5 31934 9
+
+*ov00 0 baby 1 growing 2dying 3 dead
+*ov02 Energylevel
+*ov05 0 not productive 1 beeproduction 2 flowering
+*ov17 bee population
+*ov18 Honeyjarcount
+part 0
+*check if enough energy for a honeyjar left
+doif ov02 > 50
+*produce a honeyjar
+	setv ov02 0
+	setv va00 posl
+	setv va01 post
+	addv va00 5
+	addv va01 120
+	new: simp 2 25 31934 "ngbee" 2 38 3000
+		attr 194
+		bhvr 48
+		elas 4
+		accg 5
+		perm 60
+		fric 90
+		tick rand 300 900
+		doif tmvt va00 va01 = 1
+			mvsf va00 va01
+		else
+			kill targ
+		endi 
+	targ ownr
+*and add one to the honeycount	
+	addv ov18 1
+endi
+
+doif game "ngsean" <> 3 
+	doif ov05 = 1 or ov05 = 2 
+		doif pose >= 2 and pose < 6
+			gsub newbee
+		endi
+	endi
+endi
+
+*in spring grow and set new bepopulation limit (if ready for a change) and activate the beehive
+
+doif game "ngsean" = 0 
+	doif ov05 = 0	
+		setv ov05 1
+		addv ov17 2
+		setv va02 pose
+		addv va02 1
+		pose va02
+		doif pose = 2
+			setv ov00 1
+		elif pose = 5
+			setv ov00 2
+		elif pose = 6
+			setv ov00 3
+		endi
+		doif pose >= 2 and pose < 6
+	
+* if active animate the entrance
+			pat: dull 1 "ngbee" 8 -8 111 1
+			part 1
+			anim [0 1 2 1 255]
+			part 0
+			sndl "nbe2"
+* and start beeprod
+			gsub newbee
+		endi
+	endi
+
+*in autumn produce a flower if big enough and honejarcount is ok or if ready
+elif game "ngsean" = 2 
+	inst
+	doif ov05 = 3 
+		setv ov05 2
+	elif ov05 = 1
+		setv ov05 2
+		doif ov18 > 7 or pose = 5
+			gsub flower
+		endi
+	endi
+	slow
+*in winter deactivate the beehive
+elif game "ngsean" = 3 
+	inst
+	doif ov05 = 2 or ov05 = 1
+		setv ov05 0
+		doif pose > 1 and pose < 7 
+			fade
+			pat: kill 1
+		elif pose = 7
+			fade
+			kill ownr
+		endi
+		setv ov18 0
+	endi
+	slow
+endi	
+
+
+subr newbee
+inst
+*count the bees
+setv va03 0
+setv va05 posx
+setv va06 posy
+enum 2 13 31934
+*and check how many are yours-have your position in their ov88 ov89
+	doif ov88 = va05 and ov89 = va06
+		addv va03 1
+	endi
+next
+*if bees lower than population limit produce a bee
+doif va03 < ov17
+	setv va04 ov17
+	subv va04 va03
+	
+	setv va00 posl
+	setv va01 post
+	addv va00 5
+	addv va01 120	
+	
+	reps va04
+		inst
+		setv va05 posx
+		setv va06 posy
+		seta va18 targ
+		setv va07 rand 1 2
+		doif va07 = 1
+			setv va08 1000
+		else
+			setv va08 5000
+		endi
+		new: simp 2 13 31934 "ngbee" 10 28 va08
+			attr 198
+			bhvr 59
+			pose 2
+			accg 0
+			aero 4
+			elas 5
+			perm 40
+			clac 0
+			setv ov00 1
+			tick rand 10 20
+			setv ov00 0
+			setv ov10 -1
+			setv ov11 -1
+			setv ov88 va05
+			setv ov89 va06
+			seta ov18 va18
+			doif tmvt va00 va01 = 1
+				mvsf va00 va01
+				wait 5
+			else
+				kill targ
+			endi 
+
+		targ ownr
+	repe
+endi
+retn
+************
+subr flower
+inst
+setv va00 posx
+setv va01 posy
+addv va00 rand  -8 0
+subv va01 rand 0 10
+	new: simp 2 7 31934 "ngbee" 16 12 1006
+		attr 0
+		bhvr 0
+		pose 0
+		accg 0
+		aero 4
+		elas 5
+		perm 40
+		setv ov00 0
+		doif tmvt va00 va01 = 1
+			mvsf va00 va01
+			tick rand 10 20
+		else
+			kill targ
+		endi
+	targ ownr
+retn
+endm
+
+*plant pushscript
+scrp 2 5 31934 1
+inst
+*unfriendls plant stim
+stim writ from 83 1
+doif from <> null
+		targ from
+		chem 68 .10
+endi
+snde "nbee"
+endm
+	
+************
+*bee false targ script
+scrp 2 13 31934 255
+kill ownr
+endm
+
+**************************
+**********bee ticksript
+scrp 2 13 31934 9
+
+*ov00 0-at home 1-looking for food 2-having found food 3 going home 4 dieing 5 rogue
+*ov10 -1-left 0-standing 1-right
+*ov11 -1 up 1 down
+* if in water fly up
+inst
+doif rtyp room targ = 8 or rtyp room targ = 9
+	setv ov11 -1
+	setv vely -5
+endi
+doif game "ngsean" = 3
+	wait rand 5 50
+	gsub die 
+*in winter die 
+endi
+
+doif ov00 = 0
+	setv va86 ov88
+	setv va87 ov89
+	setv ov01 0
+	gsub poscheck
+	setv va10 rand 1 3
+	doif va10 = 3
+		gsub hunt
+		doif va17 = 1
+			setv ov00 1
+		endi
+	endi	
+*if on hunt
+elif ov00 = 1
+	addv ov01 1
+	doif ov01 > 100
+		setv ov00 3
+	endi
+	setv va86 ov86
+	setv va87 ov87
+	gsub poscheck	
+*if there check if pray still exists
+	doif va18 = 1
+		targ ov17
+		doif targ <> null
+			targ ownr
+			setv ov02 1
+			setv ov00 2
+		else
+			targ ownr
+			gsub hunt
+		endi
+	endi
+
+*if on goal
+elif ov00 = 2
+	setv ov01 0
+	setv va86 ov86
+	setv va87 ov87
+
+	gsub poscheck
+	setv va10 rand 1 14
+	doif va10 = 8
+			setv ov00 3
+	endi
+
+*if on way back home
+elif ov00 = 3
+	addv ov01 1
+	doif ov01 > 100
+		setv ov00 4
+		setv ov88 0
+		setv ov89 0
+	endi
+	setv va86 ov88
+	setv va87 ov89
+	gsub poscheck
+	doif va18 = 1
+		setv va02 ov02
+		targ ov18
+		doif targ ne null
+			addv ov02 va02
+			targ ownr
+			setv ov00 0
+			setv ov02 0
+		else
+			setv ov00 4
+			setv ov88 0
+			setv ov89 0
+		endi
+	endi
+*if being a rogue bee
+elif ov00 = 4
+	addv ov01 1
+	doif ov01 > 300
+		setv ov00 5
+	endi
+	setv va09 rand 0 30
+	doif va09 = 4 or obst left < 6 or obst rght < 6
+		gsub xturn
+	endi
+	doif va09 = 8 or obst down < 6 or obst _up_ < 6
+		gsub yturn
+	endi
+elif ov00 = 5
+	gsub die
+
+endi
+
+
+doif ov10 = 1
+	anim [0 1 255]
+	setv va02 rand 1 4
+elif ov10 = 0
+	anim [4 5 255]
+	setv va02 0
+elif ov10 = -1
+	anim [2 3 255]
+	setv va02 rand -1 -4
+endi
+doif ov11 = 1
+	setv va03 rand 1 4
+elif ov11 = 0
+	setv va03 0
+elif ov11 = -1
+	setv va03 rand -1 -4
+endi
+velo va02 va03	
+tick rand 10 20	
+
+*******
+subr hunt
+
+seta va90 null
+seta va91 null
+seta va92 null
+seta va93 null 
+seta va94 null 
+seta va95 null 
+seta va96 null 
+rnge 800
+
+
+*bromsepot
+esee 2 4 31908
+	
+	doif pose >= 11 and pose <= 14
+		seta va90 targ
+	endi
+next
+*bromse
+esee 2 4 31537
+	doif va77 = 1
+		setv va77 rand 0 1
+	endi
+	doif va77 = 0 and pose >= 11 and pose <= 14
+		seta va90 targ
+		setv va77 1
+	endi
+next 
+setv va77 0
+*uniflo
+esee 2 4 31933
+	doif va77 = 1
+		setv va77 rand 0 1
+	endi
+	doif va77 = 0 and pose = 8 or pose = 9
+		setv va77 1
+		seta va90 targ
+		seta va92 targ 
+seta va93 targ 
+	endi
+next
+
+*eggtreepot
+esee 2 7 31902
+	doif pose >= 5 and pose <= 7
+		seta va91 targ
+	endi
+next
+setv va77 0
+*eggtree
+esee 2 7 31941
+	doif va77 = 1
+		setv va77 rand 0 1
+	endi
+	doif va77 = 0 and pose >= 5 and pose <= 7
+		seta va91 targ
+		setv va77 1
+	endi
+next
+setv va77 0
+*tinydaf
+esee 2 4 31502
+	doif va77 = 1
+		setv va77 rand 0 1
+	endi
+	doif va77 = 0 and pose >= 10 and pose <= 12
+		seta va91 targ
+		setv va77 1
+	endi
+next
+setv va77 0
+*ballplant
+esee 2 4 31939
+	doif va77 = 1
+		setv va77 rand 0 1
+	endi
+	doif va77 = 0 and pose >= 4 and pose <= 8
+		seta va92 targ
+		setv va77 1
+		
+	endi
+next 
+setv va77 0
+*weed
+esee 2 7 31940 
+	doif va77 = 1
+		setv va77 rand 0 1
+	endi
+	doif va77 = 0 and pose = 2 or pose = 3
+		seta va93 targ
+		setv va77 1
+	endi
+next
+
+
+*pumpkinpot
+esee 2 4 31901
+	doif pose = 4
+		seta va94 targ
+	endi
+next 
+setv va77 0
+*manylowberry
+esee 2 4 31940
+	doif va77 = 1
+		setv va77 rand 0 1
+	endi
+	doif va77 = 0 and pose >= 12 and pose <= 14
+		seta va94 targ
+		setv va77 1
+	endi
+next 
+*tomecko 
+esee 2 4 31506
+	doif va77 = 1
+		setv va77 rand 0 1
+	endi
+	doif va77 = 0 and pose = 10
+		seta va94 targ
+		setv va77 1
+	endi
+next
+setv va77 0
+*rubadubbatree
+esee 2 7 31933 
+	doif va77 = 1
+		setv va77 rand 0 1
+	endi
+	doif va77 = 0 and pose > 2 and pose < 7
+		seta va94 targ
+		setv va77 1
+	endi
+next 
+*rainbowpot
+esee 2 4 31900
+	doif pose = 7 or pose = 8
+		seta va95 targ
+		setv va77 1
+	endi
+next
+setv va77 0
+*rainbow
+esee 2 4 31938
+	doif va77 = 1
+		setv va77 rand 0 1
+	endi
+	doif va77 = 0 and ov05 = 2 or ov05 = 3
+		part ov99 
+		doif pose = 4 or pose = 5
+			seta va95 targ
+			setv va77 1
+		endi
+	endi
+next
+setv va77 0
+*lugerleaf
+esee 2 4 31935
+	doif va77 = 1
+		setv va77 rand 0 1
+	endi
+	doif va77 = 0 and ov01 = 12 and ov00 = 2
+		part 1
+		doif pose > 2 and pose < 6
+			seta va95 targ
+			setv va77 1
+		endi
+	endi
+	
+next
+setv va77 0
+*envelop
+esee 2 7 31930
+	doif va77 = 1
+		setv va77 rand 0 1
+	endi
+	doif va77 = 0 and pose >= 4 and pose <= 6
+		setv va77 1
+		seta va96 targ
+
+	endi
+next
+setv va77 0
+*thorns
+esee 2 5 31936
+	doif va77 = 1
+		setv va77 rand 0 1
+	endi
+	doif va77 = 0 and pose = 7 or pose = 8
+			seta va96 targ
+			setv va77 1
+	endi
+next
+esee 2 5 31937
+	doif va77 = 1
+		setv va77 rand 0 1
+	endi
+	doif va77 = 0 and ov06 > 2
+			seta va96 targ
+			setv va77 1
+	endi
+next
+esee 2 7 31933 
+	doif va77 = 1
+		setv va77 rand 0 1
+	endi
+	doif va77 = 0 and pose > 3 and pose < 7
+			seta va91 targ 
+			seta va92 targ 
+			seta va93 targ 
+			seta va94 targ 
+			seta va95 targ 
+			seta va96 targ
+			setv va77 1
+	endi
+next 
+
+setv va06 rand 0 5
+doif va06 = 0 and va90 ne null
+	targ va90
+elif va06 = 1 and va91 ne null 
+	targ va91 
+elif va06 = 2 and va92 ne null 
+	targ va92 
+elif va06 = 3 and va93 ne null 
+	targ va93 
+elif va06 = 4 and va94 ne null 
+	targ va94
+elif va06 = 5 and va95 ne null 
+	targ va95
+elif va06 = 6 and va96 ne null 
+	targ va96
+else
+	seta va97 null
+	esee 2 4 0
+		doif va77 = 1
+			setv va77 rand 0 1
+		endi
+		doif va77 = 0 
+			setv va77 1
+			seta va97 targ
+		endi
+	next 
+	esee 2 7 0
+		doif va77 = 1
+			setv va77 rand 0 1
+		endi
+		doif va77 = 0 
+			setv va77 1
+			seta va97 targ 
+		endi 
+	next
+	esee 2 4 31933
+	
+		doif pose = 8 or pose = 9
+			seta va97 targ 
+		endi
+	next 
+
+	targ va97
+	
+endi
+
+doif targ ne null
+	
+	
+	seta va16 targ		
+	setv va86 posx
+	setv va87 post
+	targ ownr
+	seta ov17 null 
+	seta ov17 va16 
+	setv ov86 va86
+	setv ov87 va87
+	setv va17 1
+
+endi
+targ ownr
+slow
+retn
+******************
+subr poscheck
+
+subv va86 posx
+subv va87 posy
+doif va86 < -10
+	setv ov10 -1
+elif va86 > 10
+	setv ov10 1
+else
+	setv ov10 rand -1 1
+	doif ov10 = -1 or ov10 = 1
+		setv ov10 rand -1 1
+	endi
+endi
+doif va87 < -10
+	setv ov11 -1
+elif va87 > 10
+	setv ov11 1
+else
+	setv ov11 rand -1 1
+	setv va18 1
+endi
+retn
+*************************
+subr xturn
+
+doif ov10 > 0
+	setv ov10 -1
+else
+	setv ov10 1
+endi
+retn
+*************************
+subr yturn
+
+doif ov11 > 0
+	setv ov11 -1
+else
+	setv ov11 1
+endi
+retn 
+*************************
+subr die
+inst
+snde "nbee"
+setv ov10 5
+setv ov11 5
+accg 1
+aero 9
+loop
+	anim [6 7 8 9]
+	over
+untl fall = 0
+anim []
+wait 60
+kill ownr
+
+retn
+	
+endm
+
+
+*bee pushscript
+
+scrp 2 13 31934 1
+inst
+snde "nbee"
+*friendly bug stim
+stim writ from 85 1
+setv ov00 5
+tick 1
+endm
+
+scrp 2 13 31934 2
+inst
+snde "nbee"
+*friendly bug stim
+stim writ from 85 1
+setv ov00 5
+tick 1
+endm
+
+scrp 2 13 31934 3
+inst
+snde "nbee"
+*friendly bug stim
+stim writ from 85 1
+accg 1
+setv ov00 5
+tick 1
+endm
+
+scrp 2 13 31934 4
+inst
+sndl "nbe2"
+*friendly bug stim
+stim writ from 85 1
+tick 0
+endm
+
+
+scrp 2 13 31934 5
+inst
+fade
+snde "nbee"
+tick rand 10 20
+endm
+
+scrp 2 13 31934 12
+	lock
+	sndc "nmap"
+	stim writ from 80 1
+	kill ownr
+endm		
+
+*honey eatscript
+
+scrp 2 25 31934 12
+lock
+sndc "nmap"
+stim writ from 77 1
+*reduce all kind of bad feelings a bit and add hotness-the honey is verry spicey!
+doif from <> null
+		targ from
+		driv 12 -.05
+		driv 10 -.05
+		driv 09 -.05
+		driv 0 -.10
+		driv 5 .20
+		*general healing cocktail
+		chem 100 .15
+		chem 97 .15
+		chem 95 .15
+		chem 92 .15
+		chem 93 .15
+		chem 96 .15
+		chem 94 .15
+		chem 117 .45
+endi
+targ ownr
+doif pose = 0
+	pose 1
+elif pose = 1
+	kill ownr
+endi
+
+endm
+
+*honey tickscript
+scrp 2 25 31934 9
+
+doif pose = 0
+	pose 1
+else
+	kill ownr
+endi
+
+endm
+*********
+*remoove scripts
+rscr
+enum 2 5 31934 kill targ next 
+enum 2 13 31934 kill targ next
+enum 2 7 31934 kill targ next
+enum 2 25 31934 kill targ next
+
+scrx 2 5 31934 1 scrx 2 5 31934 9 scrx 2 7 31934 9 scrx 2 13 31934 1 scrx 2 13 31934 2 scrx 2 13 31934 3 scrx 2 13 31934 4 scrx 2 13 31934 5 scrx 2 25 31934 9 scrx 2 25 31934 12

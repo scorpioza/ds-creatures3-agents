@@ -1,0 +1,647 @@
+*smallPlant 2 5 31936
+*Plant 2 5 31937
+*seed 2 3 31937
+*fruit 2 8 31937
+*standard detritus 2 10 31933
+
+**************************************************
+***********The Gotchathorns***********************
+***************************************************
+
+**************************************
+****seed eat
+scrp 2 3 31937 12
+	lock
+	snde "chwp"
+	stim writ from 77 3
+	kill ownr
+endm
+
+***********************
+****seed tickscript
+scrp 2 3 31937 9
+inst
+*check if everything is good for growing
+
+** Get Local Room ID
+setv va00 grap posx posy
+** check light
+doif prop va00 1 > .1
+	setv va10 1
+endi
+	
+** check heat
+doif prop va00 2 > .1
+	setv va11 1
+endi
+	
+**check water
+doif prop va00 3 > .1
+	setv va12 1
+endi
+** check nutr
+
+doif prop va00 4 > .1
+	setv va13 1
+endi
+*dont grow if there is already a small plant growin nearby
+rnge 100
+setv va14 1
+esee 2 5 31936
+	setv va14 0
+next
+			
+** Room type check
+doif rtyp room targ = 5 or rtyp room targ = 6 or rtyp room targ = 7
+	setv va15 1
+endi
+	
+doif va10 = 1 and va11 = 1 and va12 = 1 and va13 = 1 and va14 = 1 and va15 = 1 and fall = 0 and carr = null
+	setv va40 prop va00 3
+	setv va41 prop va00 4
+	subv va40 .1
+	subv va41 .1
+	prop va00 3 va40
+	prop va00 4 va41
+	** You can grow
+	*get the seed position
+	inst
+	setv va01 posx
+	subv va01 42
+	setv va02 posb
+	subv va02 87
+	inst
+		
+	new: simp 2 5 31936 "ngthornsmall" 15 0 1000
+		bhvr 9
+		attr 0
+		perm 60
+		elas 0
+		fric 100
+		tick rand 500 2500
+		pose 0
+		doif tmvt va01 va02 = 1
+			setv va03 rand 0 1
+			doif va03 = 1
+				addv va02 5
+				plne 4000
+			endi
+			mvto va01 va02
+		else
+			subv va02 5
+			doif tmvt va01 va02 = 1
+				mvto va01 va02
+				plne 1000
+			else
+				kill targ
+			endi
+		endi
+endi
+*get rid of the seed
+kill ownr
+
+endm
+
+***********************		
+* tick script for the smallthornplant
+scrp 2 5 31936 9
+
+doif game "ngsean" = 3 or game "ngsean" = 2
+	doif pose = 0
+		stop
+	endi
+endi
+doif pose < 9
+	setv va00 pose
+	addv va00 1
+	pose va00
+	doif pose = 8
+		wait rand 500 2500
+	endi
+elif pose = 9
+
+	setv va00 posl
+	setv va01 post
+	inst
+	new: simp 2 8 31937 "ngthornsmall" 1 15 1000
+		attr 195
+		bhvr 48
+		elas 60
+		fric 30
+		accg 2
+		perm 60
+		pose 0
+		emit 6 .5
+		setv ov66 66
+		tick rand 200 2000
+		velo rand -5 5 -3
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			kill targ
+		endi
+	targ ownr
+	pose 10
+	slow
+	setv ov01 1
+elif pose > 9 and pose < 14
+	doif game "ngsean" ne 3
+		pose 5
+	else
+		setv va00 pose
+		addv va00 1
+		pose va00
+	endi
+elif pose = 14 and game "ngsean" = 0
+	setv va01 posx
+	subv va01 93
+	setv va02 posb
+	subv va02 166
+	setv va05 0
+	inst
+	etch 2 5 31937 
+		doif ov00 > 0
+			setv ov00 3
+		endi
+		setv va11 posx
+		subv va11 va01
+		doif va11 > -10 and va11 < 10
+			addv va05 1
+		endi
+	next
+	etch 2 5 31936 
+		doif targ ne ownr
+			addv va05 1
+		endi
+	next
+	doif va05 >= 1
+		kill ownr
+	endi
+	setv va39 grap posx posy
+	setv va40 prop va39 3
+	setv va41 prop va39 4
+	subv va40 .2
+	subv va41 .2
+	prop va39 3 va40
+	prop va39 4 va41 
+	new: vhcl 2 5 31937 "ngthorns" 15 0 400
+			bhvr 11
+			attr 0
+			perm 60
+			tick rand 500 2500
+			pose 0
+			clac 3
+			*cabn 0 1 117 134
+			cabw 4
+			cabp 1
+			cabv 1
+			doif tmvt va01 va02 = 1
+				mvto va01 va02
+			else
+				subv va02 3
+				doif tmvt va01 va02 = 1
+					mvto va01 va02
+				else
+					subv va02 3
+					doif tmvt va01 va02 = 1
+						mvto va01 va02
+					else
+						subv va02 3
+						doif tmvt va01 va02 = 1
+							mvto va01 va02
+						else
+							kill targ
+						endi
+					endi
+				endi
+			endi
+	kill ownr
+endi
+tick rand 500 2500
+endm
+
+***********************
+*unfriendly plant pushscript	
+scrp 2 5 31936 1
+
+stim writ from 83 1
+endm
+
+***********************
+*unfriendly plant pullscript	
+scrp 2 5 31936 2
+
+stim writ from 83 1
+endm
+*****
+*hit the small thorn
+scrp 2 5 31936 3
+doif from ne pntr
+	doif from <> null
+		inst
+		targ from
+		driv 12 -.05
+		driv 13 -.05
+		targ ownr
+		slow
+	endi 
+endi 
+doif pose > 1
+	inst
+	setv va10 posl
+	setv va11 post
+	new: simp 2 10 31933 "ngthornsmall" 3 12 1000
+			attr 192
+			bhvr 48
+			elas 0
+			accg 1
+			fric 100
+			perm 60
+			setv ov02 2
+			tick rand 100 500
+			mvsf va10 va11
+	kill ownr
+			
+else
+	kill ownr
+endi
+endm
+
+***********************	
+* tick script for the thornplant
+scrp 2 5 31937 9
+inst
+etch 2 4 0
+	setv va04 rand 0 1
+	doif pose = 0 and va04 = 1
+		doif targ ne null and ov66 ne 66
+			kill targ
+		endi
+	endi
+next
+slow
+doif game "ngsean" = 3
+	doif pose = 0
+		stop
+	endi
+endi
+doif ov00 = 0
+	doif pose < 8
+		setv va00 pose
+		addv va00 1
+		pose va00
+	elif pose = 8
+		inst
+		attr 516
+		pat: dull 1 "ngthorns" 10 30 0 100
+		part 0
+		pose 9
+		setv ov00 1
+		*produce the leaves
+		reps rand 6 10
+		setv va00 posl
+		setv va01 post
+		addv va00 rand 0 150
+		addv va01 rand 0 130
+		setv va02 rand 0 1
+		doif va02 = 0
+			setv va03 30
+		else
+			setv va03 34
+		endi
+		setv va04 rand 300 600
+		new: simp 2 10 31933 "ngthorns" 4 va03 va04
+			attr 195
+			bhvr 48
+			elas 0
+			accg 1
+			aero 5
+			fric 90
+			perm rand 59 60
+			setv ov02 3
+			tick rand 100 800
+			velo rand -5 5 0
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				kill targ
+			endi
+		targ ownr
+		repe
+		slow
+	endi
+
+elif ov00 = 1
+	inst
+	seta va03 null
+
+	etch 4 0 0
+		doif cage ne 0 and cage ne 1
+			seta va03 targ
+		endi
+	next 
+
+	doif va03 ne null
+		spas ownr va03
+		addv ov02 1
+	endi
+	slow
+	
+	doif ov02 > 8 or game "ngsean" = 2 
+		setv ov00 2
+	endi
+
+elif ov00 = 2	
+	doif game "ngsean" = 2 and ov06 = 0
+		
+		setv va05 1
+		addv va05 ov02
+		setv va06 2
+		reps va05
+			setv va07 rand 20 150
+			setv va08 rand 0 40
+			pat: kill va06
+			pat: dull va06 "ngthorns" 11 va07 va08 101
+			part va06
+			frat rand 100 250
+			anim [0 0 1 1 1 2 2 2 2 2 2 2]
+			addv va06 1
+		repe
+		over
+		setv ov06 va06
+	elif game "ngsean" = 3 and ov06 > 2
+		setv va06 2
+		loop
+
+		part va06
+		pose 3
+		wait rand 100 300
+		inst 
+		setv va00 posl
+		setv va01 post	
+		new: simp 2 8 31937 "ngthornsmall" 1 15 1000
+			bhvr 48
+			attr 195
+			elas 60
+			fric 30
+			accg 2
+			perm 60
+			pose 0
+			emit 6 .5
+			setv ov66 66
+			tick rand 200 2000
+			velo rand -5 5 -3
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				kill targ
+			endi
+		targ ownr
+		pat: kill va06
+		addv va06 1
+		slow
+		untl va06 = ov06
+		setv ov00 3
+		setv ov06 0
+	endi
+
+
+elif ov00 = 3
+	doif game "ngsean" = 0
+		wait rand 0 300
+		setv ov00 4
+	endi
+elif ov00 = 4
+inst
+	snde "nex2"
+	reps rand 8 12
+		setv va00 posl
+		setv va01 post
+		addv va00 rand 0 160
+		addv va01 rand 0 140
+		setv va02 rand 0 2
+		doif va02 = 0
+			setv va03 15
+		elif va02 = 1
+			setv va03 20
+		else 
+			setv va03 25
+		endi
+		new: simp 2 10 31933 "ngthorns" 5 va03 1000
+			attr 195
+			bhvr 48
+			elas 12
+			accg 3
+			fric 90
+			perm rand 59 60
+			setv ov02 4
+			tick rand 100 1500
+			velo rand -5 5 rand -5 0
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				kill targ
+			endi
+		targ ownr
+	repe
+	kill ownr
+endi
+doif ov00 = 0
+	tick rand 500 2500
+else
+	tick rand 200 1500
+endi
+endm
+
+***********************
+*push the thornplant
+scrp 2 5 31937 1
+inst
+doif ov00 = 1
+	doif from ne pntr
+		targ from
+		doif targ ne null
+			doif cage ne 0 and cage ne 1
+				spas ownr targ
+			endi
+		endi
+	endi
+endi		
+*produce unfriendly plant stim
+stim writ from 83 1
+endm
+
+***********************
+*pull the thornplant
+scrp 2 5 31937 2
+inst
+doif ov00 = 1
+	doif from ne pntr
+		targ from
+		doif targ ne null
+			doif cage ne 0 and cage ne 1
+				spas ownr targ
+			endi
+		endi
+	endi
+endi		
+*produce unfriendly plant stim
+stim writ from 83 1
+endm
+
+***********************
+*hit the thornplant
+scrp 2 5 31937 3
+doif ov00 < 1
+	stop
+endi
+doif from = pntr
+	addv ov01 1
+else
+	addv ov01 10
+	doif from <> null
+		targ from
+		driv 12 -.05
+		driv 13 -.05
+		targ ownr
+	endi 
+endi
+doif ov01 >= 10 
+	inst
+	reps 12
+		setv va00 posl
+		setv va01 post
+		addv va00 rand 60 134
+		addv va01 rand 0 140
+		setv va02 rand 0 2
+		doif va02 = 0
+			setv va03 15
+		elif va02 = 1
+			setv va03 20
+		else 
+			setv va03 25
+		endi
+		new: simp 2 10 31933 "ngthorns" 5 va03 1000
+			attr 195
+			bhvr 48
+			elas 12
+			accg 1
+			fric 90
+			perm rand 59 60
+			setv ov02 4
+			tick rand 100 500
+			velo rand -10 10 rand -10 0
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				kill targ
+			endi
+		targ ownr
+	repe
+	pat: kill 1
+	part 0
+	setv ov00 2
+	dpas 0 0 0
+	attr 16
+endi
+
+endm
+
+
+
+************************
+*tickscript for the berry
+scrp 2 8 31937 9
+
+* get the fruits's positions
+setv va00 posx
+setv va01 posy
+doif carr = null
+	inst
+	reps rand 1 3
+	new: simp 2 3 31937 "ngthornsmall" 1 19 1000
+		bhvr 48
+		attr 195
+		elas 30
+		fric 90
+		accg 2
+		perm 60
+		pose 0
+		tick rand 1000 5000
+		velo rand -10 10 rand -10 0
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			kill targ
+		endi
+	repe
+	targ ownr
+		
+	setv va00 posl
+	setv va01 post
+	
+	
+	new: simp 2 10 31933 "ngthornsmall" 3 16 999
+		attr 195
+		bhvr 48
+		elas 0
+		accg 5
+		fric 100
+		setv ov02 2
+		tick rand 100 500
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			kill targ
+		endi
+	kill ownr
+endi
+endm	
+**collision
+scrp 2 8 31936 6
+doif wall = down
+	snde "ndrp"
+endi
+endm
+************************
+* eat script for the berry
+scrp 2 8 31937 12
+
+lock
+sndc "nmap"
+stim writ from 78 1
+
+* get the fruits's positions
+setv va00 posx
+setv va01 posy
+
+
+new: simp 2 3 31937 "ngthornsmall" 1 19 1000
+		attr 195
+		elas 30
+		fric 90
+		accg 2
+		perm 60
+		pose 0
+		tick rand 50 100
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			kill targ
+		endi
+kill ownr
+
+endm
+
+
+
+		
+****************
+**remoove scripts
+rscr
+enum 2 5 31936 kill targ next
+enum 2 5 31937 kill targ next
+enum 2 3 31937 kill targ next
+enum 2 8 31937 kill targ next
+scrx 2 5 31936 1 scrx 2 5 31936 2 scrx 2 5 31936 9 scrx 2 5 31937 1 scrx 2 5 31937 2 scrx 2 5 31937 3 scrx 2 5 31937 9 scrx 2 5 31937 124 scrx 2 3 31937 9 scrx 2 3 31937 12 scrx 2 8 31937 9 scrx 2 8 31936 12 
+endm

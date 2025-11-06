@@ -1,0 +1,794 @@
+**********************
+**********bubblebee 
+*nest 2 17 31940
+*bee 2 14 31940
+*rotting bee unirot 2 10 31933
+
+*nest 
+*ov02 number of bees local
+*ov90 number of bees that need to be produced
+*ov07 Id number
+
+**************************
+**********nest  push
+scrp 2 17 31940 1
+lock
+inst
+subv ov02 1
+doif ov02 < 2
+	snde "bblb"
+	kill ownr 
+endi
+tick 1
+endm
+
+**********nest  pull
+scrp 2 17 31940 2
+lock
+inst
+subv ov02 1
+doif ov02 < 1
+	snde "bblb"
+	kill ownr 
+endi 
+tick 1
+endm
+
+**********nest  hit
+scrp 2 17 31940 3
+lock
+inst
+targ from
+doif targ <> null
+	driv 0 -0.45
+	driv 10 -0.35
+	driv 12 -0.35
+endi
+targ ownr
+
+subv ov02 1
+doif ov02 < 2
+	snde "bblb"
+	kill ownr 
+endi 
+tick 1
+endm
+
+**********nest  pointerscript
+scrp 2 17 31940 101
+	inst
+	frat 1
+	anim [10 11 12 11 10 0]
+endm
+
+
+**********nest  ticksript
+scrp 2 17 31940 9
+inst
+
+*first check if you are the highest number nest in the room
+gsub nestchek 
+doif va15 = 0
+*you are the topnest
+	setv ov05 2
+elif va15 = 1
+*you are just a nest
+	setv ov05 1
+	doif ov02 < 13
+		gsub steal
+	endi
+endi
+*if accidently havin the same numbers as another nest- get lost
+doif va16 >= 2 and pose = 1
+	kill ownr
+endi
+doif ov90 <= 1
+	setv ov90 rand 1 2
+endi
+*check how many  bees you have
+gsub beecount 
+*if having lost a bee try stealing one from a higher nest
+doif ov02 > va10 
+	setv va11 ov02
+	subv va11 va10
+	reps va11
+		gsub steal
+	*if not having been able to steal a bee-shrink
+		doif va08 = 1 or ov05 = 2
+			subv ov02 1
+		endi
+	repe
+endi
+*if having enough energy for a new bee
+setv va15 pose
+addv va15 1
+doif ov90 > va15 and ov02 >= va10 and ov02 < 13
+	gsub newbee
+	targ ownr
+	subv ov90 va15
+	addv ov02 1
+elif ov90 > 5 and ov02 >=13
+	setv va07 ov07
+	addv va07 1
+	setv va08 0
+	enum 2 17 31940
+		doif ov07 = va07
+			addv ov90 1
+			setv va08 1
+		endi
+	next
+	doif va08 = 0 and ov05 = 1
+		gsub newegg 
+	endi
+	setv ov90 0
+	setv ov02 13
+endi
+*pose according to your beepopulation
+doif ov02 > 0 and ov02 <= 3
+	pose 0
+elif ov02 > 3 and ov02 <= 6
+	pose 1	
+elif ov02 > 6 and ov02 <= 9
+	pose 2
+elif ov02 > 9 and ov02 <= 12
+	pose 3
+elif ov02 >= 13 and ov05 = 2
+	pose 3
+	gsub newegg
+elif ov02 = 0 and ov07 = 1
+	pose 0
+	setv ov90 2
+elif ov02 = 0 and ov07 > 1
+	snde "bblb"
+	kill ownr		
+endi
+tick rand 80 200
+
+***************
+subr steal
+setv va07 ov07
+setv va91 ov91
+setv va88 posx
+setv va89 posy
+setv va08 1
+enum 2 14 31940
+	doif ov07 > va07 and va08 = 1 and va91 = ov91
+		setv ov07 va07
+		setv ov88 va88
+		setv ov89 va89
+		setv va08 2
+	endi
+next 
+retn
+******
+subr nestchek
+setv va91 ov91
+setv va07 ov07
+setv va15 0
+setv va16 0
+*check nests
+enum 2 17 31940
+	doif va91 = ov91 and ov07 > va07
+		setv va15 1
+	elif va91 = ov91 and ov07 = va07
+		addv va16 1
+	endi
+next 
+*check bees that could become a nest
+enum 2 14 31940
+	doif va91 = ov91 and ov07 > va07
+		setv va15 1
+	endi
+next 
+*check eggs that could become a bee that could become a nest
+enum 2 18 31940
+	doif va91 = ov91 and ov07 = va07
+		setv va15 1
+	endi
+next 
+retn
+
+
+subr newegg
+doif game "ngsean" ne 3
+inst
+setv va07 ov07
+setv va88 posx
+setv va89 posy
+
+setv va91 ov91
+New: simp 2 18 31940 "ngbubble" 1 24 3000
+	bhvr 48
+	attr 194
+	elas 50
+	accg 2
+	aero 1
+	fric 60
+	perm rand 59 60
+	tick rand 100 600
+	setv ov07 va07
+	setv ov91 va91
+	doif tmvt va88 va89 = 1
+			mvsf va88 va89
+	else
+		kill targ
+	endi
+targ ownr
+endi
+retn
+
+subr newbee
+inst
+setv va07 ov07
+setv va88 posx
+setv va89 posy
+setv va91 ov91
+New: simp 2 14 31940 "ngbubble" 16 0 3000
+	bhvr 59
+	attr 198
+	elas 0
+	accg 0.2
+	aero 1
+	fric 100
+	perm 40
+	clac 0
+	puhl -1 20 20
+	setv ov02 1000
+	tick rand 25 35
+	setv ov00 0
+	setv ov07 va07
+	setv ov88 va88
+	setv ov89 va89
+	setv ov91 va91
+	doif tmvt va88 va89 = 1
+		mvsf va88 va89
+	else
+		kill targ
+	endi
+retn
+subr beecount
+	setv va10 0
+	setv va07 ov07
+	setv va91 ov91
+	enum 2 14 31940
+		doif ov07 = va07 and ov91 = va91
+		addv va10 1
+		endi
+	next
+retn
+endm
+
+*************bubbleegg tick
+scrp 2 18 31940 9 
+inst
+
+doif fall = 0 and carr = null
+	setv va07 ov07
+	setv va00 posl
+	setv va01 post
+	subv va00 13
+	subv va01 32
+	setv va91 gmap va00 va01
+	doif va91 <> ov91
+		setv va07 1
+	else
+		addv va07 1
+	endi
+	New: simp 2 14 31940 "ngbubble" 16 0 1000
+		bhvr 59
+		attr 198
+		elas 0
+		accg 0.2
+		aero 1
+		fric 100
+		perm rand 59 100
+		clac 0
+		setv ov02 1000
+		tick rand 25 35
+		setv ov07 va07
+		setv ov91 va91
+		setv ov00 5
+		doif tmvt va00 va01 = 1
+			mvsf va00 va01
+			base 0
+			frat 1
+			anim [0 1 2]
+		else
+			kill targ
+		endi
+	kill ownr
+endi
+endm
+
+*************bubbleegg eat
+scrp 2 18 31940 12 
+lock
+stim writ from 80 2
+kill ownr
+endm
+	
+**********bubblebee push
+scrp 2 14 31940 1
+inst
+doif ov00 ne 4
+	snde "bblb"
+endi 
+setv ov00 4
+base 0
+pose 15
+tick 1
+
+	stim writ from 88 1
+	doif from ne null
+		targ from
+		chem 66 .01
+	endi
+
+endm
+
+**********bubblebee pull
+scrp 2 14 31940 2
+inst
+doif ov00 ne 4
+	snde "bblb"
+endi 
+setv ov00 4
+base 0
+pose 15
+tick 1
+stim writ from 88 1
+doif from ne null
+	targ from
+	chem 66 .01
+endi
+
+endm
+
+**********bubblebee hit
+scrp 2 14 31940 3
+inst
+doif ov00 ne 4
+	snde "bblb"
+endi 
+setv ov00 4
+base 0
+pose 15
+tick 1
+endm
+
+**********bubblebee pickup
+scrp 2 14 31940 4
+inst
+doif ov00 ne 4
+	snde "bblb"
+endi
+stim writ from 88 1
+setv ov00 4
+base 0
+pose 15
+tick 0
+endm
+**********bubblebee drop
+scrp 2 14 31940 5
+inst
+tick 1
+endm
+
+**********bubblebee collision
+scrp 2 14 31940 6
+inst
+doif wall = down
+	doif ov00 = 3
+		setv va08 rand 1 5
+		doif va08 = 1
+			setv ov00 2
+		endi 
+	else
+		setv ov11 -1
+	endi
+elif wall = left
+	doif ov00 = 3
+		setv va08 rand 1 5
+		doif va08 = 1
+			setv ov00 2
+		endi 
+	else
+		setv ov10 1
+	endi
+	setv va10 ov10
+	mulv va10 rand 2 5
+	velo va10 0
+elif wall = rght
+	doif ov00 = 3
+		setv va08 rand 1 5
+		doif va08 = 1
+			setv ov00 2
+		endi 
+	else
+		setv ov10 -1
+	endi 
+	setv va10 ov10
+	mulv va10 rand 2 5
+	velo va10 0
+elif wall = _up_
+	doif ov00 = 1 
+		setv ov11 1	
+	elif ov00 = 2
+		inst
+		setv va10 0
+		setv va91 ov91
+		enum 2 17 31940
+			doif va91 = ov91
+				setv va10 1
+			endi
+		next
+		doif va10 = 0
+			setv ov00 5
+		endi
+		setv ov11 1
+	elif ov00 = 3
+		doif ov10 = 0
+			setv ov10 1
+		endi
+		setv va10 ov10
+		mulv va10 rand 5 10
+		velo va10 0
+		setv va08 rand 1 5
+		doif va08 = 1
+			setv ov00 2
+		endi
+	elif ov00 = 5
+		rnge 500
+		setv va10 0
+		esee 2 17 31940
+			setv va10 1
+		next
+		doif va10 = 0
+			setv va07 ov07
+			setv va91 ov91
+			setv va00 posl
+			setv va01 post
+			setv va91 ov91
+			setv va12 0
+			enum 2 17 31940
+				doif va91 = ov91 and va07 = ov07
+					setv va12 1
+				endi
+			next
+			doif va12 = 1
+				setv ov00 4
+			else
+				setv va11 0
+				new: simp 2 17 31940 "ngbubble" 4 20 4000
+					bhvr 11
+					attr 4
+					setv ov07 va07
+					setv ov90 2
+					doif tmvt va00 va01 = 1
+						mvsf va00 va01
+						tick rand 100 300
+						setv va11 1
+						setv ov91 gmap va00 va01
+						doif ov91 <> va91
+							setv ov07 1
+						endi
+					else
+						kill targ
+					endi
+				targ ownr
+				doif va11 = 1
+					kill ownr
+				endi
+			endi
+		endi
+		setv va05 2
+		setv va11 1
+		doif ov10 <> 0
+			setv va05 ov10
+		endi
+		mulv va05 rand 2 6
+		velo va05 va11
+		wait 20
+	endi
+endi
+endm
+**********bubblebee eat
+scrp 2 14 31940 12
+lock
+doif ov00 ne 4
+	snde "bblb"
+endi 
+doif from ne null
+	stim writ from 80 .5
+	stim writ from 88 1
+endi
+kill ownr
+endm
+
+**********bubblebee  pointerscript
+scrp 2 14 31940 101
+	inst
+	frat 1
+	anim [10 11 12 11 10 0]
+endm
+
+
+**********bubblebee ticksript
+scrp 2 14 31940 9
+
+*ov00 1-hunting 2-eating 3-going home 4 dying 5 Nestsearching
+*ov02 energy
+*ov05 bringing home food
+*ov07 number of homeworld
+*ov88 ov89 x and y of homeworld
+*ov10 -1-left 0-standing 1-rght
+*ov11 -1 up 1 down
+inst
+
+addv ov01 1
+doif ov01 > 1400
+	snde "bblb"
+	gsub die
+endi
+subv ov02 rand 0 1
+*if out of energy die
+doif ov02 < 1
+	snde "bblb"
+	setv ov00 4
+endi
+doif ov00 = 4
+	gsub die
+endi 
+* if in water swim
+
+doif rtyp room targ = 8 or rtyp room targ = 9
+	negv ov10
+	gsub swim
+endi
+doif game "ngsean" = 3 and ov00 < 4
+	setv ov00 3
+endi
+doif ov00 = 0
+	base 0
+	frat 1
+	anim [0 1 2]
+	setv ov10 -1
+	setv ov11 1
+	fric 90
+	setv ov00 1
+elif ov00 = 1
+	setv va13 rand 0 30
+	doif va13 = 0
+		gsub xturn
+	elif va13 = 1
+		gsub yturn
+	elif va13 > 20 and obst down > 50
+		setv ov11 1
+		fric 90
+	endi
+	setv va11 0
+	etch 2 10 0
+		setv va11 1
+		setv va20 tick
+		doif va20 > 20
+			subv va20 10
+		endi
+		tick va20
+	next
+	doif va11 = 1
+		setv ov00 2
+		setv ov05 1
+		gsub base
+		frat rand 3 6
+		anim [0 5 255]
+	else
+		gsub fly
+	endi
+elif ov00 = 2
+	setv va11 0
+	etch 2 10 0
+		setv va11 1
+	next
+	doif va11 = 1
+		setv va05 rand 1 2
+		doif va05 = 1
+			snde "bbl1"
+		else
+			snde "bbl2"
+		endi
+		addv ov02 100
+		addv ov92 1
+		setv ov05 1
+	else
+		setv ov00 3
+		gsub fly
+	endi
+	doif ov92 > 10
+		setv ov00 3
+		setv ov92 0
+		gsub fly 
+	endi
+elif ov00 = 3
+	inst
+	setv va88 ov88
+	setv va89 ov89
+	subv va88 posx
+	subv va89 posy
+	doif va88 < -15
+		setv ov10 -1
+	elif va88 > 15
+		setv ov10 1
+	else
+		setv ov10 0
+		setv va17 1
+	endi
+
+	doif va89 < -15
+		setv ov11 -1
+		fric 9
+	elif va89 > 15
+		setv ov11 1
+		fric 90
+	else
+		setv ov11 -1
+		fric 9
+		setv va18 1
+	endi
+	setv va44 0
+
+	doif va17 = 1 and va18 = 1
+		doif ov05 = 1
+			setv va44 1
+
+		endi 
+		setv va10 0
+		etch 2 17 31940
+			doif va44 = 1
+				addv ov90 1
+			endi
+			setv va10 1
+		next
+		doif va10 = 1
+			setv ov05 0
+			subv ov02 100
+			setv ov00 1
+			setv ov10 rand 0 1
+			doif ov10 = 0
+				setv ov10 -1
+			endi
+			setv ov11 1
+			fric 90
+			gsub fly
+		else
+			subv ov02 40
+		endi
+	else
+		gsub fly
+	endi
+elif ov00 = 4
+	gsub die
+elif ov00 = 5
+	setv ov11 -1
+	fric 9
+	setv ov10 rand 0 1
+	doif ov10 = 0
+		setv ov10 -1
+	endi
+	gsub fly
+endi
+
+************	
+subr base
+doif ov10 > 0
+	base 9
+else
+	base 3
+endi
+retn	
+
+*******
+subr swim
+gsub base
+anim [0 5 255]
+accg 0
+velo ov10 -7
+wait 5
+doif rtyp room targ <> 8 and rtyp room targ <> 9
+	gsub fly
+	accg 0.2
+else
+	velo ov10 -2
+endi
+retn
+
+*********
+subr fly
+inst
+gsub base
+setv va10 rand 1 5
+mulv va10 ov10
+setv va11 rand 4 8
+mulv va11 ov11
+doif va11 > 0
+	setv va11 0
+endi
+velo va10 va11
+frat 1
+doif ov11 > 0
+	anim [0 1 2 3 3 3 4 5]
+else
+	anim [0 1 2 3 3 3 3 3 3 3 3 3 3 3 3 3 4 5]
+endi
+over
+retn
+
+
+*************************
+subr xturn
+
+doif ov10 > 0
+	setv ov10 -1
+else
+	setv ov10 1
+endi
+retn
+*************************
+subr yturn
+
+doif ov11 > 0
+	setv ov11 -1
+	fric 9
+else
+	setv ov11 1
+	fric 90
+endi
+retn 
+*************************
+subr die
+inst
+base 0
+pose 15
+setv ov07 1000
+setv ov10 0
+setv ov11 0
+accg 1
+aero 4
+wait rand 20 200
+doif carr = null
+	inst
+	setv va00 posl
+	setv va01 post
+	subv va01 4
+	new: simp 2 10 31933 "ngbubble" 4 16 600
+		attr 192
+		fric 90
+		accg 1
+		elas 0
+		perm 60
+		setv ov02 3
+		doif tmvt va00 va01 = 1
+			mvsf va00 va01
+			tick rand 30 100
+		else
+			kill targ
+		endi
+	kill ownr
+endi
+retn
+	
+endm
+
+scrp 2 18 31940 12
+	lock
+	snde "chwp"
+	stim writ from 80 2
+	kill ownr 
+endm
+*********
+*remoove scripts
+rscr
+enum 2 17 31940 kill targ next 
+enum 2 14 31940 kill targ next 
+enum 2 18 31940 kill targ next 
+scrx 2 17 31940 1 scrx 2 17 31940 2 scrx 2 17 31940 3 scrx 2 17 31940 9 scrx 2 17 31940 101 scrx 2 14 31940 1 scrx 2 14 31940 2 scrx 2 14 31940 3 scrx 2 14 31940 4 scrx 2 14 31940 5 scrx 2 14 31940 6 scrx 2 14 31940 9 scrx 2 14 31940 12 scrx 2 14 31940 101 scrx 2 18 31940 9 scrx 2 18 31940 12
+endm

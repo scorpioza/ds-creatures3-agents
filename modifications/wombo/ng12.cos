@@ -1,0 +1,262 @@
+***********
+*jumper
+***********
+*2 4 31930
+*2 21 31930
+*ov00 0=growing 1=ready to jump
+
+
+	
+******************************
+*tickscript for the jumper
+scrp 2 4 31930 9
+
+
+
+anim [0 0 1 1 2 2 3 3 4 4 5 5]
+over
+setv va00 posl
+setv va01 post
+subv va00 8
+addv va01 32
+seta va02 ownr
+new: vhcl 2 21 31930 "ngjumper" 1 7 2998
+			bhvr 11
+
+			attr 512
+			cabn 8 -100 100 22
+			cabw 3
+			cabp -99
+			elas 0
+			accg 5
+			aero 0
+			fric 0
+			perm 100
+			seta ov16 va02
+			pat: dull 1 "ngjumper" 6 -7 -22 -100
+			part 0
+			pat: dull 2 "ngjumper" 7 0 0 1
+			part 0
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				kill targ
+			endi
+targ ownr
+pose 0
+frat rand 100 250
+tick 0
+
+endm
+	
+
+*************
+*plant pushcript
+scrp 2 4 31930 1
+
+*friendly plant stim
+stim writ from 84 2
+endm
+
+
+****************
+*the cabin
+****************
+*cabin tickscript
+scrp 2 21 31930 9
+plne 600
+doif velx < 0
+	perm 90
+	setv ov00 4
+endi 
+doif ov00 = 0
+	doif vely > 0
+		setv  ov00 1
+	endi
+elif ov00 = 1
+	doif velx = 0
+		perm 90
+		setv ov00 4
+	endi
+	doif vely < 0 
+		velo 80 -2
+		setv ov00 2
+	endi
+elif ov00 = 2 
+	doif velx = 0
+		perm 90
+		setv ov00 4
+	elif vely > 0
+		setv ov00 3
+	endi
+elif ov00 = 3 and vely < 0
+	setv ov00 4
+elif ov00 = 4 
+	epas 4 0 0
+		stim writ targ 97 4
+		zomb 0
+	next 
+	addv ov01 rand 1 3
+	fric ov01
+	doif ov01 > 40
+		fric 20
+		setv va11 0
+		epas 4 0 0
+			doif tmvf posl posy = 1 or tmvf posl posb = 1 or tmvf posx posb = 1 or tmvf posx posy = 1 
+				setv va11 1
+			else
+				setv va11 0
+			endi
+		next
+		doif va11 = 1
+			dpas 0 0 0
+		else
+			setv va00 game "ng2x"
+			addv va00 600
+			setv va01 game "ng2y"
+			addv va00 400
+			mvsf va00 va01
+			dpas 0 0 0
+		endi
+		inst
+		snde "nexp"
+		reps 12
+		setv va00 posx
+		addv va00 rand -20 20
+		setv va01 posy
+		addv va01 rand -20 20
+		new: simp 2 10 31933 "ngjumper" 3 8 4002
+			attr 195
+			bhvr 48
+			elas 12
+			accg 2
+			fric 80
+			perm 60
+			pose 0
+			perm 60
+			setv ov02 2
+			tick rand 300 1000
+			velo rand -30 30 rand -40 0
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				kill targ
+			endi 
+		targ ownr
+		repe
+		doif ov16 ne null
+			targ ov16
+			doif tick = 0
+				tick rand 100 1000
+			endi
+		endi
+		kill ownr
+	endi
+endi
+
+endm
+
+*****************
+*cabin push , pull, hit
+scrp 2 21 31930 1
+inst
+bhvr 0
+*pick up norn
+doif from ne pntr
+	targ from
+	doif targ ne null
+		zomb 1
+		pose 22
+		dirn 1
+		wait 5
+		doif targ ne null 
+			inst
+			spas ownr targ
+			stim writ from 97 5
+			*zomb 0
+			slow
+		endi
+	endi
+endi
+targ ownr
+doif ov16 ne null
+	targ ov16
+	tick rand 100 1000
+endi
+targ ownr
+doif ov00 = 0
+	snde "nboi"
+	velo 20 -70
+	attr 706
+endi
+endm
+
+
+scrp 2 21 31930 2
+inst
+bhvr 0
+*pick up norn
+doif from ne pntr
+	targ from
+	doif targ ne null
+		zomb 1
+		pose 22
+		dirn 1
+		wait 5
+		doif targ ne null 
+			inst
+			spas ownr targ
+			stim writ from 97 5
+			*zomb 0
+			slow 
+		endi
+	endi
+endi
+targ ownr
+doif ov16 ne null
+	targ ov16
+	tick rand 100 1000
+endi
+targ ownr 
+*give it velocity
+doif ov00 = 0
+	snde "nboi"
+	velo 20 -70
+	attr 706
+endi 
+endm
+
+scrp 2 21 31930 3
+
+inst
+stim writ from 97 1
+epas 4 0 0
+	zomb 0
+next
+setv ov00 4
+setv ov01 41
+tick 1
+
+endm
+
+
+scrp 2 21 31930 6 
+
+doif wall = down
+	snde "ndrp"
+	doif ov00 = 0
+		wait 10
+		tick 1
+	endi
+endi
+endm
+
+
+**************
+*remoove scripts
+
+rscr
+enum 2 4 31930 kill targ next
+enum 2 21 31930 kill targ next
+
+scrx 2 4 31930 1 scrx 2 4 31930 9 scrx 2 21 31930 1 scrx 2 21 31930 2 scrx 2 21 31930 3 scrx 2 21 31935 6 scrx 2 21 31935 9

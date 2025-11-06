@@ -1,0 +1,416 @@
+***************
+**********Wombo FOR C2 Plants
+*wombo 3 8 61941
+
+*part 1 on-off, 2 select, 3 head, 4 feet fr. 5 feet back, 6 tail
+
+*tickscript
+*ov00 1 looking 2or4 ready 3 going 
+*ov01 0 = ? 1-seeding 2-60 going
+*ov88 1-sleping 2 go turn 3 go sleep
+*ov05 - which seed is selected
+*ov10 -1 left 1 right
+scrp 3 8 61941 9
+
+doif ov88 = 2 and ov00 ne 1
+	gsub turn
+elif ov88 = 1
+	stop
+endi
+
+doif ov00 = 2 or ov00 = 4
+	gsub sleep
+	gsub lookatme
+	doif ov00 = 2
+		setv ov00 1
+	else
+		setv ov00 5
+	endi
+	pat: kill 6
+	tick rand 30 90
+
+elif ov00 = 6
+	part 3
+	doif pose ne 2
+		gsub sleep
+		gsub lookatme
+	endi
+	tick 0	
+elif ov00 = 1 or ov00 = 5
+	gsub turnaway
+	gsub sleep
+	pat: kill 6
+	doif ov00 = 1
+		gsub seed
+		setv ov00 4
+	else
+		setv ov00 3
+		fric 25
+	endi
+	tick 3
+elif ov00 = 3
+	doif carr = null
+		gsub sleep 
+
+		doif ov01 = 0
+			setv va00 posx
+			subv va00 ov80
+			doif va00 > -20 and va00 < 20
+				gsub turn
+			endi
+			setv ov80 posx
+			doif fall = 0
+			part 4
+			anim [0 0 1 1 2 2 1 1 255]
+			part 5
+			anim [0 0 1 1 2 2 1 1 255]
+			part 0
+			velo ov10 -4
+			addv ov01 2
+			endi
+		elif ov01 > 0 and ov01 < 60
+			addv ov01 rand 1 3
+			setv va05 ov10
+			mulv va05 rand 4 7
+			velo va05 -2
+		elif ov01 >= 30
+			part 4
+			anim []
+			part 5
+			anim []
+			part 0
+			setv ov00 2
+			fric 80
+			setv ov01 0
+		endi
+	endi
+	tick 2
+endi
+	
+subr lookatme 
+	part 3
+	anim [0 1 2]
+	over
+	part 0
+retn
+
+subr turnaway
+	part 3
+	anim [2 1 0]
+	over
+	part 0
+retn
+
+subr seed
+	*seelayer
+
+	doif ov10 > 0
+		pat: dull 6 "ngwombo" 27 -14 14 0
+	else
+		pat: dull 6 "ngwombo" 31 66 14 0
+	endi
+	part 6
+	anim [0 1 2 3]
+	over
+	frat 5
+	anim [2 3 2 3 2 3 2 3]
+	over
+	part 0
+	gsub newseed
+	wait rand 5 10
+	part 6
+	frat 3
+	anim [2 1 0]
+	over
+	pat: kill 6 
+	part 0
+
+retn
+
+subr sleep
+	doif ov88 = 3
+		inst
+		part 3
+		pose 3
+		part 4
+		anim []
+		part 5
+		anim []
+		part 0
+		setv ov00 2
+		pat: kill 6
+		setv ov88 1
+		tick 0
+		slow
+		stop
+	endi
+retn
+
+subr turn
+	inst
+	part 3
+	frat 2
+	anim [0 1 2]
+	over
+	inst
+	lock 
+	doif ov10 > 0 
+		pat: dull 8 "ngwombo" 6 -19 -8 3
+	endi
+	part 0
+	pat: dull 7 "ngwombo" 2 -19 -8 2
+	part 7
+	doif ov10 > 0 
+		pose 4
+		pat: kill 8
+		part 7
+	endi
+	part 0
+	pose 1
+	part 7
+	frat 2
+	doif ov10 < 0 
+		anim [0 1 2 3 4]
+	else
+		anim [4 3 2 1 0]
+
+	endi
+	pat: kill 3
+	pat: kill 4
+	pat: kill 5
+	slow
+	over
+	inst
+	doif ov10 < 0 
+		*head r
+		pat: dull 3 "ngwombo" 11 63 -1 0 
+		part 3 pose 2
+		*feet fr-r
+		pat: dull 4 "ngwombo" 21 47 13 1
+		*feet back- r
+		pat: dull 5 "ngwombo" 24 -3 13 1
+		setv ov10 1
+	else
+		*head l
+		pat: dull 3 "ngwombo" 7 -20 -1 0 
+		part 3 pose 2
+		*feet frt- l
+		pat: dull 4 "ngwombo" 15 -3 13 1
+		*feet back - l
+		pat: dull 5 "ngwombo" 18 47 13 1
+		setv ov10 -1
+	endi
+	part 0
+	pose 0
+	pat: kill 7
+	part 3
+	frat 2
+	anim [2 1 0]
+	over
+	doif ov00 = 3
+		part 4
+		anim [0 0 1 1 2 2 1 1 255]
+		part 5
+		anim [0 0 1 1 2 2 1 1 255]
+		part 0
+	endi
+	setv ov88 0
+	slow
+	unlk
+retn
+subr newseed
+setv va00 posl
+doif ov10 > 0
+	subv va00 10
+else
+	addv va00 80
+endi
+setv va01 posy
+addv va01 20
+snde "ndrp"
+doif ov05 = 1
+	setv ov99 rand 0 2
+endi
+doif ov99 = 0
+* C2 triff plant
+	new: simp 2 3 50205 "moe_C2toDS_triff" 9 8 rand 1000 3000
+		setv ov00 0
+
+elif ov99 = 1
+* С2 pear
+		setv va02 plne
+		subv va02 1
+	new: simp 2 3 50204 "moe_C2toDS_pear" 15 8 va02
+		setv ov00 0
+		anim [0 1 2 3 4 5 6 7 8 0 255]
+
+elif ov99 = 2
+*C2 nut
+		setv va02 plne
+		addv va02 1
+	new: simp 2 3 50202 "moe_C2toDS_nuts" 25 31 va02
+		pose 12
+		mira rand 0 1
+
+elif ov99 = 3
+*C2 trumpet
+	new: simp 2 3 50203 "moe_C2toDS_trumpet" 10 65 rand 500 2500
+		setv ov01 0
+
+	
+elif ov99 = 4
+* C2 carrots
+		new: simp 2 3 50200 "moe_C2toDS_carrots" 9 10 rand 1001 5000
+
+elif ov99 = 5
+*C2 potato
+		new: simp 2 3 50201 "moe_C2toDS_potato" 9 0 1001
+
+elif ov99 = 6
+*C2 aubergine
+	setv va02 plne
+		new: simp 2 11 50217 "moe_C2toDS_aubergine" 6 8 va02
+	mira rand 0 1
+	pose 0
+
+elif ov99 = 7
+*C2 Arnica Berries
+	new: simp 2 8 50207 "moe_C2toDS_berries" 0 8 8001
+
+elif ov99 = 8
+*C2 Tend
+	new: simp 2 23 50209 "moe_C2toDS_tend" 6 0 5000
+	setv va00 0
+
+endi
+		attr 195
+		bhvr 48
+		elas 1
+		fric 100
+		accg 2
+		perm 60
+		mvsf va00 va01
+
+targ ownr
+retn
+
+endm
+*push
+scrp 3 8 61941 1
+velo rand -10 10 -5
+doif from ne pntr
+	stim writ from 90 1
+endi
+endm
+*pull
+scrp 3 8 61941 2
+velo rand -10 10 -5
+doif from ne pntr
+	stim writ from 90 1
+endi
+endm 
+*hit
+scrp 3 8 61941 3
+velo rand -10 10 -5
+doif from ne pntr
+	stim writ from 92 1
+endi
+endm 
+*pickup
+
+scrp 3 8 61941 4
+
+doif ov88 = 0
+	setv ov00 6
+	part 4
+	anim []
+	part 5
+	anim []
+	part 0
+	tick 1
+endi
+doif from ne pntr
+	stim writ from 90 1
+endi 
+endm 
+
+*drop
+
+scrp 3 8 61941 5
+doif ov88 = 0
+	setv ov00 1
+	tick 15
+	fric 100
+	setv ov00 2
+	setv ov01 0
+
+	setv ov88 0
+endi 
+fric 100
+
+endm 
+
+*collision
+
+scrp 3 8 61941 6
+doif wall = left or wall = rght
+	setv ov88 2
+elif wall = down
+	snde "ndro"
+endi
+endm
+
+scrp 3 8 61941 1000
+inst 
+doif plne < 3001
+	plne 3001
+endi 
+lock 
+doif ov88 ne 2
+
+	part 4
+	anim []
+	part 5
+	anim []
+	doif ov88 ne 1 and ov88 ne 3
+		part 1
+		pose 1
+		setv ov88 3
+		fric 100
+		setv ov01 0
+		doif ov00 = 3
+			setv ov00 2
+		endi
+		tick 5
+		
+	elif ov88 = 1
+		part 1
+		pose 0
+		setv ov00 2
+		setv ov88 0
+		tick 1
+	endi
+	part 0
+endi
+endm
+
+scrp 3 8 61941 1001
+inst 
+lock 
+doif ov88 ne 2
+
+	addv ov99 1
+	doif ov99 = 9 and ov05 = 0
+		setv ov99 9
+		setv ov05 1
+	elif ov05 = 1
+		setv ov99 0
+		setv ov05 0
+	endi
+	
+	part 2
+	pose ov99
+	part 0
+endi
+endm
+

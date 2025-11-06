@@ -1,0 +1,3755 @@
+****************
+**********weeder 
+*weeder 3 8 31940
+*claud 2 20 31940
+
+
+
+********weeder push
+scrp 3 8 31940 1
+lock
+
+doif from = pntr
+	doif plne < 1001
+		plne 1001
+	endi
+	doif ov00 >= 1
+		setv ov00 0
+		tick 1
+		
+	elif ov00 = 0
+		doif ov10 = -1
+			base 0
+		else
+			base 30
+		endi
+		anim [0 1 2]
+		over
+		setv ov00 1
+		setv ov05 0
+		tick 20
+	endi
+else
+	velo rand -10 10 -4
+	stim writ from 90 1
+	tick 1
+endi
+endm
+
+********weeder pull
+scrp 3 8 31940 2
+stim writ from 90 1
+tick 1
+endm
+
+********weeder hit
+scrp 3 8 31940 3
+
+stim writ from 92 1
+tick 1
+endm
+
+
+********weeder pickup
+scrp 3 8 31940 4
+tick 0
+
+stim writ from 91 1
+endm
+********weeder drop
+scrp 3 8 31940 5
+
+setv ov00 0
+tick 20
+
+endm
+********weeder collision
+scrp 3 8 31940 6
+inst
+lock
+doif wall = down
+	snde "ndro"
+endi
+doif ov00 = 1
+	doif wall = down and ov05 = 1
+		setv ov05 2
+	elif wall = left and ov10 = -1
+		setv ov05 3
+	elif wall = rght and ov10 = 1
+		setv ov05 3
+	endi
+	pose 24
+tick 1
+endi
+endm
+
+********weeder tick
+scrp 3 8 31940 9
+inst
+gsub base
+doif ov00 >= 1
+
+	doif ov05 = 0
+		anim [2 1 0 7 8 9 10]
+		over
+		snde "npoi"
+		setv va02 posl
+		doif ov10 = -1
+			setv va00 posl
+			subv va00 60
+		else
+			setv va00 posl
+			addv va00 60
+		endi
+		setv va01 post
+		subv va01 40
+		New: simp 2 20 31940 "ngweeder" 8 55 7000
+			bhvr 0
+			attr 0
+			tick 1
+			mvto va00 va01
+
+		targ ownr
+		anim [11 12 13 0 1 2]
+		over
+		setv ov05 1
+	elif ov05 = 1
+		setv va03 rand 10 20
+		mulv va03 ov10
+		setv va04 rand -8 -15
+		anim [2 1 0 14 15 16 17 18]
+		over
+		snde "nboi"
+		velo va03 va04
+		anim [19 20 21 22 23]
+	elif ov05 = 2
+		doif ov00 = 2
+			setv ov00 0
+			pose 6
+			tick 0
+		elif ov00 = 1
+			anim [24 0 1 2]
+			over
+		endi
+		setv ov05 0
+	elif ov05 = 3
+		lock
+		inst
+		base 0
+		doif ov10 = -1
+			anim [25 26 27 28 29]
+			over
+			setv ov10 1
+		else
+			anim [29 28 27 26 25]
+			over
+			setv ov10 -1
+
+		endi
+		slow
+		gsub base
+		doif ov00 = 2
+			setv ov00 0
+			pose 6
+			tick 0
+		elif ov00 = 1
+			anim [0 1 2]
+			over
+		endi
+		setv ov05 0
+
+	endi
+	tick rand 40 70
+else
+	anim [3 4 5 6]
+	over
+	tick 0
+endi
+subr base		
+doif ov10 = -1
+	base 0
+else
+	base 30
+endi
+retn
+endm
+********* Poisoncloud false targ
+scrp 2 20 31940 255
+kill ownr
+endm
+********* Poisoncloud tick
+scrp 2 20 31940 9
+velo rand -1 1 rand -1 1
+
+anim [0 1 2 3 4 5]
+over
+inst
+setv va00 posl
+setv va02 posr
+*pots
+etch 2 4 31900
+	pose 1
+	setv ov66 66
+next 
+etch 2 4 31901
+	pose 1
+	setv ov66 66
+next
+etch 2 4 31908
+	pose 1
+	setv ov66 66
+next
+etch 2 7 31902
+	pose 1
+next 
+etch 2 5 31900
+	setv ov66 66
+next
+etch 2 5 31905
+	setv ov66 66
+next
+etch 2 4 31902
+	setv ov66 66
+next 
+etch 2 4 31904
+	setv ov66 66
+next 
+*bromse
+etch 2 4 31537
+	pose 21
+	setv ov66 66
+next
+*mannilow
+etch 2 4 31940
+	pose 19
+	setv ov66 66
+next
+*tomecko
+etch 2 8 31931
+	accg 2
+	tick 2
+next
+etch 2 4 31931
+	setv ov00 1
+	setv ov66 66
+	tick 1
+next
+etch 2 15 31931
+	setv ov01 2000
+	tick 1
+next
+*rainbow
+etch 2 4 31938
+	part 0
+	doif pose < 6
+		kill targ
+	endi 
+	doif ov05 = 1
+		addv ov99 1
+	endi
+	doif ov05 < 5
+		setv ov05 5
+		tick 1
+	endi
+	setv ov66 66
+next
+*weed
+etch 2 6 31940
+	doif ov00 = 2 or pose = 11
+		setv ov00 5
+		pose 12
+		tick rand 100 300
+	*if having been big - big hay
+	elif ov00 = 3 or ov00 = 4
+		setv ov00 6
+		pose 13
+		tick rand 100 300
+	endi
+next
+*tuba
+etch 2 11 8
+	doif posx > va00 and posx < va02 and ov66 ne 66
+		kill targ
+	endi 
+next 
+*tinydaf
+etch 2 4 31502
+	doif pose > 6 and  posx > va00 and posx < va02
+		kill targ
+	else
+		setv ov66 66
+	endi
+next
+*thorns
+etch 2 5 31936
+doif pose > 1
+	inst
+	setv va10 posl
+	setv va11 post
+	kill targ
+	new: simp 2 10 31933 "ngthornsmall" 3 12 1000
+			attr 192
+			bhvr 48
+			elas 0
+			accg 1
+			fric 100
+			perm 60
+			setv ov02 2
+			tick rand 100 500
+			mvsf va10 va11
+			
+			
+else
+	kill targ
+endi
+next
+etch  2 5 31937 
+
+	setv ov00 4
+	setv ov01 31
+	tick 1
+	setv ov66 66
+next		
+*trasher
+seta va05 null
+etch 2 5 31933
+	doif ov00 > 0 and ov00 < 3
+		doif ov00 = 2 or ov00 = 3
+			seta va05 targ
+			part 2
+			
+			doif pose > 4
+				setv va00 posl
+				setv va01 post			
+				new: simp 2 10 31933 "ngtrasher" 12 35 1000
+					bhvr 48
+					attr 194
+					elas 8
+					fric 90 
+					accg 1
+					setv ov02 11
+					tick rand 70 300
+					doif tmvt va00 va01 = 1
+						mvsf va00 va01
+						velo rand -10 10 rand -5 0
+					else
+						kill targ
+					endi
+				doif va05 ne null
+					targ va05
+				else
+					kill ownr
+				endi
+			endi
+			pat: kill 2
+		endi
+		part 0
+		pose 11
+		setv ov00 4
+	setv ov66 66
+	endi	
+next	
+*flower
+etch 2 4 31933
+	doif pose > 3
+	inst
+	setv va10 posl
+	setv va11 post
+	setv va70 ov70
+	divv va70 2
+	subv va70 1
+	addv va11 va70	
+	new: simp 2 10 31933 ov72 4 22 400
+		attr 195
+		bhvr 48
+		elas 0
+		accg 5
+		fric 100
+		tick rand 100 800
+		setv ov02 3
+		doif tmvt va10 va11 = 1
+			mvsf va10 va11
+		else
+			kill targ
+		endi 
+	slow
+	endi
+next
+*bubblebee
+etch  2 14 31940
+	setv ov66 66
+	doif ov00 ne 4
+		inst
+		snde "bblb"
+		setv ov00 4
+		base 0
+		pose 15
+		tick 1
+	endi
+next
+*bee
+etch 2 5 31934
+	setv ov00 3
+	setv ov66 66
+	doif pose = 0 or pose = 7
+		kill targ
+	elif pose > 0 and pose < 3
+		pose 7
+		pat: kill 1
+	elif pose >= 3 and pose < 7
+		pose 6
+		pat: kill 1
+	endi
+	setv ov05 2
+next
+etch 2 13 31934
+	accg 1
+	setv ov00 5
+	setv ov66 66
+	tick 1
+next
+*stinger
+etch 2 14 8
+	accg 1
+	doif carr = null
+		doif ov10 = -1
+			frat 2
+			anim [41 42 43 44 45 46 47 48 255]
+		elif ov10 = 1
+			frat 2
+			anim [49 50 51 52 53 54 55 56 255]
+		endi
+
+		accg 3
+	endi
+	setv ov00 5
+	setv ov66 66
+	tick 1
+next
+*bramboo
+etch 2 4 13
+	part name "sections"
+	inst
+	anim []
+	setv ov05 11 
+	setv ov66 66
+	tick 1
+next
+*lugerleaf
+
+etch 2 4 31935
+	inst
+	setv va10 posl
+	addv va10 3
+	setv va11 post
+	addv va11 11
+	kill targ
+	new: simp 2 10 31933 "ngluger2" 6 11 999
+			attr 192
+			bhvr 16
+			elas 0
+			aero 0
+			fric 100
+			accg 1
+			perm 60
+			pose 0
+			setv ov02 5
+			tick rand 300 1600
+			doif tmvt va10 va11 = 1
+				mvto va10 va11
+			else
+				kill targ
+			endi
+next
+targ ownr
+*jumper
+etch 2 4 31930
+	setv ov66 66
+next
+*rubadubbatree
+etch 2 4 31934
+	doif pose = 0
+		kill targ
+	endi
+next 
+etch 2 4 31932
+	doif ov00 < 3
+		kill targ
+	endi
+next 
+etch 2 4 0
+	doif posx > va00 and posx < va02 and ov66 ne 66
+		
+		kill targ
+	endi
+next
+etch 2 5 0
+	doif posx > va00 and posx < va02 and ov66 ne 66
+		kill targ
+	endi 
+next
+etch 2 13 0
+	doif posx > va00 and posx < va02 and ov66 ne 66
+		kill targ
+	endi 
+next 
+etch 2 14 0
+	doif posx > va00 and posx < va02 and ov66 ne 66
+		kill targ
+	endi 
+next 
+etch 4 0 0
+	doif targ ne null
+		chem 151 -.31
+		chem 150 -.39
+		chem 149 -.27
+		chem 10 .31
+		chem 5 .39
+		chem 12 .27
+		* vitamine E
+		chem 98 .35
+		* vitamine C
+		chem 99 .35
+		*EDTA, cure the heavy metals biatch! D:
+		chem 95 .15
+		* Arnica - Cures glycotoxin poisoning
+		chem 97 .35
+	endi
+next
+anim [6 7 0]
+over
+kill ownr
+endm
+
+
+
+
+
+***************
+**********Wombo 
+*wombo 3 8 31941
+
+*part 1 on-off, 2 select, 3 head, 4 feet fr. 5 feet back, 6 tail
+
+*tickscript
+*ov00 1 looking 2or4 ready 3 going 
+*ov01 0 = ? 1-seeding 2-60 going
+*ov88 1-sleping 2 go turn 3 go sleep
+*ov05 - which seed is selected
+*ov10 -1 left 1 right
+scrp 3 8 31941 9
+
+doif ov88 = 2 and ov00 ne 1
+	gsub turn
+elif ov88 = 1
+	stop
+endi
+
+doif ov00 = 2 or ov00 = 4
+	gsub sleep
+	gsub lookatme
+	doif ov00 = 2
+		setv ov00 1
+	else
+		setv ov00 5
+	endi
+	pat: kill 6
+	tick rand 30 90
+
+elif ov00 = 6
+	part 3
+	doif pose ne 2
+		gsub sleep
+		gsub lookatme
+	endi
+	tick 0	
+elif ov00 = 1 or ov00 = 5
+	gsub turnaway
+	gsub sleep
+	pat: kill 6
+	doif ov00 = 1
+		gsub seed
+		setv ov00 4
+	else
+		setv ov00 3
+		fric 25
+	endi
+	tick 3
+elif ov00 = 3
+	doif carr = null
+		gsub sleep 
+
+		doif ov01 = 0
+			setv va00 posx
+			subv va00 ov80
+			doif va00 > -20 and va00 < 20
+				gsub turn
+			endi
+			setv ov80 posx
+			doif fall = 0
+			part 4
+			anim [0 0 1 1 2 2 1 1 255]
+			part 5
+			anim [0 0 1 1 2 2 1 1 255]
+			part 0
+			velo ov10 -4
+			addv ov01 2
+			endi
+		elif ov01 > 0 and ov01 < 60
+			addv ov01 rand 1 3
+			setv va05 ov10
+			mulv va05 rand 4 7
+			velo va05 -2
+		elif ov01 >= 30
+			part 4
+			anim []
+			part 5
+			anim []
+			part 0
+			setv ov00 2
+			fric 80
+			setv ov01 0
+		endi
+	endi
+	tick 2
+endi
+	
+subr lookatme 
+	part 3
+	anim [0 1 2]
+	over
+	part 0
+retn
+
+subr turnaway
+	part 3
+	anim [2 1 0]
+	over
+	part 0
+retn
+
+subr seed
+	*seelayer
+
+	doif ov10 > 0
+		pat: dull 6 "ngwombo" 27 -14 14 0
+	else
+		pat: dull 6 "ngwombo" 31 66 14 0
+	endi
+	part 6
+	anim [0 1 2 3]
+	over
+	frat 5
+	anim [2 3 2 3 2 3 2 3]
+	over
+	part 0
+	gsub newseed
+	wait rand 5 10
+	part 6
+	frat 3
+	anim [2 1 0]
+	over
+	pat: kill 6 
+	part 0
+
+retn
+
+subr sleep
+	doif ov88 = 3
+		inst
+		part 3
+		pose 3
+		part 4
+		anim []
+		part 5
+		anim []
+		part 0
+		setv ov00 2
+		pat: kill 6
+		setv ov88 1
+		tick 0
+		slow
+		stop
+	endi
+retn
+
+subr turn
+	inst
+	part 3
+	frat 2
+	anim [0 1 2]
+	over
+	inst
+	lock 
+	doif ov10 > 0 
+		pat: dull 8 "ngwombo" 6 -19 -8 3
+	endi
+	part 0
+	pat: dull 7 "ngwombo" 2 -19 -8 2
+	part 7
+	doif ov10 > 0 
+		pose 4
+		pat: kill 8
+		part 7
+	endi
+	part 0
+	pose 1
+	part 7
+	frat 2
+	doif ov10 < 0 
+		anim [0 1 2 3 4]
+	else
+		anim [4 3 2 1 0]
+
+	endi
+	pat: kill 3
+	pat: kill 4
+	pat: kill 5
+	slow
+	over
+	inst
+	doif ov10 < 0 
+		*head r
+		pat: dull 3 "ngwombo" 11 63 -1 0 
+		part 3 pose 2
+		*feet fr-r
+		pat: dull 4 "ngwombo" 21 47 13 1
+		*feet back- r
+		pat: dull 5 "ngwombo" 24 -3 13 1
+		setv ov10 1
+	else
+		*head l
+		pat: dull 3 "ngwombo" 7 -20 -1 0 
+		part 3 pose 2
+		*feet frt- l
+		pat: dull 4 "ngwombo" 15 -3 13 1
+		*feet back - l
+		pat: dull 5 "ngwombo" 18 47 13 1
+		setv ov10 -1
+	endi
+	part 0
+	pose 0
+	pat: kill 7
+	part 3
+	frat 2
+	anim [2 1 0]
+	over
+	doif ov00 = 3
+		part 4
+		anim [0 0 1 1 2 2 1 1 255]
+		part 5
+		anim [0 0 1 1 2 2 1 1 255]
+		part 0
+	endi
+	setv ov88 0
+	slow
+	unlk
+retn
+subr newseed
+setv va00 posl
+doif ov10 > 0
+	subv va00 10
+else
+	addv va00 80
+endi
+setv va01 posy
+addv va01 20
+snde "ndrp"
+doif ov05 = 1
+	setv ov99 rand 0 15
+endi
+doif ov99 = 0
+*flower1
+	new: simp 2 3 31933 "ngflo1" 1 30 1000
+		setv ov70 67
+		setv ov71 34
+		sets ov72 "ngflo1"
+		setv ov73 1
+		tick rand 30 100
+
+
+elif ov99 = 1
+*flower2
+	new: simp 2 3 31933 "ngflo2" 1 26 1000
+		setv ov70 39
+		setv ov71 20
+		sets ov72 "ngflo2"
+		setv ov73 0
+		tick rand 30 100
+
+elif ov99 = 2
+*flower4
+	new: simp 2 3 31933 "ngflo4" 1 26 1000
+		setv ov70 70
+		setv ov71 11
+		sets ov72 "ngflo4"
+		setv ov73 0
+		tick rand 30 100
+elif ov99 = 3
+*flower5
+new: simp 2 3 31933 "ngflo5" 1 30 1000
+		setv ov70 68
+		setv ov71 36
+		sets ov72 "ngflo5"
+		setv ov73 1
+		tick rand 30 100
+
+	
+elif ov99 = 4
+*flower6
+new: simp 2 3 31933 "ngflo6" 1 30 1000
+		setv ov70 56
+		setv ov71 19
+		sets ov72 "ngflo6"
+		setv ov73 1
+		tick rand 30 100
+elif ov99 = 5
+*mannilowberry
+	new: simp 2 3 31940 "hberrym" 3 26 3000
+		tick rand 30 100
+elif ov99 = 6
+*tomecko
+	new: simp 2 18 31931 "ngtomecko" 1 49 500
+		tick rand 300 600
+
+elif ov99 = 7
+*tribble
+	setv va04 rand 0 2
+	doif va04 = 1
+		setv va05 16
+	elif va04 = 2
+		setv va05 32
+	endi
+
+	new: simp 2 18 31932 "ngtribblenest" 2 4 500
+			setv ov66 67
+			setv ov05 va05
+			tick rand 300 1200
+
+elif ov99 = 8
+*bubblebee
+New: simp 2 18 31940 "ngbubble" 1 24 3000
+	tick rand 100 600
+	setv ov07 1
+
+elif ov99 = 9
+*bee
+	new: simp 2 7 31934 "ngbee" 16 12 1000
+		setv ov10 1
+		setv ov11 -1
+		setv ov00 1
+		pose 7
+		tick 1
+elif ov99 = 10
+*lugerleaf
+	new: simp 2 13 31935 "ngluger2" 6 17 1000
+			tick rand 10 90
+
+elif ov99 = 11
+*thorns
+	new: simp 2 3 31937 "ngthornsmall" 1 19 1000
+		tick rand 50 100
+		setv ov70 67
+		setv ov71 34
+		setv ov73 1
+elif ov99 = 12
+*trash
+	new: simp 2 3 31934 "ngtrasher" 1 25 500
+		tick rand 70 500
+elif ov99 = 13
+*birdy
+new: simp 2 18 31941 "ngvoggl1" 14 33 999
+		setv ov02 40
+		tick rand 200 300
+		puhl -1 10 30
+elif ov99 = 14
+*butterfly
+	new: simp 2 13 31933 "ngrubbadabba" 10 52 va05
+		pose 7
+		setv ov00 2
+		setv ov66 66
+		seta ov16 null
+		tick rand 200 300
+elif ov99 = 15
+*weed
+	new: simp 2 7 31940 "ngweed" 6 18 3000
+			pose 4
+			setv ov00 5
+			setv ov01 70
+			tick rand 30 100
+elif ov99 = 16
+*fish
+	new: simp 2 15 31937 "htinyfish" 0 0 3000
+		setv ov00 0
+		setv ov99 1	
+		setv ov05 0
+		setv ov10 -1	
+		seta ov16 null	
+		setv ov02 1000
+		setv ov77 20
+		setv ov99 1
+		pose 16
+		tick 1
+elif ov99 = 17
+*bromse
+	new: simp 2 3 31537 "hbromse" 1 28 3000
+		tick rand 30 100
+
+		
+elif ov99 = 18
+*rainbowbamboo
+	new: simp 2 3 31938 "hbamboo" 1 35 1000
+		tick rand 20 60
+		emit 7 .5
+		setv ov40 va88
+endi
+		attr 195
+		bhvr 48
+		elas 1
+		fric 100
+		accg 2
+		perm 60
+		mvsf va00 va01
+
+targ ownr
+retn
+
+endm
+*push
+scrp 3 8 31941 1
+velo rand -10 10 -5
+doif from ne pntr
+	stim writ from 90 1
+endi
+endm
+*pull
+scrp 3 8 31941 2
+velo rand -10 10 -5
+doif from ne pntr
+	stim writ from 90 1
+endi
+endm 
+*hit
+scrp 3 8 31941 3
+velo rand -10 10 -5
+doif from ne pntr
+	stim writ from 92 1
+endi
+endm 
+*pickup
+
+scrp 3 8 31941 4
+
+doif ov88 = 0
+	setv ov00 6
+	part 4
+	anim []
+	part 5
+	anim []
+	part 0
+	tick 1
+endi
+doif from ne pntr
+	stim writ from 90 1
+endi 
+endm 
+
+*drop
+
+scrp 3 8 31941 5
+doif ov88 = 0
+	setv ov00 1
+	tick 15
+	fric 100
+	setv ov00 2
+	setv ov01 0
+
+	setv ov88 0
+endi 
+fric 100
+
+endm 
+
+*collision
+
+scrp 3 8 31941 6
+doif wall = left or wall = rght
+	setv ov88 2
+elif wall = down
+	snde "ndro"
+endi
+endm
+
+scrp 3 8 31941 1000
+inst 
+doif plne < 3001
+	plne 3001
+endi 
+lock 
+doif ov88 ne 2
+
+	part 4
+	anim []
+	part 5
+	anim []
+	doif ov88 ne 1 and ov88 ne 3
+		part 1
+		pose 1
+		setv ov88 3
+		fric 100
+		setv ov01 0
+		doif ov00 = 3
+			setv ov00 2
+		endi
+		tick 5
+		
+	elif ov88 = 1
+		part 1
+		pose 0
+		setv ov00 2
+		setv ov88 0
+		tick 1
+	endi
+	part 0
+endi
+endm
+
+scrp 3 8 31941 1001
+inst 
+lock 
+doif ov88 ne 2
+
+	doif game "ng1" ne 0
+		setv va03 19
+	else
+		setv va03 16
+	endi
+	addv ov99 1
+	doif ov99 = va03 and ov05 = 0
+		setv ov99 19
+		setv ov05 1
+	elif ov05 = 1
+		setv ov99 0
+		setv ov05 0
+	endi
+	
+	part 2
+	pose ov99
+	part 0
+endi
+endm
+
+
+*
+***************************************************
+***************************************************
+***************************************************
+***************************************************
+***************************************************
+***************************************************
+***************************************************
+***************************************************
+*NORNGARDEN 1 Plants
+***************************************************
+***************************************************
+***************************************************
+***************************************************
+
+
+**************************************************
+***********The Bromseplant*************************
+***************************************************
+
+* seed collision
+scrp 2 3 31537 6
+
+doif wall = down
+	snde "dr10"
+endi
+endm
+
+***********		
+****seed eat
+scrp 2 3 31537 12
+
+lock
+snde "chwp"
+stim writ from 77 3
+kill ownr
+endm
+
+***********		
+****seed timer
+scrp 2 3 31537 9
+
+*if not on a soil floor die
+doif rtyp room targ < 5 or rtyp room targ > 7 or carr <> null
+	kill ownr
+endi
+
+*otherwise should be ok to grow
+
+*count how many others you can see
+rnge 500
+setv va99 0
+esee 2 4 31537
+	addv va99 1
+next
+	
+*if there's more than 9 then don't grow	
+doif va99 >= 9
+	kill ownr
+endi
+
+*otherwise grows
+*get the seed position
+setv va01 posl
+subv va01 24
+setv va02 post
+subv va02 35 
+inst	
+new: simp 2 4 31537 "hbromse" 22 0 400
+			bhvr 1
+			attr 192
+			perm 60
+			tick rand 200 600
+			pose 0
+			doif tmvt va01 va02 = 1
+				mvto va01 va02
+			else
+				kill targ
+			endi
+
+		
+*get rid of the seed
+kill ownr
+endm
+
+***********		
+* tick script for the bromsel
+scrp 2 4 31537 9
+
+*if not big enough then grow
+	
+doif pose <= 20
+	setv va00 pose
+	addv va00 1
+	pose va00	
+		
+*add the fruit 	
+endi	
+doif pose = 16
+
+	**count how many others you can see
+	rnge 500
+	setv va99 0
+	esee 2 4 31537
+		addv va99 1
+	next
+	* get the bromse's positions
+	setv va01 posx
+	addv va01 rand -4 4
+	setv va02 post
+	addv va02 rand 2 5
+	*if there's more than 7 then only produce infertile fruit
+	doif va99 >= 7
+		
+		reps 2
+		gsub infertilebromse 
+		addv va02 rand -5 5
+		repe
+	
+	*if there's 2 or less then produce two fertile  seed
+	elif va99 <= 2
+
+		reps 2
+		gsub fertilebromse
+		addv va02 rand -5 5
+		repe
+			
+		*otherwise produce one of each kind
+	else		
+		gsub fertilebromse 
+		addv va02 rand -5 5
+		gsub infertilebromse 
+	
+	endi
+	targ ownr			
+*if it doesnt look good anymore kill it	
+elif pose = 21 
+	
+	wait 300
+	kill ownr
+		
+endi
+subr newfruit
+	inst
+	new: simp 2 8 31537 "hbromse" 2 22 1000
+				bhvr 48
+				attr 195
+				elas 50
+				fric 90
+				accg 5
+				pose 0
+				perm 60
+				setv ov66 66
+				velo rand -2 2 rand -1 -5
+				emit 6 .5
+				tick rand 300 800
+	slow
+retn
+
+subr fertilebromse
+	gsub newfruit
+	doif tmvt va01 va02 = 1
+		mvto va01 va02
+		setv ov00 1
+	else
+		kill targ
+	endi
+
+retn
+subr infertilebromse
+	gsub newfruit
+	doif tmvt va01 va02 = 1
+		mvto va01 va02
+		setv ov00 2
+	else
+		kill targ
+	endi
+retn 
+endm
+
+*************
+*bromse friendly plant pushscript
+scrp 2 4 31537 1
+
+* "friendly plant" stim
+stim writ from 84 1
+endm
+	
+	
+
+************
+* fruit collision
+scrp 2 8 31537 6
+
+doif wall = down
+   snde "dr10"
+endi
+endm
+
+*****************
+*tickscript for the fertile fruit
+scrp 2 8 31537 9
+
+doif pose = 1
+	kill ownr
+	stop
+endi		
+* get the fruits's positions
+setv va00 posl
+setv va01 post
+
+doif carr = null and fall = 0
+	* inject rotting fruit
+	inst
+	new: simp 2 10 31933 "hbromse" 4 24 999
+		attr 195
+		bhvr 48
+		elas 0
+		accg 5
+		fric 100
+		setv ov02 3
+		tick rand 100 500
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			kill targ
+		endi
+	targ ownr
+	slow
+	doif ov00 = 1
+		inst
+		*inject seed		
+		new: simp 2 3 31537 "hbromse" 1 28 1000
+			bhvr 48
+			attr 195
+			elas 30
+			fric 80
+			accg 5
+			perm 50
+			pose 0
+			velo rand -15 15 rand -5 -25
+			tick rand 50 100	
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				kill targ
+			endi
+		slow
+	endi
+			
+	*kills fruit
+	kill ownr
+endi
+endm	
+
+******************
+* eat script for the  fruit
+scrp 2 8 31537 12
+lock
+snde "nmap"
+stim writ from 78 1
+* Increase Vitamin C 
+chem 99 .35
+
+
+doif ov00 = 1
+	* get the fruits's positions
+	setv va00 posl
+	setv va01 post 
+	inst
+	*inject seed		
+	new: simp 2 3 31537 "hbromse" 1 28 1000
+		bhvr 48
+		attr 195
+		elas 30
+		fric 50
+		accg 5
+		perm 50
+		pose 0
+		velo rand -15 15 rand -5 -25
+		tick rand 50 100
+		mvsf va00 va01
+	targ ownr
+endi
+doif pose = 0
+	pose 1
+else
+	kill ownr
+endi
+endm
+
+
+****************************************************
+****************************************************
+***************************************************
+***********The Mannylowberry***********************
+***************************************************
+
+
+
+
+****seed collision
+scrp 2 3 31940 3
+
+setv va11 rand 0 1
+doif va11 = 1
+	setv velx va00
+	setv vely va01
+	negv va00
+	divv va01 2
+	velo va00 va01
+endi
+
+endm 
+
+****seed eat
+scrp 2 3 31940 12
+	lock
+	snde "chwp"
+	stim writ from 77 3
+	kill ownr
+endm
+
+****seed timer
+
+scrp 2 3 31940 9
+
+doif fall ne 0 or carr ne null
+	anim [0 1 255]
+else
+	doif obst rght < 33
+		velo -8 -4
+		wait 50
+     elif obst left < 33
+		velo 8 -4 
+		wait 50
+	endi
+
+	attr 209
+	pose 2
+	wait 100
+*check if everything is good for growing
+
+	** Get Local Room ID
+	setv va00 grap posx posy
+** check light
+	doif prop va00 1 > .1
+		setv va10 1
+	endi
+	
+** check heat
+	doif prop va00 2 > .2
+		setv va11 1
+	endi
+	
+**check water
+	doif prop va00 3 > .1
+		setv va12 1
+	endi
+** check nutr
+
+	doif prop va00 4 > .2
+		setv va13 1
+	endi
+*count how many others you can see
+
+	rnge 800
+	setv va55 0
+	esee 2 4 31940
+		addv va55 1
+	next
+	
+	*if there's less than 6 then ok
+	
+	doif va55 <= 6
+		setv va14 1
+	
+	endi
+		
+** Check for touching fruit (so we don't get overlaps)
+
+	etch 2 3 31940
+		inst
+		doif targ <> null
+			doif targ <> ownr
+				setv va14 0
+			endi
+		endi
+		slow
+	next
+
+	targ ownr
+
+** Room type check
+	doif rtyp room targ = 5 or rtyp room targ = 6 or rtyp room targ = 7
+		setv va15 1
+	endi
+	
+	doif va10 = 1 and va11 = 1 and va12 = 1 and va13 = 1 and va14 = 1 and va15 = 1
+		setv va40 prop va00 3
+		setv va41 prop va00 4
+		subv va40 .1
+		subv va41 .1
+		prop va00 3 va40
+		prop va00 4 va41
+		** You can grow
+
+		*get the seed position
+	
+		setv va01 posl
+		subv va01 38
+		setv va02 post
+		subv va02 68
+		seta va03 targ
+		inst
+		new: simp 2 4 31940 "hberrym" 21 0 399
+			bhvr 1
+			attr 0
+			perm 60
+			tick rand 500 1200
+			pose 0
+			reps 3
+			doif tmvt va01 va02 = 1
+				mvto va01 va02
+				setv va02 0
+			else
+				subv va02 2
+			endi
+			repe
+
+	endi
+	kill ownr
+endi
+endm
+		
+* tick script for the berryplant
+scrp 2 4 31940 9
+
+*if not big enough then grow
+	
+doif pose < 18
+	setv va00 pose
+	addv va00 1
+	pose va00	
+		
+*add the fruit 	
+elif pose = 18
+	* get  berry's positions
+		setv va01 posl
+		addv va01 8
+		setv va02 post
+		setv va03 posl
+		addv va03 40
+		setv va04 post
+		addv va04 13
+
+		inst	
+		reps 2	
+		new: simp 2 8 31939 "hberrym" 1 21 1000
+				bhvr 48
+				attr 195
+				elas 50
+				fric 90
+				accg 5
+				pose 0
+				perm 60
+				setv ov66 66
+				emit 6 .5
+				tick rand 300 800
+				doif tmvt va01 va02 = 1
+					mvto va01 va02
+				else
+					kill targ
+				endi
+				setv va01 va03
+				setv va02 va04
+		repe
+		targ ownr	
+		pose 19		
+		slow
+elif pose = 19
+	 pose 20 
+elif pose = 20 
+	
+		wait 30
+		kill ownr
+		
+endi
+endm
+	
+*friendly plant pushscript
+	
+scrp 2 4 31940 1
+
+stim writ from 84 1
+
+endm
+	
+
+
+*tickscript for the berry
+scrp 2 8 31939 9
+
+
+doif carr = null and fall = 0
+	* get the fruits's positions
+	setv va00 posl
+	setv va01 post	
+	* inject bad fruit
+		inst
+		new: simp 2 9 31940 "hberrym" 1 22 1000
+		attr 195
+		bhvr 48
+		elas 0
+		accg 5
+		fric 100
+		setv ov66 66
+		tick rand 100 500
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			kill targ
+		endi
+
+		kill ownr
+endi
+endm	
+
+
+* eat script for the berry
+scrp 2 8 31939 12
+
+	lock
+	sndc "nmap"
+	stim writ from 78 1
+	* Increase Vitamin e 
+	chem 98 .35
+
+* get the fruits's positions
+		setv va00 posl
+		setv va01 post 
+
+	*inject seed
+		inst		
+		new: simp 2 3 31940 "hberrym" 3 26 3000
+		attr 194
+		bhvr 48
+		elas 0
+		perm 40
+		aero 1
+		anim [0 1 255]
+		mvsf va00 va01
+		velo rand -10 10 rand -2 -10
+		tick rand 30 50
+	kill ownr
+endm
+
+
+	
+*tickscript for the bad berry
+scrp 2 9 31940 9
+inst
+		
+
+doif carr = null and fall = 0
+	* get the fruits's positions
+	setv va00 posl
+	setv va01 post
+		
+	* inject dettrius
+	inst
+	new: simp 2 10 31933 "hberrym" 3 23 1000
+		attr 195
+		bhvr 48
+		elas 0
+		accg 5
+		fric 100
+		setv ov02 2
+		tick rand 100 500
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			kill ownr
+		endi
+	slow
+	targ ownr	
+	rnge 700
+	setv va99 0
+	esee 2 4 31940
+		addv va99 1
+	next
+	
+	*if there's less than 3 then produce seed
+	setv va98 0
+	doif va99 <= 3
+		setv va98 1
+	elif va99 > 3 and va99 < 6
+		setv va98 rand 0 1
+	else
+		setv va98 0
+	endi
+	doif va98 = 1
+		*inject seed
+		inst		
+		new: simp 2 3 31940 "hberrym" 3 26 3000
+			attr 194
+			bhvr 48
+			elas 0
+			perm 40
+			aero 1
+			anim [0 1 255]
+			velo rand -10 10 rand -2 -10
+			tick rand 30 50
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				kill targ
+			endi	
+	endi
+		
+	*kills fruit
+	kill ownr
+endi
+endm	
+	
+	
+	
+	
+* eat script for the bad berry
+scrp 2 9 31940 12
+
+lock
+sndc "nmap"
+stim writ from 82 1
+* Increase Vitamin e 
+chem 98 .35
+	
+* get the fruits's positions
+setv va00 posl
+setv va01 post 
+inst
+*inject seed				
+		new: simp 2 3 31940 "hberrym" 3 26 1000
+			attr 194
+			bhvr 48
+			emit 7 .2
+			elas 0
+			perm 40
+			aero 1
+			anim [0 1 255]
+			mvsf va00 va01
+			velo rand -10 10 rand -5 -15
+			tick rand 30 50
+
+kill ownr
+endm
+
+
+
+
+****************************************************
+****************************************************
+
+
+
+********************
+***Norngardenweed*******
+**********************
+
+
+*************
+
+
+****************
+
+*push for weed
+scrp 2 6 31940 1
+inst
+etch 2 7 31940
+		kill targ
+next
+targ ownr
+*if having been small -small hay
+doif ov00 = 2 or pose = 11
+	setv ov00 5
+	pose 12
+	tick rand 100 300
+*if having been big - big hay
+elif ov00 = 3 or ov00 = 4
+	setv ov00 6
+	pose 13
+	tick rand 100 300
+endi
+stim writ from 84 0.2
+endm
+
+*****
+scrp 2 6 31940 2
+inst
+etch 2 7 31940
+		kill targ
+next
+targ ownr
+*if having been small -small hay
+doif ov00 = 2 or pose = 11
+	setv ov00 5
+	pose 12
+	tick rand 100 300
+*if having been big - big hay
+elif ov00 = 3 or ov00 = 4
+	setv ov00 6
+	pose 13
+	tick rand 100 300
+endi
+stim writ from 84 0.2
+endm
+
+*************
+
+*pickupscript for weed
+scrp 2 6 31940 4
+inst
+puhl -1 9 15
+attr 194
+elas 0
+accg 5
+etch 2 7 31940
+	kill targ
+next
+targ ownr
+*change pose
+
+*if having been small -small hay
+doif ov00 = 2 or pose = 11
+	setv ov00 5
+	pose 12
+	tick rand 100 300
+*if having been big - big hay
+elif ov00 = 3 or ov00 = 4
+	setv ov00 6
+	pose 13
+	tick rand 100 300
+endi
+endm
+
+*******************
+*tickscript for grassplant
+scrp 2 6 31940 9
+
+*ov00 1= growing 2=small plant 3=middle plant 4=big plant 5=small hay 6=big hay 7=decaying plant
+
+*add one to age but not if small and in winter
+doif ov01 < 3 and game "ngsean" = 3
+	setv ov01 2
+elif ov01 >= 3 and game "ngsean" = 3 and ov01 < 300
+	setv ov01 300
+else
+	addv ov01 1
+endi
+*set the pose according to age
+
+doif ov01 <= 5
+	setv va00 ov01
+	subv va00 1
+	pose va00
+	setv ov00 1
+elif ov01 = 6
+	bhvr 51
+	attr 6
+	clac 0
+	tick rand 70 200
+	setv ov00 2
+	setv va07 rand 0 2
+	addv va07 5
+	pose va07
+	
+elif ov01 = 30
+	setv ov00 3
+	setv va07 rand 0 2
+	addv va07 8
+	pose va07
+	
+elif ov01 = 60 or ov01 = 150 or ov01 = 250
+	doif game "ngsean" ne 3
+		setv ov00 4
+	endi
+elif ov01 = 40 or ov01 = 100 or ov01 = 200
+	doif game "ngsean" ne 3
+		setv ov00 8
+	endi
+
+elif ov01 = 300
+	setv ov00 7
+	pose 11
+	wait 300
+	
+endi
+
+*if growing decide whether to grow in front or back
+doif ov01 = 1 
+	setv va07 0
+	etch 2 6 31940
+		addv va07 1
+	next
+	targ ownr
+	doif va07 > 2
+		kill ownr
+	endi
+	setv va02 rand 1 2
+	attr 16
+	setv va00 posl
+	setv va01 post
+	doif va02 = 1
+		subv va01 2
+		setv va03 398
+	else
+		addv va01 5
+		setv va03 3005
+	endi
+	doif va00 < 0 or va01 < 0
+		kill ownr
+	endi
+	mvto va00 va01
+	plne va03
+endi
+*if grown maybee grow a brother
+doif ov00 = 8
+	setv va00 posl
+	setv va01 post
+	subv va01 10
+	setv va05 ov05
+	setv va04 plne
+	doif ov05 = 1
+		subv va00 rand 16 19
+		setv ov05 2
+	elif ov05 = 2
+		addv va00 rand 16 19
+		setv ov05 1
+	endi
+	inst
+	new: simp 2 6 31940 "ngweed" 18 0 va04
+			bhvr 48
+			attr 194
+			elas 0
+			fric 100
+			pose 0
+			perm 60
+			setv ov00 0
+			setv ov01 0
+			setv ov05 va05
+			tick rand 50 500
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				subv  va01 10
+				doif tmvt va00 va01 = 1
+					mvto va00 va01
+				else 
+					kill targ
+				endi
+			endi
+	targ ownr
+	slow
+	setv ov00 3
+
+	
+*if ready to flower do so
+elif ov00 = 4 
+*check if too many flowers are nearby
+	inst
+	setv va10 posl
+	setv va11 posy
+	
+	addv va10 rand 0 6
+	subv va11 rand 5 9
+	setv va14 plne
+	addv va14 1
+	doif va10 < 0 or va11 < 0
+		kill ownr
+	endi 
+	inst
+	new: simp 2 7 31940 "ngweed" 6 18 va14
+		bhvr 0
+		attr 66
+		pose 0
+		setv ov00 1
+		tick rand 10 30
+		velo 0 0
+		doif tmvt va10 va11 = 1
+			mvto va10 va11
+			setv va12 1
+		else
+			kill targ
+		endi	
+	targ ownr	
+	slow
+	doif va12 = 1
+		setv ov00 3
+	endi
+
+*if been picked or old start rotting
+elif ov00 = 7
+	tick rand 500 800
+	doif pose = 14
+		pose 15
+	elif pose = 15
+		pose 16
+	elif pose = 16
+		pose 17
+	elif pose = 17
+		kill ownr
+	else
+		pose 14
+	endi
+elif ov00 = 5 or ov00 = 6
+	pose 14
+	wait 400
+	setv ov00 7
+endi
+	
+
+
+endm
+
+******************
+
+*eatscript for grassplant
+scrp 2 6 31940 12
+lock
+	snde "nmap"
+	stim writ from 77 0.5
+	doif ov00 = 6
+		setv ov00 5
+		pose 12
+		attr 199
+	else
+		kill ownr
+	endi
+endm
+
+*if big plant/hay change to small plant/hay
+*if small- kill
+
+************
+
+*pickupscript for flower
+scrp 2 7 31940 4
+
+doif ov00 = 1
+	setv ov00 2
+elif ov00 =  3
+	setv ov00 4
+endi
+endm
+
+************
+
+*dropscript for flower
+scrp 2 7 31940 5
+
+doif  ov00 = 4
+	aero 0
+	attr 66
+	velo rand -5 5 rand 0 -10
+else
+	attr 194
+	aero 20
+endi
+endm
+
+*******************
+*collision for flower
+scrp 2 7 31940 6
+endm
+*tickscript for flower
+scrp 2 7 31940 9
+
+addv ov01 1
+
+*ov00 1=blooming on plant 2=rogue blossom 3=seed on plant 4= seed floating 5=seed falling 6=seed on ground
+
+*if not floating kill if not touching grassplant
+doif ov00 = 1 or ov00 = 3
+	setv va02 0
+	etch 2 6 31940
+		addv va02 1
+	next
+	doif  va02 = 0
+		kill ownr
+	endi
+endi
+	
+*set lifestages accoding to age
+
+doif ov01 = 30
+		pose 1
+elif ov01 = 40
+		pose 2
+		tick rand 30 60
+elif ov01 = 50
+		pose 3
+elif ov01 = 60
+		pose 4
+		setv ov00 4
+		plne 3000
+		aero 0
+		perm 20
+
+elif ov01 = 70
+
+		inst
+		velo 0 0
+		setv va14 grap posl post
+		setv va15 grap posl posb
+		setv va16 grap posr post
+		setv va17 grap posr posb
+		doif va14 = va15 and va15 = va16 and va16 = va17 and va17 = va14 and va14 ne -1
+			perm 96
+		endi
+		
+		setv ov00 5
+		bhvr 48
+		attr 194
+		aero 10
+		elas 0
+		fric 100 
+		slow 
+elif ov01 = 500
+		kill ownr
+endi
+doif ov00 = 2
+	attr 194
+	aero 30
+	doif fall = 0
+		wait 30
+		kill ownr
+	endi
+
+*first float a long time
+elif ov00 = 4
+	doif velx = 0 and vely = 0
+		velo rand -5 5 rand 0 -5
+	endi
+
+elif ov00 = 5
+
+	doif obst down < 2 and fall = 0
+		pose 5
+		setv ov00 6
+	endi
+*if not mooving anymore produce the plant
+elif ov00 = 6
+	inst
+*check if near a plant
+	setv va00 0
+	rnge 40
+	esee 2 6 31940
+		addv va00 1
+	next 
+
+	*if near one get lost
+	doif va00 >= 1
+		kill ownr
+	endi
+	targ ownr
+	*if not on soilfoor kill
+	doif rtyp room targ <> 1 and rtyp room targ <> 5 and rtyp room targ <> 6 and rtyp room targ <> 7
+		kill ownr
+	endi
+	doif carr = null and fall = 0
+		inst
+		*get the seed position
+		setv va00 posl
+		setv va01 post
+*calculate plant position
+		subv va00 3
+		subv va01 18
+		*make it either  a front or a backplant
+		setv va03 rand 1 2
+		doif va03 = 1
+			setv va04 399
+		else
+			setv va04 5000
+		endi
+		setv va03 perm
+*create the plant
+		new: simp 2 6 31940 "ngweed" 18 0 va04
+			bhvr 0
+			attr 194
+			perm va03
+			elas 0
+			fric 100
+			pose 0
+			setv ov66 66
+			setv ov00 0
+			setv ov01 0
+			setv ov05 rand 1 2
+			tick rand 50 500
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				subv  va01 10
+				doif tmvt va00 va01 = 1
+					mvto va00 va01
+				else 
+					kill targ
+				endi
+			endi
+
+			
+*kill the seed
+		kill ownr
+	endi
+else
+	setv ov00 5
+endi
+endm
+
+******************
+
+*eatscript for flower
+scrp 2 7 31940 12
+	lock
+	stim writ from 77 0.2
+	*the flowers contain arinica
+	chem 97  .1
+	kill ownr
+endm
+
+
+
+***************************************************
+***********The Rainbowbamboo***********************
+***************************************************
+
+
+
+
+**********************
+* rainbowbambootick
+scrp 2 4 31938 9
+*ov05 2-has crown 3 is ripeing 4-ripe 5-drying 6-dead
+*ov08 number of section that have to be made
+*ov70 position of new part relativ to basic part
+*ov99 toppart
+*ov98 countdown when to create a new part 1-time to check height 0-time to grow
+
+addv ov01 1
+doif ov01 > 120 
+	kill ownr	
+endi
+*the growing only in its growing stage
+doif ov05 < 3
+	setv va00 ov99
+	*if has a crown has to be treated differently then the rest
+	doif ov05 = 2
+		part va00
+		doif pose < 6
+			setv va01 pose
+			addv va01 1
+			pose va01
+		elif pose = 6 
+			setv ov05 3
+		endi
+		subv va00 1
+	endi
+	
+	loop
+	part va00
+		doif pose <= 6
+			setv va01 pose
+			addv va01 1
+			pose va01
+		elif pose > 6 and pose < 9
+			pose rand 7 8
+		endi
+	subv va00 1
+	untl va00 < 0
+
+*countdown time to create new part
+	subv ov98 1
+
+*if soon will grow taller check if there is enough space
+	doif ov98 = 1
+		gsub sectioncheck 
+*check if time to grow taller
+	
+	elif ov98 = 0
+		inst
+		doif ov08 = 1
+			gsub addcrown
+			setv ov05 2
+		elif ov08 > 1
+			gsub addsection
+			
+		endi
+	endi
+
+	slow
+	
+
+*if in riping stage its leaves turn brown
+elif ov05 = 3
+	setv va10 0
+	loop
+		part va10	
+		pose 9
+		wait 20
+		addv va10 1
+	untl va10 = ov99
+		setv ov05 4
+	
+*time to drop the nuts and the petals	
+elif ov05 = 4
+	part ov99
+	pose 7
+	setv va02 post
+	setv va01 posx 
+	reps ov99
+		subv va02 62
+	repe
+	addv va02 3
+
+	*save the genetic height in the seed
+	setv va88 ov99
+	inst
+	reps 6
+	* inject seed
+	new: simp 2 3 31938 "hbamboo" 1 35 1000
+		bhvr 48
+		attr 194
+		perm 60
+		elas 5
+		fric rand 90 100
+		accg 2
+		velo rand -5 5 rand -3 0 
+		tick rand 20 60
+		emit 7 .5
+		setv ov40 va88
+		doif tmvt va01 va02 = 1
+			mvto va01 va02
+		else
+			kill targ
+		endi 
+			
+	* inject petals randomly
+	new: simp 2 6 31938 "hbamboo" 9 26 1000
+		bhvr 48
+		attr 195
+		elas 0
+		fric 100
+		accg 1
+		aero 5
+		perm rand 40 70
+		pose rand 0 5
+		velo rand -3 3 0	
+		tick rand 30 100
+		doif tmvt va01 va02 = 1
+			mvto va01 va02
+		else
+			kill targ
+		endi 
+	targ ownr 
+	addv va02 8
+	
+	repe
+	slow
+	setv ov05 5
+	wait 100
+	stop
+* time to drop the dry leaves	
+elif ov05 = 5
+	setv va00 ov99
+	setv va02 post
+	setv va01 posx 
+	addv va02 31
+
+	setv va10 0
+	loop
+		part va10
+		base 0	
+		pose 10
+		over
+		*inject dry leaves
+		inst
+		new: simp 2 10 31933 "hbamboo" 3 23 rand 300 1000
+			setv ov02 2
+			bhvr 16
+			attr 192
+			elas 0
+			fric 100
+			perm rand 40 70
+			accg 1
+			velo rand -3 3 rand -3 3	
+			tick rand 200 500
+			doif tmvt va01 va02 = 1
+				mvto va01 va02
+			else
+				kill targ
+			endi 
+		targ ownr 
+		slow
+		subv va02 62
+		addv va10 1
+	untl va10 >= va00
+	
+	targ ownr
+	setv ov05 6
+	wait 100
+	stop
+
+elif ov05 = 6
+	setv va00 ov99
+	part va00
+		pat: kill va00
+		subv va00 1
+		setv va99 0
+	loop
+		part va00
+		base 0
+		anim [10 11 12 13 14]
+		over
+		pat: kill va00
+		subv va00 1
+		addv va99 1
+	untl va00 = -1 or va99 > ov99 
+	targ ownr
+	setv ov05 7
+	wait 100
+	stop 
+elif ov05 = 7	
+	*age
+	wait 50
+	
+		*check if needs to be reborn 
+		setv va99 0
+		rnge 500
+		inst
+		esee 2 4 31938
+			doif targ ne ownr
+				addv va99 1
+			endi
+		next
+		slow
+		targ ownr 
+*if noone had turned into a plant and alone give it a chance to be reborn
+		setv va77 rand 1 3
+		doif va99 < 1 and va77 < 2 and ov66 ne 66
+			setv ov05 1
+			targ ownr 
+			pose 0
+			setv ov05 1
+			setv ov08 2
+			setv ov70 0
+			setv ov98 7
+			setv ov99 0
+			setv va10 0
+		else
+			kill ownr
+		endi
+	
+endi
+
+subr sectioncheck
+* Firstly get the current highest point
+inst
+setv va70 ov70
+addv va70 post
+
+setv va50 0
+setv va60 0
+
+setv va30 posl
+setv va31 posx
+setv va32 posr
+loop	
+	subv va70 2
+	setv va00 grap va30 va70
+	setv va01 grap va31 va70
+	setv va02 grap va32 va70
+	doif va00 <> -1 and va01 <> -1 and va02 <> -1
+		addv va60 1
+	else
+		setv va51 99
+	endi
+	addv va50 1
+untl va50 = 64 or va51 = 99
+
+** va60 < 62 crown.
+** va60 >= 62 new section.
+doif va60 < 62
+	setv ov08 1
+endi
+slow
+retn
+
+subr addsection
+inst
+*new section
+
+addv ov99 1
+* Subtract it from the intended section total
+subv ov08 1
+* adjust Y
+subv ov70 62
+setv va70 ov70
+doif ov99 > 2
+	setv va03 2500
+else
+	setv va03 0
+endi
+pat: dull ov99 "hbamboo" 0 0 va70 va03
+	part ov99
+	pose 0
+*start countdown till another part has to be created 0
+setv ov98 7
+slow
+retn
+	
+*** makes the bamboo flower in rainbow colors
+
+subr addcrown
+inst
+setv ov05 2
+subv ov70 62
+setv va70 ov70
+addv ov99 1 
+doif ov99 > 3
+	setv va03 2500
+else
+	setv va03 0
+endi
+* make the crown
+pat: dull ov99 "hbamboo" 15 24 va70 va03
+	part ov99
+	pose 0
+slow
+retn
+
+endm
+
+*friendly plant pushscript
+	
+scrp 2 4 31938 1
+	inst
+	doif from <> null
+		doif from <> pntr
+* "friendly plant" stim
+			stim writ from 84 1
+		endi
+	endi
+endm
+
+*eat script for the seed
+
+scrp 2 3 31938 12
+	lock
+	snde "tgik"
+	stim writ from 77 2
+	kill ownr
+endm
+	
+	
+		
+*tickscript for the seed
+scrp 2 3 31938 9
+addv ov01 rand 0 3
+
+doif carr = null and ov01 > 30
+	doif rtyp room targ < 5 or rtyp room targ > 7
+		kill ownr
+	endi
+
+
+*if another grows on the same place
+	setv va78 0
+	rnge 40
+	esee 2 4 31938
+		addv va78 1
+	next
+	doif va78 >= 1
+		kill ownr
+	endi 
+*and if too many grow in its clan
+	setv va72 0
+	rnge 100
+	esee 2 4 31938
+		addv va72 1
+	next
+	doif va72 > 6
+		kill ownr 
+	endi
+
+
+* and if too many grow nearby	
+	setv va77 0
+	rnge 1500
+	esee 2 4 31938
+		addv va77 1
+	next
+	doif va77 > 8
+		kill ownr
+	
+	endi	
+	
+	*save the genetic height in the new bamboo
+		
+		setv va88 ov40
+		addv va88 rand -1 1
+		
+		doif va88 < 2
+			setv va88 2
+		endi
+		setv va01 posx
+		subv va01 46
+		setv va02 posy
+		subv va02 58
+		inst
+		new: comp 2 4 31938 "hbamboo" 23 0 301
+			bhvr 1
+			attr 0
+			elas 0
+			fric 100
+			perm 30
+			pose 0
+			
+			tick rand 90 200
+			setv ov05 1
+			*set the ov70 y position for new floors
+			setv ov70 0
+			setv ov98 7
+			setv ov99 0
+			setv ov08 va88
+			doif tmvt va01 va02 = 1
+				mvto va01 va02
+			else
+				subv va02 3
+				doif tmvt va01 va02 = 1
+					mvto va01 va02
+				else
+					kill targ
+				endi
+			endi
+			
+
+	kill ownr
+	
+	endi
+
+endm
+
+*tickscript for the petals
+scrp 2 6 31938 9
+addv ov01 1
+doif ov01 > 5 and carr = null
+
+		inst
+		setv va00 posl
+		setv va01 post
+		new: simp 2 10 31933 "hbamboo" 3 32 51
+			attr 192
+			bhvr 16
+			perm 64
+			setv ov02 2
+			tick rand 30 100
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				kill targ
+			endi
+			kill ownr
+endi
+endm
+
+* eat script for the petals
+scrp 2 6 31938 12
+	lock
+	snde "chwp"
+	stim writ from 77 0.5
+	chem 92 .05
+	kill ownr
+endm
+	
+*******************
+*fish
+*******************
+*tomecko
+
+
+*old egg tick
+scrp 2 3 31502 9
+*check how many tomeckos are around
+rnge 1500
+setv va02 0
+esee 2 15 31931
+	addv va02 1
+next
+esee 2 4 31931
+	addv va02 1
+next 
+doif fall = 0 and carr = null and va02 < 3
+	setv va00 posl
+	setv va01 post
+	subv va00 10
+	subv va01 55
+	new: simp 2 15 31931 "ngtomecko" 19 0 501
+		attr 198
+		bhvr 59
+		elas 30
+		fric 60
+		accg 3
+		perm 60
+		tick rand 30 50
+		setv ov02 500
+		setv ov10 -1
+		setv ov86 3
+		setv ov87 20
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			kill targ
+		endi
+	kill ownr
+else
+	kill ownr
+endi
+endm 
+
+*egg tick
+scrp 2 18 31931 9
+*check how many tomeckos are around
+rnge 1500
+setv va02 0
+esee 2 15 31931
+	addv va02 1
+next
+esee 2 4 31931
+	addv va02 1
+next 
+doif fall = 0 and carr = null and va02 < 3
+	setv va00 posl
+	setv va01 post
+	subv va00 10
+	subv va01 55
+	setv va04 rand 0 1
+	doif va04 = 0
+		setv va03 501
+	else
+		setv va03 2999
+	endi
+	new: simp 2 15 31931 "ngtomecko" 19 0 va03
+		attr 198
+		bhvr 59
+		elas 30
+		fric 60
+		accg 3
+		perm 60
+		tick rand 30 50
+		setv ov02 500
+		setv ov10 -1
+		setv ov86 3
+		setv ov87 20
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			kill targ
+		endi
+	kill ownr
+else
+	kill ownr
+endi
+endm
+*egg eatscript
+scrp 2 18 31931 12
+	lock
+	snde "nmap"
+	stim writ from 80 2
+	kill ownr
+endm
+
+*********
+* eatscript
+scrp 2 15 31931 12
+	lock
+		doif pose > 4
+		base 0
+		pose 4
+	else
+		kill ownr
+	endi
+	snde "nmap"
+	stim writ from 80 4
+	doif carr ne null
+		mesg writ ownr 5
+	endi
+endm
+
+*tomecko tick
+scrp 2 15 31931 9
+*ov00 0 hatching 1 running 2 eating 3 stretching
+*ov10 -1 left 1 right
+*ov87 fric during running
+*ov88 counter
+
+
+subv ov02 rand 0 1
+
+addv ov01 rand 1 3
+
+*if old or no energy- die
+doif ov01 > 2000 or ov02 < 0
+	velo 0 0
+	wait 20
+	doif fall = 0 and carr = null
+		setv va00 posl
+		setv va01 post
+		addv va01 11
+		new: simp 2 10 31933 "ngtomecko" 7 36 999
+			attr 198
+			bhvr 48
+			elas 0
+			accg 5
+			fric 100
+			tick rand 100 500
+			setv ov02 6
+			doif tmvt va00 va01 = 1
+				mvsf va00 va01
+			else
+				kill targ
+			endi 
+		kill ownr
+	endi
+endi
+	
+doif ov00 = 0
+	doif pose < 4
+		setv va02 pose
+		addv va02 1
+		pose va02
+	else
+		setv ov00 1
+		base 0
+		pose 5
+		setv ov10 -1
+		setv ov87 20
+		setv ov85 2
+		setv ov84 -2
+		setv ov83 7
+	endi
+*running
+
+elif ov00 = 1
+	* moving checkout
+	fric ov87
+	
+	*if in water-swim
+	doif rtyp room targ = 8 or rtyp room targ = 9
+		setv ov88 0
+		accg 0.3
+	else
+		accg ov85
+	endi
+	*random turning
+	setv va07 rand 0 20
+	doif va07 = 0
+		negv ov10
+	endi
+	addv ov88 rand 1 5
+	gsub base
+	anim [0 1 2 0 255]
+
+	setv va10 ov10
+	mulv va10 ov83
+	velo va10 ov84
+	doif ov88 > 15
+		setv ov88 0
+		anim []
+		fric 100
+		setv ov00 2
+	endi
+elif ov00 = 2
+*eating
+	inst
+	etch 2 11 9
+		setv ov66 66
+	next
+	etch 2 11 8
+		setv ov66 66
+	next 
+	addv ov88 1
+	setv va06 0
+	setv va07 posx
+	setv va09 11
+	reps 5
+	doif va09 = 9
+		setv va09 8
+	endi
+	setv va10 ov10
+	etch 2 va09 0
+		doif va06 ne 1
+			doif va10 > 0 and posr > va07
+				setv va06 1
+				doif ov66 = 66
+					mesg writ targ 12
+				else
+					kill targ
+				endi
+			elif va10 < 0 and posl < va07
+				setv va06 1
+				doif ov66 = 66
+					mesg writ targ 12
+				else
+					kill targ
+				endi 
+			endi
+		endi
+	next
+	subv va09 1
+	repe
+	slow
+	doif va06 = 1
+		addv ov02 200
+		gsub base
+		anim [3 1 3 1 3 1 3 1 3 1]
+		over
+	endi
+	doif ov88 > 5 or va06 = 1
+		setv ov88 0
+		doif ov02 < 2000
+			setv ov00 1
+		else
+			setv ov00 3
+		endi
+	endi
+elif ov00 = 3
+*stretching
+	gsub base
+	frat rand 30 100
+	anim [4 5 6]
+	over
+	setv va00 posl
+	setv va01 post
+	subv va01 50
+	doif tmvt va00 va01 = 1
+		setv va10 ov10
+		setv va12 ov01
+		inst
+		new: simp 2 4 31931 "ngtomecko" 17 19 350
+			bhvr 1
+			attr 192
+			perm 60
+			accg 5
+			elas 0
+			fric 100
+			setv ov66 66
+			tick rand 500 1200
+			doif va10 > 0
+				pose 4
+			else
+				pose 0
+			endi
+			setv ov10 va10
+			setv ov01 va12
+			mvsf va00 va01
+		kill ownr
+	else 
+		setv ov00 4
+		tick 1
+	endi
+elif ov00 = 4
+	gsub base
+	anim [6 5 4]	
+	setv ov00 2
+endi
+tick ov86		
+		
+subr base
+	doif ov10 > 0
+		base 12
+	else
+		base 5
+	endi
+retn
+endm
+*tomecko push pull hit
+scrp 2 15 31931 1
+lock
+doif ov00 ne 0 
+	doif ov10 > 0
+		base 12
+	else
+		base 5
+	endi
+	reps rand 1 4
+	snde "ntom"
+	anim [3 1]
+	over
+	repe
+	subv ov02 50
+endi 
+stim writ from 86 1
+endm
+**********
+scrp 2 15 31931 2
+lock
+doif ov00 ne 0 
+	doif ov10 > 0
+		base 12
+	else
+		base 5
+	endi
+	reps rand 1 4
+	snde "ntom"
+	anim [3 1]
+	over
+	repe
+	subv ov02 50
+endi
+stim writ from 86 1
+endm
+**********
+scrp 2 15 31931 3
+lock
+doif ov00 ne 0 
+	doif ov10 > 0
+		base 12
+	else
+		base 5
+	endi
+	reps rand 1 4
+	snde "ntom"
+	anim [3 1]
+	over
+	repe
+	subv ov02 100
+endi 
+stim writ from 87 1
+endm
+**********
+*tomecko pickup
+scrp 2 15 31931 4
+stim writ from 86 1
+doif ov00 ne 0 
+	doif ov10 > 0
+		base 12
+	else
+		base 5
+	endi
+	snde "ntom"
+	anim [3 1 255]
+endi
+tick 0
+endm
+
+*tomecko drop
+scrp 2 15 31931 5
+anim []
+tick rand 2 4
+wait rand 20 50
+
+endm
+
+*tomecko collision
+scrp 2 15 31931 6
+doif wall = left and ov10 = -1
+	setv ov10 1
+elif wall = rght and ov10 = 1
+	setv ov10 -1
+endi
+endm
+
+*tomeckoplant tick
+scrp 2 4 31931 9
+*ov00 1 = ready to die
+*check if on fertile land and age a lot if not
+doif ov00 = 1
+	pose 0
+	setv ov01 2000
+	gsub die
+endi
+doif rtyp room targ < 5 or rtyp room targ > 7
+	addv ov01 600
+endi
+*in winter stop growing
+doif game "ngsean" = 3
+	stop
+endi
+gsub base
+frat rand 200 244
+anim [0 1 2 2 3 3 3]
+over
+base 0
+setv ov00 1
+anim [8 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15 15]
+over
+setv va02 0
+*get the tomatos position
+setv va03 plne
+addv va03 1
+inst
+reps 3
+setv va00 posl
+setv va01 post
+doif va02 = 0
+	addv va01 19
+elif va02 = 1
+	addv va00 17
+	addv va01 4
+elif va02 = 2
+	addv va00 33
+	addv va01 16
+endi
+addv va02 1
+new: simp 2 8 31931 "ngtomecko" 2 43 va03
+	setv ov66 66
+	emit 6 .8
+	attr 195
+	bhvr 48
+	elas 30
+	fric 90
+	accg 0
+	perm 60
+	pose 0
+	setv ov66 66
+	tick rand 300 500
+	mvsf va00 va01 
+targ ownr
+repe
+pose 16
+wait rand 500 600
+*setv va03 rand 0 1
+*doif va03 = 0
+*	negv ov10
+*endi
+
+gsub base
+frat rand 200 244
+anim [3 3 2 2 1]
+over
+doif game "ngsean" = 3
+	stop
+endi 
+gsub die
+************
+subr die
+setv va00 posl
+setv va01 post
+addv va01 45
+setv va10 ov10
+setv va11 ov01
+setv va04 rand 0 1
+doif va04 = 0
+	setv va03 501
+else
+	setv va03 2999
+endi 
+new: simp 2 15 31931 "ngtomecko" 19 0 va03
+	attr 198
+	bhvr 59
+	elas 30
+	fric 60
+	accg 3
+	perm 60
+	setv ov01 va11
+	setv ov02 50
+	setv ov10 va10
+	doif ov10 > 0
+		base 12
+	else
+		base 5
+	endi
+	pose 6
+	setv ov00 4
+	setv ov10 -1
+	setv ov87 20
+	setv ov85 2
+	setv ov84 -4
+	setv ov83 6
+	setv ov86 3
+	tick rand 30 50
+	mvsf va00 va01
+kill ownr
+retn		
+	
+subr base
+	doif ov10 > 0
+		base 4
+	else
+		base 0
+	endi
+retn
+endm
+*tomeckoplant push
+***********************
+
+scrp 2 4 31931 1
+
+stim writ from 84 1
+
+endm
+*tomato tick
+scrp 2 8 31931 9
+doif ov01 = 0
+	accg 3
+	setv ov01 1
+elif ov01 = 1 and fall = 0 and carr = null
+
+	setv va00 posl
+	setv va01 post
+	setv va02 plne
+	doif pose = 0
+		setv va03 4
+		setv va04 45
+	else
+		setv va03 1
+		setv va04 47
+	endi
+	new: simp 2 10 31932 "ngtomecko" va03 va04 va02
+		attr 198
+		bhvr 48
+		elas 0	
+		accg 2
+		perm 60
+		fric 100
+		tick rand 100 200
+		subv va03 1
+		setv ov02 va03
+		doif tmvt va00 va01 = 1
+			mvsf va00 va01
+		else
+			kill targ
+		endi 	
+	kill ownr
+endi
+endm
+*rotten tomato scripts
+	
+scrp 2 10 31932 9
+
+doif pose < ov02	
+setv va02 pose
+addv va02 1
+pose va02
+else
+*this should add some nutrients to the room if it works
+doif room targ <> -1 and carr = null
+		altr room targ 4 0.01
+		altr room targ 3 0.01
+endi
+setv va00 posl
+setv va01 post
+
+addv va00 10
+addv va01 15
+inst
+	new: simp 2 18 31931 "ngtomecko" 1 49 450
+		attr 198
+		bhvr 48
+		elas 30
+		fric rand 70 90
+		accg 3
+		perm 60
+		tick rand 500 3200
+		mvsf va00 va01
+
+kill ownr
+endi
+endm
+
+* eat script for the rotting fruit
+scrp 2 10 31932 12
+	lock
+	snde "nmap"
+	stim writ from 81 1
+	kill ownr
+endm
+
+*tomato drop
+scrp 2 8 31931 5
+accg 3
+endm
+*tomato eat
+scrp 2 8 31931 12
+
+lock
+snde "nmap"
+stim writ from 78 1
+doif pose = 0
+	pose 1
+else
+	kill ownr
+endi
+accg 3
+doif carr ne null
+	mesg writ ownr 5
+endi
+endm
+
+**********
+*big fish
+***********
+*mode the fish is in ov00 (11-moving 12-angry 13-healing 14-egglaying 15-dying
+*direction the fish is mooving ov10 -1left 1 right
+*healing countdown ov88 
+*angry countdown ov89
+*egglaying countdown ov90
+*energy ov02
+*target ov16
+*in or out of water ov03 1 water 2 land
+
+************************
+
+*tickscript for the fish
+scrp 2 15 31936 9 
+
+*reduce energy 
+subv ov02 5
+*if no energy die(but with a chance of surviving)
+doif ov02 <= 0
+	setv va07 rand 1 4
+	doif va07 = 3
+		addv ov02 100
+	else
+		setv ov00 15
+	endi
+elif ov02 > 0 and ov02 < 500
+	bhvr 43
+	attr 210
+endi
+doif rtyp room targ = 8 or rtyp room targ = 9
+	
+	accg 0.4
+	aero 5
+	tick rand 2 5
+else
+	accg 5
+	aero 0
+	tick rand 15 35
+endi
+doif ov90 = -1
+	addv ov01 rand 1 4
+	doif ov01 >= 40
+		setv ov00 15
+	endi
+endi
+doif game "ngsean" = 0
+	doif ov92 = 1 and ov00 = 11
+		setv ov00 14
+		setv ov92 0
+	endi
+else
+	doif ov92 = 0 and ov90 ne -1
+		setv ov92 1
+		setv ov90 0
+	endi
+endi
+
+seta va02 null 
+*if touching food and not in healingmode-eating
+doif ov00 = 11 or ov00 = 12
+	inst
+
+	setv va22 0	
+	*if touching a fruit, seed, food, bug, bad bug first freeze it
+	etch 2 3 0
+	seta va02 targ
+	next
+	etch 2 8 0
+	seta va02 targ
+	next
+	etch 2 9 0
+	seta va02 targ
+	next
+	etch 2 11 0
+	seta va02 targ
+	next
+	etch 2 13 0
+	seta va02 targ
+	next
+	etch 2 14 0
+	seta va02 targ
+	next
+	*check if touching a tuba, bromse or other ng fruit
+	
+	etch 2 11 8
+		seta va02 targ
+		setv ov66 66
+	next
+	etch 2 11 9
+		setv ov66 0
+	next 
+	targ ownr 
+endi
+
+doif va02 ne null
+	inst
+	targ va02
+	velo 0 0
+	setv va00 posx
+	targ ownr
+	slow
+	*right 
+	doif posx > va00 and ov10 > 0
+			*if food is on the backside turn
+				gsub turn
+		*left	
+	elif posx < va00 and ov10 < 0
+			*if food is on the backside turn
+			gsub turn
+
+	endi
+	base 0
+	doif ov10 = 1 and va02 ne null
+			reps 5
+			anim [13 3 4]
+			over
+			repe
+			targ va02
+			doif targ ne null 
+				doif ov66 = 66
+					mesg writ targ 12
+				else
+					kill targ
+				endi
+			endi
+			targ ownr
+			reps 3
+			anim [13 3 4]
+			over
+			repe
+			
+	elif ov10 = -1 and va02 ne null
+			reps 5
+			anim [14 6 7]
+			over
+			repe
+			targ va02
+			doif targ ne null 
+				doif ov66 = 66
+					mesg writ targ 12
+				else
+					kill targ
+				endi
+			endi
+			targ ownr
+			reps 3
+			anim [14 6 7]
+			over
+			repe
+	endi
+		addv ov02 rand 20 70
+		gsub moove
+
+else
+
+	
+*if in healing mode dont moove 
+doif ov00 = 13
+	*countdown to be recovered
+	subv ov88 1
+	*decrease energylevel
+	subv ov02 1
+	*set animation pict depending on recoveringstate
+	doif ov88 > 0 and ov88 <= 10
+		base 25
+	elif ov88 > 10 and ov88 <= 20
+		base 23
+	elif ov88 > 20 and ov88 <= 30
+		base 21
+	elif ov88 > 30
+		base 19
+
+	*if recovercountdown reaches 0 get out of recoveringmode
+	elif ov88 <= 0
+		setv ov00 11
+	endi
+	anim [0 0 1 1]
+	over
+	
+	
+*if in angry mode moove a bit
+elif ov00 = 12
+	inst
+	doif ov10 = -1
+		base 17
+		velo -5 -5
+	elif ov10 = 1
+		base 15
+		velo 1 -1
+	endi
+	anim [0 0 1 1]
+	over
+	*countdown being angry
+	subv ov89 1
+	*if not angry anymore  get out of angrymode
+	doif ov89 <= 0
+		setv ov00 11
+	endi
+	slow
+	
+*if in egglaying mode
+elif ov00 = 14
+	*make it unedible
+	bhvr 0
+	*check if in water
+	setv va99 rtyp room targ
+	doif va99 = 8 or va99 = 9
+		setv ov03 2
+	else
+		setv ov03 1
+	endi
+	*if facing right 
+	doif ov10 > 0
+		
+		*and in water animate and produce an egg 
+		doif ov03 = 2
+			gsub egglaying
+		
+		*and out of water turn
+		else
+			gsub turn
+			setv ov10 -1
+			gsub moove
+		endi
+		
+	*if facing left 
+	else
+		*and in water turn
+		doif ov03 = 2
+			gsub turn
+			setv ov10 1
+		*and out of water moove 
+		else
+			gsub moove
+		endi
+	endi
+			
+
+*if in dying mode produce dying fish
+elif ov00 = 15
+	bhvr 27
+	base 0
+	pose 29
+	wait 100
+	base 0
+	anim [30 31]
+	over
+	inst
+	*get the fish position
+	setv va00 posl
+	setv va01 post 
+	
+	new: simp 2 10 31936 "htinyfish" 6 61 3000
+		attr 195
+		bhvr 48
+		elas 0
+		accg 5
+		fric 100
+		mvsf va00 va01
+		tick rand 100 500
+	*and kill the living fish
+	kill ownr
+
+*if in mooving mode moove forward
+elif ov00 = 11
+	*save x position bevore moovin in a varaible
+	setv va02 posx
+	*mooving 
+	gsub moove
+	*save postion after moovin in a varable
+	setv va03 posx
+*if not having been able to moove turn
+	subv va02 va03
+	doif va02 > -5 and va02 < 5
+		*subroutine turning
+		gsub turn
+	endi
+*if in growing mode grow
+elif ov00 = 10
+	doif pose >= 3 
+		setv ov00 11
+	endi
+	setv va00 pose
+		addv va00 1
+		pose va00
+
+endi
+endi
+
+*subroutine egglaying
+subr egglaying
+*check how many of last years fish have survived
+
+doif ov90 = 0
+	setv va22 0
+	inst
+	rnge 1000
+	esee 2 15 31937
+		addv va22 1
+	next
+	targ ownr
+
+	setv ov90 18
+	subv ov90 va22
+	
+	*check how many other big fish are around
+	setv va23 1
+	rnge 1000
+	esee 2 15 31936
+		addv va23 1
+	next
+	targ ownr
+	doif va23 > 1
+		divv ov90 va23
+		addv ov90 2
+	endi
+	doif ov02 >1500
+		setv ov91 2
+	elif ov02 < 200
+		setv ov91 1
+		setv ov90 2
+	else
+		setv ov91 1
+	endi
+	slow
+endi
+reps 3
+base 0
+anim [27 27 28 28]
+wait 30
+repe
+inst
+*get fish position
+setv va04 posl
+setv va05 posb 
+subv va04 10
+addv va04 rand -3 3
+addv va05 rand -3 3
+subv ov90 1
+
+doif ov90 > 1
+setv va91 ov91
+	
+new: simp 2 15 31937 "htinyfish" 0 0 3000
+		attr 210
+		bhvr 0
+		elas 5
+		aero 4
+		accg 0
+		perm 6
+		pose 16
+		mvsf va04 va05
+		tick rand 1 3
+		setv ov00 0
+		setv ov01 1	
+		setv ov05 0
+		setv ov10 -1	
+		seta ov16 null	
+		setv ov02 1000
+		setv ov77 20
+	doif va91 > 0
+		setv ov99 1
+		plne 400
+	else
+		setv ov99 0
+		plne rand 1000 5000
+	endi
+	targ ownr
+	subv ov91 1
+
+elif ov90 = 1
+	setv ov00 11
+	setv ov02 30
+	setv ov90 -1
+endi
+slow
+
+retn
+
+*subroutine turn
+subr turn
+	base 0
+	doif ov10 = 1
+		anim [9 10 11 12]
+		over
+		setv ov10 -1
+	elif ov10 = -1
+		anim [12 11 10 9]
+		over
+		setv ov10 1
+	endi
+retn
+
+*subroutine moove
+subr moove
+	base 0
+	doif ov10 = 1
+		velo 8 -8
+		anim [3 4 5]
+		over
+	elif ov10 = -1
+		velo -8 -9
+		anim [6 7 8]
+		over
+	endi
+retn
+endm
+
+****************************
+*pushscript
+scrp 2 15 31936 1
+doif ov00 <> 14 and ov00 <> 13
+base 0
+doif ov10 > 0
+	pose 13
+else
+	pose 14
+endi
+snde "fisa"
+*make fish angry
+
+setv ov00 12
+setv ov89 10
+endi
+*creature gets a played with kritter stim
+stim writ from 86 1
+* Reduce Fertility 
+   * Sex drive
+    chem 161 -.5
+endm
+
+*pull
+scrp 2 15 31936 2
+doif ov00 <> 14 and ov00 <> 13
+base 0
+doif ov10 > 0
+	pose 13
+else
+	pose 14
+endi
+snde "fisa"
+*make fish angry
+
+setv ov00 12
+setv ov89 10
+endi 
+*creature gets a played with kritter stim
+stim writ from 86 1
+* Reduce Fertility 
+ *Libido lowerer
+		 chem 40 .2
+endm 
+
+*hit
+scrp 2 15 31936 3
+doif ov00 <> 14 and ov00 <> 13
+base 0
+doif ov10 > 0
+	pose 13
+else
+	pose 14
+endi
+snde "fisa"
+*make fish angry
+
+setv ov00 12
+setv ov89 10
+endi 
+*creature gets a played with kritter stim
+stim writ from 86 1
+* Reduce Fertility 
+* Arousal potential
+        chem 39 -.2
+endm 
+
+
+*pickupscript
+scrp 2 15 31936 4
+tick 0
+endm 
+
+*dropscirpt
+scrp 2 15 31936 5
+tick 30
+endm
+	
+*collisionscript
+scrp 2 15 31936 3
+	snde "fisi"
+doif ov00 < 13 and ov00 > 14
+setv ov00 12
+setv ov89 5
+endi
+endm
+*sound
+*if not in healingmode make fish angry	
+
+*fals targ script
+scrp 2 15 31936 255
+targ ownr
+setv ov00 11
+
+endm
+
+
+***************
+*remoove scripts
+rscr
+enum 3 8 31941 kill targ next
+enum 3 8 31940 kill targ next 
+enum 2 20 31940 kill targ next 
+scrx 3 8 31941 9 scrx 3 8 31941 1000 scrx 3 8 31941 1001 scrx 3 8 31940 1 scrx 3 8 31940 2 scrx 3 8 31940 3 scrx 3 8 31940 4 scrx 3 8 31940 5 scrx 3 8 31940 6 scrx 3 8 31940 9 scrx 2 20 31940 9
+endm

@@ -1,0 +1,1204 @@
+*************
+*eggtree flower
+***********
+
+******************************
+*tickscript for the eggtreeflower
+scrp 2 7 31941 9
+
+*add one to age
+addv ov01 1
+*set pose according to age
+setv va04 ov01
+subv va04 1
+base ov30
+pose va04
+
+*if flower openes make visible
+*when flower closes make invisible
+doif ov01 = 5
+	attr 0
+*when fruit is ripe produce the temporary fruit
+elif ov01 >= 13
+	inst
+	base ov30
+	pose 0
+	setv va00 posl
+	setv va01 post
+	setv va30 ov30
+	new: simp 2 11 31941 "ngeggtree" 39 0 50
+			bhvr 27
+			attr 70
+			perm 60
+			setv ov30 va30
+			setv ov66 66
+			base ov30
+			pose 12
+			tick rand 100 200
+			mvto va00 va01
+			emit 8 1
+			
+	targ ownr
+*and setback to basic
+	setv ov01 0
+	attr 16
+	slow
+	wait rand 1000 2000
+	tick rand 90 500
+endi
+endm
+
+*************
+*flower pushcript
+scrp 2 7 31941 1
+
+*friendly plant stim
+stim writ from 84 0.2
+endm
+
+*************
+*flower eatscript
+scrp 2 7 31941 12
+
+lock
+snde "chwp"
+stim writ from 77 0.5
+*set it back to basic
+base ov30
+pose 0
+setv ov01 0
+endm
+
+****************
+*the temporary fruit
+****************
+*temporary fruit tickscript
+scrp 2 11 31941 9
+
+*after some time give it gravity
+wait 1000
+plne 505
+attr 198
+elas 5
+accg 5
+perm 60
+endm
+
+*****************
+*temp fruit push , pull, hit
+scrp 2 11 31941 1
+
+*give it gravity
+attr 198
+elas 3
+accg 5
+perm 60
+endm
+
+scrp 2 11 31941 2
+attr 198
+elas 3
+accg 5
+perm 60
+endm
+
+scrp 2 11 31941 3
+attr 198
+elas 3
+accg 5
+perm 60
+endm
+
+***************
+*temporary fruit pickup
+scrp 2 11 31941 4
+
+*give it gravity
+attr 198
+elas 1
+accg 5
+perm 60
+endm
+
+******************
+*temporary fruit collision
+scrp 2 11 31941 6
+
+*when touching ground  immidiately produce the real fruit
+doif wall = down
+inst
+snde "dr10"
+setv va00 posl
+setv va01 post
+setv va02 velx
+addv va01 rand -2 2
+setv va03 vely
+new: simp 2 11 31940 "ngeggtree" 2 39 505
+			bhvr 48
+			attr 198
+			pose 0
+			elas 5
+			accg 5
+			fric 80
+			perm 60
+			*mark it edible for the fish
+			setv ov66 66
+			tick rand 1000 2000
+			emit 8 1
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+				velo va02 va03
+			else
+				kill targ
+			endi
+kill ownr
+*and kill the temp fruit
+endi
+endm
+
+************
+*temporary fruit eat
+scrp 2 11 31941 12
+*produce half eaten fruit
+lock
+snde "nmap"
+stim writ from 79 3
+setv va00 posl
+setv va01 post
+
+new: simp 2 11 31940 "ngeggtree" 2 39 505
+			bhvr 48
+			attr 196
+			pose 1
+			elas 5
+			accg 5
+			fric 80
+			perm 60
+			*mark it edible for the fish
+			setv ov66 66
+			tick rand 1000 2000
+			emit 8 .5
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				kill targ
+			endi 
+kill ownr
+*kill temp fruit
+endm
+
+****************
+*the real fruit
+******************
+*real fruit tick
+scrp 2 11 31940 9
+
+	inst
+	*produce rotting fruit
+	setv va00 posl
+	setv va01 post
+
+	new: simp 2 10 31933 "ngeggtree" 5 41 505
+			attr 195
+			bhvr 16
+			elas 1
+			accg 5
+			fric 80
+			perm 60
+			perm 60
+			setv ov02 4
+			tick rand 300 1000
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				kill targ
+			endi 
+	kill ownr
+
+endm
+
+
+**********
+*real fruit collision
+scrp 2 11 31940 6
+
+doif wall = down
+	snde "dr10"
+endi
+endm
+ 
+***************
+*real fruit eat
+
+scrp 2 11 31940 12
+
+lock
+snde "nmap"
+stim writ from 79 3
+*if not eaten make it halfeaten
+doif pose = 0
+	pose 1
+else
+	kill ownr
+endi
+endm
+ 
+
+
+***************************************************
+***********The Ballplant***************************
+***************************************************
+*controllscript
+*tickscript to produce flowers
+scrp 1 1 31939 9
+
+
+
+*ng2pw
+doif game "ng2pwmanager" = 1
+	doif totl 1 2 31900 = 0 
+inst
+		new: comp 1 2 31900 "ng2pw" 0 0 9000
+		attr 304
+
+*** PW
+		pat: text 1 "ng2pw" 7 29 91 10 1000 "WhiteOnTransparentChars"
+		part 1
+		frmt 5 5 5 5 5 5 0
+		ptxt ""
+		fcus
+
+** Save password
+		pat: butt 2 "ng2pw" 1 2 24 179 1 [1 0] 1010 0
+
+		** more info
+		pat: butt 3 "ng2pw" 3 2 114 179 1 [1 0] 1011 0
+
+	** Cancel Button
+		pat: butt 4 "ng2pw" 5 2 196 179 1 [1 0] 1012 0
+
+** Text
+		pat: fixd 5 "ng2pw" 7 29 133 4 "WhiteOnTransparentChars"
+		part 5
+		frmt 1 1 0 1 1 1 0
+
+
+		pat: fixd 6 "ng2pw" 7 29 146 4 "WhiteOnTransparentChars"
+		part 6
+		frmt 1 1 0 1 1 1 0
+		ptxt "Press the ? to learn more."
+
+		pat: fixd 7 "ng2pw" 7 29 159 4 "WhiteOnTransparentChars"
+		part 7
+		frmt 1 1 0 1 1 1 0
+		ptxt "Cancel & NG2 will deinstall soon."
+
+		doif type game "ds_game_type" = 2 and game "user_of_this_world" ne ""
+			part 5
+			ptxt "Tipe in your Norngarden 2 PW."
+			setv ov99 1
+		else
+			part 5
+			ptxt "Tipe in your Username."
+		setv ov99 2
+		endi
+
+		setv va90 wndw
+		divv va90 2
+		setv va91 wndh
+		divv va91 2
+		setv va92 wdth
+		divv va92 2
+		setv va93 hght
+		divv va93 2
+
+		subv va90 va92
+		subv va91 va93
+
+		flto va90 va91
+
+		imsk 12
+		setv game "ng2pwmanager" 1
+		setv game "ng2pw" 2 
+	endi
+endi
+
+*Look and see if there are balls or flowers in the game
+doif totl 2 21 31939 < 5
+	setv va10 1
+endi
+doif totl 2 4 31939 < 5
+	setv va11 1
+endi
+
+andv va10 va11
+
+*if there are no balls ans no flowers then produce one
+
+doif va10 = 1
+	setv va02 0
+	setv va04 rand 1 9
+	doif va04 <= 6 and game "ng1" = 1
+		* set a random position for the flower to grow
+		setv va00 game "ngx"
+		setv va01 game "ngy"
+		setv va02 1
+	elif va04 > 6 and game "ng2" = 1
+		setv va00 game "ng2x"
+		setv va01 game "ng2y"
+		setv va02 1	
+	endi
+	doif va02 = 1
+		doif va04 = 1 
+			addv va00 800 
+			addv va01 483
+		elif va04 = 2 
+			addv va00 703 
+			addv va01 433 
+		elif va04 = 3 
+			addv va00 524 
+			addv va01 434
+		elif va04 = 4 
+			addv va00 1735 
+			addv va01 400	
+		elif va04 = 5 
+			addv va00 521 
+			addv va01 501
+		elif va04 = 6
+			addv va00 420 
+			addv va01 451
+		elif va04 = 7
+			addv va00 368 
+			addv va01 673
+		elif va04 = 8
+			addv va00 260 
+			addv va01 670
+		elif va04 = 9
+			addv va00 457 
+			addv va01 662
+		endi	
+	else
+		setv va00 game "ng2ax"
+		setv va01 game "ng2ay"
+		doif  va04 > 4
+			addv va00 248
+			addv va01 387
+		else
+			addv va00 507 
+			addv va01 403
+		endi
+	endi
+
+	* produce a flower 
+	inst
+	new: simp 2 4 31939 "ngballplant" 10 24 10
+		bhvr 0
+		attr 0
+		perm 60
+		tick rand 70 300
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			kill targ
+		endi
+
+	targ ownr
+	slow
+endi
+
+*check if the jumper is still there
+doif totl 2 4 31930 = 0 and game "ng2" = 1
+
+	setv va00 game "ng2x"
+	setv va01 game "ng2y"
+	addv va00 734
+	addv va01 262
+	new: simp 2 4 31930 "ngjumper" 6 0 3000
+		bhvr 1
+		attr 0
+		pose 0
+		tick 30
+		setv ov00 0
+		mvto va00 va01
+		setv ov66 66
+		frat 1
+		
+endi
+	
+	
+*check in winter if there is still a trasher and a thornplant in the world
+doif game "ngsean" = 3 and ov00 = 1 and game "ng2" = 1
+
+	setv va05 rand 0 7
+	
+	doif totl 2 5 31933 = 0 and totl 2 3 31934 = 0  and va05 = 0
+		setv va00 game "ng2x"
+		addv va00 40
+		setv va01 game "ng2y"
+		addv va01 40
+		inst
+		new: simp 2 3 31934 "ngtrasher" 1 25 500
+			bhvr 48
+			attr 194
+			elas 50
+			fric 80 
+			perm 60
+			accg 0
+			velo rand -10 10 rand -5 0
+			tick rand 70 500
+			doif tmvt va00 va01 = 1
+				mvsf va00 va01
+			else
+				kill targ
+			endi
+		targ ownr
+		slow
+	endi
+	doif totl 2 5 31936 = 0 and totl 2 5 31937 = 0 	and totl 2 3 31937 = 0 	and totl 2 8 31937 = 0 	and va05  > 3
+		setv va00 game "ng2x"
+		addv va00 100
+		setv va01 game "ng2y"
+		addv va01 650
+		inst
+		new: simp 2 3 31937 "ngthornsmall" 1 19 1000
+			bhvr 48
+			attr 195
+			elas 30
+			fric 90
+			accg 2
+			perm 60
+			tick rand 100 1000
+			velo rand -10 10 rand -10 0
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				kill targ
+			endi
+		targ ownr
+		slow
+	endi
+	setv ov00 0	
+*springcleaning	
+elif  game "ngsean" = 0 and ov00 = 0
+	inst
+	setv ov99 0
+	etch 2 13 0
+		kill targ
+	next
+	etch 2 14 0
+		kill targ
+	next
+	slow
+	setv ov00 1
+
+	*inject some weeds
+	setv va03 0
+	reps 7
+	doif va03 = 0 and game "ng2a" = 1
+		setv va00 game "ng2ax"
+		setv va01 game "ng2ay"
+		addv va00 400
+		addv va01 50
+	elif game "ng2" = 1 and va03 = 1
+		setv va00 game "ng2x"
+		setv va01 game "ng2y"
+		addv va00 800
+		addv va01 200
+	elif va03 = 2 and game "ng1" = 1
+		setv va00 game "ngx"
+		setv va01 game "ngy"
+		addv va00 400
+		addv va01 50
+	endi
+	inst
+	new: simp 2 7 31940 "ngweed" 6 18 3000
+		bhvr 0
+		attr 66
+		aero 0
+		pose 4
+		setv ov00 4
+		setv ov01 60
+		velo rand -5 5 rand 0 -5
+		tick rand 10 30
+		mvsf va00 va01
+	slow
+	addv va03 1		
+	repe
+	doif game "ng2" = 1
+		*make all the trees bloom
+		setv va02 0
+		setv va20 rand 2 6
+		loop
+	
+		setv va00 game "ng2x"
+		setv va01 game "ng2y"
+		doif va02 = 0	
+			addv va00 929
+			addv va01 349
+		elif va02 = 1
+			addv va00 992
+			addv va01 236
+		elif va02 = 2
+			addv va00 1197
+			addv va01 155	
+		elif va02 = 3
+			addv va00 1611
+			addv va01 524	
+		elif va02 = 4
+			addv va00 2093
+			addv va01 317	
+		elif va02 = 5
+			addv va00 2078
+			addv va01 172	
+		elif va02 = 6
+			addv va00 1969
+			addv va01 220	
+		elif va02 = 7
+			addv va00 2178
+			addv va01 231	
+		elif va02 = 8
+			addv va00 2220
+			addv va01 231	
+		elif va02 = 9
+			addv va00 2327
+			addv va01 425	
+		elif va02 = 10
+			addv va00 2502
+			addv va01 581	
+			
+		
+		elif va02 = 11
+			addv va00 893
+			addv va01 108	
+		elif va02 = 12
+			addv va00 881
+			addv va01 227	
+		elif va02 = 13
+			addv va00 1043
+			addv va01 195	
+		elif va02 = 14
+			addv va00 1094
+			addv va01 246	
+		elif va02 = 15
+			addv va00 1365
+			addv va01 355	
+		elif va02 = 16
+			addv va00 1407
+			addv va01 234	
+		elif va02 = 17
+			addv va00 1464
+			addv va01 254	
+		elif va02 = 18
+			addv va00 1479
+			addv va01 345	
+		elif va02 = 19
+			addv va00 1555
+			addv va01 382	
+		elif va02 = 20
+			addv va00 1692
+			addv va01 603	
+		elif va02 = 21
+			addv va00 1697
+			addv va01 368	
+		elif va02 = 22
+			addv va00 1770
+			addv va01 352	
+		elif va02 = 23
+			addv va00 1863
+			addv va01 376	
+		elif va02 = 24
+			addv va00 1893
+			addv va01 342	
+		elif va02 = 25
+			addv va00 2029
+			addv va01 143	
+		elif va02 = 26
+			addv va00 2409
+			addv va01 370	
+		elif va02 = 27
+			addv va00 2262
+			addv va01 430	
+		elif va02 = 28
+			addv va00 2302
+			addv va01 554	
+		elif va02 = 29
+			addv va00 2410
+			addv va01 370	
+		elif va02 = 30
+			addv va00 2468
+			addv va01 507
+		endi
+		doif va02 < 11
+			setv va04 3001
+		else
+			setv va04 5
+		endi
+		setv va05 0
+		setv va06 rand 1 4
+		doif va06 = 1
+			setv va05 11
+		elif va06 = 2
+			setv va05 22
+		elif va06 = 3
+			setv va05 33
+		endi
+		inst
+		new: simp 2 7 31933 "ngrubbadabba" 11 va05 va04
+			bhvr 48
+			attr 0
+			tick rand 1000 4000
+			mvto va00 va01
+		slow	
+		*wait rand 20 1000
+		addv va02 rand 1 va20
+		untl va02 >= 30
+	endi			
+endi
+
+*Look and see if there are envelopplants in the game
+doif totl 2 7 31930 < 4 and game "ngsean" ne 3
+	setv va03 1
+endi
+
+*if there are no envelopplants then produce one
+doif va03 = 1
+	inst
+	* set a random position for the flower to grow
+	setv va02 0
+	setv va04 rand 1 18
+	doif va04 <= 10 and game "ng1" = 1
+		setv va00 game "ngx"
+		setv va01 game "ngy"
+		setv va02 1
+	elif va04 > 10 and va04 <= 15 and game "ng2" = 1
+		setv va00 game "ng2x"
+		setv va01 game "ng2y"
+		setv va02 1
+	elif va04 > 15 and game "ng2a" = 1
+		setv va00 game "ng2ax"
+		setv va01 game "ng2ay"
+		setv va02 1
+	endi
+	doif va02 = 1
+		doif va04 = 1
+			addv va00 735 
+			addv va01 28
+		elif va04 = 2 
+			addv va00 880 
+			addv va01 61 
+		elif va04 = 3 
+			addv va00 631 
+			addv va01 224
+		elif va04 = 4 
+			addv va00 697 
+			addv va01 266
+		elif va04 = 5 
+			addv va00 877 
+			addv va01 249
+		elif va04 = 6
+			addv va00 753 
+			addv va01 370
+		elif va04 = 7
+			addv va00 1395 
+			addv va01 106
+		elif va04 = 8 
+			addv va00 1520 
+			addv va01 143	
+		elif va04 = 9 
+			addv va00 1700 
+			addv va01 213
+		elif va04 = 10
+			addv va00 1675 
+			addv va01 4
+		elif va04 = 11
+			addv va00 659 
+			addv va01 126
+		elif va04 = 12
+			addv va00 4 
+			addv va01 420
+		elif va04 = 13
+			addv va00 36 
+			addv va01 55
+		elif va04 = 14
+			addv va00 849 
+			addv va01 70
+		elif va04 = 15
+			addv va00 258 
+			addv va01 477
+		elif va04 = 16
+			addv va00 255 
+			addv va01 94
+		elif va04 = 17
+			addv va00 578 
+			addv va01 170		
+		elif va04 = 18
+			addv va00 284 
+			addv va01 176
+		endi
+	
+	* produce a flower 
+	setv va88 posl
+	setv va89 post
+		new: simp 2 7 31930 "ngenvelop" 20 0 2
+			bhvr 1
+			attr 0
+			perm 60
+			tick rand 100 300
+			pose 0
+			seta ov16 null
+			setv ov02 1000
+			setv ov88 va88
+			setv ov89 va89 
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				kill targ
+			endi
+		slow
+	endi
+endi
+
+
+endm
+
+
+
+* tick script for the ballflower
+scrp 2 4 31939 9
+*look if it sits on another flower and kill if so
+
+*count how many others you can see
+
+		rnge 2
+		setv va99 0
+		esee 2 4 31939 
+		addv va99 1
+		next
+	
+	*if there's already a flower here- kill
+	
+		doif va99 >= 1
+			kill ownr
+		endi
+
+
+*grow
+	
+	doif pose < 9
+		setv va00 pose
+		addv va00 1
+		pose va00	
+		
+	else
+	    * get the flowers's positions
+		setv va01 posl
+		setv va02 post
+
+*produce a ball
+inst
+new: simp 2 21 31939 "ngballplant" 23 0 3000
+	bhvr 11
+	attr 198
+	elas 80
+	accg 3
+	aero 3
+	fric 50
+	perm 60
+	pose 0
+
+	velo rand -10 10 rand -10 20
+	anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 255]
+	tick rand 2 8
+	setv ov01 0
+	doif tmvt va01 va02 = 1
+		mvsf va01 va02
+	else
+		kill targ
+	endi
+*kill the flower
+kill ownr
+endi
+endm
+
+
+
+*activate 1
+scrp 2 21 31939 1
+
+	addv ov01 100
+	velo rand -10 10 rand -40 -25
+	stim writ from 97 1
+	anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 255]
+	tick rand 5 15
+
+endm
+
+*activate 2
+scrp 2 21 31939 2
+
+	addv ov01 100
+	velo rand -10 10 rand -60 -45
+	stim writ from 97 1
+	anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 255]
+	tick rand 5 15
+
+endm
+
+*hit
+scrp 2 21 31939 3
+
+	addv ov01 200
+	velo rand -30 30 rand -30 -15
+	stim writ from 97 1
+	anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 255]
+	tick rand 5 15
+
+endm
+
+*drop
+scrp 2 21 31939 5
+	
+	addv ov01 50
+	anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 255]
+	tick rand 5 15
+
+endm
+
+
+
+*collision
+
+scrp 2 21 31939 6
+
+	inst
+	setv va00 _p1_
+	setv va01 _p2_
+	absv va00
+	absv va01
+	doif va00 gt 20 or va01 gt 20 or rand 0 10 eq 0
+		snde "ntpf"
+	endi
+
+endm
+
+
+*tickscript for the ball
+scrp 2 21 31939 9
+inst
+
+*if falling into water-jump out of it
+doif rtyp room targ = 8 or rtyp room targ = 9
+	doif ov01 <= 500
+		velo rand -2 15 rand -5 -15
+
+		anim [0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 255]
+		tick rand 5 15
+	endi
+endi
+
+doif ov01 <= 500
+
+	addv ov01 1
+
+		doif fall = 0
+
+			anim []
+
+		endi
+	
+elif ov01 > 500
+	doif fall = 0
+
+		* get the fruits's positions
+			setv va00 posl
+			setv va01 post
+		inst
+		new: simp 2 10 31933 "ngballplant" 4 19 3000
+			attr 195
+			bhvr 48
+			elas 0
+			accg 5
+			fric 100
+			pose 0
+setv ov02 3
+			mvsf va00 va01
+			tick 50
+
+		kill ownr
+	endi
+endi
+endm
+
+
+**********************************
+* tick script for the envelopflower
+scrp 2 7 31930 9
+
+*add one to age
+addv ov01 1
+subv ov02 1
+
+doif ov02 < 1 or ov01 > 2000
+	doif ov00 = 1
+		inst
+		pose 2
+	
+		setv va00 posl
+		setv va01 post
+		addv va00 5
+		addv va01 10
+	
+		new: simp 2 10 31933 "ngenvelop" 8 20 50
+			attr 195
+			bhvr 48
+			elas 0
+			accg 1
+			aero 4
+			perm 60
+			fric 100
+			setv ov02 7
+			mvsf va00 va01
+			tick rand 100 400
+			velo rand -10 10 -5
+		targ ownr
+		setv ov00 2
+		tick rand 100 200
+		wait 100
+	endi
+endi 
+doif ov00 = 0
+	*look if it sits on another flower and kill if so
+	rnge 2
+	setv va99 0
+	esee 2 7 31930 
+		addv va99 1
+	next
+	doif va99 >= 1
+		kill ownr
+	endi
+	setv va03 ov01
+	subv va03 1
+	pose va03
+	doif ov01 = 7
+		setv ov00 1	
+		tick 1
+	endi
+elif ov00 = 1 and ov02 <= 1000
+	lock
+	etch 2 13 0
+		doif targ <> null
+			doif carr = null
+				doif hots <> game "c3_inventory"
+					inst
+					seta va16 targ
+					setv va15 1
+				endi
+			endi
+		endi
+	next
+	etch 2 14 0
+		doif targ <> null
+			doif carr = null
+				doif hots <> game "c3_inventory"
+					inst
+					seta va16 targ			
+					setv va15 1
+				endi
+			endi
+		endi
+	next
+	targ ownr
+	doif va15 = 1
+		inst
+		setv va00 posl
+		addv va00 10
+		setv va01 post
+		addv va01 10
+		
+		targ va16
+		setv va17 plne
+		setv va18 attr
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			mvsf va00 va01
+		endi
+		velo 0 0
+		attr 0
+		targ ownr
+		
+		anim [6 7 8 9 10 11]
+		over
+		inst
+		setv va88 ov88
+		setv va89 ov89
+
+		targ va16
+		paus 1
+		plne 0
+		mvto va88 va89
+		targ ownr
+		anim [12 13 14 15 16 17 18 19]
+		over
+		inst
+		setv va00 posl
+		setv va01 post
+		addv va00 10
+		addv va01 12
+		new: simp 2 3 31930 "ngenvelop" 1 28 1000
+			bhvr 48
+			attr 195
+			elas rand 5 20
+			accg 3
+			aero 3
+			fric rand 40 80
+			perm 60
+			pose 0
+			setv ov17 va17
+			setv ov18 va18
+			seta ov16 va16
+			setv ov66 66
+			mvsf va00 va01
+			velo rand -15 15 -5
+			tick rand 400 1000
+		targ ownr
+		pose 6
+		addv ov02 600
+	endi
+	slow
+elif ov00 = 2
+	doif pose > 0
+		setv va03 pose
+		subv va03 1
+		pose va03
+	else
+		kill ownr
+	endi
+endi
+endm
+
+
+*******************
+*plant activate 1
+scrp 2 7 31930 1
+
+inst
+* "friendly plant" stim
+stim writ from 84 1
+endm
+
+endm
+
+
+
+****plant fals targ
+scrp 2 7 31930 255
+pose 6
+seta ov16 null
+endm
+
+**************
+* seed collision
+scrp 2 3 31930 6
+doif wall = down
+	snde "tgik"
+	emit 7 .5
+endi
+endm
+
+***********		
+****seed eat
+scrp 2 3 31930 12
+lock
+snde "chwp"
+stim writ from 77 5
+setv va00 posl
+setv va01 post
+targ ov16
+kill targ
+new: simp 2 10 31933 "ngenvelop" 4 29 1000
+			attr 195
+			bhvr 48
+			perm 60
+			elas 0
+			accg 5
+			fric 100
+			setv ov02 3
+			mvsf va00 va01
+			tick rand 100 700
+kill ownr
+endm
+
+***********		
+****seed timer
+scrp 2 3 31930 9
+inst
+setv va00 posl
+setv va01 post
+setv va17 ov17
+setv va18 ov18
+targ ov16
+doif targ ne null
+	mvsf va00 va01
+	plne va17
+	paus 0
+	attr va18
+	velo rand -5 5 rand -5 0
+endi
+setv va10 0
+reps 2
+	new: simp 2 10 31933 "ngenvelop" 4 29 1000
+			attr 195
+			bhvr 48
+			perm 60
+			elas 0
+			accg 5
+			fric 100
+			mvsf va00 va01
+			tick rand 100 700
+			doif va10 = 0
+				pose 0
+				setv ov02 3
+			else
+				pose 1
+				setv ov02 2
+				velo rand -10 10 -10
+			endi
+			addv va10 1
+repe
+kill ownr
+endm
+
+*********************
+****seed fals targ
+scrp 2 3 31930 255
+
+setv va00 posx
+setv va01 posy
+new: simp 2 10 31933 "ngenvelop" 4 29 400
+			attr 195
+			bhvr 48
+			elas 0
+			accg 5
+			perm 60
+			fric 100
+			setv ov02 3
+			mvsf va00 va01
+			tick rand 100 700
+kill ownr
+endm
+				
+*remoove scripts
+
+rscr
+enum 1 1 31930 kill targ next
+enum 2 7 31930 kill targ next
+enum 1 1 31939 kill targ next
+enum 2 4 31939 kill targ next
+enum 2 21 31939 kill targ next 
+enum 2 11 31940 kill targ next 
+enum 2 7 31941 kill targ next 
+enum 2 10 31941 kill targ next 
+enum 2 11 31941 kill targ next 
+
+scrx 1 1 31930 9 scrx 1 1 31939 9 scrx 2 4 31939 1 scrx 2 4 31939 9 scrx 2 21 31939 1 scrx 2 21 31939 2 scrx 2 21 31939 3 scrx 2 21 31939 5 scrx 2 21 31939 6 scrx 2 21 31939 9 scrx 2 7 31941 1 scrx 2 7 31941 9 scrx 2 7 31941 12 scrx 2 11 31941 1 scrx 2 11 31941 2 scrx 2 11 31941 3 scrx 2 11 31941 4 scrx 2 11 31941 6 scrx 2 11 31941 9 scrx 2 11 31941 12 scrx 2 11 31940 6 scrx 2 11 31940 9 scrx 2 11 31940 12 scrx 2 10 31941 9 scrx 2 10 31941 12

@@ -1,0 +1,903 @@
+****************
+*rubbadubbatree
+
+*treebase
+scrp 2 4 31934 9
+*ov00 0 baseoftree 1+ just a branch
+*ov05 0 not having a tree growing 1 everything grows fine
+*ov16 you tree
+*ov17 your base if you are a branch
+*ov18 number of branches you have
+*ov99 1 if everything is right for growing 0 if not
+*ov98 1 if your tree is ready to grow taller 0 if not 2 If having reached limit
+
+
+*if accidently having lost your tree grow a new one
+doif ov16 = null
+	setv ov05 0
+endi
+*if having lost your base and you are a branch kill your tree and yourselff
+doif ov17 = null and ov00 > 0
+	doif ov16 ne null
+		kill ov16
+	endi
+	kill ownr
+endi
+*kill if touching another base
+setv va06 0
+inst
+etch 2 4 31934
+	doif targ ne ownr
+		setv va06 1
+	endi
+next
+doif va06 = 1
+	kill ownr
+endi
+slow
+setv va15 rand 2 3
+subv va15 ov00
+doif ov98 = 2 and ov18 < va15
+*if big enough produce a branch
+	
+	setv va05  rand 0 5
+	doif va05 = 5
+		setv va18 ov18
+		addv va18 1
+		setv va02 pose
+		setv va04 va02
+		negv va04
+		setv va00 posl
+		addv va00 rand va04 va02
+		setv va01 post
+		setv va07 4
+		subv va07 ov18
+		mulv va02 va07
+		mulv va02 rand 1 3
+		subv va01 va02
+		subv va01 40
+		doif ov00 > 0
+			seta va16 ov17
+		else
+			seta va16 ownr
+		endi
+		setv va05 plne
+		addv va05 1
+		inst
+		new: simp 2 4 31934 "ngrubbadabba" 13 99 va05
+			bhvr 1
+			attr 0
+			seta ov17 va16
+			seta ov16 null
+			setv ov00 va18
+			tick 1
+			doif tmvt va00 va01 = 1
+				mvto va00 va01
+			else
+				subv va18 1
+				snde "nmap"
+				kill targ
+			endi
+		targ ownr
+		slow
+		setv ov18 va18
+	endi	
+endi
+
+
+*if not having a a plant growing produce one
+doif ov05 = 0
+	pose 0
+	setv va00 posl
+	subv va00 30
+	setv va02 posl
+	addv va02 30
+	setv va01 post
+	subv va01 87
+	*if there is not enough space get lost
+	doif tmvt va00 va01 = 0 or tmvt va02 va01 = 0
+		kill ownr
+	endi
+	seta va16 ownr	
+	setv va02 plne
+	addv va02 20
+	inst
+	new: comp 2 4 31932 "ngrubbadabba" 12 72 va02
+			bhvr 1
+			attr 0
+			seta ov16 va16
+			seta va16 targ
+			tick rand 2000 4000
+			mvto va00 va01
+			
+	targ ownr
+	seta ov16 va16
+	setv ov99 0
+	setv ov05 1
+endi
+
+*only start growing again in spring and when your tree is ready
+doif game "ngsean" = 0 and ov98 > 0 or ov18 > 0
+
+*if you are a basis check if there are enough nutrients araund to grow
+	doif ov00 = 0
+		setv va19 post
+		subv va19 30
+		setv va00 grap posx va19
+		doif prop va00 3 > .1
+			setv va12 1
+		endi
+		doif prop va00 4 > .3
+			setv va13 1
+		endi
+		doif va12 = 1 and va13 = 1
+			setv va40 prop va00 3
+			setv va41 prop va00 4
+			subv va40 .1
+			subv va41 .3
+			prop va00 3 va40
+			prop va00 4 va41
+			setv ov99 1
+		
+		endi	
+	endi
+	doif ov99 = 1	
+		*tell your branches everything is ok
+		
+		seta va17 ownr
+		inst
+		enum 2 4 31934
+			inst
+			doif va17 = ov17
+				setv ov99 1
+				tick 1
+			endi
+		next					
+		*if your tree still is there tell it it can grow now
+		doif ov16 ne null
+			targ ov16	
+			setv ov99 1
+			tick 1
+			targ ownr
+			
+		endi
+		slow 
+		setv ov99 0
+		setv ov98 0
+	endi
+	tick 8000
+else
+	tick 1000 
+endi	
+endm
+
+*************
+*plant pushcript
+scrp 2 4 31934 1
+
+*friendly plant stim
+stim writ from 84 2
+endm
+*************
+*plant pushcript
+scrp 2 4 31932 1
+
+*friendly plant stim
+stim writ from 84 2
+endm
+
+
+scrp 2 4 31932 9
+* ov00 number of segments the stem has
+* ov05 1 if having reached the ceiling
+*if having lost your base kill
+doif ov16 = null
+	kill targ
+endi
+doif ov05 = 1
+	doif game "ngsean" = 0 
+		gsub flower
+	endi
+	tick 0
+	stop
+else
+
+	doif pose < 10
+		setv va04 pose
+		addv va04 1
+		pose va04
+	elif pose = 10
+		*tell your base that you are ready to grow
+		setv va05 ov05
+		addv va05 1
+		doif ov16 ne null
+			inst
+			targ ov16
+			setv ov98 va05
+			tick 1
+			targ ownr
+			slow
+		endi
+			*grow a flower
+		doif ov00 > 5 and game "ngsean" = 0 and ov99 = 1 and ov97 = 0
+			gsub flower
+			setv ov97 1
+		elif game "ngsean" = 2 and ov97 = 1
+			setv ov97 0
+
+		endi
+		doif ov99 = 1
+			pose 11
+			setv ov99 0
+		endi
+			
+	else
+		setv va00 posl
+		setv va01 post
+		subv va01 40
+		doif tmvt va00 va01 = 1
+			inst
+			doif ov16 ne null
+				setv va05 ov00
+				targ ov16
+				*pose your base
+				doif va05 < 2
+					pose 0
+				elif va05 >= 2 and va05 < 12
+					subv va05 1
+					pose va05
+				else
+					pose rand 11 12
+				endi
+				setv ov01 va05
+				targ ownr
+			endi
+
+			setv va05 40
+			mulv va05 ov00
+			addv va05 87
+			addv ov00 1
+			pat: dull ov00 "ngrubbadabba" 84 30 va05 -20
+			setv va05 ov00
+			
+			reps ov00
+			part va05
+			subv va05 1
+			base 0
+			doif va05 < 13
+				pose va05
+			else
+				pose rand 13 14
+			endi
+			repe
+			
+			part 0
+			pose 4
+			mvto va00 va01
+		else
+			part 0
+			pose rand 9 11
+			setv ov05 1
+			doif ov16 ne null 
+				inst
+				targ ov16
+				setv ov98 2
+				targ ownr
+				slow
+			endi
+		endi
+	endi
+	tick rand 1000 3000
+
+endi	
+subr flower
+	setv va00 posl
+	addv va00 20
+	setv va01 post
+	subv va01 10
+	new: simp 2 7 31933 "ngrubbadabba" 11 11 4050
+				bhvr 16
+				attr 0
+				tick rand 1000 2000
+				addv va00 17
+				doif tmvt va00 va01 = 1
+					mvto va00 va01
+				else
+					kill targ
+				endi
+	targ ownr
+retn
+endm	
+
+
+*****flower
+scrp 2 7 31933 9
+doif pose = 0
+	setv va05 0
+	inst
+	etch  2 7 31933
+		doif targ ne ownr
+			setv va05 1
+		endi
+	next
+	setv va11 0
+	etch 1 1 31948
+		setv va11 plne
+	next
+	etch 3 1 31951
+		setv va11 plne
+	next 
+	slow
+	doif va05 = 1
+		kill ownr
+	endi
+	doif va11 ne 0
+		addv va11 1
+		plne va11
+	endi
+endi
+doif pose < 10
+	setv va05 pose
+	addv va05 1
+	pose va05
+else
+	*inject fruit
+	setv va03 plne
+	addv va03 1
+	setv va00 posx
+	subv va00 18
+	setv va01 posy
+	subv va01 18
+	new: simp 2 8 31934 "ngrubbadabba" 8 44 va03
+				emit 6 .3
+				attr 195
+				bhvr 48
+				elas 30
+				fric 90
+				accg 2
+				perm 60
+				puhl -1 20 30
+				setv ov66 66
+				setv ov00 3
+				tick rand 500 2000
+				doif tmvt va00 va01 = 1
+					mvto va00 va01
+				else
+					kill targ
+				endi 
+	kill ownr
+endi
+doif pose < 6
+	tick rand 500 1500
+else
+	tick rand 1000 2000
+endi
+endm
+
+**************
+*************
+*flower eatscript
+scrp 2 7 31933 12
+
+lock
+snde "chwp"
+stim writ from 77 0.5
+kill ownr
+endm
+
+*fruit eat
+scrp 2 8 31934 12
+lock
+snde "nmap"
+stim writ from 78 1
+doif pose = 0
+	pose 2
+elif pose >0 and pose < 7
+	setv va00 posx
+	setv va01 posy 
+	setv va02 rand 0 1
+	inst
+	etch 2 13 31933
+		doif ov16 = ownr and ov00 = 0
+			doif va02 = 0
+				setv ov00 1
+				attr 195
+				mvsf va00 va01
+				tick 30
+			else
+				kill targ
+			endi
+		endi
+	next
+	slow
+	doif ov00 > 0
+		subv ov00 1
+	endi
+	setv va04 pose
+	addv va04 1
+	pose va04
+else
+	kill ownr
+endi
+endm
+
+* fruit collision
+scrp 2 8 31934 6
+doif wall = down
+	snde "ndro"
+	plne 1000
+endi
+endm
+
+* fruit tickscript
+scrp 2 8 31934 9
+
+doif pose < 7
+	setv va04 pose
+	addv va04 1
+	pose va04
+else
+	inst
+	setv va00 posx
+	setv va01 posy
+	etch 2 13 31933
+		doif ov16 = ownr 
+			setv ov00 2
+			tick 1
+			attr 195
+			base 0
+			pose 7
+			velo rand -1 1 -1
+			mvsf va00 va01
+		endi
+	next
+	slow
+	kill ownr
+endi
+doif pose > 1 and ov00 > 0
+	inst
+	
+	etch 2 13 31933
+		doif ov16 = ownr and ov00 = 0
+			kill targ
+		endi
+	next
+	mulv va04 3
+	reps ov00
+	setv va01 va04
+	setv va00 rand 0 24
+	addv va01 rand 5 -5
+	
+	seta va16 targ
+	setv va05 plne
+	addv va05 1
+**Create a worm
+	
+	inst
+	new: simp 2 13 31933 "ngrubbadabba" 10 52 va05
+		attr 32
+		frel va16
+		bhvr 48
+		seta ov16 va16
+		setv ov66 66
+		flto va00 va04
+		base va07
+		frat rand 2 6
+		setv va03 rand 1 4
+		doif va03 = 1
+			anim [0 1 255]
+		elif va03 = 2
+			anim [0 2 255]
+		elif va03 = 3
+			anim [3 4 255]
+		elif va03 = 2
+			anim [3 5 255]
+		endi
+		tick 100
+	targ ownr
+	repe
+
+endi
+tick rand 1000 3000
+endm
+
+scrp 2 13 31933 6
+doif ov00 = 1
+	pose 6
+endi
+endm
+
+*worm ticksrpit
+scrp 2 13 31933 9
+doif attr = 32 and ov16 = null
+	kill ownr
+elif attr = 32 and ov16 ne null
+	stop
+endi
+velo rand -1 1 -1 
+attr 195
+elas 8
+accg 2
+fric 60
+perm 60
+base 0
+doif ov00 = 1
+	pose 6
+	wait rand 30 300
+	setv va00 posl
+	setv va01 post
+	inst
+	new: simp 2 10 31933 "ngrubbadabba" 3 63 400
+		attr 195
+		bhvr 48
+		elas 0
+		accg 5
+		fric 100
+		perm 60
+		tick rand 100 800
+		setv ov02 2
+		doif tmvt va00 va01 = 1
+			mvsf va00 va01
+		else
+			kill targ
+		endi 
+	kill ownr
+elif ov00 = 2
+	frat rand 200 254
+	anim [7 8 9]
+	over
+
+	*dry husk
+	setv va00 posl
+	setv va01 post
+	inst
+	new: simp 2 10 31933 "ngrubbadabba" 4 62 400
+		attr 195
+		bhvr 48
+		elas 0
+		accg 5
+		fric 100
+		perm 60
+		tick rand 100 800
+		setv ov02 3
+		doif tmvt va00 va01 = 1
+			mvsf va00 va01
+		else
+			kill targ
+		endi 
+		*inject butterfly but could be that it does not hatch
+	subv va01 5
+	subv va00 8
+	setv va22 rand 1 2
+	doif va22 = 2
+		kill ownr
+	endi
+	inst
+	new: simp 2 13 31932 "ngrubbadabba" 6 66 3000
+		attr 198
+		clac 0
+		bhvr 48
+		elas 0
+		accg 0.1
+		fric 100
+		perm 40
+		anim [0 1 0 2 0 1 0 2 3 1 0 2 0 1 0 2 0 1 0 2 0 1 3 2 255]
+		tick rand 30 50
+		setv ov10 rand -2 2
+		setv ov11 -2
+		velo rand -2 2 -2
+		doif tmvt va00 va01 = 1
+			mvto va00 va01
+		else
+			kill targ
+		endi 
+	kill ownr
+endi
+
+endm
+
+
+scrp 2 13 31933 1
+inst	
+snde "npoi"
+*friendly bug stim
+stim writ from 85 1
+setv ov00 1
+setv va00 posl
+setv va01 post
+attr 195
+mvsf va00 va01
+doif ov16 ne null
+	targ ov16
+	subv ov00 1
+	targ ownr
+endi
+tick 30
+endm	
+
+scrp 2 13 31933 2
+inst
+snde "npoi"	
+*friendly bug stim
+stim writ from 85 1
+setv ov00 1
+setv va00 posl
+setv va01 post
+attr 195
+mvsf va00 va01
+doif ov16 ne null
+	targ ov16
+	subv ov00 1
+	targ ownr
+endi
+tick 30
+endm	
+
+scrp 2 13 31933 3
+inst	
+snde "npoi"
+*friendly bug stim
+stim writ from 85 1
+setv ov00 1
+setv va00 posl
+setv va01 post
+attr 195
+mvsf va00 va01
+doif ov16 ne null
+	targ ov16
+	subv ov00 1
+	targ ownr
+endi
+tick 30
+endm	
+
+scrp 2 13 31933 4
+inst	
+*friendly bug stim
+stim writ from 85 1
+setv ov00 1
+attr 195
+doif ov16 ne null
+	targ ov16
+	subv ov00 1
+	targ ownr
+endi
+tick 0
+endm
+
+scrp 2 13 31933 5
+	tick 30
+endm	
+	
+scrp 2 13 31933 12
+	lock
+	inst
+	sndc "nmap"
+	stim writ from 80 1
+	doif ov00 = 0
+		targ ov16
+		doif targ ne null
+			subv ov00 1
+		endi
+	endi
+	kill ownr
+endm		
+scrp 2 13 31932 12
+	lock
+	sndc "nmap"
+	kill ownr
+endm		
+
+*butterfly tick
+scrp 2 13 31932 9
+
+	addv ov01 rand 1 3
+	doif ov01 > 500
+		kill ownr
+	elif ov01 > 200 and ov00 = 0
+		setv ov00 1
+	endi
+	doif ov00 = 0
+		setv va03 rand 0 10
+		doif va03 = 0
+			setv ov10 2
+		elif va03 = 1
+			setv ov10 -2
+		elif va03 = 2
+			setv ov11 -2
+		elif va03 > 7
+			setv ov11 -5
+		endi
+
+		velo ov10 ov11
+		reps rand 4 8
+		frat 1
+		anim [0 1 0 2]
+		over
+		repe
+		anim [3 1 0 ]
+		over
+		frat rand 3 6
+		anim [0 1 255]
+	elif ov00 = 1
+		pose 4
+		accg 1
+	elif ov00 = 2
+		doif ov01 > 200
+			*check if everything is good for growing
+
+			** Get Local Room ID
+			setv va00 grap posx posy
+			** check light
+			doif prop va00 1 > .1
+				setv va10 1
+			endi
+	
+			** check heat
+			doif prop va00 2 > .2
+				setv va11 1
+			endi
+	
+			**check water
+			doif prop va00 3 > .2
+				setv va12 1
+			endi
+			** check nutr
+
+			doif prop va00 4 > .5
+				setv va13 1
+			endi
+
+			setv va55 0
+
+			rnge 1200
+			perm 40
+			esee 2 4 31934
+				addv va55 1
+			next	
+			*if there's less than 6 then ok
+*check if touching a lift or a door where it is not good to grow
+			etch 2 2 0
+				addv va55 6
+			next
+			etch 2 12 0
+				addv va55 6
+			next
+			etch 3 1 0
+				addv va55 6
+			next 
+			doif va55 <= 6 
+				setv va14 rand 0 1 
+			endi
+			
+			
+			** Room type check
+			doif rtyp room targ = 5 or rtyp room targ = 6 or rtyp room targ = 7
+				setv va15 1
+			endi
+		
+			doif va10 = 1 and va11 = 1 and va12 = 1 and va13 = 1 and va14 = 1 and va15 = 1
+				setv va40 prop va00 3
+				setv va41 prop va00 4
+				subv va40 .2
+				subv va41 .5
+				prop va00 3 va40
+				prop va00 4 va41
+				** You can grow
+
+				*create the new tree
+				setv va00 posx
+				setv va01 posb
+				subv va00 20
+				
+				new: simp 2 4 31934 "ngrubbadabba" 13 99 4021
+					bhvr 1
+					attr 0
+					seta ov16 null
+					seta ov17 null
+					tick 1
+					mvto va00 va01
+					
+			endi
+
+		endi
+		kill ownr
+		
+	endi
+	tick rand 30 50
+endm	
+*butterfly collison
+scrp 2 13 31932 6	
+doif wall = _up_ and ov00 = 0
+	setv ov11 1
+	setv ov10 rand -2 2
+	tick 1
+elif wall = down and ov00 = 0
+	setv ov11 -5
+	setv ov10 rand -2 2
+	tick 1
+elif wall = left and ov00 = 0
+	setv ov10 1
+	setv ov11 rand -5 -1
+	tick 1
+elif wall = rght and ov00 = 0
+	setv ov10 -1
+	setv ov11 rand -5 -1
+	tick 1
+elif wall = down and ov00 = 1
+	pose 5
+	setv ov00 2
+	*attr 0
+	*bhvr 0
+	tick rand 100 600
+endi
+endm
+
+scrp 2 13 31932 1
+inst	
+snde "npoi"
+*friendly bug stim
+stim writ from 85 1
+pose 4
+accg 1
+setv ov00 1
+endm	
+
+scrp 2 13 31932 2
+inst	
+snde "npoi"
+*friendly bug stim
+stim writ from 85 1
+pose 4
+accg 1
+setv ov00 1
+endm	
+
+scrp 2 13 31932 3
+inst	
+snde "npoi"
+*friendly bug stim
+stim writ from 85 1
+pose 4
+accg 1
+setv ov00 1
+endm	
+
+scrp 2 13 31932 4
+inst	
+snde "npoi"
+*friendly bug stim
+stim writ from 85 1
+pose 4
+accg 1
+setv ov00 1
+tick 0
+endm
+********
+
+******treesecripts
+
+scrp 2 4 31932 1
+
+stim writ from 84 1
+
+endm
+scrp 2 4 31934 1
+
+stim writ from 84 1
+
+endm
+
+			
+*remoove scripts
+
+rscr
+
+enum 2 4 31932 kill targ next 
+enum 2 13 31932 kill targ next 
+enum 2 4 31934 kill targ next 
+enum 2 13 31933 kill targ next 
+enum 2 7 31933 kill targ next 
+enum 2 8 31934 kill targ next 
+scrx 2 13 31932 1 scrx 2 13 31932 2 scrx 2 13 31932 3 scrx 2 13 31932 4 scrx 2 13 31932 5 scrx 2 13 31932 6 scrx 2 13 31932 9 scrx 2 13 31932 12 scrx 2 7 31933 9 scrx 2 7 31933 12 scrx 2 13 31933 1 scrx 2 13 31933 2 scrx 2 13 31933 3 scrx 2 13 31933 4 scrx 2 13 31933 5 scrx 2 13 31933 6 scrx 2 13 31933 9 scrx 2 13 31933 12 scrx 2 8 31934 9 scrx 2 8 31934 12 scrx 2 4 31934 1 scrx 2 4 31934 9 scrx 2 4 31932 1 scrx 2 4 31932 9
+endm
